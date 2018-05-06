@@ -13,16 +13,11 @@ Markup Shorthands: markdown yes, idl yes, dfn yes
 
 # Executive Summary # {#exec-summary}
 
+This Pull Request adds some random text as an example.
+
 The SIVIC standard is intended to address the original mandate of the VPAID spec: to establish a common communication protocol between video players and ad units that allows a single “executable ad” (one that requires software logic to be executed as part of ad playback) to be displayed as an enhancement of standard video advertisement, in any compliant video player, with the result that advertisers using VPAID ads can provide rich ad experiences for viewers and collect ad playback and interaction details that are just as rich as the ad experience.
 
-The SIVIC revision is needed specifically to address the following concerns with VPAID:
-- **Publisher control:** compatibility with running the interactive code in parallel to the video rather than having the code manage the video delivery, incorporating the following:
-    - VAST 4 style delivery (interactive code delivered separately from the media file)
-    - Compatibility with server-side ad insertion, including live streams
-    - Compatibility with the need to pre-cache at least the video asset on mobile
-- **Security:** compatibility with running in a “protected”/safe iframe and/or being passed a proxy video object by the publisher
-- **Clarity of purpose:** Movement of verification and viewability codebase to a separate codebase, either client-resident in the case of the OM SDK or a separate call to a verification script in VAST 4.1
-- **Clarity of purpose, security, performance:** Unintended usage of VPAID that is disruptive to the user experience and/or publisher operations (specifically client-side arbitration, but other scenarios may exist)
+We'll also remove a paragraph.
 
 By specifying a separation of the video asset from the codebase, VAST 4.0 + has already done some of the work required to resolve the issues above. The SIVIC spec is intended to close the gaps for the purpose of enabling and reporting on rich (interactive and dynamic) video ad experiences. Viewability and verification will now be handled in separate standard efforts.
 
