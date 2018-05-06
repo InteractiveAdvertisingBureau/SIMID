@@ -4,7 +4,8 @@ Shortname: SIVIC
 Level: 1
 Status: LS
 Group: IAB
-URL: https://github.com/InteractiveAdvertisingBureau/SIVIC
+URL: https://interactiveadvertisingbureau.github.io/SIVIC/
+Repository: InteractiveAdvertisingBureau/SIVIC
 Editor: Pieter Mees, Zentrick, pieter.mees@zentrick.com
 Abstract: Establishes a common communication protocol between video players and executable ad units, providing rich ad experiences for viewers.
 Markup Shorthands: markdown yes, idl yes, dfn yes
