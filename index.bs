@@ -76,7 +76,7 @@ In the hopes of going a bit deeper than the abstract principles underlying the s
 - Publisher needs:
     - Security
     - Performance
-    - Low latency
+    - Low latency, this is really important
     - Protection of publisher page creative elements from ad code
     - The minimization of errors and playback issues
 
