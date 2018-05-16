@@ -284,8 +284,6 @@ The SIVIC creative may also dispatch `AdStopped` at any time, signaling to the p
 
 ## Objects ## {#objects}
 
-
-
 ### Entry Point ### {#entry-point}
 
 <xmp class="idl">
