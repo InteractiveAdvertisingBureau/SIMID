@@ -26,21 +26,21 @@ experience.
 The SIVIC revision is needed specifically to address the following concerns with
 VPAID:
 - **Publisher control:** compatibility with running the interactive code in
-  parallel to the video rather than having the code manage the video delivery,
-  incorporating the following:
-    - VAST 4 style delivery (interactive code delivered separately from the
-      media file)
-    - Compatibility with server-side ad insertion, including live streams
-    - Compatibility with the need to pre-cache at least the video asset on
-      mobile
+	parallel to the video rather than having the code manage the video delivery,
+	incorporating the following:
+		- VAST 4 style delivery (interactive code delivered separately from the
+			media file)
+		- Compatibility with server-side ad insertion, including live streams
+		- Compatibility with the need to pre-cache at least the video asset on
+			mobile
 - **Security:** compatibility with running in a “protected”/safe iframe and/or
-  being passed a proxy video object by the publisher
+	being passed a proxy video object by the publisher
 - **Clarity of purpose:** Movement of verification and viewability codebase to a
-  separate codebase, either client-resident in the case of the OM SDK or a
-  separate call to a verification script in VAST 4.1
+	separate codebase, either client-resident in the case of the OM SDK or a
+	separate call to a verification script in VAST 4.1
 - **Clarity of purpose, security, performance:** Unintended usage of VPAID that
-  is disruptive to the user experience and/or publisher operations (specifically
-  client-side arbitration, but other scenarios may exist)
+	is disruptive to the user experience and/or publisher operations (specifically
+	client-side arbitration, but other scenarios may exist)
 
 By specifying a separation of the video asset from the codebase, VAST 4.0 + has
 already done some of the work required to resolve the issues above. The SIVIC
@@ -90,15 +90,15 @@ The process of serving an ad is also more or less unchanged from the earlier
 VPAID specification, with two main exceptions.
 
 - Access to the video is no longer mediated by the code layer described in this
-  spec, as was the case for VPAID. Pre-caching for mobile and SSAI require
-  direct access to the video and this is reflected in the VAST 4.1 spec, which
-  now separates the video media file from the `InteractiveCreativeFile` asset.
-  Removing this parent-child relationship between the code and the video also no
-  longer allows the code to act as a gatekeeper for the video, which led to the
-  exploitation of VPAID for client-side arbitration.
+	spec, as was the case for VPAID. Pre-caching for mobile and SSAI require
+	direct access to the video and this is reflected in the VAST 4.1 spec, which
+	now separates the video media file from the `InteractiveCreativeFile` asset.
+	Removing this parent-child relationship between the code and the video also no
+	longer allows the code to act as a gatekeeper for the video, which led to the
+	exploitation of VPAID for client-side arbitration.
 - SIVIC also has to account for the SSAI use case - in this case, the video ad
-  is part of an ongoing video stream delivered by the publisher and the SIVIC
-  code is downloaded and executed on a parallel path to the stream.
+	is part of an ongoing video stream delivered by the publisher and the SIVIC
+	code is downloaded and executed on a parallel path to the stream.
 
 <img width="100%" src="images/vpaid-player.png" alt="Diagram showing interaction
 between video player and VPAID">
@@ -149,47 +149,47 @@ spec in this new revision, instead we reflect below the market needs driving the
 replacement of VPAID with SIVIC.
 
 - Publisher needs:
-    - Security
-    - Performance
-    - Low latency
-    - Protection of publisher page creative elements from ad code
-    - The minimization of errors and playback issues
+		- Security
+		- Performance
+		- Low latency
+		- Protection of publisher page creative elements from ad code
+		- The minimization of errors and playback issues
 
 - Agency/advertiser/ad platform needs:
-    - Maximum creative control, without interfering with publisher needs above
-    - Access to player-managed capabilities like fullscreen
-    - Ability to pass data into the creative
-    - A defined interface for communicating with elements outside the player and
-      ad
-    - Ability to understand playback environment/device capabilities that may be
-      required for creative execution
-    - The ability to correlate the measurement of interactive events with other
-      measurement now happening outside of VPAID (eg viewability and
-      verification)
+		- Maximum creative control, without interfering with publisher needs above
+		- Access to player-managed capabilities like fullscreen
+		- Ability to pass data into the creative
+		- A defined interface for communicating with elements outside the player and
+			ad
+		- Ability to understand playback environment/device capabilities that may be
+			required for creative execution
+		- The ability to correlate the measurement of interactive events with other
+			measurement now happening outside of VPAID (eg viewability and
+			verification)
 
 - Needs of both:
-    - Document clarity - we should be careful to minimize any confusion about
-      how to implement a player or recognized ad format
-    - Position relative to other standards (VAST, OMID, etc) in any cases of
-      overlap or potential confusion
+		- Document clarity - we should be careful to minimize any confusion about
+			how to implement a player or recognized ad format
+		- Position relative to other standards (VAST, OMID, etc) in any cases of
+			overlap or potential confusion
 
 ## Primary Use Cases ## {#use-cases}
 
 The standards revisions in this document intend to support scalable, performant
 interactive video execution in the following cases
 - Server-side ad insertion, with interactive creative operating in parallel to a
-  publisher-controlled video stream
+	publisher-controlled video stream
 - Mobile and other bandwidth-constrained scenarios that require pre-loading of
-  assets to enable instant playback
+	assets to enable instant playback
 - Desktop and other playback scenarios currently executed via VPAID, with a
-  reduction in errors, non-standard executions, and performance and security
-  issues. The significant change between VPAID and SIVIC for these scenarios is
-  that video playback control now resides with the publisher player in all
-  cases.
+	reduction in errors, non-standard executions, and performance and security
+	issues. The significant change between VPAID and SIVIC for these scenarios is
+	that video playback control now resides with the publisher player in all
+	cases.
 - In service of all of the above, it is also understood that this version of the
-  SIVIC spec should be interoperable with VAST 4.1.
+	SIVIC spec should be interoperable with VAST 4.1.
 - In all cases the understanding is that the playback environment (device and
-  platform) support and permit the execution of code as required by SIVIC.
+	platform) support and permit the execution of code as required by SIVIC.
 
 ## Video Player Requirements ## {#player-reqs}
 
@@ -244,93 +244,93 @@ the `adStopped` event after `adVideoComplete`.
 
 The player must follow this workflow for loading an ad.
 1. Player creates an element for the SIVIC creative to live in. For HTML this
-  must be an iframe. The iframe must overlay the video player. The ad slot must
-  be a div that is inside the iframe. The ad unit should always expect to be
-  rendered in a secure iframe without access to any elements outside the iframe.
+	must be an iframe. The iframe must overlay the video player. The ad slot must
+	be a div that is inside the iframe. The ad unit should always expect to be
+	rendered in a secure iframe without access to any elements outside the iframe.
 2. Player loads the JavaScript for the SIVIC creative in the iframe. Listen for
-  the script's `onLoad` event and call {{getSIVICAd}} on the iframe window's
-  global scope to get a reference to the ad.
+	the script's `onLoad` event and call {{getSIVICAd}} on the iframe window's
+	global scope to get a reference to the ad.
 3. Player calls {{Ad/handshakeVersion()}} to get the SIVIC API version of the ad
-  (for compatibility) while passing in the highest version it supports itself.
+	(for compatibility) while passing in the highest version it supports itself.
 4. Players calls {{Ad/initAd()}} with parameters
-  {{Ad/initAd(creativeData, envData)/creativeData}} and
-  {{Ad/initAd(creativeData, envData)/envData}}. The {{EnvironmentData}} object
-  will contain the {{EnvironmentData/slot}} and {{EnvironmentData/videoProxy}}
-  for the ad to render creative elements and control video playback
-  respectively. The ad will load all required assets and elements into the ad
-  slot. The ad will call `AdLoaded` when done loading.
+	{{Ad/initAd(creativeData, envData)/creativeData}} and
+	{{Ad/initAd(creativeData, envData)/envData}}. The {{EnvironmentData}} object
+	will contain the {{EnvironmentData/slot}} and {{EnvironmentData/videoProxy}}
+	for the ad to render creative elements and control video playback
+	respectively. The ad will load all required assets and elements into the ad
+	slot. The ad will call `AdLoaded` when done loading.
 5. Player waits for video to start buffering, or for point in stream of video
-  start. Player calls {{Ad/startAd}} and wait for `AdStarted`. If `AdStarted`
-  is not immediately fired, the player should assume that there was an error
-  (see [[#errors]]).
+	start. Player calls {{Ad/startAd}} and wait for `AdStarted`. If `AdStarted`
+	is not immediately fired, the player should assume that there was an error
+	(see [[#errors]]).
 
 Issue: need to define the definitions of the {{ViewMode}} enum values
 
 When calling {{Ad/initAd()}}, the player shall provide the following parameters:
 
 - {{Ad/initAd(creativeData, envData)/creativeData}}: object used for additional
-  initialization data. {{CreativeData}} is used to pass information associated
-  with the creative (sometimes taken from VAST). In a VAST context, the ad unit
-  should pass the value for either the `Linear` or `Nonlinear` `AdParameter`
-  element specified in the VAST document.
-    - {{CreativeData/adParameters}}: ad parameters from VAST, or an empty string
-      if unknown
-    - {{CreativeData/adId}}: the ID of the ad from VAST, or an empty string if
-      unknown
-    - {{CreativeData/creativeId}}: the ID from the creative or an empty string
-      if unknown
-    - {{CreativeData/adServingId}}: Quasi-unique id generated by ad server and
-      passed through all 1st and 3rd party reporting to facilitate the marriage
-      of impression-level data across multiple reporting systems. In VAST 4.1
-      and later this id is provided in the `AdServingID` node.
+	initialization data. {{CreativeData}} is used to pass information associated
+	with the creative (sometimes taken from VAST). In a VAST context, the ad unit
+	should pass the value for either the `Linear` or `Nonlinear` `AdParameter`
+	element specified in the VAST document.
+		- {{CreativeData/adParameters}}: ad parameters from VAST, or an empty string
+			if unknown
+		- {{CreativeData/adId}}: the ID of the ad from VAST, or an empty string if
+			unknown
+		- {{CreativeData/creativeId}}: the ID from the creative or an empty string
+			if unknown
+		- {{CreativeData/adServingId}}: Quasi-unique id generated by ad server and
+			passed through all 1st and 3rd party reporting to facilitate the marriage
+			of impression-level data across multiple reporting systems. In VAST 4.1
+			and later this id is provided in the `AdServingID` node.
 
 - {{Ad/initAd(creativeData, envData)/envData}}: object used for passing
-  implementation-specific runtime variables. {{EnvironmentData}} is used to pass
-  information associated with the publisher playback environment. The object
-  should have the following fields.
-    - {{EnvironmentData/slot}}: the container where the ad renders. For HTML5,
-      this should be a div.
-    - {{EnvironmentData/videoProxy}}: an implementation of the {{VideoProxy}}
-      interface given in this spec
-    - {{EnvironmentData/width}}: indicates the display area width in pixels
-    - {{EnvironmentData/height}}: indicates the display area height in pixels
-    - {{EnvironmentData/viewMode}}: indicates the view mode for the video player
-      as defined by the publisher. Must be one of the values of the {{ViewMode}}
-      enum.
-        - {{ViewMode/normal}}
-        - {{ViewMode/thumbnail}}
-        - {{ViewMode/fullscreen}}
-    - {{EnvironmentData/fullscreenAllowed}}: primarily used to choose to display
-      or not display a fullscreen option
-    - {{EnvironmentData/variableDurationAllowed}}: If set to true the player
-      must allow the SIVIC creative to pause player-controlled video playback
-      during the ad. If `false` it will not (live streaming is a use case). An
-      example use case here is a clickthru overlays, where `variableDuration`
-      (ad requirement) is `false`, but
-      {{EnvironmentData/variableDurationAllowed}} (publisher capability) can be
-      `true` or `false`. It should not be used in any case where disallowing the
-      pause interferes with the ad KPIs (for example if it can interfere with
-      completions, time spent in an interactive component, etc).
-    - {{EnvironmentData/skippableState}}: indicates whether the ad may be
-      skippable and which party controls the skippability, must be one of the
-      {{SkippableState}} enum values.
-        - {{SkippableState/playerHandles}}: The player will render a skip button
-          and might skip the ad.
-        - {{SkippableState/adHandles}}: The ad may or may not render a skip
-          button.
-        - {{SkippableState/notSkippable}}: The ad cannot be skipped and the
-          SIVIC creative should not render a skip button. This may be common in
-          DAI for live streams.
-    - {{EnvironmentData/siteUrl}}: indicating the website the ad will play on,
-      for example if the site was `www.xyz.com/videoId`, this information would
-      include at least `www.xyz.com`. The player may give more information.
-      Desired for reporting and troubleshooting.
-    - {{EnvironmentData/appId}}: the id of the app if applicable
-    - {{EnvironmentData/sdkName}}: the name of an SDK implementing SIVIC
-      creative playback (if applicable)
-    - {{EnvironmentData/sdkVersion}}: an SDK version (if applicable)
-    - {{EnvironmentData/deviceId}}: IDFA or AAID would be used primarily for 3rd
-      party tracking of custom events
+	implementation-specific runtime variables. {{EnvironmentData}} is used to pass
+	information associated with the publisher playback environment. The object
+	should have the following fields.
+		- {{EnvironmentData/slot}}: the container where the ad renders. For HTML5,
+			this should be a div.
+		- {{EnvironmentData/videoProxy}}: an implementation of the {{VideoProxy}}
+			interface given in this spec
+		- {{EnvironmentData/width}}: indicates the display area width in pixels
+		- {{EnvironmentData/height}}: indicates the display area height in pixels
+		- {{EnvironmentData/viewMode}}: indicates the view mode for the video player
+			as defined by the publisher. Must be one of the values of the {{ViewMode}}
+			enum.
+			  - {{ViewMode/normal}}
+			  - {{ViewMode/thumbnail}}
+			  - {{ViewMode/fullscreen}}
+		- {{EnvironmentData/fullscreenAllowed}}: primarily used to choose to display
+			or not display a fullscreen option
+		- {{EnvironmentData/variableDurationAllowed}}: If set to true the player
+			must allow the SIVIC creative to pause player-controlled video playback
+			during the ad. If `false` it will not (live streaming is a use case). An
+			example use case here is a clickthru overlays, where `variableDuration`
+			(ad requirement) is `false`, but
+			{{EnvironmentData/variableDurationAllowed}} (publisher capability) can be
+			`true` or `false`. It should not be used in any case where disallowing the
+			pause interferes with the ad KPIs (for example if it can interfere with
+			completions, time spent in an interactive component, etc).
+		- {{EnvironmentData/skippableState}}: indicates whether the ad may be
+			skippable and which party controls the skippability, must be one of the
+			{{SkippableState}} enum values.
+			  - {{SkippableState/playerHandles}}: The player will render a skip button
+			    and might skip the ad.
+			  - {{SkippableState/adHandles}}: The ad may or may not render a skip
+			    button.
+			  - {{SkippableState/notSkippable}}: The ad cannot be skipped and the
+			    SIVIC creative should not render a skip button. This may be common in
+			    DAI for live streams.
+		- {{EnvironmentData/siteUrl}}: indicating the website the ad will play on,
+			for example if the site was `www.xyz.com/videoId`, this information would
+			include at least `www.xyz.com`. The player may give more information.
+			Desired for reporting and troubleshooting.
+		- {{EnvironmentData/appId}}: the id of the app if applicable
+		- {{EnvironmentData/sdkName}}: the name of an SDK implementing SIVIC
+			creative playback (if applicable)
+		- {{EnvironmentData/sdkVersion}}: an SDK version (if applicable)
+		- {{EnvironmentData/deviceId}}: IDFA or AAID would be used primarily for 3rd
+			party tracking of custom events
 
 The video file (specified in VAST) will be loaded by the player.
 
@@ -369,7 +369,7 @@ The {{VideoProxy}} must dispatch quartiles and playback events.
 
 The SIVIC creative may subscribe to any video playback events dispatched by the
 {{VideoProxy}} (`AdVideoStarted`, `AdImpression`, `AdFirstQuartile`,
-  `AdSecondQuartile`, `AdThirdQuartile`, `AdVideoComplete`)
+	`AdSecondQuartile`, `AdThirdQuartile`, `AdVideoComplete`)
 
 Issue: consider renaming `AdSecondQuartile` to `AdMidpoint` to match VPAID
 
@@ -418,9 +418,9 @@ initialized.
 
 There are three cases where an ad has ended:
 1. Ad was skipped, either by player or internally by the ad (if the ad contains
-  the skip button). See [[#api-skip]].
+	the skip button). See [[#api-skip]].
 2. Ad has fired `AdStopped` event, either in response to {{Ad/stopAd}} or after
-  ad experience has ended.
+	ad experience has ended.
 3. Ad errors out. See [[#api-error]].
 
 ### Ad Skips ### {#api-skip}
@@ -455,10 +455,10 @@ This scenario is only possible when the
 {{EnvironmentData/variableDurationAllowed}} flag is set to `true`. Video
 duration must only be extended in response to user interaction.
 1. User interacts at any point during playback of the video, triggering extended
-  ad portion.
+	ad portion.
 2. Ad dispatches `AdDurationChange` event, and exposes the new duration of the
-  ad via the {{Ad/adDuration}} property (if the extended version is `x` seconds
-  then {{Ad/adDuration}} would be `videoProxy.duration + x`).
+	ad via the {{Ad/adDuration}} property (if the extended version is `x` seconds
+	then {{Ad/adDuration}} would be `videoProxy.duration + x`).
 3. The {{VideoProxy}} dispatches `AdVideoComplete` event.
 4. The ad enters its extended phase.
 5. The ad dispatches `AdStopped` when extended phase is finished.
@@ -496,7 +496,7 @@ The player may call {{Ad/stopAd}} at any time. The creative should respond with
 `AdStopped` after finishing its ad end logic. The player should allow 1 second
 between calling {{Ad/stopAd}} and receiving `AdStopped`. The implementer of the
 SDK should take into consideration that dropping a SIVIC ad unit before it has
-dispatched AdStopped may result in discrepancies, and that calling
+dispatched `AdStopped` may result in discrepancies, and that calling
 {{Ad/stopAd}} before the ad experience has ended (which is AFTER the optional
 lean-in phase) could harm the overall ad experience.
 
@@ -512,31 +512,31 @@ is true for `AdError`.
 ### Entry Point ### {#entry-point}
 
 <xmp class="idl">
-  partial interface mixin Window {
-    [SameObject] Ad getSIVICAd();
-  };
+	partial interface mixin Window {
+		[SameObject] Ad getSIVICAd();
+	};
 </xmp>
 
 ### Ad Interface ### {#object-ad}
 
 <xmp class="idl">
 interface Ad {
-  string handshakeVersion(string supportedVersion);
-  void initAd(CreativeData creativeData, EnvironmentData envData);
-  void startAd();
-  void stopAd();
-  void skipAd();
-  void resizeAd(float width, float height, ViewMode viewMode);
-  readonly attribute float adWidth;
-  readonly attribute float adHeight;
-  readonly attribute float adDuration;
+	string handshakeVersion(string supportedVersion);
+	void initAd(CreativeData creativeData, EnvironmentData envData);
+	void startAd();
+	void stopAd();
+	void skipAd();
+	void resizeAd(float width, float height, ViewMode viewMode);
+	readonly attribute float adWidth;
+	readonly attribute float adHeight;
+	readonly attribute float adDuration;
 };
 </xmp>
 
 : {{Ad/handshakeVersion()}}
 :: Negotiates version support between the player and ad. The player passes
-{{Ad/handshakeVersion(supportedVersion)/supportedVersion}} set to the highest
-version it supports. {{Ad/handshakeVersion}} returns the version it supports.
+	{{Ad/handshakeVersion(supportedVersion)/supportedVersion}} set to the highest
+	version it supports. {{Ad/handshakeVersion}} returns the version it supports.
 
 Issue: consider passing `supportedVersion` on the {{getSIVICAd()}} function
 call, so the ad can respond with an object that matches the requested API
@@ -548,20 +548,20 @@ call, so the ad can respond with an object that matches the requested API
 
 <xmp class="idl">
 interface VideoProxy {
-  void removeEventListener(string eventName, any eventHandler);
-  void addEventListener(string eventName, any eventHandler);
-  void pause();
-  void fullscreen();
-  void resume();
-  void resize(float width, float height);
-  void setLocation(float x, float y);
-  readonly attribute float duration;
-  readonly attribute float currentTime;
-  readonly attribute float playbackRate;
-  readonly attribute boolean ended;
-  readonly attribute boolean paused;
-  readonly attribute boolean muted;
-  readonly attribute float volume;
+	void removeEventListener(string eventName, any eventHandler);
+	void addEventListener(string eventName, any eventHandler);
+	void pause();
+	void fullscreen();
+	void resume();
+	void resize(float width, float height);
+	void setLocation(float x, float y);
+	readonly attribute float duration;
+	readonly attribute float currentTime;
+	readonly attribute float playbackRate;
+	readonly attribute boolean ended;
+	readonly attribute boolean paused;
+	readonly attribute boolean muted;
+	readonly attribute float volume;
 };
 </xmp>
 
@@ -569,10 +569,10 @@ interface VideoProxy {
 
 <xmp class="idl">
 dictionary CreativeData {
-  required string adParameters;
-  required string adId;
-  required string creativeId;
-  required string adServingId;
+	required string adParameters;
+	required string adId;
+	required string creativeId;
+	required string adServingId;
 };
 </xmp>
 
@@ -580,19 +580,19 @@ dictionary CreativeData {
 
 <xmp class="idl">
 dictionary EnvironmentData {
-  required DOMElement slot;
-  required VideoProxy videoProxy;
-  required float width;
-  required float height;
-  required ViewMode viewMode;
-  required boolean fullscreenAllowed;
-  required boolean variableDurationAllowed;
-  required SkippableState skippableState;
-  string siteUrl;
-  string appId;
-  string sdkName;
-  string sdkVersion;
-  string deviceId;
+	required DOMElement slot;
+	required VideoProxy videoProxy;
+	required float width;
+	required float height;
+	required ViewMode viewMode;
+	required boolean fullscreenAllowed;
+	required boolean variableDurationAllowed;
+	required SkippableState skippableState;
+	string siteUrl;
+	string appId;
+	string sdkName;
+	string sdkVersion;
+	string deviceId;
 };
 
 enum ViewMode {"normal", "thumbnail", "fullscreen"};
@@ -628,11 +628,11 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 
 : <dfn>SIVIC Creative</dfn>
 :: The SIVIC ad creative component (html doc and assets) that overlays the SIVIC
-ad video.
+	ad video.
 
 : <dfn>SIVIC Secondary Video</dfn>
 :: Video assets that are loaded as part of the SIVIC creative and not the
-primary video.
+	primary video.
 
 : <dfn>Content Video</dfn>
 :: Any reference to video that is NOT a component or asset of the ad unit.
