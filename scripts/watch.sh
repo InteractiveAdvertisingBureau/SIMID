@@ -12,7 +12,7 @@ prev=$( stat -c %Z "$INPUT" )
 while true; do
   curr=$( stat -c %Z "$INPUT" )
   if [[ $curr != $prev ]]; then
-    echo "Change to $INPUT detected"
+    echo "Change to $INPUT detected."
     "$dir/build.sh"
     prev=$curr
   fi
