@@ -214,6 +214,14 @@ Also, since video ad creative are expected to adhere to industry guidelines that
 include a “Close X” button, the video player should not include its own close
 button for SIVIC ad units.
 
+This specification does not mandate a close control or behavior by the video ad 
+creative or the video player. Currently, the publisher video player is in full 
+control and can dismiss of the video ad creative at any pointin time. The video 
+ad creative can also dismiss itself at any point in time. Some implementations 
+may have a publisher provided close control and others may not. Video ad 
+creatives and video players should ensure that consumers are presented with a 
+good ad experience.
+
 ## Ad Unit Requirements ## {#ad-reqs}
 
 If the ad unit implements SIVIC, it must indicate the correct version. The ad
