@@ -992,57 +992,92 @@ Possible extra rowspan handling
 	.toc > li li          { font-weight: normal; }
 	.toc > li li li       { font-size:   95%;    }
 	.toc > li li li li    { font-size:   90%;    }
+	.toc > li li li li .secno { font-size: 85%; }
 	.toc > li li li li li { font-size:   85%;    }
+	.toc > li li li li li .secno { font-size: 100%; }
 
-	.toc > li             { margin: 1.5rem 0;    }
-	.toc > li li          { margin: 0.3rem 0;    }
-	.toc > li li li       { margin-left: 2rem;   }
+	/* @supports not (display:grid) { */
+		.toc > li             { margin: 1.5rem 0;    }
+		.toc > li li          { margin: 0.3rem 0;    }
+		.toc > li li li       { margin-left: 2rem;   }
 
-	/* Section numbers in a column of their own */
-	.toc .secno {
-		float: left;
-		width: 4rem;
-		white-space: nowrap;
-	}
-	.toc > li li li li .secno {
-		font-size: 85%;
-	}
-	.toc > li li li li li .secno {
-		font-size: 100%;
-	}
+		/* Section numbers in a column of their own */
+		.toc .secno {
+			float: left;
+			width: 4rem;
+			white-space: nowrap;
+		}
 
-	:not(li) > .toc              { margin-left:  5rem; }
-	.toc .secno                  { margin-left: -5rem; }
-	.toc > li li li .secno       { margin-left: -7rem; }
-	.toc > li li li li .secno    { margin-left: -9rem; }
-	.toc > li li li li li .secno { margin-left: -11rem; }
+		.toc li {
+			clear: both;
+		}
 
-	/* Tighten up indentation in narrow ToCs */
-	@media (max-width: 30em) {
-		:not(li) > .toc              { margin-left:  4rem; }
-		.toc .secno                  { margin-left: -4rem; }
-		.toc > li li li              { margin-left:  1rem; }
-		.toc > li li li .secno       { margin-left: -5rem; }
-		.toc > li li li li .secno    { margin-left: -6rem; }
-		.toc > li li li li li .secno { margin-left: -7rem; }
-	}
-	@media screen and (min-width: 78em) {
-		body:not(.toc-inline) :not(li) > .toc              { margin-left:  4rem; }
-		body:not(.toc-inline) .toc .secno                  { margin-left: -4rem; }
-		body:not(.toc-inline) .toc > li li li              { margin-left:  1rem; }
-		body:not(.toc-inline) .toc > li li li .secno       { margin-left: -5rem; }
-		body:not(.toc-inline) .toc > li li li li .secno    { margin-left: -6rem; }
-		body:not(.toc-inline) .toc > li li li li li .secno { margin-left: -7rem; }
-	}
-	body.toc-sidebar #toc :not(li) > .toc              { margin-left:  4rem; }
-	body.toc-sidebar #toc .toc .secno                  { margin-left: -4rem; }
-	body.toc-sidebar #toc .toc > li li li              { margin-left:  1rem; }
-	body.toc-sidebar #toc .toc > li li li .secno       { margin-left: -5rem; }
-	body.toc-sidebar #toc .toc > li li li li .secno    { margin-left: -6rem; }
-	body.toc-sidebar #toc .toc > li li li li li .secno { margin-left: -7rem; }
+		:not(li) > .toc              { margin-left:  5rem; }
+		.toc .secno                  { margin-left: -5rem; }
+		.toc > li li li .secno       { margin-left: -7rem; }
+		.toc > li li li li .secno    { margin-left: -9rem; }
+		.toc > li li li li li .secno { margin-left: -11rem; }
 
-	.toc li {
-		clear: both;
+		/* Tighten up indentation in narrow ToCs */
+		@media (max-width: 30em) {
+			:not(li) > .toc              { margin-left:  4rem; }
+			.toc .secno                  { margin-left: -4rem; }
+			.toc > li li li              { margin-left:  1rem; }
+			.toc > li li li .secno       { margin-left: -5rem; }
+			.toc > li li li li .secno    { margin-left: -6rem; }
+			.toc > li li li li li .secno { margin-left: -7rem; }
+		}
+	/* } */
+
+	@supports (display:grid) {
+		/* Use #toc over .toc to override non-@supports rules. */
+		#toc {
+			display: grid;
+			align-content: start;
+			grid-template-columns: auto 1fr;
+			grid-column-gap: 1rem;
+			column-gap: 1rem;
+			grid-row-gap: .6rem;
+			row-gap: .6rem;
+		}
+		#toc h2 {
+			grid-column: 1 / -1;
+			margin-bottom: 0;
+		}
+		#toc ol,
+		#toc li,
+		#toc a {
+			display: contents;
+			/* Switch <a> to subgrid when supported */
+		}
+		#toc span {
+			margin: 0;
+		}
+		#toc > .toc > li > a > span {
+			/* The spans of the top-level list,
+			   comprising the first items of each top-level section. */
+			margin-top: 1.1rem;
+		}
+		#toc .secno {
+			grid-column: 1;
+			width: auto;
+		}
+		#toc .content {
+			grid-column: 2;
+			width: auto;
+			margin-right: 1rem;
+		}
+		#toc .content:hover {
+			background: rgba(75%, 75%, 75%, .25);
+			border-bottom: 3px solid #054572;
+			margin-bottom: -3px;
+		}
+		#toc li li li .content {
+			margin-left: 1rem;
+		}
+		#toc li li li li .content {
+			margin-left: 2rem;
+		}
 	}
 
 
@@ -1176,9 +1211,8 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 374411ba509d23f8a91b3530bae1f342eb291098" name="generator">
+  <meta content="Bikeshed version 6bebf68aed1298eb5349b6cdea3fab1e79551a6f" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
-  <meta content="e4bfd87dec7debef881cf0ec7a0deeadf786fe96" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1328,41 +1362,41 @@ pre .property::before, pre .property::after {
 }</style>
 <style>/* style-dfn-panel */
 
-        .dfn-panel {
-            position: absolute;
-            z-index: 35;
-            height: auto;
-            width: -webkit-fit-content;
-            width: fit-content;
-            max-width: 300px;
-            max-height: 500px;
-            overflow: auto;
-            padding: 0.5em 0.75em;
-            font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-            background: #DDDDDD;
-            color: black;
-            border: outset 0.2em;
-        }
-        .dfn-panel:not(.on) { display: none; }
-        .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-        .dfn-panel > b { display: block; }
-        .dfn-panel a { color: black; }
-        .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-        .dfn-panel > b + b { margin-top: 0.25em; }
-        .dfn-panel ul { padding: 0; }
-        .dfn-panel li { list-style: inside; }
-        .dfn-panel.activated {
-            display: inline-block;
-            position: fixed;
-            left: .5em;
-            bottom: 2em;
-            margin: 0 auto;
-            max-width: calc(100vw - 1.5em - .4em - .5em);
-            max-height: 30vh;
-        }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: #DDDDDD;
+    color: black;
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: black; }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
 
-        .dfn-paneled { cursor: pointer; }
-        </style>
+.dfn-paneled { cursor: pointer; }
+</style>
 <style>/* style-syntax-highlighting */
 pre.idl.highlight { color: #708090; }
 .highlight:not(.idl) { background: hsl(24, 20%, 95%); }
@@ -1425,7 +1459,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-05-16">16 May 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-05-31">31 May 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1440,7 +1474,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 16 May 2018,
+In addition, as of 31 May 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1739,9 +1773,13 @@ action for specific timeout situations.</p>
 ad was viewed by an end user. Therefore, the video player should ensure that no
 other visual elements from the video player, the webpage, or other ads, display
 over a video ad that is currently in progress.</p>
-   <p>Also, since video ad creative are expected to adhere to industry guidelines that
-include a “Close X” button, the video player should not include its own close
-button for SIVIC ad units.</p>
+   <p>This specification does not mandate a close control or behavior by the video ad
+creative or the video player. Currently, the publisher video player is in full
+control and can dismiss of the video ad creative at any point in time. The video
+ad creative can also dismiss itself at any point in time. Some implementations
+may have a publisher provided close control and others may not. Video ad
+creatives and video players should ensure that consumers are presented with a
+good ad experience.</p>
    <h3 class="heading settled" data-level="3.8" id="ad-reqs"><span class="secno">3.8. </span><span class="content">Ad Unit Requirements</span><a class="self-link" href="#ad-reqs"></a></h3>
    <p>If the ad unit implements SIVIC, it must indicate the correct version. The ad
 unit must implement all methods and properties listed, but can either decline
@@ -2030,7 +2068,7 @@ is true for <code>AdError</code>.</p>
    <h3 class="heading settled" data-level="5.1" id="objects"><span class="secno">5.1. </span><span class="content">Objects</span><a class="self-link" href="#objects"></a></h3>
    <h4 class="heading settled" data-level="5.1.1" id="entry-point"><span class="secno">5.1.1. </span><span class="content">Entry Point</span><a class="self-link" href="#entry-point"></a></h4>
 <pre class="idl highlight def"><span class="kt">partial</span> <span class="kt">interface</span> <span class="kt">mixin</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a> {
-  [<a class="nv idl-code" data-link-type="extended-attribute">SameObject</a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad④">Ad</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Window" data-dfn-type="method" data-export="" data-lt="getSIVICAd()" id="dom-window-getsivicad"><code>getSIVICAd</code></dfn>();
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject">SameObject</a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad④">Ad</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Window" data-dfn-type="method" data-export="" data-lt="getSIVICAd()" id="dom-window-getsivicad"><code>getSIVICAd</code></dfn>();
 };
 </pre>
    <h4 class="heading settled" data-level="5.1.2" id="object-ad"><span class="secno">5.1.2. </span><span class="content">Ad Interface</span><a class="self-link" href="#object-ad"></a></h4>
@@ -2040,10 +2078,10 @@ is true for <code>AdError</code>.</p>
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="startAd()" id="dom-ad-startad"><code>startAd</code></dfn>();
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="stopAd()" id="dom-ad-stopad"><code>stopAd</code></dfn>();
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="skipAd()" id="dom-ad-skipad"><code>skipAd</code></dfn>();
-  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="resizeAd(width, height, viewMode)" id="dom-ad-resizead"><code>resizeAd</code></dfn>(<a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-width"><code>width</code></dfn>, <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-height"><code>height</code></dfn>, <a class="n" data-link-type="idl-name" href="#enumdef-viewmode" id="ref-for-enumdef-viewmode②">ViewMode</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-viewmode"><code>viewMode</code></dfn>);
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adwidth"><code>adWidth</code><a class="self-link" href="#dom-ad-adwidth"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adheight"><code>adHeight</code><a class="self-link" href="#dom-ad-adheight"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adduration"><code>adDuration</code></dfn>;
+  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="resizeAd(width, height, viewMode)" id="dom-ad-resizead"><code>resizeAd</code></dfn>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-width"><code>width</code></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-height"><code>height</code></dfn>, <a class="n" data-link-type="idl-name" href="#enumdef-viewmode" id="ref-for-enumdef-viewmode②">ViewMode</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-viewmode"><code>viewMode</code></dfn>);
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float②"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adwidth"><code>adWidth</code><a class="self-link" href="#dom-ad-adwidth"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adheight"><code>adHeight</code><a class="self-link" href="#dom-ad-adheight"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adduration"><code>adDuration</code></dfn>;
 };
 </pre>
    <dl>
@@ -2066,15 +2104,15 @@ call, so the ad can respond with an object that matches the requested API</p>
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="VideoProxy" data-dfn-type="method" data-export="" data-lt="pause()" id="dom-videoproxy-pause"><code>pause</code></dfn>();
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="VideoProxy" data-dfn-type="method" data-export="" data-lt="fullscreen()" id="dom-videoproxy-fullscreen"><code>fullscreen</code></dfn>();
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="VideoProxy" data-dfn-type="method" data-export="" data-lt="resume()" id="dom-videoproxy-resume"><code>resume</code></dfn>();
-  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="VideoProxy" data-dfn-type="method" data-export="" data-lt="resize(width, height)" id="dom-videoproxy-resize"><code>resize</code></dfn>(<a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/resize(width, height)" data-dfn-type="argument" data-export="" id="dom-videoproxy-resize-width-height-width"><code>width</code><a class="self-link" href="#dom-videoproxy-resize-width-height-width"></a></dfn>, <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/resize(width, height)" data-dfn-type="argument" data-export="" id="dom-videoproxy-resize-width-height-height"><code>height</code><a class="self-link" href="#dom-videoproxy-resize-width-height-height"></a></dfn>);
-  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="VideoProxy" data-dfn-type="method" data-export="" data-lt="setLocation(x, y)" id="dom-videoproxy-setlocation"><code>setLocation</code></dfn>(<a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/setLocation(x, y)" data-dfn-type="argument" data-export="" id="dom-videoproxy-setlocation-x-y-x"><code>x</code><a class="self-link" href="#dom-videoproxy-setlocation-x-y-x"></a></dfn>, <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/setLocation(x, y)" data-dfn-type="argument" data-export="" id="dom-videoproxy-setlocation-x-y-y"><code>y</code><a class="self-link" href="#dom-videoproxy-setlocation-x-y-y"></a></dfn>);
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-duration"><code>duration</code><a class="self-link" href="#dom-videoproxy-duration"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-currenttime"><code>currentTime</code><a class="self-link" href="#dom-videoproxy-currenttime"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-playbackrate"><code>playbackRate</code><a class="self-link" href="#dom-videoproxy-playbackrate"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-videoproxy-ended"><code>ended</code><a class="self-link" href="#dom-videoproxy-ended"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-videoproxy-paused"><code>paused</code><a class="self-link" href="#dom-videoproxy-paused"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-videoproxy-muted"><code>muted</code><a class="self-link" href="#dom-videoproxy-muted"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-volume"><code>volume</code><a class="self-link" href="#dom-videoproxy-volume"></a></dfn>;
+  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="VideoProxy" data-dfn-type="method" data-export="" data-lt="resize(width, height)" id="dom-videoproxy-resize"><code>resize</code></dfn>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/resize(width, height)" data-dfn-type="argument" data-export="" id="dom-videoproxy-resize-width-height-width"><code>width</code><a class="self-link" href="#dom-videoproxy-resize-width-height-width"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/resize(width, height)" data-dfn-type="argument" data-export="" id="dom-videoproxy-resize-width-height-height"><code>height</code><a class="self-link" href="#dom-videoproxy-resize-width-height-height"></a></dfn>);
+  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="VideoProxy" data-dfn-type="method" data-export="" data-lt="setLocation(x, y)" id="dom-videoproxy-setlocation"><code>setLocation</code></dfn>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/setLocation(x, y)" data-dfn-type="argument" data-export="" id="dom-videoproxy-setlocation-x-y-x"><code>x</code><a class="self-link" href="#dom-videoproxy-setlocation-x-y-x"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy/setLocation(x, y)" data-dfn-type="argument" data-export="" id="dom-videoproxy-setlocation-x-y-y"><code>y</code><a class="self-link" href="#dom-videoproxy-setlocation-x-y-y"></a></dfn>);
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑨"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-duration"><code>duration</code><a class="self-link" href="#dom-videoproxy-duration"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①⓪"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-currenttime"><code>currentTime</code><a class="self-link" href="#dom-videoproxy-currenttime"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①①"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-playbackrate"><code>playbackRate</code><a class="self-link" href="#dom-videoproxy-playbackrate"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><span class="kt">boolean</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-videoproxy-ended"><code>ended</code><a class="self-link" href="#dom-videoproxy-ended"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><span class="kt">boolean</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-videoproxy-paused"><code>paused</code><a class="self-link" href="#dom-videoproxy-paused"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><span class="kt">boolean</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-videoproxy-muted"><code>muted</code><a class="self-link" href="#dom-videoproxy-muted"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①②"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="VideoProxy" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-videoproxy-volume"><code>volume</code><a class="self-link" href="#dom-videoproxy-volume"></a></dfn>;
 };
 </pre>
    <h4 class="heading settled" data-level="5.1.4" id="object-creative-data"><span class="secno">5.1.4. </span><span class="content">Creative Data</span><a class="self-link" href="#object-creative-data"></a></h4>
@@ -2089,11 +2127,11 @@ call, so the ad can respond with an object that matches the requested API</p>
 <pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-environmentdata"><code>EnvironmentData</code></dfn> {
   <span class="kt">required</span> <a class="n" data-link-type="idl-name">DOMElement</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="DOMElement " id="dom-environmentdata-slot"><code>slot</code></dfn>;
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#videoproxy" id="ref-for-videoproxy①④">VideoProxy</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="VideoProxy " id="dom-environmentdata-videoproxy"><code>videoProxy</code></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="float " id="dom-environmentdata-width"><code>width</code></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="float " id="dom-environmentdata-height"><code>height</code></dfn>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①③"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="float " id="dom-environmentdata-width"><code>width</code></dfn>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①④"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="float " id="dom-environmentdata-height"><code>height</code></dfn>;
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#enumdef-viewmode" id="ref-for-enumdef-viewmode③">ViewMode</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="ViewMode " id="dom-environmentdata-viewmode"><code>viewMode</code></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code>fullscreenAllowed</code></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code>variableDurationAllowed</code></dfn>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code>fullscreenAllowed</code></dfn>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code>variableDurationAllowed</code></dfn>;
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate①">SkippableState</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="SkippableState " id="dom-environmentdata-skippablestate"><code>skippableState</code></dfn>;
   <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-environmentdata-siteurl"><code>siteUrl</code></dfn>;
   <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-environmentdata-appid"><code>appId</code></dfn>;
@@ -2351,12 +2389,46 @@ primary video.</p>
    <li><a href="#dom-videoproxy-volume">volume</a><span>, in §5.1.3</span>
    <li><a href="#dom-environmentdata-width">width</a><span>, in §5.1.5</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-window">
+   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-window">5.1.1. Entry Point</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-SameObject">
+   <a href="https://heycam.github.io/webidl/#SameObject">https://heycam.github.io/webidl/#SameObject</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-SameObject">5.1.1. Entry Point</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-boolean">
+   <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-boolean">5.1.3. VideoProxy Interface</a> <a href="#ref-for-idl-boolean①">(2)</a> <a href="#ref-for-idl-boolean②">(3)</a>
+    <li><a href="#ref-for-idl-boolean③">5.1.5. Environment Data</a> <a href="#ref-for-idl-boolean④">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-float">
+   <a href="https://heycam.github.io/webidl/#idl-float">https://heycam.github.io/webidl/#idl-float</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-float">5.1.2. Ad Interface</a> <a href="#ref-for-idl-float①">(2)</a> <a href="#ref-for-idl-float②">(3)</a> <a href="#ref-for-idl-float③">(4)</a> <a href="#ref-for-idl-float④">(5)</a>
+    <li><a href="#ref-for-idl-float⑤">5.1.3. VideoProxy Interface</a> <a href="#ref-for-idl-float⑥">(2)</a> <a href="#ref-for-idl-float⑦">(3)</a> <a href="#ref-for-idl-float⑧">(4)</a> <a href="#ref-for-idl-float⑨">(5)</a> <a href="#ref-for-idl-float①⓪">(6)</a> <a href="#ref-for-idl-float①①">(7)</a> <a href="#ref-for-idl-float①②">(8)</a>
+    <li><a href="#ref-for-idl-float①③">5.1.5. Environment Data</a> <a href="#ref-for-idl-float①④">(2)</a>
+   </ul>
+  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window</a>
+     <li><span class="dfn-paneled" id="term-for-window" style="color:initial">Window</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
+     <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
+     <li><span class="dfn-paneled" id="term-for-idl-float" style="color:initial">float</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2366,10 +2438,12 @@ primary video.</p>
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dt id="biblio-webidl">[WebIDL]
+   <dd>Cameron McCormack; Boris Zbarsky; Tobie Langel. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><span class="kt">partial</span> <span class="kt">interface</span> <span class="kt">mixin</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①">Window</a> {
-  [<a class="nv idl-code" data-link-type="extended-attribute">SameObject</a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad④①">Ad</a> <a class="nv" href="#dom-window-getsivicad"><code>getSIVICAd</code></a>();
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①">SameObject</a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad④①">Ad</a> <a class="nv" href="#dom-window-getsivicad"><code>getSIVICAd</code></a>();
 };
 
 <span class="kt">interface</span> <a class="nv" href="#ad"><code>Ad</code></a> {
@@ -2378,10 +2452,10 @@ primary video.</p>
   <span class="kt">void</span> <a class="nv" href="#dom-ad-startad"><code>startAd</code></a>();
   <span class="kt">void</span> <a class="nv" href="#dom-ad-stopad"><code>stopAd</code></a>();
   <span class="kt">void</span> <a class="nv" href="#dom-ad-skipad"><code>skipAd</code></a>();
-  <span class="kt">void</span> <a class="nv" href="#dom-ad-resizead"><code>resizeAd</code></a>(<a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-width"><code>width</code></a>, <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-height"><code>height</code></a>, <a class="n" data-link-type="idl-name" href="#enumdef-viewmode" id="ref-for-enumdef-viewmode②①">ViewMode</a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-viewmode"><code>viewMode</code></a>);
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adwidth"><code>adWidth</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adheight"><code>adHeight</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adduration"><code>adDuration</code></a>;
+  <span class="kt">void</span> <a class="nv" href="#dom-ad-resizead"><code>resizeAd</code></a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①⑤"><span class="kt">float</span></a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-width"><code>width</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①⑥"><span class="kt">float</span></a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-height"><code>height</code></a>, <a class="n" data-link-type="idl-name" href="#enumdef-viewmode" id="ref-for-enumdef-viewmode②①">ViewMode</a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-viewmode"><code>viewMode</code></a>);
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float②①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adwidth"><code>adWidth</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adheight"><code>adHeight</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adduration"><code>adDuration</code></a>;
 };
 
 <span class="kt">interface</span> <a class="nv" href="#videoproxy"><code>VideoProxy</code></a> {
@@ -2390,15 +2464,15 @@ primary video.</p>
   <span class="kt">void</span> <a class="nv" href="#dom-videoproxy-pause"><code>pause</code></a>();
   <span class="kt">void</span> <a class="nv" href="#dom-videoproxy-fullscreen"><code>fullscreen</code></a>();
   <span class="kt">void</span> <a class="nv" href="#dom-videoproxy-resume"><code>resume</code></a>();
-  <span class="kt">void</span> <a class="nv" href="#dom-videoproxy-resize"><code>resize</code></a>(<a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-resize-width-height-width"><code>width</code></a>, <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-resize-width-height-height"><code>height</code></a>);
-  <span class="kt">void</span> <a class="nv" href="#dom-videoproxy-setlocation"><code>setLocation</code></a>(<a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-setlocation-x-y-x"><code>x</code></a>, <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-setlocation-x-y-y"><code>y</code></a>);
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-duration"><code>duration</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-currenttime"><code>currentTime</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-playbackrate"><code>playbackRate</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <a class="nv" data-readonly="" data-type="boolean" href="#dom-videoproxy-ended"><code>ended</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <a class="nv" data-readonly="" data-type="boolean" href="#dom-videoproxy-paused"><code>paused</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <a class="nv" data-readonly="" data-type="boolean" href="#dom-videoproxy-muted"><code>muted</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-volume"><code>volume</code></a>;
+  <span class="kt">void</span> <a class="nv" href="#dom-videoproxy-resize"><code>resize</code></a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤①"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-resize-width-height-width"><code>width</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥①"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-resize-width-height-height"><code>height</code></a>);
+  <span class="kt">void</span> <a class="nv" href="#dom-videoproxy-setlocation"><code>setLocation</code></a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦①"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-setlocation-x-y-x"><code>x</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧①"><span class="kt">float</span></a> <a class="nv" href="#dom-videoproxy-setlocation-x-y-y"><code>y</code></a>);
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑨①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-duration"><code>duration</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①⓪①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-currenttime"><code>currentTime</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①①①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-playbackrate"><code>playbackRate</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑤"><span class="kt">boolean</span></a> <a class="nv" data-readonly="" data-type="boolean" href="#dom-videoproxy-ended"><code>ended</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><span class="kt">boolean</span></a> <a class="nv" data-readonly="" data-type="boolean" href="#dom-videoproxy-paused"><code>paused</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②①"><span class="kt">boolean</span></a> <a class="nv" data-readonly="" data-type="boolean" href="#dom-videoproxy-muted"><code>muted</code></a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①②①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-videoproxy-volume"><code>volume</code></a>;
 };
 
 <span class="kt">dictionary</span> <a class="nv" href="#dictdef-creativedata"><code>CreativeData</code></a> {
@@ -2411,11 +2485,11 @@ primary video.</p>
 <span class="kt">dictionary</span> <a class="nv" href="#dictdef-environmentdata"><code>EnvironmentData</code></a> {
   <span class="kt">required</span> <a class="n" data-link-type="idl-name">DOMElement</a> <a class="nv" data-type="DOMElement " href="#dom-environmentdata-slot"><code>slot</code></a>;
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#videoproxy" id="ref-for-videoproxy①④①">VideoProxy</a> <a class="nv" data-type="VideoProxy " href="#dom-environmentdata-videoproxy"><code>videoProxy</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-type="float " href="#dom-environmentdata-width"><code>width</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">float</span></a> <a class="nv" data-type="float " href="#dom-environmentdata-height"><code>height</code></a>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①③①"><span class="kt">float</span></a> <a class="nv" data-type="float " href="#dom-environmentdata-width"><code>width</code></a>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①④①"><span class="kt">float</span></a> <a class="nv" data-type="float " href="#dom-environmentdata-height"><code>height</code></a>;
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#enumdef-viewmode" id="ref-for-enumdef-viewmode③①">ViewMode</a> <a class="nv" data-type="ViewMode " href="#dom-environmentdata-viewmode"><code>viewMode</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code>fullscreenAllowed</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code>variableDurationAllowed</code></a>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③①"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code>fullscreenAllowed</code></a>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④①"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code>variableDurationAllowed</code></a>;
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate①①">SkippableState</a> <a class="nv" data-type="SkippableState " href="#dom-environmentdata-skippablestate"><code>skippableState</code></a>;
   <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-environmentdata-siteurl"><code>siteUrl</code></a>;
   <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-environmentdata-appid"><code>appId</code></a>;
@@ -2765,57 +2839,57 @@ call, so the ad can respond with an object that matches the requested API<a href
   </aside>
 <script>/* script-dfn-panel */
 
-        document.body.addEventListener("click", function(e) {
-            var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-            // Find the dfn element or panel, if any, that was clicked on.
-            var el = e.target;
-            var target;
-            var hitALink = false;
-            while(el.parentElement) {
-                if(el.tagName == "A") {
-                    // Clicking on a link in a <dfn> shouldn't summon the panel
-                    hitALink = true;
-                }
-                if(el.classList.contains("dfn-paneled")) {
-                    target = "dfn";
-                    break;
-                }
-                if(el.classList.contains("dfn-panel")) {
-                    target = "dfn-panel";
-                    break;
-                }
-                el = el.parentElement;
-            }
-            if(target != "dfn-panel") {
-                // Turn off any currently "on" or "activated" panels.
-                queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-                    el.classList.remove("on");
-                    el.classList.remove("activated");
-                });
-            }
-            if(target == "dfn" && !hitALink) {
-                // open the panel
-                var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-                if(dfnPanel) {
-                    dfnPanel.classList.add("on");
-                    var rect = el.getBoundingClientRect();
-                    dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-                    dfnPanel.style.top = window.scrollY + rect.top + "px";
-                    var panelRect = dfnPanel.getBoundingClientRect();
-                    var panelWidth = panelRect.right - panelRect.left;
-                    if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                        // Reposition, because the panel is overflowing
-                        dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-                    }
-                } else {
-                    console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-                }
-            } else if(target == "dfn-panel") {
-                // Switch it to "activated" state, which pins it.
-                el.classList.add("activated");
-                el.style.left = null;
-                el.style.top = null;
-            }
-
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
         });
-        </script>
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>
