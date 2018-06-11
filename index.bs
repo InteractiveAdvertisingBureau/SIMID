@@ -603,6 +603,12 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 
 ## Ad Completion ## {#ad-completion}
 
+The player will call {{Ad/stopAd}} after which:
+1. The ad must immediately stop all playback and audio when the player calls {{Ad/stopAd}}.
+2. The player hides the ad after it calls {{Ad/stopAd}}.
+3. The player should wait at least 5 seconds before removing the ad. When the ad is in an iframe, this would mean not removing the ad from the dom for 5 seconds.
+
+
 # Security # {#security}
 
 # Examples # {#examples}
