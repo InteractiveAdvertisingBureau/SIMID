@@ -109,7 +109,7 @@ non-SSAI scenarios
 ## Cross-Platform Support ## {#cross-platform}
 
 As was the case with VPAID, and perhaps more so given the additional abstraction
-provided by including a {{VideoProxy}} element, SIVIC is designed to be a
+provided by including a {{VideoProxy}} object, SIVIC is designed to be a
 cross-platform standard, and should be the preferred standard for enabling
 advanced video creative on any device capable of supporting the execution of
 ad-resident code on the device, including desktop, mobile and OTT.
@@ -469,7 +469,7 @@ does not seem to make much sense
 ### Ad Completes at Video Completion ### {#api-complete}
 
 When an ad finishes at the same time as its video.
-1. Proxy video element raises the `AdVideoComplete` event upon video completion.
+1. {{VideoProxy}} raises the `AdVideoComplete` event upon video completion.
 2. Player calls {{Ad/stopAd}}
 3. Ad dispatches `AdStopped` event after it cleans up.
 
