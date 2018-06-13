@@ -469,7 +469,7 @@ does not seem to make much sense
 ### Ad Completes at Video Completion ### {#api-complete}
 
 When an ad finishes at the same time as its video.
-1. {{Video proxy}} raises the `AdVideoComplete` event upon video completion.
+1. {{VideoProxy}} raises the `AdVideoComplete` event upon video completion.
 2. Player calls {{Ad/stopAd}}
 3. Ad dispatches `AdStopped` event after it cleans up.
 
