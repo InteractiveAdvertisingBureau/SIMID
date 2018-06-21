@@ -210,13 +210,16 @@ ad was viewed by an end user. Therefore, the video player should ensure that no
 other visual elements from the video player, the webpage, or other ads, display
 over a video ad that is currently in progress.
 
+### Close Control ### {#close-control}
+
 This specification does not mandate a close control or behavior by the video ad
 creative or the video player. Currently, the publisher video player is in full
-control and can dismiss of the video ad creative at any point in time. The video
+control and can dismiss the video ad creative at any point in time. The video
 ad creative can also dismiss itself at any point in time. Some implementations
 may have a publisher provided close control and others may not. Video ad
-creatives and video players should ensure that consumers are presented with a
-good ad experience.
+creatives may opt to show its own close control. Video ad creatives and
+video players should ensure that consumers are presented with a good ad
+experience.
 
 ## Ad Unit Requirements ## {#ad-reqs}
 

@@ -1211,7 +1211,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 6bebf68aed1298eb5349b6cdea3fab1e79551a6f" name="generator">
+  <meta content="Bikeshed version 6abc9f98f620481a5031cd9b44944d60af9b79b9" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1459,7 +1459,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-05-31">31 May 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-06-21">21 June 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1474,7 +1474,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 31 May 2018,
+In addition, as of 21 June 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1503,6 +1503,7 @@ Parts of this work may be from another specification document.  If so, those par
        <a href="#player-reqs"><span class="secno">3.7</span> <span class="content">Video Player Requirements</span></a>
        <ol class="toc">
         <li><a href="#displaying-creative"><span class="secno">3.7.1</span> <span class="content">Displaying Ad Unit Creative</span></a>
+        <li><a href="#close-control"><span class="secno">3.7.2</span> <span class="content">Close Control</span></a>
        </ol>
       <li><a href="#ad-reqs"><span class="secno">3.8</span> <span class="content">Ad Unit Requirements</span></a>
      </ol>
@@ -1773,13 +1774,15 @@ action for specific timeout situations.</p>
 ad was viewed by an end user. Therefore, the video player should ensure that no
 other visual elements from the video player, the webpage, or other ads, display
 over a video ad that is currently in progress.</p>
+   <h4 class="heading settled" data-level="3.7.2" id="close-control"><span class="secno">3.7.2. </span><span class="content">Close Control</span><a class="self-link" href="#close-control"></a></h4>
    <p>This specification does not mandate a close control or behavior by the video ad
 creative or the video player. Currently, the publisher video player is in full
-control and can dismiss of the video ad creative at any point in time. The video
+control and can dismiss the video ad creative at any point in time. The video
 ad creative can also dismiss itself at any point in time. Some implementations
 may have a publisher provided close control and others may not. Video ad
-creatives and video players should ensure that consumers are presented with a
-good ad experience.</p>
+creatives may opt to show its own close control. Video ad creatives and
+video players should ensure that consumers are presented with a good ad
+experience.</p>
    <h3 class="heading settled" data-level="3.8" id="ad-reqs"><span class="secno">3.8. </span><span class="content">Ad Unit Requirements</span><a class="self-link" href="#ad-reqs"></a></h3>
    <p>If the ad unit implements SIVIC, it must indicate the correct version. The ad
 unit must implement all methods and properties listed, but can either decline
