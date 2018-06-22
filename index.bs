@@ -624,10 +624,10 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 # Terminology # {#terminology}
 
 : <dfn>SIVIC VAST</dfn>
-:: The VAST document that contains the SIVIC ad unit components.
+:: The VAST document that contains the SIVIC ad unit resource locations and attributes.
 
 : <dfn>SIVIC Ad Unit</dfn>
-:: The SIVIC ad video and the SIVIC ad creative.
+:: The SIVIC ad video component and the SIVIC ad interactive component.
 
 : <dfn>SIVIC Video</dfn>
 :: The SIVIC ad video component if it's a progressively downloaded video file.
@@ -639,12 +639,12 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 :: The SIVIC ad video component if live streaming video.
 
 : <dfn>SIVIC Creative</dfn>
-:: The SIVIC ad creative component (html doc and assets) that overlays the SIVIC
+:: The SIVIC ad interactive component (html doc and assets) that overlays the SIVIC
 	ad video.
 
 : <dfn>SIVIC Secondary Video</dfn>
-:: Video assets that are loaded as part of the SIVIC creative and not the
-	primary video.
+:: Video assets that are loaded as part of the SIVIC Creative and not the
+	primary Sivic Video.
 
 : <dfn>Content Video</dfn>
 :: Any reference to video that is NOT a component or asset of the ad unit.
