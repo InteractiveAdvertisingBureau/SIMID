@@ -125,7 +125,7 @@ The ad unit should never allow uncaught exceptions to be thrown during calls int
 
 When a SIVIC creative is referenced from a VAST document, the value for the apiFramework attribute in the `InteractiveCreativeFile` element must be `SIVIC` (all caps). This attribute identifies the SIVIC API for the creative. Version information should be handled by the {{Ad/handshakeVersion()}} method (rather than identified in the VAST file).
 
-Another attribute of the `InteractiveCreativeFile` is `variableDuration` which identifies whether the ad always drops when the duration is reached, or if it can potentially extend the duration by pausing the underlying video or delaying the `adStopped` event after `adVideoComplete`.
+Another attribute of the `InteractiveCreativeFile` is `variableDuration`. If `variableDuration` is set this means that the ad is only playable if the player allows the ad to pause and extend duration. If the player does not support this capability, then it should not render the video or creative and and error out instead.
 
 ## How to Handle Ad Loading ## {#api-ad-loading}
 
@@ -378,7 +378,7 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 The player will call {{Ad/stopAd}} after which:
 1. The ad must immediately stop all playback and audio when the player calls {{Ad/stopAd}}.
 2. The player hides the ad after it calls {{Ad/stopAd}}.
-3. The player should wait at least 5 seconds before removing the ad. When the ad is in an iframe, this would mean not removing the ad from the dom for 5 seconds.
+3. The player should wait at least 5 seconds before removing the ad. When the ad is in an iframe, this would mean not removing the ad iframe from the DOM for 5 seconds.
 
 
 # Security # {#security}
