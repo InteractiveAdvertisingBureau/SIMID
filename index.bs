@@ -140,7 +140,7 @@ Issue: need to define the definitions of the {{ViewMode}} enum values
 
 When calling {{Ad/initAd()}}, the player shall provide the following parameters:
 
-- {{Ad/initAd(creativeData, envData)/creativeData}}: object used for additional initialization data. {{CreativeData}} is used to pass information associated with the creative (sometimes taken from VAST). In a VAST context, the ad unit should pass the value for either the `Linear` or `Nonlinear` `AdParameter` element specified in the VAST document.
+- {{Ad/initAd(creativeData, envData)/creativeData}}: object used for additional initialization data. {{CreativeData}} is used to pass information associated with the creative.
     - {{CreativeData/adParameters}}: ad parameters from VAST, or an empty string if unknown
     - {{CreativeData/adId}}: the ID of the ad from VAST, or an empty string if unknown
     - {{CreativeData/creativeId}}: the ID from the creative or an empty string if unknown
