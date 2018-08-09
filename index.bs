@@ -601,6 +601,52 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 
 ## Error Handling and Timeouts ## {#errors}
 
+If the media cannot be played the player should terminate the ad and fire an error using the standard VAST errors.
+
+If either the interactive ad or player wants to terminate with an error the player should fire a 902 error. In cases where this is not possible like live server side ad insertion the player should remove the ad overlay and continue tracking quartiles and completion.
+
+The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.
+
+This table indicates defined SIVIC error codes the ad may fire:
+
+: <dfn>1101</dfn>
+:: Resources could not be loaded. The SIVIC ad tried to load resources but failed.
+: <dfn>1102</dfn>
+:: Incorrect interface passed from player. The video proxy interface or slot were not
+    in concordance with the SIVIC spec.
+: <dfn>1103</dfn>
+:: Playback area not usable by ad. The dimensions the ad needed
+    were not what it received.
+: <dfn>1104</dfn>
+:: Wrong handshake version.
+: <dfn>1105</dfn>
+:: Ad not playable on web site. The ad cannot play on the given site.
+: <dfn>1106</dfn>
+:: Request for expand not honored. The ad requested to expand but the
+    player did not allow it.
+: <dfn>1107</dfn>
+:: Request for pause not honored. The ad requested pause but the player
+    did not pause.
+: <dfn>1108</dfn>
+:: Play mode not adequate for ad. The ad requires playback control but
+    the player is not giving control. This error should only fire if the
+    VAST for the ad specified that it needs playback control.
+: <dfn>1009</dfn>
+:: Ad internal error. The ad had an error not related to any external dependencies.
+: <dfn>1010</dfn>
+:: Device not supported. The ad could not play or render on the device.
+: <dfn>1199</dfn>
+:: Player cababilities not adequate for ad. Catchall error if the ad
+    could not be more specific.
+
+This table indicates defined SIVIC error codes the player may fire:
+
+: <dfn>1201</dfn>
+:: Uncaught error. The SIVIC ad threw and exception it did not catch.
+: <dfn>1202</dfn>
+:: Wrong handshake version.
+
+
 ## Ad Completion ## {#ad-completion}
 
 # Security # {#security}
