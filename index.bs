@@ -627,7 +627,7 @@ This table indicates defined SIVIC error codes the ad may fire:
 : <dfn>1104</dfn>
 :: Wrong handshake version.
 : <dfn>1105</dfn>
-:: Ad not playable on web site. The ad cannot play on the given site.
+:: Ad not playable in for a technical reason on this site.
 : <dfn>1106</dfn>
 :: Request for expand not honored. The ad requested to expand but the
     player did not allow it.
