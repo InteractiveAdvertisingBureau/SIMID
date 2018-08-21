@@ -108,8 +108,7 @@ non-SSAI scenarios
 
 ## Cross-Platform Support ## {#cross-platform}
 
-As was the case with VPAID, and perhaps more so given the additional abstraction
-provided by including a {{VideoProxy}} element, SIVIC is designed to be a
+As was the case with VPAID, SIVIC is designed to be a
 cross-platform standard, and should be the preferred standard for enabling
 advanced video creative on any device capable of supporting the execution of
 ad-resident code on the device, including desktop, mobile and OTT.
@@ -234,12 +233,518 @@ requirements.
 
 # API Reference # {#api}
 
+## Messages corresponding to VAST tracking events ## {#vast-messages}
+
+All ID’s are prepended with SIVIC:Tracking. The player must report each event to the ad whenever a tracking pixels is reported for that tracking event type.  These names correspond with VAST 4.1 tracking names.
+
+For example:
+
+<xmp>
+{
+ id: "SIVIC:Tracking:impression",
+ args: {}
+}
+</xmp>
+
+### SIVIC:Tracking:error ### {#vast-error}
+parameters:
+<xmp>
+  errorCode(string): the vast error code
+</xmp>
+### Other tracking events that must be supported ### {#other-vast-messages}
+- SIVIC:Tracking:impression  
+- SIVIC:Tracking:creativeView
+- SIVIC:Tracking:mute  
+- SIVIC:Tracking:unmute 
+- SIVIC:Tracking:pause 
+- SIVIC:Tracking:resume
+- SIVIC:Tracking:rewind
+- SIVIC:Tracking:skip
+- SIVIC:Tracking:playerExpand  
+- SIVIC:Tracking:playerCollapse  
+- SIVIC:Tracking:loaded  
+- SIVIC:Tracking:start  
+- SIVIC:Tracking:firstQuartile  
+- SIVIC:Tracking:midpoint  
+- SIVIC:Tracking:thirdQuartile  
+- SIVIC:Tracking:complete  
+- SIVIC:Tracking:otherAdInteraction  
+- SIVIC:Tracking:progress  
+- SIVIC:Tracking:closeLinear  
+- SIVIC:Tracking:fullscreen 
+- SIVIC:Tracking:exitFullscreen 
+- SIVIC:Tracking:expand 
+- SIVIC:Tracking:collapse 
+- SIVIC:Tracking:clickThrough 
+- SIVIC:Tracking:clickTracking
+- SIVIC:Tracking:customClick
+
+## Messages from the video element ## {#video-messages}
+
+All video messages will be prepended with SIVIC:Video. All video messages should be sent after their corresponding
+media events are called. If the video is wrapped or native the player should make its best effort to make messages
+correspond with the html5 video element callbacks.
+
+### SIVIC:Video:durationchange ### {#sivic-video-durationchange}
+Should be called after the durationchange event is triggered on the video element.
+
+parameters:
+- duration(float): The number in seconds of the video duration. For server side ad insertion this must be calculated
+	to be the total duration of the ad.
+
+### SIVIC:Video:ended ### {#sivic-video-ended}
+Should be called after the ended event is triggered on the video element.
+
+### SIVIC:Video:error ### {#sivic-video-error}
+Should be called after the error event is triggered on the video element.
+
+parameters:
+- error(string): corresponds to videoElement.error.code.
+- message(string): corresponds to videoElement.error.message.
+
+### SIVIC:Video:pause ### {#sivic-video-pause}
+Should be called after the pause event is triggered on the video element.
+
+### SIVIC:Video:play ### {#sivic-video-play}
+Should be called after the play event is triggered on the video element.
+
+### SIVIC:Video:playing ### {#sivic-video-playing}
+Should be called after the playing event is triggered on the video element.
+
+### SIVIC:Video:seeked ### {#sivic-video-seeked}
+Should be called after the seeked event is triggered on the video element.
+
+### SIVIC:Video:seeking ### {#sivic-video-seeking}
+Should be called after the seeking event is triggered on the video element.
+
+### SIVIC:Video:timeupdate ### {#sivic-video-timeupdate}
+Should be called after the timeupdate event is triggered on the video element.
+
+parameters:
+- currentTime(number): corresponds to videoElement.currentTime attribute. For server side ad insertion
+	this must be calculated to be the total time the video ad has played. For example: if the video element
+	time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.
+
+### SIVIC:Video:volumechange ### {#sivic-video-volumechange}
+Should be called after the volumechange event is triggered on the video element.
+
+parameters:
+- volume(number): corresponds to videoElement.volume attribute.
+
+## Responses from the video element ## {#video-responses}
+
+### Response To SIVIC:Creative:getVideoState ### {#sivic-creative-getVideoState-response}
+
+#### resolve #### {#sivic-creative-getVideoState-resolve}
+- currentSrc(string): The src of which ad has been chosen. This may need correction for server side ad insertion as
+	it should indicate the video media selected and not the url to the media playing.
+- currentTime(number): This should be the current time from the first frame of the video ad.  In the case of DAI,
+	this number needs to be corrected. For example: if the video element time is 500 seconds but the ad started
+	playback 10 seconds ago (in DAI), this should be 10 seconds.
+- duration(number): This should be the duration of the ad.  Server side ad insertion may need correction.
+- ended(boolean): corresponds exactly to video element ended attribute
+- muted(boolean): corresponds exactly to video element muted attribute
+- paused(boolean): corresponds exactly to video element paused attribute
+- volume(number): corresponds exactly to video element volume attribute
+- fullscreen(boolean): true if the video element is full screen, false otherwise	
+
+Issue: should we also include video element location and size here?
+
+## Messages from the player ## {#player-messages}
+All messages from the player should be prepended with SIVIC:Player.
+
+For example:
+
+<xmp>
+{
+ id: "SIVIC:Player:adStopped",
+ args: {
+   code: 0
+ }
+}
+</xmp>
+
+
+### SIVIC:Player:resize ### {#sivic-player-resize}
+
+parameters:
+<xmp class="idl">
+dictionary resizeParameters {
+  required videoDimensions videoDimensions;
+  required creativeDimensions creativeDimensions;
+  required string mode;
+  required boolean fullScreen;
+};
+</xmp>
+<xmp class="idl">
+dictionary videoDimensions {
+  required int x;
+  required int y;
+  required int width;
+  required int height;
+  float transitionDuration;
+};
+</xmp>
+<xmp class="idl">
+dictionary creativeDimensions {
+  required int x;
+  required int y;
+  required int width;
+  required int height;
+  float transitionDuration;
+};
+</xmp>
+
+The {{videoDimensions}} communicate to the creative the dimensions of the video element. 
+The {{creativeDimensions}} tell the creative where the iframe is located as well as its dimensions.  If the iframe is
+not yet visible (like during initialization) these dimensions will be the expected dimensions when it does become visible.
+
+- {{videoDimensions}}
+    - {{videoDimensions/x}} The x offset of the video. It should initialize at 0.
+    - {{videoDimensions/y}} The y offset of the video. It should initialize at 0.
+    - {{videoDimensions/width}} The width in pixels of the video.
+    - {{videoDimensions/height}} The height in pixels of the video.
+    - {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
+
+- {{creativeDimensions}}
+    - {{videoDimensions/x}} The x offset of the creative. It should initialize at 0.
+    - {{videoDimensions/y}} The y offset of the creative. It should initialize at 0.
+    - {{videoDimensions/width}} The width in pixels of the creative.
+    - {{videoDimensions/height}} The height in pixels of the creative.
+    - {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
+- {{resizeParameters/mode}} Can be "portrait" or "landscape".
+- {{resizeParameters/fullScreen}} True if fullscreen.
+
+### SIVIC:Player:init ### {#sivic-player-init}
+
+To assist in preloading assets the SIVIC:Player:init before SIVIC:Player:startCreative.
+The player should call this function early enough before playback so that assets can be
+displayed as soon as the ad starts.
+
+The ad, however, should not assume that it has any amount of time between the
+SIVIC:Player:init call and the SIVIC:Player:startCreative message. For example a preroll might
+call SIVIC:Player:startCreative immediately after SIVIC:Player:init.
+
+When calling SIVIC:Player:init, the player shall provide the following parameters:
+
+<xmp class="idl">
+dictionary initParameters {
+  required EnvironmentData EnvironmentData;
+  required CreativeData CreativeData;
+};
+</xmp>
+<xmp class="idl">
+dictionary CreativeData {
+	required string adParameters;
+	string adId;
+	string creativeId;
+	string adServingId;
+	string clickThruUrl;
+};
+</xmp>
+<xmp class="idl">
+dictionary EnvironmentData {
+  required videoDimensions videoDimensions;
+  required creativeDimensions creativeDimensions;
+  required string mode;
+  required boolean fullScreen;
+	required boolean fullscreenAllowed;
+	required boolean variableDurationAllowed;
+	required SkippableState skippableState;
+	string siteUrl;
+	string appId;
+	string useragent;
+	string deviceId;
+	boolean muted;
+	float volume;
+};
+
+enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
+</xmp>
+
+
+- {{CreativeData}} is used to pass information associated
+	with the creative (sometimes taken from VAST). In a VAST context, the ad unit
+	should pass the value for either the `Linear` or `Nonlinear` `AdParameter`
+	element specified in the VAST document.
+		- {{CreativeData/adParameters}} ad parameters from VAST, or an empty string
+			if unknown
+		- {{CreativeData/adId}} the ID of the ad from VAST, or an empty string if
+			unknown
+		- {{CreativeData/creativeId}} the ID from the creative or an empty string
+			if unknown
+		- {{CreativeData/adServingId}} Quasi-unique id generated by ad server and
+			passed through all 1st and 3rd party reporting to facilitate the marriage
+			of impression-level data across multiple reporting systems. In VAST 4.1
+			and later this id is provided in the `AdServingID` node.
+		- {{CreativeData/clickThruUrl}} The click through url, provided from VAST.
+
+
+- {{EnvironmentData}} is used to pass information associated with the publisher playback environment.
+	The object should have the following fields.
+		- {{EnvironmentData/videoDimensions}} indicates the video display area, see [[#sivic-player-resize]]
+		- {{EnvironmentData/creativeDimensions}} indicates the creative display area, see [[#sivic-player-resize]]
+		- {{resizeParameters/mode}} Can be "portrait" or "landscape".
+		- {{resizeParameters/fullScreen}} True if fullscreen.
+		- {{EnvironmentData/fullscreenAllowed}}: True if the creative may choose to display
+			or not display a fullscreen option
+		- {{EnvironmentData/variableDurationAllowed}}: If set to true the player
+			must allow the SIVIC creative to pause player-controlled video playback
+			during the ad. If `false` it will not (live streaming is a use case). An
+			example use case here is a clickthru overlays, where `variableDuration`
+			(ad requirement) is `false`, but
+			{{EnvironmentData/variableDurationAllowed}} (publisher capability) can be
+			`true` or `false`. It should not be used in any case where disallowing the
+			pause interferes with the ad KPIs (for example if it can interfere with
+			completions, time spent in an interactive component, etc).
+		- {{EnvironmentData/skippableState}}: indicates whether the ad may be
+			skippable and which party controls the skippability, must be one of the
+			{{SkippableState}} enum values.
+			  - {{SkippableState/playerHandles}}: The player will render a skip button
+			    and might skip the ad.
+			  - {{SkippableState/adHandles}}: The ad may or may not render a skip
+			    button.
+			  - {{SkippableState/notSkippable}}: The ad cannot be skipped and the
+			    SIVIC creative should not render a skip button. This may be common in
+			    DAI for live streams.
+		- {{EnvironmentData/siteUrl}} Indicating the website the ad will play on,
+			for example if the site was `www.xyz.com/videoId`, this information would
+			include at least `www.xyz.com`. The player may give more information.
+			Desired for reporting and troubleshooting.
+		- {{EnvironmentData/appId}} The id of the app if applicable
+		- {{EnvironmentData/useragent}} Data about sdks and players
+		- {{EnvironmentData/deviceId}} IDFA or AAID would be used primarily for 3rd
+			party tracking of custom events
+		- {{EnvironmentData/muted}} (boolean): True if the audio is muted.
+		- {{EnvironmentData/volume}} (number): The volume which should be between 0 and 1.0.
+
+Issue: useragent needs some definition or a link to where how this should be populated.
+
+### SIVIC:Player:startCreative ### {#sivic-player-startCreative}
+
+SIVIC:Player:startCreative must be called after the iframe is made visible.
+
+### SIVIC:Player:adSkipped ### {#sivic-player-adSkipped}
+This indicates the player will skip the ad.  The player should hide the creative and stop video playback in this case.
+The player should wait for a response before unloading the creative iframe.
+
+### SIVIC:Player:adStopped ### {#sivic-player-adStopped}
+This indicates the player will stop the ad.  The player should hide the creative and stop video playback in this case.
+The player should wait for a response before unloading the creative iframe.
+
+parameters:
+- code(int): reason for ad stopping
+
+Issue: These codes need to be defined.
+
+### SIVIC:Player:fatalError ### {#sivic-player-fatalError}
+The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
+possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
+before unloading the creative iframe.
+	
+- errorCode(int): reason for error.  See [[#error-codes]]
+- errorMessage(string): Any additional information.
+
+## Responses from the player to the creative ## {#player-responses}
+
+### Response To SIVIC:Creative:requestVideoLocation ### {#sivic-creative-requestVideoLocation-response}
+
+#### resolve #### {#sivic-creative-requestVideoLocation-resolve}
+They player may or may not move the video but in either case it will resolve and tell the creative the video location.
+parameters:
+- x (int): The new video x location.
+- y (int): The new video y location.
+
+### Response To SIVIC:Creative:ready ### {#sivic-creative-ready-response}
+
+#### resolve #### {#sivic-creative-ready-resolve}
+parameters:
+- version (string): The version of SIVIC that will be used. The version from the player will be the source of truth.
+
+#### reject #### {#sivic-creative-ready-reject}
+parameters:
+- reason (string): An optional string error message.
+- errorCode (int): the code for why the creative won’t play. See [[#error-codes]]
+
+### Response To SIVIC:Creative:requestSkip ### {#sivic-creative-requestSkip-response}
+
+#### resolve #### {#sivic-creative-requestSkip-resolve}
+Upon resolving this request, the player must call [[#sivic-player-adSkipped]].
+
+#### reject #### {#sivic-creative-requestSkip-reject}
+The creative should continue to playback as though it could not be skipped.
+
+### Response To SIVIC:Creative:requestStop ### {#sivic-creative-requestStop-response}
+
+#### resolve #### {#sivic-creative-requestStop-resolve}
+Upon resolving this request, the player must call [[#sivic-player-adStopped]].
+
+#### reject #### {#sivic-creative-requestStop-reject}
+For some reason the player could not stop playback.  The creative may continue
+to render as though it was not stopped.
+
+### Response To SIVIC:Creative:requestPause ### {#sivic-creative-requestPause-response}
+#### resolve #### {#sivic-creative-requestPause-resolve}
+The player paused the video.
+#### reject #### {#sivic-creative-requestPause-reject}
+The player did not pause the video.
+
+### Response To SIVIC:Creative:requestPlay ### {#sivic-creative-requestPlay-response}
+#### resolve #### {#sivic-creative-requestPlay-resolve}
+The player is playing the video.
+#### reject #### {#sivic-creative-requestPlay-reject}
+The player did not play the video.
+
+### Response To SIVIC:Creative:requestFullscreen ### {#sivic-creative-requestFullscreen-response}
+#### resolve #### {#sivic-creative-requestFullscreen-resolve}
+The player has gone full screen.
+#### reject #### {#sivic-creative-requestFullscreen-reject}
+The player did go full screen.
+
+### Response To SIVIC:Creative:requestVolume ### {#sivic-creative-requestVolume-response}
+#### resolve #### {#sivic-creative-requestVolume-resolve}
+The player has changed the volume as requested.
+#### reject #### {#sivic-creative-requestVolume-reject}
+The player did not change to the requested volume.
+
+
+### Response To SIVIC:Creative:requestResize ### {#sivic-creative-requestResize-response}
+#### resolve #### {#sivic-creative-requestResize-resolve}
+The player has resized exactly as it has been requested.
+#### reject #### {#sivic-creative-requestResize-reject}
+The player did not resize to the exact request. If the player was only able to partially comply, it should still
+reject the message. Then the player should call the message [[#sivic-player-resize]] to let the creative know
+what resize happened.
+
+### Response To SIVIC:Creative:requestChangeAdDuration ### {#sivic-creative-requestChangeAdDuration-response}
+#### resolve #### {#sivic-creative-requestChangeAdDuration-resolve}
+The player changed the ad duration.
+#### reject #### {#sivic-creative-requestChangeAdDuration-reject}
+The player did not change the ad duration.
+
+### Response To SIVIC:Creative:reportTracking ### {#sivic-creative-reportTracking-response}
+#### resolve #### {#sivic-creative-reportTracking-resolve}
+The player sends resolve if tracking has been sent out.  Returning resolve on this message
+should not block waiting for a response from the site.
+#### reject #### {#sivic-creative-reportTracking-reject}
+The player did not send the tracking pixel.
+
+parameters:
+- reason(string): An optional string error message
+- errorCode(int): The code for why the player did not attempt to send a tracking pixel.  See [[#error-codes]]
+
+## Messages from the Creative to the Player ## {#creative-messages}
+All functions should be prepended with SIVIC:Creative
+
+### SIVIC:Creative:ready ### {#sivic-creative-ready}
+The very first call the SIVIC creative should make. This indicates it is loaded and ready to recieve messages
+from the player.
+
+Expects a response [[#sivic-creative-ready-response]]
+
+### SIVIC:Creative:requestSkip ### {#sivic-creative-requestSkip}
+The player should stop video playback if possible.
+
+If the player cannot stop video playback, the player still does not unload the iframe.
+
+Expects a response [[#sivic-creative-requestSkip-response]]
+
+### SIVIC:Creative:requestStop ### {#sivic-creative-requestStop}
+The player should stop video playback if possible.
+
+If the player cannot stop video playback, the player still unloads the iframe. The creative may hide all elements
+in this case if it doesn't wish to be seen.
+
+Expects a response [[#sivic-creative-requestStop-response]]
+
+### SIVIC:Creative:fatalError ### {#sivic-creative-fatalError}
+After this message is received, the iframe should be unloaded and the video ad should stop playback if possible.
+If the video ad continues to play the iframe should still be unloaded.
+
+parameters:
+- errorCode(int): reason for error. See [[#error-codes]]
+- errorMessage(string): Any optional additional information about the fatal error.
+
+### SIVIC:Creative:requestPause ### {#sivic-creative-requestPause}
+Expects a response [[#sivic-creative-requestPause-response]]
+
+### SIVIC:Creative:requestPlay ### {#sivic-creative-requestPlay}
+Expects a response [[#sivic-creative-requestPlay-response]]
+
+### SIVIC:Creative:requestResize ### {#sivic-creative-requestResize}
+
+Request resize should use the {{resizeParameters}} which are explained in [[#sivic-player-resize]]
+
+Expects a reponse [[#sivic-creative-requestResize-response]]
+
+### SIVIC:Creative:requestFullScreen ### {#sivic-creative-requestFullScreen}
+Expects a reponse [[#sivic-creative-requestFullscreen-response]]
+
+### SIVIC:Creative:requestVolume ### {#sivic-creative-requestVolume}
+paramaters:
+- volume(float): a number between 0 and 1 indicating what volume the creative wants.
+- muted(boolean): True indicates the creative wants the volume muted.
+
+Expects a reponse [[#sivic-creative-requestVolume-response]]
+
+
+### SIVIC:Creative:reportTracking ### {#sivic-creative-reportTracking}
+paramaters:
+- trackingUrls(Array<String>): an array or tracking pixels that the publisher should fire
+
+Expects a response [[#sivic-creative-reportTracking-response]]
+
+### SIVIC:Creative:requestChangeAdDuration ### {#sivic-creative-requestChangeAdDuration}
+Extension in duration should only be in response to user interaction.
+
+paramaters:
+- duration(int): The new duration of the creative. -2 indicates unknown ad duration.
+
+Expects a response [[#sivic-creative-requestChangeAdDuration-response]]
+
+### SIVIC:Creative:clickThru ### {#sivic-creative-clickThru}
+The creative must handle click through due to the nature of cross domain iframes. This must only be called
+in response to a user initiated click through.
+
+The player will decide if it will pause playback in response to click throughs.
+
+### SIVIC:Creative:getVideoState ### {#sivic-creative-getVideoState}
+Expects a response [[#sivic-creative-getVideoState-response]
+
+## Responses from the creative to the player ## {#creative-responses}
+
+### Response To SIVIC:Player:init ### {#sivic-player-init-response}
+#### resolve #### {#sivic-player-init-resolve}
+The creative acknowledges the initialization parameters.
+#### reject #### {#sivic-player-init-reject}
+- reason(string): An optional string error message
+- errorCode(int): The code for what went wrong in initialization. See [[#error-codes]]
+
+### Response To SIVIC:Player:startCreative ### {#sivic-player-startCreative-response}
+#### resolve #### {#sivic-player-startCreative-resolve}
+The creative acknowledges that it has started playback.  The player must make the creative visible to the user.
+#### reject #### {#sivic-player-startCreative-reject}
+- reason(string): An optional string error message
+- errorCode(int): The code for what went wrong in initialization. See [[#error-codes]]
+
+### Response To SIVIC:Player:adSkipped ### {#sivic-player-adSkipped-response}
+#### resolve #### {#sivic-player-adSkipped-resolve}
+After resolve is called, the iframe will be removed.
+
+### Response To SIVIC:Player:adStopped ### {#sivic-player-adStopped-response}
+#### resolve #### {#sivic-player-adStopped-resolve}
+After resolve is called, the iframe will be removed.
+
+### Response To SIVIC:Player:fatalError ### {#sivic-player-fatalError-response}
+#### resolve #### {#sivic-player-fatalError-resolve}
+After resolve is called, the iframe will be removed.
+
 ## Referencing a SIVIC creative from VAST ## {#api-vast}
 
 When a SIVIC creative is referenced from a VAST document, the value for the
 `apiFramework` attribute in the `InteractiveCreativeFile` element must be
 `SIVIC` (all caps). This attribute identifies the SIVIC API for the creative.
-Version information should be handled by the {{Ad/handshakeVersion()}} method
+Version information should be handled by the[[#sivic-creative-ready-response]] message
 (rather than identified in the VAST file).
 
 Another attribute of the `InteractiveCreativeFile` is `variableDuration` which
@@ -271,189 +776,77 @@ The player must follow this workflow for loading an ad.
 	is not immediately fired, the player should assume that there was an error
 	(see [[#errors]]).
 
-Issue: need to define the definitions of the {{ViewMode}} enum values
 
-When calling {{Ad/initAd()}}, the player shall provide the following parameters:
-
-- {{Ad/initAd(creativeData, envData)/creativeData}}: object used for additional
-	initialization data. {{CreativeData}} is used to pass information associated
-	with the creative (sometimes taken from VAST). In a VAST context, the ad unit
-	should pass the value for either the `Linear` or `Nonlinear` `AdParameter`
-	element specified in the VAST document.
-		- {{CreativeData/adParameters}}: ad parameters from VAST, or an empty string
-			if unknown
-		- {{CreativeData/adId}}: the ID of the ad from VAST, or an empty string if
-			unknown
-		- {{CreativeData/creativeId}}: the ID from the creative or an empty string
-			if unknown
-		- {{CreativeData/adServingId}}: Quasi-unique id generated by ad server and
-			passed through all 1st and 3rd party reporting to facilitate the marriage
-			of impression-level data across multiple reporting systems. In VAST 4.1
-			and later this id is provided in the `AdServingID` node.
-
-- {{Ad/initAd(creativeData, envData)/envData}}: object used for passing
-	implementation-specific runtime variables. {{EnvironmentData}} is used to pass
-	information associated with the publisher playback environment. The object
-	should have the following fields.
-		- {{EnvironmentData/slot}}: the container where the ad renders. For HTML5,
-			this should be a div.
-		- {{EnvironmentData/videoProxy}}: an implementation of the {{VideoProxy}}
-			interface given in this spec
-		- {{EnvironmentData/width}}: indicates the display area width in pixels
-		- {{EnvironmentData/height}}: indicates the display area height in pixels
-		- {{EnvironmentData/viewMode}}: indicates the view mode for the video player
-			as defined by the publisher. Must be one of the values of the {{ViewMode}}
-			enum.
-			  - {{ViewMode/normal}}
-			  - {{ViewMode/thumbnail}}
-			  - {{ViewMode/fullscreen}}
-		- {{EnvironmentData/fullscreenAllowed}}: primarily used to choose to display
-			or not display a fullscreen option
-		- {{EnvironmentData/variableDurationAllowed}}: If set to true the player
-			must allow the SIVIC creative to pause player-controlled video playback
-			during the ad. If `false` it will not (live streaming is a use case). An
-			example use case here is a clickthru overlays, where `variableDuration`
-			(ad requirement) is `false`, but
-			{{EnvironmentData/variableDurationAllowed}} (publisher capability) can be
-			`true` or `false`. It should not be used in any case where disallowing the
-			pause interferes with the ad KPIs (for example if it can interfere with
-			completions, time spent in an interactive component, etc).
-		- {{EnvironmentData/skippableState}}: indicates whether the ad may be
-			skippable and which party controls the skippability, must be one of the
-			{{SkippableState}} enum values.
-			  - {{SkippableState/playerHandles}}: The player will render a skip button
-			    and might skip the ad.
-			  - {{SkippableState/adHandles}}: The ad may or may not render a skip
-			    button.
-			  - {{SkippableState/notSkippable}}: The ad cannot be skipped and the
-			    SIVIC creative should not render a skip button. This may be common in
-			    DAI for live streams.
-		- {{EnvironmentData/siteUrl}}: indicating the website the ad will play on,
-			for example if the site was `www.xyz.com/videoId`, this information would
-			include at least `www.xyz.com`. The player may give more information.
-			Desired for reporting and troubleshooting.
-		- {{EnvironmentData/appId}}: the id of the app if applicable
-		- {{EnvironmentData/sdkName}}: the name of an SDK implementing SIVIC
-			creative playback (if applicable)
-		- {{EnvironmentData/sdkVersion}}: an SDK version (if applicable)
-		- {{EnvironmentData/deviceId}}: IDFA or AAID would be used primarily for 3rd
-			party tracking of custom events
-
-The video file (specified in VAST) will be loaded by the player.
-
-To assist in preloading assets the {{Ad/initAd()}} function must be called
-first. The player should call this function early enough before playback so that
-assets can be displayed as soon as the ad starts.
-
-The ad, however, should not assume that it has any amount of time between the
-{{Ad/initAd()}} call and the {{Ad/startAd}} call. For example a preroll might
-call {{Ad/startAd}} immediately after {{Ad/initAd()}}. Nothing should be
-displayed by the SIVIC creative until {{Ad/startAd}} is called.
 
 ## How to Handle Ad Playback ## {#api-ad-playback}
 
 The video player is responsible for handling playback of the video as well as
 tracking video related events. The SIVIC creative on the other hand handles
 playback of interactive content and internal tracking related to interactivity
-(custom events, creative impression if desired (recommended)). The SIVIC
-creative should use the {{VideoProxy}} to modify the video stream in any way,
-and to subscribe to video playback related events.
+(custom events, creative impression if desired (recommended)).
 
 ### Ad Pause ### {#api-ad-pause}
 
 If the {{EnvironmentData/variableDurationAllowed}} flag is set to `true` then
-the {{VideoProxy}} should enable video pause by the SIVIC creative via the
-{{VideoProxy/pause}} function. The {{VideoProxy}} must respond to
-{{VideoProxy/pause}} with the `AdPaused` event.
+the player should enable video pause by the SIVIC creative via the
+SIVIC:Creative:requestPause message. The player must respond to
+SIVIC:Creative:requestPause with the `AdPaused` event.
 
 When the SIVIC creative would like to resume video playback, it should call the
-{{VideoProxy/resume}} function on the {{VideoProxy}}. The {{VideoProxy}} must
-respond to {{VideoProxy/resume}} with the `AdPlaying` event.
-
-### Ad Quartiles and Playback Events ### {#api-quartiles}
-
-The {{VideoProxy}} must dispatch quartiles and playback events.
-
-The SIVIC creative may subscribe to any video playback events dispatched by the
-{{VideoProxy}} (`AdVideoStarted`, `AdImpression`, `AdFirstQuartile`,
-	`AdSecondQuartile`, `AdThirdQuartile`, `AdVideoComplete`)
-
-Issue: consider renaming `AdSecondQuartile` to `AdMidpoint` to match VPAID
-
-The SIVIC creative at any time may poll the {{VideoProxy}} for playhead location
-relative to the beginning of the ad, which must be accurate and up to date at
-all times.
-
-Issue: how can accurateness be guaranteed across an async secure iframe?
+SIVIC:Creative:requestPlay message. The player must
+respond to SIVIC:Creative:requestPlay message with resolve and play the video.
 
 ### Ad Resizing and Fullscreen ### {#api-resizing}
 
 Issue: can width / height coordination not be done through the iframe width
 height, which would not require any API?
 
-The {{VideoProxy}} has the {{VideoProxy/resize(width, height)}} method which
-changes only the size of the video. The {{VideoProxy}} also has
-{{VideoProxy/setLocation(x, y)}} which positions the video relative to the top
-left corner of the ad slot.
-
-The player may resize the ad slot. The player must call {{Ad/resizeAd(width,
-height, viewMode)}} any time the ad slot size is changed.
+The player may resize the ad slot. The player must call [[#sivic-player-resize]] any time the ad slot size is changed.
 
 If {{EnvironmentData/fullscreenAllowed}} is `true`, the SIVIC creative may
-invoke the {{VideoProxy/fullscreen}} method. The player must resize only the ad
+call the [[#sivic-creative-requestFullScreen]] method. The player must resize only the ad
 slot to fullscreen (not the video). The SIVIC creative then will resize the
-video as it sees fit. The player must call {{Ad/resizeAd(width, height,
-viewMode)}} on the SIVIC creative with {{Ad/resizeAd(width, height,
-viewMode)/viewMode}} set to {{ViewMode/fullscreen}} and {{Ad/resizeAd(width,
-height, viewMode)/width}} and {{Ad/resizeAd(width, height, viewMode)/height}}
-set to the full screen dimensions.
+video as it sees fit. The player must call [[#sivic-player-resize]] on the SIVIC creative
+with {{resizeParameters/fullScreen}} set to `true` and {{resizeParameters/width}} and
+{{resizeParameters/width}} set to the full screen dimensions.
 
-If player goes fullscreen on its own, it must also call {{Ad/resizeAd(width,
-height, viewMode)}} on the SIVIC creative with {{Ad/resizeAd(width, height,
-viewMode)/viewMode}} set to {{ViewMode/fullscreen}} and {{Ad/resizeAd(width,
-height, viewMode)/width}} and {{Ad/resizeAd(width, height, viewMode)/height}}
-set to the full screen dimensions. It must only resize the ad slot.
+If player goes fullscreen on its own. Then the player must call [[#sivic-player-resize]] on the SIVIC creative
+with {{resizeParameters/fullScreen}} set to `true` and {{resizeParameters/width}} and
+{{resizeParameters/width}} set to the full screen dimensions.
 
-Issue(10): should the player not also resize the video slot?
-
-### Ad Volume ### {#api-volume}
-
-The volume set on the {{VideoProxy}} should be respected by the ad unit when
-initialized.
+Issue: should the player not also resize the video slot?
 
 ## How to Handle Ad End and Unload ## {#api-end}
 
-There are three cases where an ad has ended:
-1. Ad was skipped, either by player or internally by the ad (if the ad contains
+Following are cases where ad can end:
+1. Ad was skipped, either by player or creative (if the ad contains
 	the skip button). See [[#api-skip]].
-2. Ad has fired `AdStopped` event, either in response to {{Ad/stopAd}} or after
-	ad experience has ended.
+2. The creative has fired [[#sivic-creative-requestStop]] message and the player has allowed the ad to stop.
+3. The player has fired [[#sivic-player-adStopped]] message and the creative resolved.
 3. Ad errors out. See [[#api-error]].
 
 ### Ad Skips ### {#api-skip}
 
 **Skip Ad Handled by Player**
-1. The player calls {{Ad/skipAd}} on the ad.
-2. The ad dispatches `AdSkipped`.
-3. The player fires any skip tracking pixels.
-4. The ad cleans up and dispatches `AdStopped`.
-5. The player unloads the ad.
+1. The player calls [[#sivic-player-adSkipped]] on the ad.
+2. The player hides the creative.
+3. The creative may dispatch any tracking pixels via [[#sivic-creative-reportTracking]]
+3. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
+4. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-adSkipped-resolve]].
+5. The player fires any skip tracking pixels.
+6. The player unloads the ad.
 
 **Skip Ad Handled by Ad**
-1. The ad dispatches `AdSkipped`.
-2. The player fires any skip tracking pixels.
-3. The ad cleans up and dispatches `AdStopped`.
-4. The player unloads the ad.
-
-Issue: the {{Ad}} interface currently does not offer any event registration
-system for the player to register handlers
+1. The creative dispatches [[#sivic-creative-requestSkip]].
+2. The player dispatches resolves the to the `requestSkip` message.
+3. The player follows all the steps in `Skip Ad Handled by Player`.
 
 ### Ad Ends Before Video Completion ### {#api-end-before-complete}
 
 This scenario applies when the ad chooses to signal the player to kill it,
 typically at the prompting of the viewer. A good example would be a survey that
 allows the viewer to skip immediately to content when completed.
-1. The ad cleans up and dispatches `AdStopped`.
+1. The ad cleans up and dispatches [[#sivic-creative-requestStop]].
 2. The player unloads the ad.
 
 ### Ad Extends Beyond Video Completion ### {#api-extend}
@@ -463,22 +856,22 @@ This scenario is only possible when the
 duration must only be extended in response to user interaction.
 1. User interacts at any point during playback of the video, triggering extended
 	ad portion.
-2. Ad dispatches `AdDurationChange` event, and exposes the new duration of the
-	ad via the {{Ad/adDuration}} property (if the extended version is `x` seconds
-	then {{Ad/adDuration}} would be `videoProxy.duration + x`).
-3. The {{VideoProxy}} dispatches `AdVideoComplete` event.
-4. The ad enters its extended phase.
-5. The ad dispatches `AdStopped` when extended phase is finished.
+2. The Creative dispatches [[#sivic-creative-requestChangeAdDuration]] message with the new duration.
+3. The ad enters its extended phase.
+4. The creative dispatches [[#sivic-creative-requestStop]] when extended phase is finished.
 
-Issue: clarify the value of the {{Ad/adDuration}} property as the current text
+Issue: clarify the value of the `duration` property as the current text
 does not seem to make much sense
 
 ### Ad Completes at Video Completion ### {#api-complete}
 
 When an ad finishes at the same time as its video.
-1. Proxy video element raises the `AdVideoComplete` event upon video completion.
-2. Player calls {{Ad/stopAd}}
-3. Ad dispatches `AdStopped` event after it cleans up.
+1. The player calls [[#sivic-player-adStopped]] on the ad.
+2. The player hides the creative.
+3. The creative may dispatch any tracking pixels via [[#sivic-creative-reportTracking]]
+3. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
+4. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-adStopped-resolve]].
+5. The player unloads the ad.
 
 ### Ad Errors Out ### {#api-error}
 
@@ -486,31 +879,31 @@ The SIVIC creative or the player may terminate the ad unit with an error at any
 time. If the SIVIC creative indicates an error, the player should try to stop ad
 unit playback. This might not be possible in server side stitched ads.
 
-The player should terminate the ad with an error if the version returned by
-{{Ad/handshakeVersion()}} is not supported.
+The player may error out if the ad does not respond with [[#sivic-creative-ready]] and
+[[#sivic-player-init-resolve]] in a reasonable amount of time.
 
-The player may error out if the ad does not respond with `AdLoaded` and
-`AdStarted` in a reasonable amount of time.
-
-When an ad errors out it must follow these steps.
-1. The {{Ad}} will dispatch `AdError(errorCode, errorMessage)`
-2. The player calls {{Ad/stopAd}} on the {{Ad}}.
-3. The {{Ad}} dispatches `AdStopped` when it is done cleaning up.
+When an player errors out it must follow these steps.
+1. The player calls [[#sivic-player-fatalError]] on the ad.
+2. The player hides the creative.
+3. The creative may dispatch any tracking pixels via [[#sivic-creative-reportTracking]]
+3. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
+4. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-fatalError-resolve]].
+5. The player unloads the ad.
 
 ### Additional Notes ### {#api-notes}
 
-The player may call {{Ad/stopAd}} at any time. The creative should respond with
-`AdStopped` after finishing its ad end logic. The player should allow 1 second
-between calling {{Ad/stopAd}} and receiving `AdStopped`. The implementer of the
-SDK should take into consideration that dropping a SIVIC ad unit before it has
-dispatched `AdStopped` may result in discrepancies, and that calling
-{{Ad/stopAd}} before the ad experience has ended (which is AFTER the optional
+The player may call [[#sivic-player-adStopped]] at any time. The creative should respond with
+`resolved` after finishing its ad end logic. The player should allow 1 second
+between calling [[#sivic-player-adStopped]] and receiving `resolved`. The implementer of the
+player should take into consideration that dropping a SIVIC ad unit before it has
+dispatched `resolved` may result in tracking discrepancies, and that calling
+[[#sivic-player-adStopped]] before the ad experience has ended (which is AFTER the optional
 lean-in phase) could harm the overall ad experience.
 
-The SIVIC creative may also dispatch `AdStopped` at any time, signaling to the
+The SIVIC creative may also dispatch [[#sivic-creative-requestStop]] at any time, signaling to the
 player that the ad has finished and unloaded. Any further interaction with the
-SIVIC creative after `AdStopped` may not result in the desired outcome. The same
-is true for `AdError`.
+SIVIC creative after `requestStop` may not result in the desired outcome. The same
+is true for `fatalError`.
 
 # Protocol Details # {#protocol}
 
@@ -551,60 +944,10 @@ call, so the ad can respond with an object that matches the requested API
 : {{Ad/adDuration}}
 :: The full duration of the ad experience, including video and extended features
 
-### VideoProxy Interface ### {#object-video-proxy}
-
-<xmp class="idl">
-interface VideoProxy {
-	void removeEventListener(string eventName, any eventHandler);
-	void addEventListener(string eventName, any eventHandler);
-	void pause();
-	void fullscreen();
-	void resume();
-	void resize(float width, float height);
-	void setLocation(float x, float y);
-	readonly attribute float duration;
-	readonly attribute float currentTime;
-	readonly attribute float playbackRate;
-	readonly attribute boolean ended;
-	readonly attribute boolean paused;
-	readonly attribute boolean muted;
-	readonly attribute float volume;
-};
-</xmp>
-
 ### Creative Data ### {#object-creative-data}
 
-<xmp class="idl">
-dictionary CreativeData {
-	required string adParameters;
-	required string adId;
-	required string creativeId;
-	required string adServingId;
-};
-</xmp>
 
 ### Environment Data ### {#object-env-data}
-
-<xmp class="idl">
-dictionary EnvironmentData {
-	required DOMElement slot;
-	required VideoProxy videoProxy;
-	required float width;
-	required float height;
-	required ViewMode viewMode;
-	required boolean fullscreenAllowed;
-	required boolean variableDurationAllowed;
-	required SkippableState skippableState;
-	string siteUrl;
-	string appId;
-	string sdkName;
-	string sdkVersion;
-	string deviceId;
-};
-
-enum ViewMode {"normal", "thumbnail", "fullscreen"};
-enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
-</xmp>
 
 ## Error Handling and Timeouts ## {#errors}
 
@@ -614,6 +957,7 @@ If either the interactive ad or player wants to terminate with an error the play
 
 The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.
 
+### Error Codes ### {#error-codes}
 This table indicates defined SIVIC error codes the ad may fire:
 
 : <dfn>1101</dfn>
