@@ -271,11 +271,11 @@ parameters:
 - SIVIC:Tracking:otherAdInteraction  
 - SIVIC:Tracking:progress  
 - SIVIC:Tracking:closeLinear  
-- SIVIC:Tracking:fullscreen 
-- SIVIC:Tracking:exitFullscreen 
-- SIVIC:Tracking:expand 
-- SIVIC:Tracking:collapse 
-- SIVIC:Tracking:clickThrough 
+- SIVIC:Tracking:fullscreen
+- SIVIC:Tracking:exitFullscreen
+- SIVIC:Tracking:expand
+- SIVIC:Tracking:collapse
+- SIVIC:Tracking:clickThrough
 - SIVIC:Tracking:clickTracking
 - SIVIC:Tracking:customClick
 
@@ -346,7 +346,7 @@ parameters:
 - muted(boolean): corresponds exactly to video element muted attribute
 - paused(boolean): corresponds exactly to video element paused attribute
 - volume(number): corresponds exactly to video element volume attribute
-- fullscreen(boolean): true if the video element is full screen, false otherwise	
+- fullscreen(boolean): true if the video element is full screen, false otherwise
 
 Issue: should we also include video element location and size here?
 
@@ -395,7 +395,7 @@ dictionary creativeDimensions {
 };
 </xmp>
 
-The {{videoDimensions}} communicate to the creative the dimensions of the video element. 
+The {{videoDimensions}} communicate to the creative the dimensions of the video element.
 The {{creativeDimensions}} tell the creative where the iframe is located as well as its dimensions.  If the iframe is
 not yet visible (like during initialization) these dimensions will be the expected dimensions when it does become visible.
 
@@ -541,7 +541,7 @@ Issue: These codes need to be defined.
 The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
 before unloading the creative iframe.
-	
+
 - errorCode(int): reason for error.  See [[#error-codes]]
 - errorMessage(string): Any additional information.
 
@@ -751,6 +751,8 @@ Another attribute of the `InteractiveCreativeFile` is `variableDuration` which
 identifies whether the ad always drops when the duration is reached, or if it
 can potentially extend the duration by pausing the underlying video or delaying
 the `adStopped` event after `adVideoComplete`.
+
+# Common Workflows # {#common-workflows}
 
 ## How to Handle Ad Loading ## {#api-ad-loading}
 

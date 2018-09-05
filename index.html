@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version b740b15097946bf1d13405dc6d7ca5a72fa2530d" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
-  <meta content="98b82b31f7bbcb0d3d95a5b92bf86d29ffbefa62" name="document-revision">
+  <meta content="8ef8c1efd981a0f1e967b8caefe293277905e0e8" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1425,7 +1425,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-21">21 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-09-05">5 September 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1440,7 +1440,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 21 August 2018,
+In addition, as of 5 September 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1633,46 +1633,50 @@ Parts of this work may be from another specification document.  If so, those par
          </ol>
        </ol>
       <li><a href="#api-vast"><span class="secno">4.8</span> <span class="content">Referencing a SIVIC creative from VAST</span></a>
-      <li><a href="#api-ad-loading"><span class="secno">4.9</span> <span class="content">How to Handle Ad Loading</span></a>
+     </ol>
+    <li>
+     <a href="#common-workflows"><span class="secno">5</span> <span class="content">Common Workflows</span></a>
+     <ol class="toc">
+      <li><a href="#api-ad-loading"><span class="secno">5.1</span> <span class="content">How to Handle Ad Loading</span></a>
       <li>
-       <a href="#api-ad-playback"><span class="secno">4.10</span> <span class="content">How to Handle Ad Playback</span></a>
+       <a href="#api-ad-playback"><span class="secno">5.2</span> <span class="content">How to Handle Ad Playback</span></a>
        <ol class="toc">
-        <li><a href="#api-ad-pause"><span class="secno">4.10.1</span> <span class="content">Ad Pause</span></a>
-        <li><a href="#api-resizing"><span class="secno">4.10.2</span> <span class="content">Ad Resizing and Fullscreen</span></a>
+        <li><a href="#api-ad-pause"><span class="secno">5.2.1</span> <span class="content">Ad Pause</span></a>
+        <li><a href="#api-resizing"><span class="secno">5.2.2</span> <span class="content">Ad Resizing and Fullscreen</span></a>
        </ol>
       <li>
-       <a href="#api-end"><span class="secno">4.11</span> <span class="content">How to Handle Ad End and Unload</span></a>
+       <a href="#api-end"><span class="secno">5.3</span> <span class="content">How to Handle Ad End and Unload</span></a>
        <ol class="toc">
-        <li><a href="#api-skip"><span class="secno">4.11.1</span> <span class="content">Ad Skips</span></a>
-        <li><a href="#api-end-before-complete"><span class="secno">4.11.2</span> <span class="content">Ad Ends Before Video Completion</span></a>
-        <li><a href="#api-extend"><span class="secno">4.11.3</span> <span class="content">Ad Extends Beyond Video Completion</span></a>
-        <li><a href="#api-complete"><span class="secno">4.11.4</span> <span class="content">Ad Completes at Video Completion</span></a>
-        <li><a href="#api-error"><span class="secno">4.11.5</span> <span class="content">Ad Errors Out</span></a>
-        <li><a href="#api-notes"><span class="secno">4.11.6</span> <span class="content">Additional Notes</span></a>
+        <li><a href="#api-skip"><span class="secno">5.3.1</span> <span class="content">Ad Skips</span></a>
+        <li><a href="#api-end-before-complete"><span class="secno">5.3.2</span> <span class="content">Ad Ends Before Video Completion</span></a>
+        <li><a href="#api-extend"><span class="secno">5.3.3</span> <span class="content">Ad Extends Beyond Video Completion</span></a>
+        <li><a href="#api-complete"><span class="secno">5.3.4</span> <span class="content">Ad Completes at Video Completion</span></a>
+        <li><a href="#api-error"><span class="secno">5.3.5</span> <span class="content">Ad Errors Out</span></a>
+        <li><a href="#api-notes"><span class="secno">5.3.6</span> <span class="content">Additional Notes</span></a>
        </ol>
      </ol>
     <li>
-     <a href="#protocol"><span class="secno">5</span> <span class="content">Protocol Details</span></a>
+     <a href="#protocol"><span class="secno">6</span> <span class="content">Protocol Details</span></a>
      <ol class="toc">
       <li>
-       <a href="#objects"><span class="secno">5.1</span> <span class="content">Objects</span></a>
+       <a href="#objects"><span class="secno">6.1</span> <span class="content">Objects</span></a>
        <ol class="toc">
-        <li><a href="#entry-point"><span class="secno">5.1.1</span> <span class="content">Entry Point</span></a>
-        <li><a href="#object-ad"><span class="secno">5.1.2</span> <span class="content">Ad Interface</span></a>
-        <li><a href="#object-creative-data"><span class="secno">5.1.3</span> <span class="content">Creative Data</span></a>
-        <li><a href="#object-env-data"><span class="secno">5.1.4</span> <span class="content">Environment Data</span></a>
+        <li><a href="#entry-point"><span class="secno">6.1.1</span> <span class="content">Entry Point</span></a>
+        <li><a href="#object-ad"><span class="secno">6.1.2</span> <span class="content">Ad Interface</span></a>
+        <li><a href="#object-creative-data"><span class="secno">6.1.3</span> <span class="content">Creative Data</span></a>
+        <li><a href="#object-env-data"><span class="secno">6.1.4</span> <span class="content">Environment Data</span></a>
        </ol>
       <li>
-       <a href="#errors"><span class="secno">5.2</span> <span class="content">Error Handling and Timeouts</span></a>
+       <a href="#errors"><span class="secno">6.2</span> <span class="content">Error Handling and Timeouts</span></a>
        <ol class="toc">
-        <li><a href="#error-codes"><span class="secno">5.2.1</span> <span class="content">Error Codes</span></a>
+        <li><a href="#error-codes"><span class="secno">6.2.1</span> <span class="content">Error Codes</span></a>
        </ol>
-      <li><a href="#ad-completion"><span class="secno">5.3</span> <span class="content">Ad Completion</span></a>
+      <li><a href="#ad-completion"><span class="secno">6.3</span> <span class="content">Ad Completion</span></a>
      </ol>
-    <li><a href="#security"><span class="secno">6</span> <span class="content">Security</span></a>
-    <li><a href="#examples"><span class="secno">7</span> <span class="content">Examples</span></a>
-    <li><a href="#lang-specific"><span class="secno">8</span> <span class="content">Language-Specific Implementation Details</span></a>
-    <li><a href="#terminology"><span class="secno">9</span> <span class="content">Terminology</span></a>
+    <li><a href="#security"><span class="secno">7</span> <span class="content">Security</span></a>
+    <li><a href="#examples"><span class="secno">8</span> <span class="content">Examples</span></a>
+    <li><a href="#lang-specific"><span class="secno">9</span> <span class="content">Language-Specific Implementation Details</span></a>
+    <li><a href="#terminology"><span class="secno">10</span> <span class="content">Terminology</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -1889,7 +1893,7 @@ mechanisms should also be in place should the ad unit fail to follow specified
 protocols correctly. For example, if the video player does not receive the
 AdStopped event from an ad unit after sending a call to <code class="idl"><a data-link-type="idl" href="#dom-ad-stopad" id="ref-for-dom-ad-stopad">stopAd</a></code>, the video
 player should be prepared to react appropriately.</p>
-   <p><a href="#ad-completion">§5.3 Ad Completion</a> provides details on error handling and recommended recovery
+   <p><a href="#ad-completion">§6.3 Ad Completion</a> provides details on error handling and recommended recovery
 action for specific timeout situations.</p>
    <h4 class="heading settled" data-level="3.7.1" id="displaying-creative"><span class="secno">3.7.1. </span><span class="content">Displaying Ad Unit Creative</span><a class="self-link" href="#displaying-creative"></a></h4>
    <p>The video advertising industry expects that an impression has indicated that an
@@ -2265,7 +2269,7 @@ possible. Regardless of if playback is stopped the player should hide the creati
 before unloading the creative iframe. 
    <ul>
     <li data-md="">
-     <p>errorCode(int): reason for error.  See <a href="#error-codes">§5.2.1 Error Codes</a></p>
+     <p>errorCode(int): reason for error.  See <a href="#error-codes">§6.2.1 Error Codes</a></p>
     <li data-md="">
      <p>errorMessage(string): Any additional information.</p>
    </ul>
@@ -2293,7 +2297,7 @@ parameters:
     <li data-md="">
      <p>reason (string): An optional string error message.</p>
     <li data-md="">
-     <p>errorCode (int): the code for why the creative won’t play. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
+     <p>errorCode (int): the code for why the creative won’t play. See <a href="#error-codes">§6.2.1 Error Codes</a></p>
    </ul>
    <h4 class="heading settled" data-level="4.5.3" id="sivic-creative-requestSkip-response"><span class="secno">4.5.3. </span><span class="content">Response To SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip-response"></a></h4>
    <h5 class="heading settled" data-level="4.5.3.1" id="sivic-creative-requestSkip-resolve"><span class="secno">4.5.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestSkip-resolve"></a></h5>
@@ -2349,7 +2353,7 @@ should not block waiting for a response from the site.
     <li data-md="">
      <p>reason(string): An optional string error message</p>
     <li data-md="">
-     <p>errorCode(int): The code for why the player did not attempt to send a tracking pixel.  See <a href="#error-codes">§5.2.1 Error Codes</a></p>
+     <p>errorCode(int): The code for why the player did not attempt to send a tracking pixel.  See <a href="#error-codes">§6.2.1 Error Codes</a></p>
    </ul>
    <h3 class="heading settled" data-level="4.6" id="creative-messages"><span class="secno">4.6. </span><span class="content">Messages from the Creative to the Player</span><a class="self-link" href="#creative-messages"></a></h3>
     All functions should be prepended with SIVIC:Creative 
@@ -2372,7 +2376,7 @@ If the video ad continues to play the iframe should still be unloaded.
    <p>parameters:</p>
    <ul>
     <li data-md="">
-     <p>errorCode(int): reason for error. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
+     <p>errorCode(int): reason for error. See <a href="#error-codes">§6.2.1 Error Codes</a></p>
     <li data-md="">
      <p>errorMessage(string): Any optional additional information about the fatal error.</p>
    </ul>
@@ -2427,7 +2431,7 @@ in response to a user initiated click through.
     <li data-md="">
      <p>reason(string): An optional string error message</p>
     <li data-md="">
-     <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
+     <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§6.2.1 Error Codes</a></p>
    </ul>
    <h4 class="heading settled" data-level="4.7.2" id="sivic-player-startCreative-response"><span class="secno">4.7.2. </span><span class="content">Response To SIVIC:Player:startCreative</span><a class="self-link" href="#sivic-player-startCreative-response"></a></h4>
    <h5 class="heading settled" data-level="4.7.2.1" id="sivic-player-startCreative-resolve"><span class="secno">4.7.2.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-startCreative-resolve"></a></h5>
@@ -2437,7 +2441,7 @@ in response to a user initiated click through.
     <li data-md="">
      <p>reason(string): An optional string error message</p>
     <li data-md="">
-     <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
+     <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§6.2.1 Error Codes</a></p>
    </ul>
    <h4 class="heading settled" data-level="4.7.3" id="sivic-player-adSkipped-response"><span class="secno">4.7.3. </span><span class="content">Response To SIVIC:Player:adSkipped</span><a class="self-link" href="#sivic-player-adSkipped-response"></a></h4>
    <h5 class="heading settled" data-level="4.7.3.1" id="sivic-player-adSkipped-resolve"><span class="secno">4.7.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-adSkipped-resolve"></a></h5>
@@ -2456,7 +2460,8 @@ Version information should be handled by the<a href="#sivic-creative-ready-respo
 identifies whether the ad always drops when the duration is reached, or if it
 can potentially extend the duration by pausing the underlying video or delaying
 the <code>adStopped</code> event after <code>adVideoComplete</code>.</p>
-   <h3 class="heading settled" data-level="4.9" id="api-ad-loading"><span class="secno">4.9. </span><span class="content">How to Handle Ad Loading</span><a class="self-link" href="#api-ad-loading"></a></h3>
+   <h2 class="heading settled" data-level="5" id="common-workflows"><span class="secno">5. </span><span class="content">Common Workflows</span><a class="self-link" href="#common-workflows"></a></h2>
+   <h3 class="heading settled" data-level="5.1" id="api-ad-loading"><span class="secno">5.1. </span><span class="content">How to Handle Ad Loading</span><a class="self-link" href="#api-ad-loading"></a></h3>
    <p>The player must follow this workflow for loading an ad.</p>
    <ol>
     <li data-md="">
@@ -2479,14 +2484,14 @@ slot. The ad will call <code>AdLoaded</code> when done loading.</p>
     <li data-md="">
      <p>Player waits for video to start buffering, or for point in stream of video
 start. Player calls <code class="idl"><a data-link-type="idl" href="#dom-ad-startad" id="ref-for-dom-ad-startad">startAd</a></code> and wait for <code>AdStarted</code>. If <code>AdStarted</code> is not immediately fired, the player should assume that there was an error
-(see <a href="#errors">§5.2 Error Handling and Timeouts</a>).</p>
+(see <a href="#errors">§6.2 Error Handling and Timeouts</a>).</p>
    </ol>
-   <h3 class="heading settled" data-level="4.10" id="api-ad-playback"><span class="secno">4.10. </span><span class="content">How to Handle Ad Playback</span><a class="self-link" href="#api-ad-playback"></a></h3>
+   <h3 class="heading settled" data-level="5.2" id="api-ad-playback"><span class="secno">5.2. </span><span class="content">How to Handle Ad Playback</span><a class="self-link" href="#api-ad-playback"></a></h3>
    <p>The video player is responsible for handling playback of the video as well as
 tracking video related events. The SIVIC creative on the other hand handles
 playback of interactive content and internal tracking related to interactivity
 (custom events, creative impression if desired (recommended)).</p>
-   <h4 class="heading settled" data-level="4.10.1" id="api-ad-pause"><span class="secno">4.10.1. </span><span class="content">Ad Pause</span><a class="self-link" href="#api-ad-pause"></a></h4>
+   <h4 class="heading settled" data-level="5.2.1" id="api-ad-pause"><span class="secno">5.2.1. </span><span class="content">Ad Pause</span><a class="self-link" href="#api-ad-pause"></a></h4>
    <p>If the <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed②">variableDurationAllowed</a></code> flag is set to <code>true</code> then
 the player should enable video pause by the SIVIC creative via the
 SIVIC:Creative:requestPause message. The player must respond to
@@ -2494,7 +2499,7 @@ SIVIC:Creative:requestPause with the <code>AdPaused</code> event.</p>
    <p>When the SIVIC creative would like to resume video playback, it should call the
 SIVIC:Creative:requestPlay message. The player must
 respond to SIVIC:Creative:requestPlay message with resolve and play the video.</p>
-   <h4 class="heading settled" data-level="4.10.2" id="api-resizing"><span class="secno">4.10.2. </span><span class="content">Ad Resizing and Fullscreen</span><a class="self-link" href="#api-resizing"></a></h4>
+   <h4 class="heading settled" data-level="5.2.2" id="api-resizing"><span class="secno">5.2.2. </span><span class="content">Ad Resizing and Fullscreen</span><a class="self-link" href="#api-resizing"></a></h4>
    <p class="issue" id="issue-6ed90d5c"><a class="self-link" href="#issue-6ed90d5c"></a> can width / height coordination not be done through the iframe width
 height, which would not require any API?</p>
    <p>The player may resize the ad slot. The player must call <a href="#sivic-player-resize">§4.4.1 SIVIC:Player:resize</a> any time the ad slot size is changed.</p>
@@ -2506,20 +2511,20 @@ with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fulls
    <p>If player goes fullscreen on its own. Then the player must call <a href="#sivic-player-resize">§4.4.1 SIVIC:Player:resize</a> on the SIVIC creative
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen③">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl">width</a></code> and <code class="idl"><a data-link-type="idl">width</a></code> set to the full screen dimensions.</p>
    <p class="issue" id="issue-eea3696d"><a class="self-link" href="#issue-eea3696d"></a> should the player not also resize the video slot?</p>
-   <h3 class="heading settled" data-level="4.11" id="api-end"><span class="secno">4.11. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#api-end"></a></h3>
+   <h3 class="heading settled" data-level="5.3" id="api-end"><span class="secno">5.3. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#api-end"></a></h3>
    <p>Following are cases where ad can end:</p>
    <ol>
     <li data-md="">
      <p>Ad was skipped, either by player or creative (if the ad contains
-the skip button). See <a href="#api-skip">§4.11.1 Ad Skips</a>.</p>
+the skip button). See <a href="#api-skip">§5.3.1 Ad Skips</a>.</p>
     <li data-md="">
      <p>The creative has fired <a href="#sivic-creative-requestStop">§4.6.3 SIVIC:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
     <li data-md="">
      <p>The player has fired <a href="#sivic-player-adStopped">§4.4.5 SIVIC:Player:adStopped</a> message and the creative resolved.</p>
     <li data-md="">
-     <p>Ad errors out. See <a href="#api-error">§4.11.5 Ad Errors Out</a>.</p>
+     <p>Ad errors out. See <a href="#api-error">§5.3.5 Ad Errors Out</a>.</p>
    </ol>
-   <h4 class="heading settled" data-level="4.11.1" id="api-skip"><span class="secno">4.11.1. </span><span class="content">Ad Skips</span><a class="self-link" href="#api-skip"></a></h4>
+   <h4 class="heading settled" data-level="5.3.1" id="api-skip"><span class="secno">5.3.1. </span><span class="content">Ad Skips</span><a class="self-link" href="#api-skip"></a></h4>
    <p><strong>Skip Ad Handled by Player</strong></p>
    <ol>
     <li data-md="">
@@ -2546,7 +2551,7 @@ the skip button). See <a href="#api-skip">§4.11.1 Ad Skips</a>.</p>
     <li data-md="">
      <p>The player follows all the steps in <code>Skip Ad Handled by Player</code>.</p>
    </ol>
-   <h4 class="heading settled" data-level="4.11.2" id="api-end-before-complete"><span class="secno">4.11.2. </span><span class="content">Ad Ends Before Video Completion</span><a class="self-link" href="#api-end-before-complete"></a></h4>
+   <h4 class="heading settled" data-level="5.3.2" id="api-end-before-complete"><span class="secno">5.3.2. </span><span class="content">Ad Ends Before Video Completion</span><a class="self-link" href="#api-end-before-complete"></a></h4>
    <p>This scenario applies when the ad chooses to signal the player to kill it,
 typically at the prompting of the viewer. A good example would be a survey that
 allows the viewer to skip immediately to content when completed.</p>
@@ -2556,7 +2561,7 @@ allows the viewer to skip immediately to content when completed.</p>
     <li data-md="">
      <p>The player unloads the ad.</p>
    </ol>
-   <h4 class="heading settled" data-level="4.11.3" id="api-extend"><span class="secno">4.11.3. </span><span class="content">Ad Extends Beyond Video Completion</span><a class="self-link" href="#api-extend"></a></h4>
+   <h4 class="heading settled" data-level="5.3.3" id="api-extend"><span class="secno">5.3.3. </span><span class="content">Ad Extends Beyond Video Completion</span><a class="self-link" href="#api-extend"></a></h4>
    <p>This scenario is only possible when the <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed③">variableDurationAllowed</a></code> flag is set to <code>true</code>. Video
 duration must only be extended in response to user interaction.</p>
    <ol>
@@ -2572,7 +2577,7 @@ ad portion.</p>
    </ol>
    <p class="issue" id="issue-75380958"><a class="self-link" href="#issue-75380958"></a> clarify the value of the <code>duration</code> property as the current text
 does not seem to make much sense</p>
-   <h4 class="heading settled" data-level="4.11.4" id="api-complete"><span class="secno">4.11.4. </span><span class="content">Ad Completes at Video Completion</span><a class="self-link" href="#api-complete"></a></h4>
+   <h4 class="heading settled" data-level="5.3.4" id="api-complete"><span class="secno">5.3.4. </span><span class="content">Ad Completes at Video Completion</span><a class="self-link" href="#api-complete"></a></h4>
    <p>When an ad finishes at the same time as its video.</p>
    <ol>
     <li data-md="">
@@ -2588,7 +2593,7 @@ does not seem to make much sense</p>
     <li data-md="">
      <p>The player unloads the ad.</p>
    </ol>
-   <h4 class="heading settled" data-level="4.11.5" id="api-error"><span class="secno">4.11.5. </span><span class="content">Ad Errors Out</span><a class="self-link" href="#api-error"></a></h4>
+   <h4 class="heading settled" data-level="5.3.5" id="api-error"><span class="secno">5.3.5. </span><span class="content">Ad Errors Out</span><a class="self-link" href="#api-error"></a></h4>
    <p>The SIVIC creative or the player may terminate the ad unit with an error at any
 time. If the SIVIC creative indicates an error, the player should try to stop ad
 unit playback. This might not be possible in server side stitched ads.</p>
@@ -2608,7 +2613,7 @@ unit playback. This might not be possible in server side stitched ads.</p>
     <li data-md="">
      <p>The player unloads the ad.</p>
    </ol>
-   <h4 class="heading settled" data-level="4.11.6" id="api-notes"><span class="secno">4.11.6. </span><span class="content">Additional Notes</span><a class="self-link" href="#api-notes"></a></h4>
+   <h4 class="heading settled" data-level="5.3.6" id="api-notes"><span class="secno">5.3.6. </span><span class="content">Additional Notes</span><a class="self-link" href="#api-notes"></a></h4>
    <p>The player may call <a href="#sivic-player-adStopped">§4.4.5 SIVIC:Player:adStopped</a> at any time. The creative should respond with <code>resolved</code> after finishing its ad end logic. The player should allow 1 second
 between calling <a href="#sivic-player-adStopped">§4.4.5 SIVIC:Player:adStopped</a> and receiving <code>resolved</code>. The implementer of the
 player should take into consideration that dropping a SIVIC ad unit before it has
@@ -2618,14 +2623,14 @@ lean-in phase) could harm the overall ad experience.</p>
 player that the ad has finished and unloaded. Any further interaction with the
 SIVIC creative after <code>requestStop</code> may not result in the desired outcome. The same
 is true for <code>fatalError</code>.</p>
-   <h2 class="heading settled" data-level="5" id="protocol"><span class="secno">5. </span><span class="content">Protocol Details</span><a class="self-link" href="#protocol"></a></h2>
-   <h3 class="heading settled" data-level="5.1" id="objects"><span class="secno">5.1. </span><span class="content">Objects</span><a class="self-link" href="#objects"></a></h3>
-   <h4 class="heading settled" data-level="5.1.1" id="entry-point"><span class="secno">5.1.1. </span><span class="content">Entry Point</span><a class="self-link" href="#entry-point"></a></h4>
+   <h2 class="heading settled" data-level="6" id="protocol"><span class="secno">6. </span><span class="content">Protocol Details</span><a class="self-link" href="#protocol"></a></h2>
+   <h3 class="heading settled" data-level="6.1" id="objects"><span class="secno">6.1. </span><span class="content">Objects</span><a class="self-link" href="#objects"></a></h3>
+   <h4 class="heading settled" data-level="6.1.1" id="entry-point"><span class="secno">6.1.1. </span><span class="content">Entry Point</span><a class="self-link" href="#entry-point"></a></h4>
 <pre class="idl highlight def"><span class="kt">partial</span> <span class="kt">interface</span> <span class="kt">mixin</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a> {
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject">SameObject</a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad">Ad</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Window" data-dfn-type="method" data-export="" data-lt="getSIVICAd()" id="dom-window-getsivicad"><code>getSIVICAd</code></dfn>();
 };
 </pre>
-   <h4 class="heading settled" data-level="5.1.2" id="object-ad"><span class="secno">5.1.2. </span><span class="content">Ad Interface</span><a class="self-link" href="#object-ad"></a></h4>
+   <h4 class="heading settled" data-level="6.1.2" id="object-ad"><span class="secno">6.1.2. </span><span class="content">Ad Interface</span><a class="self-link" href="#object-ad"></a></h4>
 <pre class="idl highlight def"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="ad"><code>Ad</code></dfn> {
   <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="handshakeVersion(supportedVersion)" id="dom-ad-handshakeversion"><code>handshakeVersion</code></dfn>(<a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/handshakeVersion(supportedVersion)" data-dfn-type="argument" data-export="" id="dom-ad-handshakeversion-supportedversion-supportedversion"><code>supportedVersion</code></dfn>);
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="initAd(creativeData, envData)" id="dom-ad-initad"><code>initAd</code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata①">CreativeData</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/initAd(creativeData, envData)" data-dfn-type="argument" data-export="" id="dom-ad-initad-creativedata-envdata-creativedata"><code>creativeData</code></dfn>, <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata①">EnvironmentData</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/initAd(creativeData, envData)" data-dfn-type="argument" data-export="" id="dom-ad-initad-creativedata-envdata-envdata"><code>envData</code></dfn>);
@@ -2651,13 +2656,13 @@ call, so the ad can respond with an object that matches the requested API</p>
     <dd data-md="">
      <p>The full duration of the ad experience, including video and extended features</p>
    </dl>
-   <h4 class="heading settled" data-level="5.1.3" id="object-creative-data"><span class="secno">5.1.3. </span><span class="content">Creative Data</span><a class="self-link" href="#object-creative-data"></a></h4>
-   <h4 class="heading settled" data-level="5.1.4" id="object-env-data"><span class="secno">5.1.4. </span><span class="content">Environment Data</span><a class="self-link" href="#object-env-data"></a></h4>
-   <h3 class="heading settled" data-level="5.2" id="errors"><span class="secno">5.2. </span><span class="content">Error Handling and Timeouts</span><a class="self-link" href="#errors"></a></h3>
+   <h4 class="heading settled" data-level="6.1.3" id="object-creative-data"><span class="secno">6.1.3. </span><span class="content">Creative Data</span><a class="self-link" href="#object-creative-data"></a></h4>
+   <h4 class="heading settled" data-level="6.1.4" id="object-env-data"><span class="secno">6.1.4. </span><span class="content">Environment Data</span><a class="self-link" href="#object-env-data"></a></h4>
+   <h3 class="heading settled" data-level="6.2" id="errors"><span class="secno">6.2. </span><span class="content">Error Handling and Timeouts</span><a class="self-link" href="#errors"></a></h3>
    <p>If the media cannot be played the player should terminate the ad and fire an error using the standard VAST errors.</p>
    <p>If either the interactive ad or player wants to terminate with an error the player should fire a 902 error. In cases where this is not possible like live server side ad insertion the player should remove the ad overlay and continue tracking quartiles and completion.</p>
    <p>The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.</p>
-   <h4 class="heading settled" data-level="5.2.1" id="error-codes"><span class="secno">5.2.1. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h4>
+   <h4 class="heading settled" data-level="6.2.1" id="error-codes"><span class="secno">6.2.1. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h4>
     This table indicates defined SIVIC error codes the ad may fire: 
    <dl>
     <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1101">1101<a class="self-link" href="#1101"></a></dfn>
@@ -2676,7 +2681,7 @@ were not what it received.</p>
      <p>Wrong handshake version.</p>
     <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1105">1105<a class="self-link" href="#1105"></a></dfn>
     <dd data-md="">
-     <p>Ad not playable on web site. The ad cannot play on the given site.</p>
+     <p>Ad not playable for a technical reason on this site.</p>
     <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1106">1106<a class="self-link" href="#1106"></a></dfn>
     <dd data-md="">
      <p>Request for expand not honored. The ad requested to expand but the
@@ -2710,11 +2715,11 @@ could not be more specific.</p>
     <dd data-md="">
      <p>Wrong handshake version.</p>
    </dl>
-   <h3 class="heading settled" data-level="5.3" id="ad-completion"><span class="secno">5.3. </span><span class="content">Ad Completion</span><a class="self-link" href="#ad-completion"></a></h3>
-   <h2 class="heading settled" data-level="6" id="security"><span class="secno">6. </span><span class="content">Security</span><a class="self-link" href="#security"></a></h2>
-   <h2 class="heading settled" data-level="7" id="examples"><span class="secno">7. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
-   <h2 class="heading settled" data-level="8" id="lang-specific"><span class="secno">8. </span><span class="content">Language-Specific Implementation Details</span><a class="self-link" href="#lang-specific"></a></h2>
-   <h2 class="heading settled" data-level="9" id="terminology"><span class="secno">9. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
+   <h3 class="heading settled" data-level="6.3" id="ad-completion"><span class="secno">6.3. </span><span class="content">Ad Completion</span><a class="self-link" href="#ad-completion"></a></h3>
+   <h2 class="heading settled" data-level="7" id="security"><span class="secno">7. </span><span class="content">Security</span><a class="self-link" href="#security"></a></h2>
+   <h2 class="heading settled" data-level="8" id="examples"><span class="secno">8. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
+   <h2 class="heading settled" data-level="9" id="lang-specific"><span class="secno">9. </span><span class="content">Language-Specific Implementation Details</span><a class="self-link" href="#lang-specific"></a></h2>
+   <h2 class="heading settled" data-level="10" id="terminology"><span class="secno">10. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <dl>
     <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-vast">SIVIC VAST<a class="self-link" href="#sivic-vast"></a></dfn>
     <dd data-md="">
@@ -2893,30 +2898,30 @@ primary video.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#1009">1009</a><span>, in §5.2.1</span>
-   <li><a href="#1010">1010</a><span>, in §5.2.1</span>
-   <li><a href="#1101">1101</a><span>, in §5.2.1</span>
-   <li><a href="#1102">1102</a><span>, in §5.2.1</span>
-   <li><a href="#1103">1103</a><span>, in §5.2.1</span>
-   <li><a href="#1104">1104</a><span>, in §5.2.1</span>
-   <li><a href="#1105">1105</a><span>, in §5.2.1</span>
-   <li><a href="#1106">1106</a><span>, in §5.2.1</span>
-   <li><a href="#1107">1107</a><span>, in §5.2.1</span>
-   <li><a href="#1108">1108</a><span>, in §5.2.1</span>
-   <li><a href="#1199">1199</a><span>, in §5.2.1</span>
-   <li><a href="#1201">1201</a><span>, in §5.2.1</span>
-   <li><a href="#1202">1202</a><span>, in §5.2.1</span>
-   <li><a href="#ad">Ad</a><span>, in §5.1.2</span>
-   <li><a href="#dom-ad-adduration">adDuration</a><span>, in §5.1.2</span>
+   <li><a href="#1009">1009</a><span>, in §6.2.1</span>
+   <li><a href="#1010">1010</a><span>, in §6.2.1</span>
+   <li><a href="#1101">1101</a><span>, in §6.2.1</span>
+   <li><a href="#1102">1102</a><span>, in §6.2.1</span>
+   <li><a href="#1103">1103</a><span>, in §6.2.1</span>
+   <li><a href="#1104">1104</a><span>, in §6.2.1</span>
+   <li><a href="#1105">1105</a><span>, in §6.2.1</span>
+   <li><a href="#1106">1106</a><span>, in §6.2.1</span>
+   <li><a href="#1107">1107</a><span>, in §6.2.1</span>
+   <li><a href="#1108">1108</a><span>, in §6.2.1</span>
+   <li><a href="#1199">1199</a><span>, in §6.2.1</span>
+   <li><a href="#1201">1201</a><span>, in §6.2.1</span>
+   <li><a href="#1202">1202</a><span>, in §6.2.1</span>
+   <li><a href="#ad">Ad</a><span>, in §6.1.2</span>
+   <li><a href="#dom-ad-adduration">adDuration</a><span>, in §6.1.2</span>
    <li><a href="#dom-skippablestate-adhandles">"adHandles"</a><span>, in §4.4.2</span>
-   <li><a href="#dom-ad-adheight">adHeight</a><span>, in §5.1.2</span>
+   <li><a href="#dom-ad-adheight">adHeight</a><span>, in §6.1.2</span>
    <li><a href="#dom-creativedata-adid">adId</a><span>, in §4.4.2</span>
    <li><a href="#dom-creativedata-adparameters">adParameters</a><span>, in §4.4.2</span>
    <li><a href="#dom-creativedata-adservingid">adServingId</a><span>, in §4.4.2</span>
-   <li><a href="#dom-ad-adwidth">adWidth</a><span>, in §5.1.2</span>
+   <li><a href="#dom-ad-adwidth">adWidth</a><span>, in §6.1.2</span>
    <li><a href="#dom-environmentdata-appid">appId</a><span>, in §4.4.2</span>
    <li><a href="#dom-creativedata-clickthruurl">clickThruUrl</a><span>, in §4.4.2</span>
-   <li><a href="#content-video">Content Video</a><span>, in §9</span>
+   <li><a href="#content-video">Content Video</a><span>, in §10</span>
    <li>
     CreativeData
     <ul>
@@ -2945,15 +2950,15 @@ primary video.</p>
      <li><a href="#dom-resizeparameters-fullscreen">dict-member for resizeParameters</a><span>, in §4.4.1</span>
     </ul>
    <li><a href="#dom-environmentdata-fullscreenallowed">fullscreenAllowed</a><span>, in §4.4.2</span>
-   <li><a href="#dom-window-getsivicad">getSIVICAd()</a><span>, in §5.1.1</span>
-   <li><a href="#dom-ad-handshakeversion">handshakeVersion(supportedVersion)</a><span>, in §5.1.2</span>
+   <li><a href="#dom-window-getsivicad">getSIVICAd()</a><span>, in §6.1.1</span>
+   <li><a href="#dom-ad-handshakeversion">handshakeVersion(supportedVersion)</a><span>, in §6.1.2</span>
    <li>
     height
     <ul>
      <li><a href="#dom-creativedimensions-height">dict-member for creativeDimensions</a><span>, in §4.4.1</span>
      <li><a href="#dom-videodimensions-height">dict-member for videoDimensions</a><span>, in §4.4.1</span>
     </ul>
-   <li><a href="#dom-ad-initad">initAd(creativeData, envData)</a><span>, in §5.1.2</span>
+   <li><a href="#dom-ad-initad">initAd(creativeData, envData)</a><span>, in §6.1.2</span>
    <li><a href="#dictdef-initparameters">initParameters</a><span>, in §4.4.2</span>
    <li>
     mode
@@ -2964,21 +2969,21 @@ primary video.</p>
    <li><a href="#dom-environmentdata-muted">muted</a><span>, in §4.4.2</span>
    <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §4.4.2</span>
    <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §4.4.2</span>
-   <li><a href="#dom-ad-resizead">resizeAd(width, height, viewMode)</a><span>, in §5.1.2</span>
+   <li><a href="#dom-ad-resizead">resizeAd(width, height, viewMode)</a><span>, in §6.1.2</span>
    <li><a href="#dictdef-resizeparameters">resizeParameters</a><span>, in §4.4.1</span>
    <li><a href="#dom-environmentdata-siteurl">siteUrl</a><span>, in §4.4.2</span>
-   <li><a href="#sivic-ad-unit">SIVIC Ad Unit</a><span>, in §9</span>
-   <li><a href="#sivic-creative">SIVIC Creative</a><span>, in §9</span>
-   <li><a href="#sivic-live-video-stream">SIVIC Live Video Stream</a><span>, in §9</span>
-   <li><a href="#sivic-secondary-video">SIVIC Secondary Video</a><span>, in §9</span>
-   <li><a href="#sivic-vast">SIVIC VAST</a><span>, in §9</span>
-   <li><a href="#sivic-video">SIVIC Video</a><span>, in §9</span>
-   <li><a href="#sivic-video-stream">SIVIC Video Stream</a><span>, in §9</span>
-   <li><a href="#dom-ad-skipad">skipAd()</a><span>, in §5.1.2</span>
+   <li><a href="#sivic-ad-unit">SIVIC Ad Unit</a><span>, in §10</span>
+   <li><a href="#sivic-creative">SIVIC Creative</a><span>, in §10</span>
+   <li><a href="#sivic-live-video-stream">SIVIC Live Video Stream</a><span>, in §10</span>
+   <li><a href="#sivic-secondary-video">SIVIC Secondary Video</a><span>, in §10</span>
+   <li><a href="#sivic-vast">SIVIC VAST</a><span>, in §10</span>
+   <li><a href="#sivic-video">SIVIC Video</a><span>, in §10</span>
+   <li><a href="#sivic-video-stream">SIVIC Video Stream</a><span>, in §10</span>
+   <li><a href="#dom-ad-skipad">skipAd()</a><span>, in §6.1.2</span>
    <li><a href="#dom-environmentdata-skippablestate">skippableState</a><span>, in §4.4.2</span>
    <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §4.4.2</span>
-   <li><a href="#dom-ad-startad">startAd()</a><span>, in §5.1.2</span>
-   <li><a href="#dom-ad-stopad">stopAd()</a><span>, in §5.1.2</span>
+   <li><a href="#dom-ad-startad">startAd()</a><span>, in §6.1.2</span>
+   <li><a href="#dom-ad-stopad">stopAd()</a><span>, in §6.1.2</span>
    <li>
     transitionDuration
     <ul>
@@ -3158,7 +3163,7 @@ call, so the ad can respond with an object that matches the requested API<a href
    <ul>
     <li><a href="#ref-for-dom-resizeparameters-fullscreen">4.4.1. SIVIC:Player:resize</a>
     <li><a href="#ref-for-dom-resizeparameters-fullscreen①">4.4.2. SIVIC:Player:init</a>
-    <li><a href="#ref-for-dom-resizeparameters-fullscreen②">4.10.2. Ad Resizing and Fullscreen</a> <a href="#ref-for-dom-resizeparameters-fullscreen③">(2)</a>
+    <li><a href="#ref-for-dom-resizeparameters-fullscreen②">5.2.2. Ad Resizing and Fullscreen</a> <a href="#ref-for-dom-resizeparameters-fullscreen③">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-videodimensions">
@@ -3209,7 +3214,7 @@ call, so the ad can respond with an object that matches the requested API<a href
    <b><a href="#dom-initparameters-environmentdata">#dom-initparameters-environmentdata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-initparameters-environmentdata">4.4.2. SIVIC:Player:init</a>
-    <li><a href="#ref-for-dom-initparameters-environmentdata①">4.9. How to Handle Ad Loading</a>
+    <li><a href="#ref-for-dom-initparameters-environmentdata①">5.1. How to Handle Ad Loading</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-initparameters-creativedata">
@@ -3222,7 +3227,7 @@ call, so the ad can respond with an object that matches the requested API<a href
    <b><a href="#dictdef-creativedata">#dictdef-creativedata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-creativedata">4.4.2. SIVIC:Player:init</a>
-    <li><a href="#ref-for-dictdef-creativedata①">5.1.2. Ad Interface</a>
+    <li><a href="#ref-for-dictdef-creativedata①">6.1.2. Ad Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedata-adparameters">
@@ -3259,7 +3264,7 @@ call, so the ad can respond with an object that matches the requested API<a href
    <b><a href="#dictdef-environmentdata">#dictdef-environmentdata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-environmentdata">4.4.2. SIVIC:Player:init</a>
-    <li><a href="#ref-for-dictdef-environmentdata①">5.1.2. Ad Interface</a>
+    <li><a href="#ref-for-dictdef-environmentdata①">6.1.2. Ad Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-videodimensions">
@@ -3278,15 +3283,15 @@ call, so the ad can respond with an object that matches the requested API<a href
    <b><a href="#dom-environmentdata-fullscreenallowed">#dom-environmentdata-fullscreenallowed</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-environmentdata-fullscreenallowed">4.4.2. SIVIC:Player:init</a>
-    <li><a href="#ref-for-dom-environmentdata-fullscreenallowed①">4.10.2. Ad Resizing and Fullscreen</a>
+    <li><a href="#ref-for-dom-environmentdata-fullscreenallowed①">5.2.2. Ad Resizing and Fullscreen</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-variabledurationallowed">
    <b><a href="#dom-environmentdata-variabledurationallowed">#dom-environmentdata-variabledurationallowed</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-environmentdata-variabledurationallowed">4.4.2. SIVIC:Player:init</a> <a href="#ref-for-dom-environmentdata-variabledurationallowed①">(2)</a>
-    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed②">4.10.1. Ad Pause</a>
-    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed③">4.11.3. Ad Extends Beyond Video Completion</a>
+    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed②">5.2.1. Ad Pause</a>
+    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed③">5.3.3. Ad Extends Beyond Video Completion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-skippablestate">
@@ -3358,51 +3363,51 @@ call, so the ad can respond with an object that matches the requested API<a href
   <aside class="dfn-panel" data-for="dom-window-getsivicad">
    <b><a href="#dom-window-getsivicad">#dom-window-getsivicad</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-window-getsivicad">4.9. How to Handle Ad Loading</a>
-    <li><a href="#ref-for-dom-window-getsivicad①">5.1.2. Ad Interface</a>
+    <li><a href="#ref-for-dom-window-getsivicad">5.1. How to Handle Ad Loading</a>
+    <li><a href="#ref-for-dom-window-getsivicad①">6.1.2. Ad Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="ad">
    <b><a href="#ad">#ad</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-ad">5.1.1. Entry Point</a>
+    <li><a href="#ref-for-ad">6.1.1. Entry Point</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-ad-handshakeversion">
    <b><a href="#dom-ad-handshakeversion">#dom-ad-handshakeversion</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-ad-handshakeversion">4.9. How to Handle Ad Loading</a>
-    <li><a href="#ref-for-dom-ad-handshakeversion①">5.1.2. Ad Interface</a>
+    <li><a href="#ref-for-dom-ad-handshakeversion">5.1. How to Handle Ad Loading</a>
+    <li><a href="#ref-for-dom-ad-handshakeversion①">6.1.2. Ad Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-ad-handshakeversion-supportedversion-supportedversion">
    <b><a href="#dom-ad-handshakeversion-supportedversion-supportedversion">#dom-ad-handshakeversion-supportedversion-supportedversion</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-ad-handshakeversion-supportedversion-supportedversion">5.1.2. Ad Interface</a>
+    <li><a href="#ref-for-dom-ad-handshakeversion-supportedversion-supportedversion">6.1.2. Ad Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-ad-initad">
    <b><a href="#dom-ad-initad">#dom-ad-initad</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-ad-initad">4.9. How to Handle Ad Loading</a>
+    <li><a href="#ref-for-dom-ad-initad">5.1. How to Handle Ad Loading</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-ad-initad-creativedata-envdata-creativedata">
    <b><a href="#dom-ad-initad-creativedata-envdata-creativedata">#dom-ad-initad-creativedata-envdata-creativedata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-ad-initad-creativedata-envdata-creativedata">4.9. How to Handle Ad Loading</a>
+    <li><a href="#ref-for-dom-ad-initad-creativedata-envdata-creativedata">5.1. How to Handle Ad Loading</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-ad-initad-creativedata-envdata-envdata">
    <b><a href="#dom-ad-initad-creativedata-envdata-envdata">#dom-ad-initad-creativedata-envdata-envdata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-ad-initad-creativedata-envdata-envdata">4.9. How to Handle Ad Loading</a>
+    <li><a href="#ref-for-dom-ad-initad-creativedata-envdata-envdata">5.1. How to Handle Ad Loading</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-ad-startad">
    <b><a href="#dom-ad-startad">#dom-ad-startad</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-ad-startad">4.9. How to Handle Ad Loading</a>
+    <li><a href="#ref-for-dom-ad-startad">5.1. How to Handle Ad Loading</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-ad-stopad">
@@ -3414,7 +3419,7 @@ call, so the ad can respond with an object that matches the requested API<a href
   <aside class="dfn-panel" data-for="dom-ad-adduration">
    <b><a href="#dom-ad-adduration">#dom-ad-adduration</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-ad-adduration">5.1.2. Ad Interface</a>
+    <li><a href="#ref-for-dom-ad-adduration">6.1.2. Ad Interface</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
