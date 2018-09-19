@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version db3f42f38318d417fb038711a846849b7a68ff34" name="generator">
+  <meta content="Bikeshed version a04b880cde96bf0ae2d14a0edcf2bcdcb631548b" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1471,7 +1471,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-09-10">10 September 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-09-19">19 September 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1486,7 +1486,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 10 September 2018,
+In addition, as of 19 September 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1984,18 +1984,16 @@ into SIVIC from the video player. See Implementation sections for more specific
 requirements.</p>
    <h2 class="heading settled" data-level="4" id="msg-proto"><span class="secno">4. </span><span class="content">Messaging Protocol</span><a class="self-link" href="#msg-proto"></a></h2>
    <p>To facilitate asynchronous communication between the video player and the SIVIC
-ad, we employ a messaging protocol.</p>
+creative, we employ a messaging protocol.</p>
    <p>The protocol defines both the data structure of messages exchanged by both
 parties and the algorithms needed to reliably handle the exchange of these
 messages.</p>
    <p>The protocol is designed to be easily implemented on top of the <code class="idl"><a data-link-type="idl">postMessage</a></code> interface, available across <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element">iframe</a></code> elements which are
 used to isolate the SIVIC ad from the video player.</p>
-   <p>In order to facilitate adoption of the SIVIC protocol, the working group offers
-an open source reference implementation of this messaging protocol at XXX.</p>
    <p class="issue" id="issue-a2fd907b"><a class="self-link" href="#issue-a2fd907b"></a> add link to final location of reference implementation</p>
    <h3 class="heading settled" data-level="4.1" id="transport-layer"><span class="secno">4.1. </span><span class="content">Transport Layer</span><a class="self-link" href="#transport-layer"></a></h3>
    <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-transport">transport</dfn> is a communication mechanism that can send <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message">serialized messages</a> between two parties. In SIVIC’s case those are the video
-player and the ad.</p>
+player and the creative.</p>
    <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-serialized-message">serialized message</dfn> is a text string that one of the
 parties, the <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-sender">sender</dfn>, forwards to the other party, the <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-receiver">receiver</dfn>, through the <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport">transport</a>.</p>
    <p>The <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport①">transport</a> must guarantee the following <dfn class="dfn-paneled" data-dfn-for="message/transport" data-dfn-type="dfn" data-noexport id="message-transport-properties">properties</dfn>:</p>
@@ -2021,9 +2019,8 @@ delivered to the <a data-link-type="dfn" href="#message-receiver" id="ref-for-me
 message back that acknowledges receipt. It also means that exceptions on the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver②">receiver’s</a> side can’t be caught by the <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender①">sender</a> unless
 the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver③">receiver</a> explicitly sends a message back to the <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender②">sender</a> with the exception.</p>
    <h4 class="heading settled" data-level="4.1.1" id="postmessage-transport"><span class="secno">4.1.1. </span><span class="content"><code class="idl"><a data-link-type="idl">postMessage</a></code> Transport</span><a class="self-link" href="#postmessage-transport"></a></h4>
-   <p>Unless otherwise negotiated by both parties, in SIVIC the video player and ad
-will use the <code class="idl"><a data-link-type="idl">postMessage</a></code> API as their <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport③">transport</a> across
-the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element①">iframe</a></code> boundary separating them.</p>
+   <p>Unless otherwise negotiated by both parties, in SIVIC the video player and
+creative will use the <code class="idl"><a data-link-type="idl">postMessage</a></code> API as their <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport③">transport</a> across the <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element①">iframe</a></code> boundary separating them.</p>
    <p>The <code class="idl"><a data-link-type="idl">postMessage</a></code> API conforms to the required <a data-link-type="dfn" href="#message-transport-properties" id="ref-for-message-transport-properties">properties</a> of a <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport④">transport</a>.</p>
    <h4 class="heading settled" data-level="4.1.2" id="##msg-serialization"><span class="secno">4.1.2. </span><span class="content">Message Serialization</span><a class="self-link" href="#%23%23msg-serialization"></a></h4>
    <p>To <dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-serialize">serialize<a class="self-link" href="#message-serialize"></a></dfn> a <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message">Message</a></code> to a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑥">serialized message</a>,
@@ -2033,9 +2030,6 @@ The resulting <code class="idl"><a data-link-type="idl">Object</a></code> has th
    <p>The <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender③">sender</a> should not transmit any <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message①⓪">serialized messages</a> that
 cannot be correctly <a data-link-type="dfn" href="#message-deserialize" id="ref-for-message-deserialize">deserialized</a> by the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver④">receiver</a>.</p>
    <p>The <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver⑤">receiver</a> should discard and ignore any <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message①①">serialized messages</a> that it cannot correctly <a data-link-type="dfn" href="#message-deserialize" id="ref-for-message-deserialize①">deserialize</a>.</p>
-   <p class="note" role="note"><span>Note:</span> The <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver⑥">receiver</a> may observe that it failed to receive or
-deserialize certain earlier messages from the <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender④">sender</a> by observing
-jumps in the <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid">messageId</a></code> of messages.</p>
    <h3 class="heading settled" data-level="4.2" id="session-layer"><span class="secno">4.2. </span><span class="content">Session Layer</span><a class="self-link" href="#session-layer"></a></h3>
    <p>Multiple <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-sessions">sessions</dfn> maybe active over a single <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport⑤">transport</a> at any given time.</p>
    <p>A <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions">session</a> is uniquely identified by a <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-lt="session identifier" data-noexport id="message-session-identifier">session
@@ -2170,7 +2164,7 @@ following steps:</p>
       <ol>
        <li data-md>
         <p>If <code class="idl"><a data-link-type="idl">parse</a></code> threw an exception, ignore the exception and abort
- 		execution of this algorithm.</p>
+	execution of this algorithm.</p>
       </ol>
      <li data-md>
       <p>If <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type">type</a></code> is <code>resolve</code> or <code>reject</code>:</p>
@@ -2205,9 +2199,9 @@ following steps:</p>
 </pre>
    <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑥">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid①">sessionId</a></code>, a string that uniquely
 identifies the <a data-link-type="dfn">messaging session</a> to which the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑦">Message</a></code> belongs.</p>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑧">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid①">messageId</a></code>, an integer that
+   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑧">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid">messageId</a></code>, an integer that
 increments with each message sent by the sender over the <a data-link-type="dfn">messaging session</a> specified by <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid②">sessionId</a></code>.</p>
-   <p class="note" role="note"><span>Note:</span> The combination of <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid③">sessionId</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid②">messageId</a></code> uniquely identifies a single message. The combination of the values of these two
+   <p class="note" role="note"><span>Note:</span> The combination of <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid③">sessionId</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid①">messageId</a></code> uniquely identifies a single message. The combination of the values of these two
 attributes may never occur twice.</p>
    <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑨">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type③">type</a></code>, a string that defines the type
 of message that is being sent and informs the receiver how to interpret the <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args③">args</a></code> parameter.</p>
@@ -2221,7 +2215,7 @@ of <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-fo
   <c- b>any</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code></dfn>;
 };
 </pre>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-messageid" id="ref-for-dom-resolvemessageargs-messageid①">messageId</a></code> refers to the <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid③">messageId</a></code> attribute
+   <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-messageid" id="ref-for-dom-resolvemessageargs-messageid①">messageId</a></code> refers to the <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid②">messageId</a></code> attribute
 of the message that is being resolved.</p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value②">value</a></code> may include a value associated with this <code>resolve</code> message.</p>
    <h4 class="heading settled" data-level="4.3.2" id="##msg-proto-reject"><span class="secno">4.3.2. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-reject"><code>reject</code><a class="self-link" href="#message-reject"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-reject"></a></h4>
@@ -3564,14 +3558,14 @@ call, so the ad can respond with an object that matches the requested API<a href
    <b><a href="#message-sender">#message-sender</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-message-sender">4.1. Transport Layer</a> <a href="#ref-for-message-sender①">(2)</a> <a href="#ref-for-message-sender②">(3)</a>
-    <li><a href="#ref-for-message-sender③">4.1.2. Message Serialization</a> <a href="#ref-for-message-sender④">(2)</a>
+    <li><a href="#ref-for-message-sender③">4.1.2. Message Serialization</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="message-receiver">
    <b><a href="#message-receiver">#message-receiver</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-message-receiver">4.1. Transport Layer</a> <a href="#ref-for-message-receiver①">(2)</a> <a href="#ref-for-message-receiver②">(3)</a> <a href="#ref-for-message-receiver③">(4)</a>
-    <li><a href="#ref-for-message-receiver④">4.1.2. Message Serialization</a> <a href="#ref-for-message-receiver⑤">(2)</a> <a href="#ref-for-message-receiver⑥">(3)</a>
+    <li><a href="#ref-for-message-receiver④">4.1.2. Message Serialization</a> <a href="#ref-for-message-receiver⑤">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="message-transport-properties">
@@ -3639,9 +3633,8 @@ call, so the ad can respond with an object that matches the requested API<a href
   <aside class="dfn-panel" data-for="dom-message-messageid">
    <b><a href="#dom-message-messageid">#dom-message-messageid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-message-messageid">4.1.2. Message Serialization</a>
-    <li><a href="#ref-for-dom-message-messageid①">4.3. Message Data Structure</a> <a href="#ref-for-dom-message-messageid②">(2)</a>
-    <li><a href="#ref-for-dom-message-messageid③">4.3.1. resolve messages</a>
+    <li><a href="#ref-for-dom-message-messageid">4.3. Message Data Structure</a> <a href="#ref-for-dom-message-messageid①">(2)</a>
+    <li><a href="#ref-for-dom-message-messageid②">4.3.1. resolve messages</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-message-type">

@@ -429,7 +429,7 @@ following steps:
 1. Let |message| be the result of running {{JSON/parse}} on
 	 |serializedMessage|.
 	 1. If {{JSON/parse}} threw an exception, ignore the exception and abort
-	 		execution of this algorithm.
+			execution of this algorithm.
 2. If |message|.{{Message/type}} is `resolve` or `reject`:
 	 1. Let |sessionId| be |message|.{{Message/sessionId}}.
 	 2. Let |messageId| be
