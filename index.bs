@@ -236,7 +236,7 @@ requirements.
 # Messaging Protocol # {#msg-proto}
 
 To facilitate asynchronous communication between the video player and the SIVIC
-ad, we employ a messaging protocol.
+creative, we employ a messaging protocol.
 
 The protocol defines both the data structure of messages exchanged by both
 parties and the algorithms needed to reliably handle the exchange of these
@@ -246,9 +246,6 @@ The protocol is designed to be easily implemented on top of the
 {{Window/postMessage}} interface, available across <{iframe}> elements which are
 used to isolate the SIVIC ad from the video player.
 
-In order to facilitate adoption of the SIVIC protocol, the working group offers
-an open source reference implementation of this messaging protocol at XXX.
-
 Issue: add link to final location of reference implementation
 
 
@@ -256,7 +253,7 @@ Issue: add link to final location of reference implementation
 
 A <dfn for="message">transport</dfn> is a communication mechanism that can send
 [=serialized messages=] between two parties. In SIVIC's case those are the video
-player and the ad.
+player and the creative.
 
 A <dfn for="message">serialized message</dfn> is a text string that one of the
 parties, the <dfn for="message">sender</dfn>, forwards to the other party, the
@@ -287,9 +284,9 @@ the [=message/receiver=] explicitly sends a message back to the
 
 ### {{Window/postMessage}} Transport
 
-Unless otherwise negotiated by both parties, in SIVIC the video player and ad
-will use the {{Window/postMessage}} API as their [=message/transport=] across
-the <{iframe}> boundary separating them.
+Unless otherwise negotiated by both parties, in SIVIC the video player and
+creative will use the {{Window/postMessage}} API as their [=message/transport=]
+across the <{iframe}> boundary separating them.
 
 The {{Window/postMessage}} API conforms to the required
 [=message/transport/properties=] of a [=message/transport=].
@@ -309,10 +306,6 @@ cannot be correctly [=message/deserialized=] by the [=message/receiver=].
 
 The [=message/receiver=] should discard and ignore any [=serialized messages=]
 that it cannot correctly [=message/deserialize=].
-
-Note: The [=message/receiver=] may observe that it failed to receive or
-deserialize certain earlier messages from the [=message/sender=] by observing
-jumps in the {{Message/messageId}} of messages.
 
 
 ## Session Layer
@@ -553,11 +546,11 @@ parameters:
 - SIVIC:Tracking:otherAdInteraction  
 - SIVIC:Tracking:progress  
 - SIVIC:Tracking:closeLinear  
-- SIVIC:Tracking:fullscreen 
-- SIVIC:Tracking:exitFullscreen 
-- SIVIC:Tracking:expand 
-- SIVIC:Tracking:collapse 
-- SIVIC:Tracking:clickThrough 
+- SIVIC:Tracking:fullscreen
+- SIVIC:Tracking:exitFullscreen
+- SIVIC:Tracking:expand
+- SIVIC:Tracking:collapse
+- SIVIC:Tracking:clickThrough
 - SIVIC:Tracking:clickTracking
 - SIVIC:Tracking:customClick
 
@@ -628,7 +621,7 @@ parameters:
 - muted(boolean): corresponds exactly to video element muted attribute
 - paused(boolean): corresponds exactly to video element paused attribute
 - volume(number): corresponds exactly to video element volume attribute
-- fullscreen(boolean): true if the video element is full screen, false otherwise	
+- fullscreen(boolean): true if the video element is full screen, false otherwise
 
 Issue: should we also include video element location and size here?
 
@@ -677,7 +670,7 @@ dictionary creativeDimensions {
 };
 </xmp>
 
-The {{videoDimensions}} communicate to the creative the dimensions of the video element. 
+The {{videoDimensions}} communicate to the creative the dimensions of the video element.
 The {{creativeDimensions}} tell the creative where the iframe is located as well as its dimensions.  If the iframe is
 not yet visible (like during initialization) these dimensions will be the expected dimensions when it does become visible.
 
@@ -823,7 +816,7 @@ Issue: These codes need to be defined.
 The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
 before unloading the creative iframe.
-	
+
 - errorCode(int): reason for error.  See [[#error-codes]]
 - errorMessage(string): Any additional information.
 
