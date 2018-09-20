@@ -8,7 +8,7 @@ URL: https://interactiveadvertisingbureau.github.io/SIVIC/
 Repository: InteractiveAdvertisingBureau/SIVIC
 Editor: Pieter Mees, Zentrick, pieter.mees@zentrick.com
 Abstract: Establishes a common communication protocol between video players and executable ad units, providing rich ad experiences for viewers.
-Markup Shorthands: markdown yes, idl yes, dfn yes
+Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
 Inline Github Issues: title
 </pre>
 
@@ -231,6 +231,281 @@ The ad unit should never allow uncaught exceptions to be thrown during calls
 into SIVIC from the video player. See Implementation sections for more specific
 requirements.
 
+
+
+# Messaging Protocol # {#msg-proto}
+
+To facilitate asynchronous communication between the video player and the SIVIC
+creative, we employ a messaging protocol.
+
+The protocol defines both the data structure of messages exchanged by both
+parties and the algorithms needed to reliably handle the exchange of these
+messages.
+
+The protocol is designed to be easily implemented on top of the
+{{Window/postMessage}} interface, available across <{iframe}> elements which are
+used to isolate the SIVIC ad from the video player.
+
+Issue: add link to final location of reference implementation
+
+
+## Transport Layer
+
+A <dfn for="message">transport</dfn> is a communication mechanism that can send
+[=serialized messages=] between two parties. In SIVIC's case those are the video
+player and the creative.
+
+A <dfn for="message">serialized message</dfn> is a text string that one of the
+parties, the <dfn for="message">sender</dfn>, forwards to the other party, the
+<dfn for="message">receiver</dfn>, through the [=message/transport=].
+
+The [=message/transport=] must guarantee the following <dfn
+for="message/transport">properties</dfn>:
+- It must guarantee that both parties of the channel are unambiguously defined,
+	and that only those two parties observe any [=serialized messages=] sent by
+	either of them.
+- It must guarantee that all [=serialized messages=] eventually get delivered to
+	the other party.
+- It must guarantee that the [=serialized messages=] are delivered intact,
+	without any modifications.
+- It must guarantee that all [=serialized messages=] are delivered in the order
+	that they were sent by the sender.
+
+The [=message/transport=] is not required to deliver [=serialized messages=]
+synchronously, but it should make a best effort to deliver them as soon as
+possible.
+
+Note: This means that a [=message/sender=] can not assume that a message is
+delivered to the [=message/receiver=] unless the [=message/receiver=] sends a
+message back that acknowledges receipt. It also means that exceptions on the
+[=message/receiver's=] side can't be caught by the [=message/sender=] unless
+the [=message/receiver=] explicitly sends a message back to the
+[=message/sender=] with the exception.
+
+### {{Window/postMessage}} Transport
+
+Unless otherwise negotiated by both parties, in SIVIC the video player and
+creative will use the {{Window/postMessage}} API as their [=message/transport=]
+across the <{iframe}> boundary separating them.
+
+The {{Window/postMessage}} API conforms to the required
+[=message/transport/properties=] of a [=message/transport=].
+
+### Message Serialization ### {###msg-serialization}
+
+To <dfn for="message">serialize</dfn> a {{Message}} to a [=serialized message=],
+apply {{JSON/stringify}} to the {{Message}} data structure. The resulting
+{{DOMString}} represents the [=serialized message=].
+
+To <dfn for="message">deserialize</dfn> a [=serialized message=] to a
+{{Message}} data structure, apply {{JSON/parse}} to the [=serialized message=].
+The resulting {{Object}} has the {{Message}} data structure.
+
+The [=message/sender=] should not transmit any [=serialized messages=] that
+cannot be correctly [=message/deserialized=] by the [=message/receiver=].
+
+The [=message/receiver=] should discard and ignore any [=serialized messages=]
+that it cannot correctly [=message/deserialize=].
+
+
+## Session Layer
+
+Multiple <dfn for="message">sessions</dfn> maybe active over a single
+[=message/transport=] at any given time.
+
+A [=message/session=] is uniquely identified by a <dfn for="message">session
+identifier</dfn>. All messages belonging to a [=message/session=] *must*
+reference the same [=message/session identifier=].
+
+### Establishing a new session
+
+A [=message/session=] is established by running the [=establish a new session=]
+algorithm.
+
+<section algorithm="to establish a new session">
+
+To <dfn for="message">establish a new session</dfn>, you *must* run the
+following steps:
+
+: Input
+:: none
+: Output
+:: |sessionIdPromise|, a {{Promise}} that will resolve to a
+	 [=session identifier=]
+
+1. Let |sessionId| be a new [=session identifier=].
+
+Advisement: It is recommended to use a UUID for the [=message/session
+identifier=].
+
+2. Let |type| be `createSession`.
+3. Let |args| be `undefined`.
+4. Let |sessionIdPromise| be a new unresolved {{Promise}}.
+5. Start the [=send an acked message=] algorithm with |sessionId|, |type| and
+	 |args|. Let |ackPromise| be the return value.
+6. Return |sessionIdPromise|.
+7. When |ackPromise| resolves:
+	 - If it is fulfilled, then resolve |sessionIdPromise| with |sessionId|.
+	 - If it is rejected with |error|, then reject |sessionIdPromise| with
+		 |error|.
+
+</section>
+
+### Sending messages
+
+To send a message through a [=message/session=], run the [=send a message=]
+algorithm.
+
+<section algorithm="to send a message">
+
+To <dfn for="message">send a message</dfn>, you *must* run the following
+steps:
+
+: Input
+:: |sessionId|, a [=session identifier=]
+:: |type|, a [=message type=]
+:: |args|, an optional object to be submitted with the message
+: Output
+:: |messageId|, a [=message identifier=]
+
+1. Let |messageId| be
+	 - `0`, if this is the first message in the [=message/session=] identified
+		 by |sessionId|.
+	 - |messageId| of the previous message sent on the [=message/session=]
+		 identified by |sessionId| incremented by `1`, otherwise.
+2. Let |message| be a new {{Message}} object with its attributes initialized
+	 to |sessionId|, |messageId|, |type| and |args|.
+3. Let |serializedMessage| be the result of running {{JSON/stringify}} on
+	 |message|.
+4. Transmit |serializedMessage| to the other party through the
+	 [=message/transport=].
+5. Return |messageId|.
+
+</section>
+
+While most messages can be sent "fire-and-forget", some require the sender to
+be informed that they were properly received and handled by the receiver. The
+protocol uses semantics similar to the {{Promise}} API for this.
+
+<section algorithm="to send an acked message">
+
+To <dfn for="message">send an acked message</dfn>, you *must* run the
+following steps:
+
+: Input
+:: |sessionId|, a [=session identifier=]
+:: |type|, a [=message type=]
+:: |args|, an optional object to be submitted with the message
+: Output
+:: |promise|, a {{Promise}} which will eventually resolve to the value sent
+	 back by the other party
+
+1. Run the [=send a message=] algorithm with |sessionId|, |type| and |args|.
+	 Let |messageId| be the return value.
+2. Let |promise| be a new unresolved {{Promise}}.
+3. Add |promise| to the [=resolve list=], annotated with |sessionId| and
+	 |messageId|.
+4. Return |promise|.
+
+</section>
+
+### Receiving messages
+
+To be able to detect new incoming [=message/sessions=] and receive messages from
+existing sessions, every party should start running the [=handle incoming
+messages=] algorithm as soon as possible.
+
+<section algorithm="to handle an incoming message">
+
+To <dfn for="message">handle an incoming message</dfn>, you *must* run the
+following steps:
+
+: Input
+:: |serializedMessage|, a [=serialized message=] received from the
+	 [=message/transport=]
+: Output
+:: none
+
+1. Let |message| be the result of running {{JSON/parse}} on
+	 |serializedMessage|.
+	 1. If {{JSON/parse}} threw an exception, ignore the exception and abort
+			execution of this algorithm.
+2. If |message|.{{Message/type}} is `resolve` or `reject`:
+	 1. Let |sessionId| be |message|.{{Message/sessionId}}.
+	 2. Let |messageId| be
+	    |message|.{{Message/args}}.{{ResolveMessageArgs/messageId}}.
+	 3. Let |promise| be the promise in the [=resolve list=] for |sessionId|
+	    and |messageId|, if any.
+	 4. If a |promise| was found:
+	    1. If |message|.{{Message/type}} is `resolve`, then fulfill |promise|
+				 with |message|.{{Message/args}}.{{ResolveMessageArgs/value}}.
+	    2. If |message|.{{Message/type}} is `reject`, then reject |promise| with
+		     |message|.{{Message/args}}.{{ResolveMessageArgs/value}}.
+3. Otherwise: pass |message| to the user of the protocol for handling.
+
+</section>
+
+## Message Data Structure ## {##msg-struct}
+
+A protocol message is represented by the {{Message}} data structure.
+
+<xmp class="idl">
+dictionary Message {
+  required DOMString sessionId;
+	required unsigned long messageId;
+	required DOMString type;
+	any args;
+};
+</xmp>
+
+A {{Message}} has an associated {{Message/sessionId}}, a string that uniquely
+identifies the [=messaging session=] to which the {{Message}} belongs.
+
+A {{Message}} has an associated {{Message/messageId}}, an integer that
+increments with each message sent by the sender over the [=messaging session=]
+specified by {{Message/sessionId}}.
+
+Note: The combination of {{Message/sessionId}} and {{Message/messageId}}
+uniquely identifies a single message. The combination of the values of these two
+attributes may never occur twice.
+
+A {{Message}} has an associated {{Message/type}}, a string that defines the type
+of message that is being sent and informs the receiver how to interpret the
+{{Message/args}} parameter.
+
+A {{Message}} may have associated {{Message/args}}, which are
+{{Message/type}}-specific additional arguments. The data structure and meaning
+of {{Message/args}} is defined in the respective message type definitions.
+
+
+### <dfn for="message">`resolve`</dfn> messages ### {###msg-proto-resolve}
+
+{{Message/type}} must be `resolve`
+
+{{Message/args}} must be a {{ResolveMessageArgs}} object:
+
+<xmp class="idl">
+dictionary ResolveMessageArgs {
+  required unsigned long messageId;
+	any value;
+};
+</xmp>
+
+{{ResolveMessageArgs/messageId}} refers to the {{Message/messageId}} attribute
+of the message that is being resolved.
+
+{{ResolveMessageArgs/value}} may include a value associated with this `resolve`
+message.
+
+### <dfn for="message">`reject`</dfn> messages ### {###msg-proto-reject}
+
+{{Message/type}} must be `reject`
+
+{{Message/args}} must be a {{ResolveMessageArgs}} object.
+
+{{ResolveMessageArgs/value}} may include an error message associated with this
+`reject` message.
+
 # API Reference # {#api}
 
 ## Messages corresponding to VAST tracking events ## {#vast-messages}
@@ -271,11 +546,11 @@ parameters:
 - SIVIC:Tracking:otherAdInteraction  
 - SIVIC:Tracking:progress  
 - SIVIC:Tracking:closeLinear  
-- SIVIC:Tracking:fullscreen 
-- SIVIC:Tracking:exitFullscreen 
-- SIVIC:Tracking:expand 
-- SIVIC:Tracking:collapse 
-- SIVIC:Tracking:clickThrough 
+- SIVIC:Tracking:fullscreen
+- SIVIC:Tracking:exitFullscreen
+- SIVIC:Tracking:expand
+- SIVIC:Tracking:collapse
+- SIVIC:Tracking:clickThrough
 - SIVIC:Tracking:clickTracking
 - SIVIC:Tracking:customClick
 
@@ -346,7 +621,7 @@ parameters:
 - muted(boolean): corresponds exactly to video element muted attribute
 - paused(boolean): corresponds exactly to video element paused attribute
 - volume(number): corresponds exactly to video element volume attribute
-- fullscreen(boolean): true if the video element is full screen, false otherwise	
+- fullscreen(boolean): true if the video element is full screen, false otherwise
 
 Issue: should we also include video element location and size here?
 
@@ -395,7 +670,7 @@ dictionary creativeDimensions {
 };
 </xmp>
 
-The {{videoDimensions}} communicate to the creative the dimensions of the video element. 
+The {{videoDimensions}} communicate to the creative the dimensions of the video element.
 The {{creativeDimensions}} tell the creative where the iframe is located as well as its dimensions.  If the iframe is
 not yet visible (like during initialization) these dimensions will be the expected dimensions when it does become visible.
 
@@ -541,7 +816,7 @@ Issue: These codes need to be defined.
 The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
 before unloading the creative iframe.
-	
+
 - errorCode(int): reason for error.  See [[#error-codes]]
 - errorMessage(string): Any additional information.
 
