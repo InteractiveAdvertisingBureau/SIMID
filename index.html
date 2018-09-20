@@ -992,57 +992,93 @@ Possible extra rowspan handling
 	.toc > li li          { font-weight: normal; }
 	.toc > li li li       { font-size:   95%;    }
 	.toc > li li li li    { font-size:   90%;    }
+	.toc > li li li li .secno { font-size: 85%; }
 	.toc > li li li li li { font-size:   85%;    }
+	.toc > li li li li li .secno { font-size: 100%; }
 
-	.toc > li             { margin: 1.5rem 0;    }
-	.toc > li li          { margin: 0.3rem 0;    }
-	.toc > li li li       { margin-left: 2rem;   }
+	/* @supports not (display:grid) { */
+		.toc > li             { margin: 1.5rem 0;    }
+		.toc > li li          { margin: 0.3rem 0;    }
+		.toc > li li li       { margin-left: 2rem;   }
 
-	/* Section numbers in a column of their own */
-	.toc .secno {
-		float: left;
-		width: 4rem;
-		white-space: nowrap;
-	}
-	.toc > li li li li .secno {
-		font-size: 85%;
-	}
-	.toc > li li li li li .secno {
-		font-size: 100%;
-	}
+		/* Section numbers in a column of their own */
+		.toc .secno {
+			float: left;
+			width: 4rem;
+			white-space: nowrap;
+		}
 
-	:not(li) > .toc              { margin-left:  5rem; }
-	.toc .secno                  { margin-left: -5rem; }
-	.toc > li li li .secno       { margin-left: -7rem; }
-	.toc > li li li li .secno    { margin-left: -9rem; }
-	.toc > li li li li li .secno { margin-left: -11rem; }
+		.toc li {
+			clear: both;
+		}
 
-	/* Tighten up indentation in narrow ToCs */
-	@media (max-width: 30em) {
-		:not(li) > .toc              { margin-left:  4rem; }
-		.toc .secno                  { margin-left: -4rem; }
-		.toc > li li li              { margin-left:  1rem; }
-		.toc > li li li .secno       { margin-left: -5rem; }
-		.toc > li li li li .secno    { margin-left: -6rem; }
-		.toc > li li li li li .secno { margin-left: -7rem; }
-	}
-	@media screen and (min-width: 78em) {
-		body:not(.toc-inline) :not(li) > .toc              { margin-left:  4rem; }
-		body:not(.toc-inline) .toc .secno                  { margin-left: -4rem; }
-		body:not(.toc-inline) .toc > li li li              { margin-left:  1rem; }
-		body:not(.toc-inline) .toc > li li li .secno       { margin-left: -5rem; }
-		body:not(.toc-inline) .toc > li li li li .secno    { margin-left: -6rem; }
-		body:not(.toc-inline) .toc > li li li li li .secno { margin-left: -7rem; }
-	}
-	body.toc-sidebar #toc :not(li) > .toc              { margin-left:  4rem; }
-	body.toc-sidebar #toc .toc .secno                  { margin-left: -4rem; }
-	body.toc-sidebar #toc .toc > li li li              { margin-left:  1rem; }
-	body.toc-sidebar #toc .toc > li li li .secno       { margin-left: -5rem; }
-	body.toc-sidebar #toc .toc > li li li li .secno    { margin-left: -6rem; }
-	body.toc-sidebar #toc .toc > li li li li li .secno { margin-left: -7rem; }
+		:not(li) > .toc              { margin-left:  5rem; }
+		.toc .secno                  { margin-left: -5rem; }
+		.toc > li li li .secno       { margin-left: -7rem; }
+		.toc > li li li li .secno    { margin-left: -9rem; }
+		.toc > li li li li li .secno { margin-left: -11rem; }
 
-	.toc li {
-		clear: both;
+		/* Tighten up indentation in narrow ToCs */
+		@media (max-width: 30em) {
+			:not(li) > .toc              { margin-left:  4rem; }
+			.toc .secno                  { margin-left: -4rem; }
+			.toc > li li li              { margin-left:  1rem; }
+			.toc > li li li .secno       { margin-left: -5rem; }
+			.toc > li li li li .secno    { margin-left: -6rem; }
+			.toc > li li li li li .secno { margin-left: -7rem; }
+		}
+	/* } */
+
+	@supports (display:grid) {
+		/* Use #toc over .toc to override non-@supports rules. */
+		#toc {
+			display: grid;
+			align-content: start;
+			grid-template-columns: auto 1fr;
+			grid-column-gap: 1rem;
+			column-gap: 1rem;
+			grid-row-gap: .6rem;
+			row-gap: .6rem;
+		}
+		#toc h2 {
+			grid-column: 1 / -1;
+			margin-bottom: 0;
+		}
+		#toc ol,
+		#toc li,
+		#toc a {
+			display: contents;
+			/* Switch <a> to subgrid when supported */
+		}
+		#toc span {
+			margin: 0;
+		}
+		#toc > .toc > li > a > span {
+			/* The spans of the top-level list,
+			   comprising the first items of each top-level section. */
+			margin-top: 1.1rem;
+		}
+		#toc#toc .secno { /* Ugh, need more specificity to override base.css */
+			grid-column: 1;
+			width: auto;
+			margin-left: 0;
+		}
+		#toc .content {
+			grid-column: 2;
+			width: auto;
+			margin-right: 1rem;
+		}
+		#toc .content:hover {
+			background: rgba(75%, 75%, 75%, .25);
+			border-bottom: 3px solid #054572;
+			margin-bottom: -3px;
+		}
+		#toc li li li .content {
+			margin-left: 1rem;
+		}
+		#toc li li li li .content {
+			margin-left: 2rem;
+		}
 	}
 
 
@@ -1176,9 +1212,8 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version b740b15097946bf1d13405dc6d7ca5a72fa2530d" name="generator">
+  <meta content="Bikeshed version a04b880cde96bf0ae2d14a0edcf2bcdcb631548b" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
-  <meta content="98b82b31f7bbcb0d3d95a5b92bf86d29ffbefa62" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1328,104 +1363,104 @@ pre .property::before, pre .property::after {
 }</style>
 <style>/* style-dfn-panel */
 
-        .dfn-panel {
-            position: absolute;
-            z-index: 35;
-            height: auto;
-            width: -webkit-fit-content;
-            width: fit-content;
-            max-width: 300px;
-            max-height: 500px;
-            overflow: auto;
-            padding: 0.5em 0.75em;
-            font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-            background: #DDDDDD;
-            color: black;
-            border: outset 0.2em;
-        }
-        .dfn-panel:not(.on) { display: none; }
-        .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-        .dfn-panel > b { display: block; }
-        .dfn-panel a { color: black; }
-        .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-        .dfn-panel > b + b { margin-top: 0.25em; }
-        .dfn-panel ul { padding: 0; }
-        .dfn-panel li { list-style: inside; }
-        .dfn-panel.activated {
-            display: inline-block;
-            position: fixed;
-            left: .5em;
-            bottom: 2em;
-            margin: 0 auto;
-            max-width: calc(100vw - 1.5em - .4em - .5em);
-            max-height: 30vh;
-        }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: #DDDDDD;
+    color: black;
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: black; }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
 
-        .dfn-paneled { cursor: pointer; }
-        </style>
+.dfn-paneled { cursor: pointer; }
+</style>
 <style>/* style-syntax-highlighting */
 pre.idl.highlight { color: #708090; }
 .highlight:not(.idl) { background: hsl(24, 20%, 95%); }
 code.highlight { padding: .1em; border-radius: .3em; }
 pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
-.highlight .c { color: #708090 } /* Comment */
-.highlight .k { color: #990055 } /* Keyword */
-.highlight .l { color: #000000 } /* Literal */
-.highlight .n { color: #0077aa } /* Name */
-.highlight .o { color: #999999 } /* Operator */
-.highlight .p { color: #999999 } /* Punctuation */
-.highlight .cm { color: #708090 } /* Comment.Multiline */
-.highlight .cp { color: #708090 } /* Comment.Preproc */
-.highlight .c1 { color: #708090 } /* Comment.Single */
-.highlight .cs { color: #708090 } /* Comment.Special */
-.highlight .kc { color: #990055 } /* Keyword.Constant */
-.highlight .kd { color: #990055 } /* Keyword.Declaration */
-.highlight .kn { color: #990055 } /* Keyword.Namespace */
-.highlight .kp { color: #990055 } /* Keyword.Pseudo */
-.highlight .kr { color: #990055 } /* Keyword.Reserved */
-.highlight .kt { color: #990055 } /* Keyword.Type */
-.highlight .ld { color: #000000 } /* Literal.Date */
-.highlight .m { color: #000000 } /* Literal.Number */
-.highlight .s { color: #a67f59 } /* Literal.String */
-.highlight .na { color: #0077aa } /* Name.Attribute */
-.highlight .nc { color: #0077aa } /* Name.Class */
-.highlight .no { color: #0077aa } /* Name.Constant */
-.highlight .nd { color: #0077aa } /* Name.Decorator */
-.highlight .ni { color: #0077aa } /* Name.Entity */
-.highlight .ne { color: #0077aa } /* Name.Exception */
-.highlight .nf { color: #0077aa } /* Name.Function */
-.highlight .nl { color: #0077aa } /* Name.Label */
-.highlight .nn { color: #0077aa } /* Name.Namespace */
-.highlight .py { color: #0077aa } /* Name.Property */
-.highlight .nt { color: #669900 } /* Name.Tag */
-.highlight .nv { color: #222222 } /* Name.Variable */
-.highlight .ow { color: #999999 } /* Operator.Word */
-.highlight .mb { color: #000000 } /* Literal.Number.Bin */
-.highlight .mf { color: #000000 } /* Literal.Number.Float */
-.highlight .mh { color: #000000 } /* Literal.Number.Hex */
-.highlight .mi { color: #000000 } /* Literal.Number.Integer */
-.highlight .mo { color: #000000 } /* Literal.Number.Oct */
-.highlight .sb { color: #a67f59 } /* Literal.String.Backtick */
-.highlight .sc { color: #a67f59 } /* Literal.String.Char */
-.highlight .sd { color: #a67f59 } /* Literal.String.Doc */
-.highlight .s2 { color: #a67f59 } /* Literal.String.Double */
-.highlight .se { color: #a67f59 } /* Literal.String.Escape */
-.highlight .sh { color: #a67f59 } /* Literal.String.Heredoc */
-.highlight .si { color: #a67f59 } /* Literal.String.Interpol */
-.highlight .sx { color: #a67f59 } /* Literal.String.Other */
-.highlight .sr { color: #a67f59 } /* Literal.String.Regex */
-.highlight .s1 { color: #a67f59 } /* Literal.String.Single */
-.highlight .ss { color: #a67f59 } /* Literal.String.Symbol */
-.highlight .vc { color: #0077aa } /* Name.Variable.Class */
-.highlight .vg { color: #0077aa } /* Name.Variable.Global */
-.highlight .vi { color: #0077aa } /* Name.Variable.Instance */
-.highlight .il { color: #000000 } /* Literal.Number.Integer.Long */
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-21">21 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-09-20">20 September 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1440,7 +1475,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 21 August 2018,
+In addition, as of 20 September 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1530,58 +1565,64 @@ Parts of this work may be from another specification document.  If so, those par
           <li><a href="#sivic-creative-ready-reject"><span class="secno">4.5.2.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestSkip-response"><span class="secno">4.5.3</span> <span class="content">Response To SIVIC:Creative:requestSkip</span></a>
+         <a href="#sivic-creative-clickThru-response"><span class="secno">4.5.3</span> <span class="content">Response To SIVIC:Creative:clickThru</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestSkip-resolve"><span class="secno">4.5.3.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestSkip-reject"><span class="secno">4.5.3.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-clickThru-resolve"><span class="secno">4.5.3.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-clickThru-reject"><span class="secno">4.5.3.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestStop-response"><span class="secno">4.5.4</span> <span class="content">Response To SIVIC:Creative:requestStop</span></a>
+         <a href="#sivic-creative-requestSkip-response"><span class="secno">4.5.4</span> <span class="content">Response To SIVIC:Creative:requestSkip</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestStop-resolve"><span class="secno">4.5.4.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestStop-reject"><span class="secno">4.5.4.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestSkip-resolve"><span class="secno">4.5.4.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestSkip-reject"><span class="secno">4.5.4.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestPause-response"><span class="secno">4.5.5</span> <span class="content">Response To SIVIC:Creative:requestPause</span></a>
+         <a href="#sivic-creative-requestStop-response"><span class="secno">4.5.5</span> <span class="content">Response To SIVIC:Creative:requestStop</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestPause-resolve"><span class="secno">4.5.5.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestPause-reject"><span class="secno">4.5.5.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestStop-resolve"><span class="secno">4.5.5.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestStop-reject"><span class="secno">4.5.5.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestPlay-response"><span class="secno">4.5.6</span> <span class="content">Response To SIVIC:Creative:requestPlay</span></a>
+         <a href="#sivic-creative-requestPause-response"><span class="secno">4.5.6</span> <span class="content">Response To SIVIC:Creative:requestPause</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestPlay-resolve"><span class="secno">4.5.6.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestPlay-reject"><span class="secno">4.5.6.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestPause-resolve"><span class="secno">4.5.6.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestPause-reject"><span class="secno">4.5.6.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestFullscreen-response"><span class="secno">4.5.7</span> <span class="content">Response To SIVIC:Creative:requestFullscreen</span></a>
+         <a href="#sivic-creative-requestPlay-response"><span class="secno">4.5.7</span> <span class="content">Response To SIVIC:Creative:requestPlay</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestFullscreen-resolve"><span class="secno">4.5.7.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestFullscreen-reject"><span class="secno">4.5.7.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestPlay-resolve"><span class="secno">4.5.7.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestPlay-reject"><span class="secno">4.5.7.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestVolume-response"><span class="secno">4.5.8</span> <span class="content">Response To SIVIC:Creative:requestVolume</span></a>
+         <a href="#sivic-creative-requestFullscreen-response"><span class="secno">4.5.8</span> <span class="content">Response To SIVIC:Creative:requestFullscreen</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestVolume-resolve"><span class="secno">4.5.8.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestVolume-reject"><span class="secno">4.5.8.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestFullscreen-resolve"><span class="secno">4.5.8.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestFullscreen-reject"><span class="secno">4.5.8.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestResize-response"><span class="secno">4.5.9</span> <span class="content">Response To SIVIC:Creative:requestResize</span></a>
+         <a href="#sivic-creative-requestVolume-response"><span class="secno">4.5.9</span> <span class="content">Response To SIVIC:Creative:requestVolume</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestResize-resolve"><span class="secno">4.5.9.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestResize-reject"><span class="secno">4.5.9.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestVolume-resolve"><span class="secno">4.5.9.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestVolume-reject"><span class="secno">4.5.9.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestChangeAdDuration-response"><span class="secno">4.5.10</span> <span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span></a>
+         <a href="#sivic-creative-requestResize-response"><span class="secno">4.5.10</span> <span class="content">Response To SIVIC:Creative:requestResize</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestChangeAdDuration-resolve"><span class="secno">4.5.10.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestChangeAdDuration-reject"><span class="secno">4.5.10.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestResize-resolve"><span class="secno">4.5.10.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestResize-reject"><span class="secno">4.5.10.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-reportTracking-response"><span class="secno">4.5.11</span> <span class="content">Response To SIVIC:Creative:reportTracking</span></a>
+         <a href="#sivic-creative-requestChangeAdDuration-response"><span class="secno">4.5.11</span> <span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-reportTracking-resolve"><span class="secno">4.5.11.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-reportTracking-reject"><span class="secno">4.5.11.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestChangeAdDuration-resolve"><span class="secno">4.5.11.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestChangeAdDuration-reject"><span class="secno">4.5.11.2</span> <span class="content">reject</span></a>
+         </ol>
+        <li>
+         <a href="#sivic-creative-reportTracking-response"><span class="secno">4.5.12</span> <span class="content">Response To SIVIC:Creative:reportTracking</span></a>
+         <ol class="toc">
+          <li><a href="#sivic-creative-reportTracking-resolve"><span class="secno">4.5.12.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-reportTracking-reject"><span class="secno">4.5.12.2</span> <span class="content">reject</span></a>
          </ol>
        </ol>
       <li>
@@ -1702,28 +1743,28 @@ experience.</p>
    <p>The SIVIC revision is needed specifically to address the following concerns with
 VPAID:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p><strong>Publisher control:</strong> compatibility with running the interactive code in
 parallel to the video rather than having the code manage the video delivery,
 incorporating the following:</p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p>VAST 4 style delivery (interactive code delivered separately from the
 media file)</p>
-      <li data-md="">
+      <li data-md>
        <p>Compatibility with server-side ad insertion, including live streams</p>
-      <li data-md="">
+      <li data-md>
        <p>Compatibility with the need to pre-cache at least the video asset on
 mobile</p>
      </ul>
-    <li data-md="">
+    <li data-md>
      <p><strong>Security:</strong> compatibility with running in a “protected”/safe iframe and/or
 being passed a proxy video object by the publisher</p>
-    <li data-md="">
+    <li data-md>
      <p><strong>Clarity of purpose:</strong> Movement of verification and viewability codebase to a
 separate codebase, either client-resident in the case of the OM SDK or a
 separate call to a verification script in VAST 4.1</p>
-    <li data-md="">
+    <li data-md>
      <p><strong>Clarity of purpose, security, performance:</strong> Unintended usage of VPAID that
 is disruptive to the user experience and/or publisher operations (specifically
 client-side arbitration, but other scenarios may exist)</p>
@@ -1763,7 +1804,7 @@ non-SSAI scenarios</p>
    <p>The process of serving an ad is also more or less unchanged from the earlier
 VPAID specification, with two main exceptions.</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>Access to the video is no longer mediated by the code layer described in this
 spec, as was the case for VPAID. Pre-caching for mobile and SSAI require
 direct access to the video and this is reflected in the VAST 4.1 spec, which
@@ -1771,7 +1812,7 @@ now separates the video media file from the <code>InteractiveCreativeFile</code>
 Removing this parent-child relationship between the code and the video also no
 longer allows the code to act as a gatekeeper for the video, which led to the
 exploitation of VPAID for client-side arbitration.</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC also has to account for the SSAI use case - in this case, the video ad
 is part of an ongoing video stream delivered by the publisher and the SIVIC
 code is downloaded and executed on a parallel path to the stream.</p>
@@ -1814,47 +1855,47 @@ aspects of the spec that it needs).</p>
 spec in this new revision, instead we reflect below the market needs driving the
 replacement of VPAID with SIVIC.</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>Publisher needs:</p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p>Security</p>
-      <li data-md="">
+      <li data-md>
        <p>Performance</p>
-      <li data-md="">
+      <li data-md>
        <p>Low latency</p>
-      <li data-md="">
+      <li data-md>
        <p>Protection of publisher page creative elements from ad code</p>
-      <li data-md="">
+      <li data-md>
        <p>The minimization of errors and playback issues</p>
      </ul>
-    <li data-md="">
+    <li data-md>
      <p>Agency/advertiser/ad platform needs:</p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p>Maximum creative control, without interfering with publisher needs above</p>
-      <li data-md="">
+      <li data-md>
        <p>Access to player-managed capabilities like fullscreen</p>
-      <li data-md="">
+      <li data-md>
        <p>Ability to pass data into the creative</p>
-      <li data-md="">
+      <li data-md>
        <p>A defined interface for communicating with elements outside the player and
 ad</p>
-      <li data-md="">
+      <li data-md>
        <p>Ability to understand playback environment/device capabilities that may be
 required for creative execution</p>
-      <li data-md="">
+      <li data-md>
        <p>The ability to correlate the measurement of interactive events with other
 measurement now happening outside of VPAID (eg viewability and
 verification)</p>
      </ul>
-    <li data-md="">
+    <li data-md>
      <p>Needs of both:</p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p>Document clarity - we should be careful to minimize any confusion about
 how to implement a player or recognized ad format</p>
-      <li data-md="">
+      <li data-md>
        <p>Position relative to other standards (VAST, OMID, etc) in any cases of
 overlap or potential confusion</p>
      </ul>
@@ -1863,22 +1904,22 @@ overlap or potential confusion</p>
    <p>The standards revisions in this document intend to support scalable, performant
 interactive video execution in the following cases</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>Server-side ad insertion, with interactive creative operating in parallel to a
 publisher-controlled video stream</p>
-    <li data-md="">
+    <li data-md>
      <p>Mobile and other bandwidth-constrained scenarios that require pre-loading of
 assets to enable instant playback</p>
-    <li data-md="">
+    <li data-md>
      <p>Desktop and other playback scenarios currently executed via VPAID, with a
 reduction in errors, non-standard executions, and performance and security
 issues. The significant change between VPAID and SIVIC for these scenarios is
 that video playback control now resides with the publisher player in all
 cases.</p>
-    <li data-md="">
+    <li data-md>
      <p>In service of all of the above, it is also understood that this version of the
 SIVIC spec should be interoperable with VAST 4.1.</p>
-    <li data-md="">
+    <li data-md>
      <p>In all cases the understanding is that the playback environment (device and
 platform) support and permit the execution of code as required by SIVIC.</p>
    </ul>
@@ -1928,57 +1969,57 @@ requirements.</p>
 </pre>
    <h4 class="heading settled" data-level="4.1.2" id="other-vast-messages"><span class="secno">4.1.2. </span><span class="content">Other tracking events that must be supported</span><a class="self-link" href="#other-vast-messages"></a></h4>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:impression</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:creativeView</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:mute</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:unmute</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:pause</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:resume</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:rewind</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:skip</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:playerExpand</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:playerCollapse</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:loaded</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:start</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:firstQuartile</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:midpoint</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:thirdQuartile</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:complete</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:otherAdInteraction</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:progress</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:closeLinear</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:fullscreen</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:exitFullscreen</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:expand</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:collapse</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:clickThrough</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:clickTracking</p>
-    <li data-md="">
+    <li data-md>
      <p>SIVIC:Tracking:customClick</p>
    </ul>
    <h3 class="heading settled" data-level="4.2" id="video-messages"><span class="secno">4.2. </span><span class="content">Messages from the video element</span><a class="self-link" href="#video-messages"></a></h3>
@@ -1989,7 +2030,7 @@ correspond with the html5 video element callbacks.</p>
     Should be called after the durationchange event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>duration(float): The number in seconds of the video duration. For server side ad insertion this must be calculated
 to be the total duration of the ad.</p>
    </ul>
@@ -1999,9 +2040,9 @@ to be the total duration of the ad.</p>
     Should be called after the error event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>error(string): corresponds to videoElement.error.code.</p>
-    <li data-md="">
+    <li data-md>
      <p>message(string): corresponds to videoElement.error.message.</p>
    </ul>
    <h4 class="heading settled" data-level="4.2.4" id="sivic-video-pause"><span class="secno">4.2.4. </span><span class="content">SIVIC:Video:pause</span><a class="self-link" href="#sivic-video-pause"></a></h4>
@@ -2018,7 +2059,7 @@ to be the total duration of the ad.</p>
     Should be called after the timeupdate event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>currentTime(number): corresponds to videoElement.currentTime attribute. For server side ad insertion
 this must be calculated to be the total time the video ad has played. For example: if the video element
 time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.</p>
@@ -2027,31 +2068,31 @@ time is 500 seconds but the ad started playback 10 seconds ago (in DAI), current
     Should be called after the volumechange event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>volume(number): corresponds to videoElement.volume attribute.</p>
    </ul>
    <h3 class="heading settled" data-level="4.3" id="video-responses"><span class="secno">4.3. </span><span class="content">Responses from the video element</span><a class="self-link" href="#video-responses"></a></h3>
    <h4 class="heading settled" data-level="4.3.1" id="sivic-creative-getVideoState-response"><span class="secno">4.3.1. </span><span class="content">Response To SIVIC:Creative:getVideoState</span><a class="self-link" href="#sivic-creative-getVideoState-response"></a></h4>
    <h5 class="heading settled" data-level="4.3.1.1" id="sivic-creative-getVideoState-resolve"><span class="secno">4.3.1.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-getVideoState-resolve"></a></h5>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>currentSrc(string): The src of which ad has been chosen. This may need correction for server side ad insertion as
 it should indicate the video media selected and not the url to the media playing.</p>
-    <li data-md="">
+    <li data-md>
      <p>currentTime(number): This should be the current time from the first frame of the video ad.  In the case of DAI,
 this number needs to be corrected. For example: if the video element time is 500 seconds but the ad started
 playback 10 seconds ago (in DAI), this should be 10 seconds.</p>
-    <li data-md="">
+    <li data-md>
      <p>duration(number): This should be the duration of the ad.  Server side ad insertion may need correction.</p>
-    <li data-md="">
+    <li data-md>
      <p>ended(boolean): corresponds exactly to video element ended attribute</p>
-    <li data-md="">
+    <li data-md>
      <p>muted(boolean): corresponds exactly to video element muted attribute</p>
-    <li data-md="">
+    <li data-md>
      <p>paused(boolean): corresponds exactly to video element paused attribute</p>
-    <li data-md="">
+    <li data-md>
      <p>volume(number): corresponds exactly to video element volume attribute</p>
-    <li data-md="">
+    <li data-md>
      <p>fullscreen(boolean): true if the video element is full screen, false otherwise</p>
    </ul>
    <p class="issue" id="issue-a3715b66"><a class="self-link" href="#issue-a3715b66"></a> should we also include video element location and size here?</p>
@@ -2067,64 +2108,64 @@ playback 10 seconds ago (in DAI), this should be 10 seconds.</p>
 </pre>
    <h4 class="heading settled" data-level="4.4.1" id="sivic-player-resize"><span class="secno">4.4.1. </span><span class="content">SIVIC:Player:resize</span><a class="self-link" href="#sivic-player-resize"></a></h4>
    <p>parameters:</p>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-resizeparameters"><code>resizeParameters</code></dfn> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions">videoDimensions</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export="" data-type="videoDimensions " id="dom-resizeparameters-videodimensions"><code>videoDimensions</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions">creativeDimensions</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export="" data-type="creativeDimensions " id="dom-resizeparameters-creativedimensions"><code>creativeDimensions</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-resizeparameters-mode"><code>mode</code></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-resizeparameters-fullscreen"><code>fullScreen</code></dfn>;
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-resizeparameters"><code><c- g>resizeParameters</c-></code></dfn> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions"><c- n>videoDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="videoDimensions " id="dom-resizeparameters-videodimensions"><code><c- g>videoDimensions</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions"><c- n>creativeDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="creativeDimensions " id="dom-resizeparameters-creativedimensions"><code><c- g>creativeDimensions</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="string " id="dom-resizeparameters-mode"><code><c- g>mode</c-></code></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-resizeparameters-fullscreen"><code><c- g>fullScreen</c-></code></dfn>;
 };
 </pre>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-videodimensions"><code>videoDimensions</code></dfn> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-videodimensions-x"><code>x</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-videodimensions-y"><code>y</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-videodimensions-width"><code>width</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-videodimensions-height"><code>height</code></dfn>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export="" data-type="float " id="dom-videodimensions-transitionduration"><code>transitionDuration</code></dfn>;
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-videodimensions"><code><c- g>videoDimensions</c-></code></dfn> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-videodimensions-x"><code><c- g>x</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-videodimensions-y"><code><c- g>y</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-videodimensions-width"><code><c- g>width</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-videodimensions-height"><code><c- g>height</c-></code></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float"><c- b>float</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="videoDimensions" data-dfn-type="dict-member" data-export data-type="float " id="dom-videodimensions-transitionduration"><code><c- g>transitionDuration</c-></code></dfn>;
 };
 </pre>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-creativedimensions"><code>creativeDimensions</code></dfn> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-creativedimensions-x"><code>x</code><a class="self-link" href="#dom-creativedimensions-x"></a></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-creativedimensions-y"><code>y</code><a class="self-link" href="#dom-creativedimensions-y"></a></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-creativedimensions-width"><code>width</code><a class="self-link" href="#dom-creativedimensions-width"></a></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <dfn class="nv idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export="" data-type="int " id="dom-creativedimensions-height"><code>height</code><a class="self-link" href="#dom-creativedimensions-height"></a></dfn>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export="" data-type="float " id="dom-creativedimensions-transitionduration"><code>transitionDuration</code><a class="self-link" href="#dom-creativedimensions-transitionduration"></a></dfn>;
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-creativedimensions"><code><c- g>creativeDimensions</c-></code></dfn> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-creativedimensions-x"><code><c- g>x</c-></code><a class="self-link" href="#dom-creativedimensions-x"></a></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-creativedimensions-y"><code><c- g>y</c-></code><a class="self-link" href="#dom-creativedimensions-y"></a></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-creativedimensions-width"><code><c- g>width</c-></code><a class="self-link" href="#dom-creativedimensions-width"></a></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <dfn class="idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export data-type="int " id="dom-creativedimensions-height"><code><c- g>height</c-></code><a class="self-link" href="#dom-creativedimensions-height"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="creativeDimensions" data-dfn-type="dict-member" data-export data-type="float " id="dom-creativedimensions-transitionduration"><code><c- g>transitionDuration</c-></code><a class="self-link" href="#dom-creativedimensions-transitionduration"></a></dfn>;
 };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions">videoDimensions</a></code> communicate to the creative the dimensions of the video element.
 The <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions">creativeDimensions</a></code> tell the creative where the iframe is located as well as its dimensions.  If the iframe is
 not yet visible (like during initialization) these dimensions will be the expected dimensions when it does become visible.</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions①">videoDimensions</a></code></p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-x" id="ref-for-dom-videodimensions-x">x</a></code> The x offset of the video. It should initialize at 0.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-y" id="ref-for-dom-videodimensions-y">y</a></code> The y offset of the video. It should initialize at 0.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-width" id="ref-for-dom-videodimensions-width">width</a></code> The width in pixels of the video.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-height" id="ref-for-dom-videodimensions-height">height</a></code> The height in pixels of the video.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-transitionduration" id="ref-for-dom-videodimensions-transitionduration">transitionDuration</a></code> Number in seconds the transition animation should take, this can be accomplished by transition-property in css</p>
      </ul>
-    <li data-md="">
+    <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions①">creativeDimensions</a></code></p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-x" id="ref-for-dom-videodimensions-x①">x</a></code> The x offset of the creative. It should initialize at 0.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-y" id="ref-for-dom-videodimensions-y①">y</a></code> The y offset of the creative. It should initialize at 0.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-width" id="ref-for-dom-videodimensions-width①">width</a></code> The width in pixels of the creative.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-height" id="ref-for-dom-videodimensions-height①">height</a></code> The height in pixels of the creative.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-transitionduration" id="ref-for-dom-videodimensions-transitionduration①">transitionDuration</a></code> Number in seconds the transition animation should take, this can be accomplished by transition-property in css</p>
      </ul>
-    <li data-md="">
+    <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-mode" id="ref-for-dom-resizeparameters-mode">mode</a></code> Can be "portrait" or "landscape".</p>
-    <li data-md="">
+    <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen">fullScreen</a></code> True if fullscreen.</p>
    </ul>
    <h4 class="heading settled" data-level="4.4.2" id="sivic-player-init"><span class="secno">4.4.2. </span><span class="content">SIVIC:Player:init</span><a class="self-link" href="#sivic-player-init"></a></h4>
@@ -2135,112 +2176,112 @@ displayed as soon as the ad starts.</p>
 SIVIC:Player:init call and the SIVIC:Player:startCreative message. For example a preroll might
 call SIVIC:Player:startCreative immediately after SIVIC:Player:init.</p>
    <p>When calling SIVIC:Player:init, the player shall provide the following parameters:</p>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-initparameters"><code>initParameters</code><a class="self-link" href="#dictdef-initparameters"></a></dfn> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata">EnvironmentData</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="initParameters" data-dfn-type="dict-member" data-export="" data-type="EnvironmentData " id="dom-initparameters-environmentdata"><code>EnvironmentData</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata">CreativeData</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="initParameters" data-dfn-type="dict-member" data-export="" data-type="CreativeData " id="dom-initparameters-creativedata"><code>CreativeData</code></dfn>;
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-initparameters"><code><c- g>initParameters</c-></code><a class="self-link" href="#dictdef-initparameters"></a></dfn> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata"><c- n>EnvironmentData</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="initParameters" data-dfn-type="dict-member" data-export data-type="EnvironmentData " id="dom-initparameters-environmentdata"><code><c- g>EnvironmentData</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata"><c- n>CreativeData</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="initParameters" data-dfn-type="dict-member" data-export data-type="CreativeData " id="dom-initparameters-creativedata"><code><c- g>CreativeData</c-></code></dfn>;
 };
 </pre>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-creativedata"><code>CreativeData</code></dfn> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-creativedata-adparameters"><code>adParameters</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-creativedata-adid"><code>adId</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-creativedata-creativeid"><code>creativeId</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-creativedata-adservingid"><code>adServingId</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-creativedata-clickthruurl"><code>clickThruUrl</code></dfn>;
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-creativedata"><code><c- g>CreativeData</c-></code></dfn> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="string " id="dom-creativedata-adparameters"><code><c- g>adParameters</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="string " id="dom-creativedata-adid"><code><c- g>adId</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="string " id="dom-creativedata-creativeid"><code><c- g>creativeId</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="string " id="dom-creativedata-adservingid"><code><c- g>adServingId</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="string " id="dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code></dfn>;
 };
 </pre>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-environmentdata"><code>EnvironmentData</code></dfn> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions①">videoDimensions</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="videoDimensions " id="dom-environmentdata-videodimensions"><code>videoDimensions</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions①">creativeDimensions</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="creativeDimensions " id="dom-environmentdata-creativedimensions"><code>creativeDimensions</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">string</a> <dfn class="nv idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-environmentdata-mode"><code>mode</code><a class="self-link" href="#dom-environmentdata-mode"></a></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><span class="kt">boolean</span></a> <dfn class="nv idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-fullscreen"><code>fullScreen</code><a class="self-link" href="#dom-environmentdata-fullscreen"></a></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code>fullscreenAllowed</code></dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code>variableDurationAllowed</code></dfn>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate">SkippableState</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="SkippableState " id="dom-environmentdata-skippablestate"><code>skippableState</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-environmentdata-siteurl"><code>siteUrl</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-environmentdata-appid"><code>appId</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-environmentdata-useragent"><code>useragent</code></dfn>;
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="string " id="dom-environmentdata-deviceid"><code>deviceId</code></dfn>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-environmentdata-muted"><code>muted</code></dfn>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float②"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export="" data-type="float " id="dom-environmentdata-volume"><code>volume</code></dfn>;
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></dfn> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions①"><c- n>videoDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="videoDimensions " id="dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions①"><c- n>creativeDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="creativeDimensions " id="dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-mode"><code><c- g>mode</c-></code><a class="self-link" href="#dom-environmentdata-mode"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreen"><code><c- g>fullScreen</c-></code><a class="self-link" href="#dom-environmentdata-fullscreen"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate"><c- n>SkippableState</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="SkippableState " id="dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-appid"><code><c- g>appId</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code></dfn>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float②"><c- b>float</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code></dfn>;
 };
 
-<span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-skippablestate"><code>SkippableState</code></dfn> {<dfn class="s dfn-paneled idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export="" id="dom-skippablestate-playerhandles"><code>"playerHandles"</code></dfn>, <dfn class="s dfn-paneled idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export="" id="dom-skippablestate-adhandles"><code>"adHandles"</code></dfn>, <dfn class="s dfn-paneled idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export="" id="dom-skippablestate-notskippable"><code>"notSkippable"</code></dfn>};
+<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-skippablestate"><code><c- g>SkippableState</c-></code></dfn> {<dfn class="dfn-paneled idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code></dfn>, <dfn class="dfn-paneled idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code></dfn>, <dfn class="dfn-paneled idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code></dfn>};
 </pre>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="#dom-initparameters-creativedata" id="ref-for-dom-initparameters-creativedata">CreativeData</a></code> is used to pass information associated
 with the creative (sometimes taken from VAST). In a VAST context, the ad unit
 should pass the value for either the <code>Linear</code> or <code>Nonlinear</code> <code>AdParameter</code> element specified in the VAST document.</p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-creativedata-adparameters" id="ref-for-dom-creativedata-adparameters">adParameters</a></code> ad parameters from VAST, or an empty string
 if unknown</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-creativedata-adid" id="ref-for-dom-creativedata-adid">adId</a></code> the ID of the ad from VAST, or an empty string if
 unknown</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-creativedata-creativeid" id="ref-for-dom-creativedata-creativeid">creativeId</a></code> the ID from the creative or an empty string
 if unknown</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-creativedata-adservingid" id="ref-for-dom-creativedata-adservingid">adServingId</a></code> Quasi-unique id generated by ad server and
 passed through all 1st and 3rd party reporting to facilitate the marriage
 of impression-level data across multiple reporting systems. In VAST 4.1
 and later this id is provided in the <code>AdServingID</code> node.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-creativedata-clickthruurl" id="ref-for-dom-creativedata-clickthruurl">clickThruUrl</a></code> The click through url, provided from VAST.</p>
      </ul>
-    <li data-md="">
+    <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="#dom-initparameters-environmentdata" id="ref-for-dom-initparameters-environmentdata">EnvironmentData</a></code> is used to pass information associated with the publisher playback environment.
 The object should have the following fields.</p>
      <ul>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-videodimensions" id="ref-for-dom-environmentdata-videodimensions">videoDimensions</a></code> indicates the video display area, see <a href="#sivic-player-resize">§4.4.1 SIVIC:Player:resize</a></p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-creativedimensions" id="ref-for-dom-environmentdata-creativedimensions">creativeDimensions</a></code> indicates the creative display area, see <a href="#sivic-player-resize">§4.4.1 SIVIC:Player:resize</a></p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-mode" id="ref-for-dom-resizeparameters-mode①">mode</a></code> Can be "portrait" or "landscape".</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen①">fullScreen</a></code> True if fullscreen.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreenallowed" id="ref-for-dom-environmentdata-fullscreenallowed">fullscreenAllowed</a></code>: True if the creative may choose to display
 or not display a fullscreen option</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed">variableDurationAllowed</a></code>: If set to true the player
 must allow the SIVIC creative to pause player-controlled video playback
 during the ad. If <code>false</code> it will not (live streaming is a use case). An
 example use case here is a clickthru overlays, where <code>variableDuration</code> (ad requirement) is <code>false</code>, but <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed①">variableDurationAllowed</a></code> (publisher capability) can be <code>true</code> or <code>false</code>. It should not be used in any case where disallowing the
 pause interferes with the ad KPIs (for example if it can interfere with
 completions, time spent in an interactive component, etc).</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-skippablestate" id="ref-for-dom-environmentdata-skippablestate">skippableState</a></code>: indicates whether the ad may be
 skippable and which party controls the skippability, must be one of the <code class="idl"><a data-link-type="idl" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate①">SkippableState</a></code> enum values.</p>
        <ul>
-        <li data-md="">
+        <li data-md>
          <p><code class="idl"><a data-link-type="idl" href="#dom-skippablestate-playerhandles" id="ref-for-dom-skippablestate-playerhandles">playerHandles</a></code>: The player will render a skip button
 and might skip the ad.</p>
-        <li data-md="">
+        <li data-md>
          <p><code class="idl"><a data-link-type="idl" href="#dom-skippablestate-adhandles" id="ref-for-dom-skippablestate-adhandles">adHandles</a></code>: The ad may or may not render a skip
 button.</p>
-        <li data-md="">
+        <li data-md>
          <p><code class="idl"><a data-link-type="idl" href="#dom-skippablestate-notskippable" id="ref-for-dom-skippablestate-notskippable">notSkippable</a></code>: The ad cannot be skipped and the
 SIVIC creative should not render a skip button. This may be common in
 DAI for live streams.</p>
        </ul>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-siteurl" id="ref-for-dom-environmentdata-siteurl">siteUrl</a></code> Indicating the website the ad will play on,
 for example if the site was <code>www.xyz.com/videoId</code>, this information would
 include at least <code>www.xyz.com</code>. The player may give more information.
 Desired for reporting and troubleshooting.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-appid" id="ref-for-dom-environmentdata-appid">appId</a></code> The id of the app if applicable</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-useragent" id="ref-for-dom-environmentdata-useragent">useragent</a></code> Data about sdks and players</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-deviceid" id="ref-for-dom-environmentdata-deviceid">deviceId</a></code> IDFA or AAID would be used primarily for 3rd
 party tracking of custom events</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-muted" id="ref-for-dom-environmentdata-muted">muted</a></code> (boolean): True if the audio is muted.</p>
-      <li data-md="">
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-volume" id="ref-for-dom-environmentdata-volume">volume</a></code> (number): The volume which should be between 0 and 1.0.</p>
      </ul>
    </ul>
@@ -2255,7 +2296,7 @@ The player should wait for a response before unloading the creative iframe.
 The player should wait for a response before unloading the creative iframe. 
    <p>parameters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>code(int): reason for ad stopping</p>
    </ul>
    <p class="issue" id="issue-c8f72188"><a class="self-link" href="#issue-c8f72188"></a> These codes need to be defined.</p>
@@ -2264,9 +2305,9 @@ The player should wait for a response before unloading the creative iframe.
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
 before unloading the creative iframe. 
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>errorCode(int): reason for error.  See <a href="#error-codes">§5.2.1 Error Codes</a></p>
-    <li data-md="">
+    <li data-md>
      <p>errorMessage(string): Any additional information.</p>
    </ul>
    <h3 class="heading settled" data-level="4.5" id="player-responses"><span class="secno">4.5. </span><span class="content">Responses from the player to the creative</span><a class="self-link" href="#player-responses"></a></h3>
@@ -2275,80 +2316,99 @@ before unloading the creative iframe.
     They player may or may not move the video but in either case it will resolve and tell the creative the video location.
 parameters: 
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>x (int): The new video x location.</p>
-    <li data-md="">
+    <li data-md>
      <p>y (int): The new video y location.</p>
    </ul>
    <h4 class="heading settled" data-level="4.5.2" id="sivic-creative-ready-response"><span class="secno">4.5.2. </span><span class="content">Response To SIVIC:Creative:ready</span><a class="self-link" href="#sivic-creative-ready-response"></a></h4>
    <h5 class="heading settled" data-level="4.5.2.1" id="sivic-creative-ready-resolve"><span class="secno">4.5.2.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-ready-resolve"></a></h5>
     parameters: 
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>version (string): The version of SIVIC that will be used. The version from the player will be the source of truth.</p>
    </ul>
    <h5 class="heading settled" data-level="4.5.2.2" id="sivic-creative-ready-reject"><span class="secno">4.5.2.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-ready-reject"></a></h5>
     parameters: 
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>reason (string): An optional string error message.</p>
-    <li data-md="">
+    <li data-md>
      <p>errorCode (int): the code for why the creative won’t play. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
    </ul>
-   <h4 class="heading settled" data-level="4.5.3" id="sivic-creative-requestSkip-response"><span class="secno">4.5.3. </span><span class="content">Response To SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.3.1" id="sivic-creative-requestSkip-resolve"><span class="secno">4.5.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestSkip-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.3" id="sivic-creative-clickThru-response"><span class="secno">4.5.3. </span><span class="content">Response To SIVIC:Creative:clickThru</span><a class="self-link" href="#sivic-creative-clickThru-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.3.1" id="sivic-creative-clickThru-resolve"><span class="secno">4.5.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-clickThru-resolve"></a></h5>
+    Describes the state of the player after click: 
+   <ul>
+    <li data-md>
+     <p>paused (boolean): corresponds exactly to video element paused attribute</p>
+    <li data-md>
+     <p>muted (boolean): corresponds exactly to video element muted attribute</p>
+    <li data-md>
+     <p>fullscreen (boolean): true if the video element is full screen, false otherwise</p>
+   </ul>
+   <h5 class="heading settled" data-level="4.5.3.2" id="sivic-creative-clickThru-reject"><span class="secno">4.5.3.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-clickThru-reject"></a></h5>
+    parameters: 
+   <ul>
+    <li data-md>
+     <p>reason (string): An optional string error message.</p>
+    <li data-md>
+     <p>errorCode (int): the code for why the player didn’t handle clickthru correctly. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
+   </ul>
+   <h4 class="heading settled" data-level="4.5.4" id="sivic-creative-requestSkip-response"><span class="secno">4.5.4. </span><span class="content">Response To SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.4.1" id="sivic-creative-requestSkip-resolve"><span class="secno">4.5.4.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestSkip-resolve"></a></h5>
     Upon resolving this request, the player must call <a href="#sivic-player-adSkipped">§4.4.4 SIVIC:Player:adSkipped</a>. 
-   <h5 class="heading settled" data-level="4.5.3.2" id="sivic-creative-requestSkip-reject"><span class="secno">4.5.3.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestSkip-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.4.2" id="sivic-creative-requestSkip-reject"><span class="secno">4.5.4.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestSkip-reject"></a></h5>
     The creative should continue to playback as though it could not be skipped. 
-   <h4 class="heading settled" data-level="4.5.4" id="sivic-creative-requestStop-response"><span class="secno">4.5.4. </span><span class="content">Response To SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.4.1" id="sivic-creative-requestStop-resolve"><span class="secno">4.5.4.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestStop-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.5" id="sivic-creative-requestStop-response"><span class="secno">4.5.5. </span><span class="content">Response To SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.5.1" id="sivic-creative-requestStop-resolve"><span class="secno">4.5.5.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestStop-resolve"></a></h5>
     Upon resolving this request, the player must call <a href="#sivic-player-adStopped">§4.4.5 SIVIC:Player:adStopped</a>. 
-   <h5 class="heading settled" data-level="4.5.4.2" id="sivic-creative-requestStop-reject"><span class="secno">4.5.4.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestStop-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.5.2" id="sivic-creative-requestStop-reject"><span class="secno">4.5.5.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestStop-reject"></a></h5>
     For some reason the player could not stop playback.  The creative may continue
 to render as though it was not stopped. 
-   <h4 class="heading settled" data-level="4.5.5" id="sivic-creative-requestPause-response"><span class="secno">4.5.5. </span><span class="content">Response To SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.5.1" id="sivic-creative-requestPause-resolve"><span class="secno">4.5.5.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPause-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.6" id="sivic-creative-requestPause-response"><span class="secno">4.5.6. </span><span class="content">Response To SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.6.1" id="sivic-creative-requestPause-resolve"><span class="secno">4.5.6.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPause-resolve"></a></h5>
     The player paused the video. 
-   <h5 class="heading settled" data-level="4.5.5.2" id="sivic-creative-requestPause-reject"><span class="secno">4.5.5.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPause-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.6.2" id="sivic-creative-requestPause-reject"><span class="secno">4.5.6.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPause-reject"></a></h5>
     The player did not pause the video. 
-   <h4 class="heading settled" data-level="4.5.6" id="sivic-creative-requestPlay-response"><span class="secno">4.5.6. </span><span class="content">Response To SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.6.1" id="sivic-creative-requestPlay-resolve"><span class="secno">4.5.6.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPlay-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.7" id="sivic-creative-requestPlay-response"><span class="secno">4.5.7. </span><span class="content">Response To SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.7.1" id="sivic-creative-requestPlay-resolve"><span class="secno">4.5.7.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPlay-resolve"></a></h5>
     The player is playing the video. 
-   <h5 class="heading settled" data-level="4.5.6.2" id="sivic-creative-requestPlay-reject"><span class="secno">4.5.6.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPlay-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.7.2" id="sivic-creative-requestPlay-reject"><span class="secno">4.5.7.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPlay-reject"></a></h5>
     The player did not play the video. 
-   <h4 class="heading settled" data-level="4.5.7" id="sivic-creative-requestFullscreen-response"><span class="secno">4.5.7. </span><span class="content">Response To SIVIC:Creative:requestFullscreen</span><a class="self-link" href="#sivic-creative-requestFullscreen-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.7.1" id="sivic-creative-requestFullscreen-resolve"><span class="secno">4.5.7.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestFullscreen-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.8" id="sivic-creative-requestFullscreen-response"><span class="secno">4.5.8. </span><span class="content">Response To SIVIC:Creative:requestFullscreen</span><a class="self-link" href="#sivic-creative-requestFullscreen-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.8.1" id="sivic-creative-requestFullscreen-resolve"><span class="secno">4.5.8.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestFullscreen-resolve"></a></h5>
     The player has gone full screen. 
-   <h5 class="heading settled" data-level="4.5.7.2" id="sivic-creative-requestFullscreen-reject"><span class="secno">4.5.7.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestFullscreen-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.8.2" id="sivic-creative-requestFullscreen-reject"><span class="secno">4.5.8.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestFullscreen-reject"></a></h5>
     The player did go full screen. 
-   <h4 class="heading settled" data-level="4.5.8" id="sivic-creative-requestVolume-response"><span class="secno">4.5.8. </span><span class="content">Response To SIVIC:Creative:requestVolume</span><a class="self-link" href="#sivic-creative-requestVolume-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.8.1" id="sivic-creative-requestVolume-resolve"><span class="secno">4.5.8.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestVolume-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.9" id="sivic-creative-requestVolume-response"><span class="secno">4.5.9. </span><span class="content">Response To SIVIC:Creative:requestVolume</span><a class="self-link" href="#sivic-creative-requestVolume-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.9.1" id="sivic-creative-requestVolume-resolve"><span class="secno">4.5.9.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestVolume-resolve"></a></h5>
     The player has changed the volume as requested. 
-   <h5 class="heading settled" data-level="4.5.8.2" id="sivic-creative-requestVolume-reject"><span class="secno">4.5.8.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestVolume-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.9.2" id="sivic-creative-requestVolume-reject"><span class="secno">4.5.9.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestVolume-reject"></a></h5>
     The player did not change to the requested volume. 
-   <h4 class="heading settled" data-level="4.5.9" id="sivic-creative-requestResize-response"><span class="secno">4.5.9. </span><span class="content">Response To SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.9.1" id="sivic-creative-requestResize-resolve"><span class="secno">4.5.9.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestResize-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.10" id="sivic-creative-requestResize-response"><span class="secno">4.5.10. </span><span class="content">Response To SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.10.1" id="sivic-creative-requestResize-resolve"><span class="secno">4.5.10.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestResize-resolve"></a></h5>
     The player has resized exactly as it has been requested. 
-   <h5 class="heading settled" data-level="4.5.9.2" id="sivic-creative-requestResize-reject"><span class="secno">4.5.9.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestResize-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.10.2" id="sivic-creative-requestResize-reject"><span class="secno">4.5.10.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestResize-reject"></a></h5>
     The player did not resize to the exact request. If the player was only able to partially comply, it should still
 reject the message. Then the player should call the message <a href="#sivic-player-resize">§4.4.1 SIVIC:Player:resize</a> to let the creative know
 what resize happened. 
-   <h4 class="heading settled" data-level="4.5.10" id="sivic-creative-requestChangeAdDuration-response"><span class="secno">4.5.10. </span><span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.10.1" id="sivic-creative-requestChangeAdDuration-resolve"><span class="secno">4.5.10.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.11" id="sivic-creative-requestChangeAdDuration-response"><span class="secno">4.5.11. </span><span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.11.1" id="sivic-creative-requestChangeAdDuration-resolve"><span class="secno">4.5.11.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-resolve"></a></h5>
     The player changed the ad duration. 
-   <h5 class="heading settled" data-level="4.5.10.2" id="sivic-creative-requestChangeAdDuration-reject"><span class="secno">4.5.10.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.11.2" id="sivic-creative-requestChangeAdDuration-reject"><span class="secno">4.5.11.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-reject"></a></h5>
     The player did not change the ad duration. 
-   <h4 class="heading settled" data-level="4.5.11" id="sivic-creative-reportTracking-response"><span class="secno">4.5.11. </span><span class="content">Response To SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking-response"></a></h4>
-   <h5 class="heading settled" data-level="4.5.11.1" id="sivic-creative-reportTracking-resolve"><span class="secno">4.5.11.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-reportTracking-resolve"></a></h5>
+   <h4 class="heading settled" data-level="4.5.12" id="sivic-creative-reportTracking-response"><span class="secno">4.5.12. </span><span class="content">Response To SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking-response"></a></h4>
+   <h5 class="heading settled" data-level="4.5.12.1" id="sivic-creative-reportTracking-resolve"><span class="secno">4.5.12.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-reportTracking-resolve"></a></h5>
     The player sends resolve if tracking has been sent out.  Returning resolve on this message
 should not block waiting for a response from the site. 
-   <h5 class="heading settled" data-level="4.5.11.2" id="sivic-creative-reportTracking-reject"><span class="secno">4.5.11.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-reportTracking-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.5.12.2" id="sivic-creative-reportTracking-reject"><span class="secno">4.5.12.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-reportTracking-reject"></a></h5>
     The player did not send the tracking pixel. 
    <p>parameters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>reason(string): An optional string error message</p>
-    <li data-md="">
+    <li data-md>
      <p>errorCode(int): The code for why the player did not attempt to send a tracking pixel.  See <a href="#error-codes">§5.2.1 Error Codes</a></p>
    </ul>
    <h3 class="heading settled" data-level="4.6" id="creative-messages"><span class="secno">4.6. </span><span class="content">Messages from the Creative to the Player</span><a class="self-link" href="#creative-messages"></a></h3>
@@ -2360,62 +2420,62 @@ from the player.
    <h4 class="heading settled" data-level="4.6.2" id="sivic-creative-requestSkip"><span class="secno">4.6.2. </span><span class="content">SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip"></a></h4>
     The player should stop video playback if possible. 
    <p>If the player cannot stop video playback, the player still does not unload the iframe.</p>
-   <p>Expects a response <a href="#sivic-creative-requestSkip-response">§4.5.3 Response To SIVIC:Creative:requestSkip</a></p>
+   <p>Expects a response <a href="#sivic-creative-requestSkip-response">§4.5.4 Response To SIVIC:Creative:requestSkip</a></p>
    <h4 class="heading settled" data-level="4.6.3" id="sivic-creative-requestStop"><span class="secno">4.6.3. </span><span class="content">SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop"></a></h4>
     The player should stop video playback if possible. 
    <p>If the player cannot stop video playback, the player still unloads the iframe. The creative may hide all elements
 in this case if it doesn’t wish to be seen.</p>
-   <p>Expects a response <a href="#sivic-creative-requestStop-response">§4.5.4 Response To SIVIC:Creative:requestStop</a></p>
+   <p>Expects a response <a href="#sivic-creative-requestStop-response">§4.5.5 Response To SIVIC:Creative:requestStop</a></p>
    <h4 class="heading settled" data-level="4.6.4" id="sivic-creative-fatalError"><span class="secno">4.6.4. </span><span class="content">SIVIC:Creative:fatalError</span><a class="self-link" href="#sivic-creative-fatalError"></a></h4>
     After this message is received, the iframe should be unloaded and the video ad should stop playback if possible.
 If the video ad continues to play the iframe should still be unloaded. 
    <p>parameters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>errorCode(int): reason for error. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
-    <li data-md="">
+    <li data-md>
      <p>errorMessage(string): Any optional additional information about the fatal error.</p>
    </ul>
    <h4 class="heading settled" data-level="4.6.5" id="sivic-creative-requestPause"><span class="secno">4.6.5. </span><span class="content">SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause"></a></h4>
-    Expects a response <a href="#sivic-creative-requestPause-response">§4.5.5 Response To SIVIC:Creative:requestPause</a> 
+    Expects a response <a href="#sivic-creative-requestPause-response">§4.5.6 Response To SIVIC:Creative:requestPause</a> 
    <h4 class="heading settled" data-level="4.6.6" id="sivic-creative-requestPlay"><span class="secno">4.6.6. </span><span class="content">SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay"></a></h4>
-    Expects a response <a href="#sivic-creative-requestPlay-response">§4.5.6 Response To SIVIC:Creative:requestPlay</a> 
+    Expects a response <a href="#sivic-creative-requestPlay-response">§4.5.7 Response To SIVIC:Creative:requestPlay</a> 
    <h4 class="heading settled" data-level="4.6.7" id="sivic-creative-requestResize"><span class="secno">4.6.7. </span><span class="content">SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize"></a></h4>
    <p>Request resize should use the <code class="idl"><a data-link-type="idl" href="#dictdef-resizeparameters" id="ref-for-dictdef-resizeparameters">resizeParameters</a></code> which are explained in <a href="#sivic-player-resize">§4.4.1 SIVIC:Player:resize</a></p>
-   <p>Expects a reponse <a href="#sivic-creative-requestResize-response">§4.5.9 Response To SIVIC:Creative:requestResize</a></p>
+   <p>Expects a reponse <a href="#sivic-creative-requestResize-response">§4.5.10 Response To SIVIC:Creative:requestResize</a></p>
    <h4 class="heading settled" data-level="4.6.8" id="sivic-creative-requestFullScreen"><span class="secno">4.6.8. </span><span class="content">SIVIC:Creative:requestFullScreen</span><a class="self-link" href="#sivic-creative-requestFullScreen"></a></h4>
-    Expects a reponse <a href="#sivic-creative-requestFullscreen-response">§4.5.7 Response To SIVIC:Creative:requestFullscreen</a> 
+    Expects a reponse <a href="#sivic-creative-requestFullscreen-response">§4.5.8 Response To SIVIC:Creative:requestFullscreen</a> 
    <h4 class="heading settled" data-level="4.6.9" id="sivic-creative-requestVolume"><span class="secno">4.6.9. </span><span class="content">SIVIC:Creative:requestVolume</span><a class="self-link" href="#sivic-creative-requestVolume"></a></h4>
     paramaters: 
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>volume(float): a number between 0 and 1 indicating what volume the creative wants.</p>
-    <li data-md="">
+    <li data-md>
      <p>muted(boolean): True indicates the creative wants the volume muted.</p>
    </ul>
-   <p>Expects a reponse <a href="#sivic-creative-requestVolume-response">§4.5.8 Response To SIVIC:Creative:requestVolume</a></p>
+   <p>Expects a reponse <a href="#sivic-creative-requestVolume-response">§4.5.9 Response To SIVIC:Creative:requestVolume</a></p>
    <h4 class="heading settled" data-level="4.6.10" id="sivic-creative-reportTracking"><span class="secno">4.6.10. </span><span class="content">SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking"></a></h4>
     paramaters: 
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>
       trackingUrls(Array
       <string>): an array or tracking pixels that the publisher should fire</string>
      </p>
    </ul>
-   <p>Expects a response <a href="#sivic-creative-reportTracking-response">§4.5.11 Response To SIVIC:Creative:reportTracking</a></p>
+   <p>Expects a response <a href="#sivic-creative-reportTracking-response">§4.5.12 Response To SIVIC:Creative:reportTracking</a></p>
    <h4 class="heading settled" data-level="4.6.11" id="sivic-creative-requestChangeAdDuration"><span class="secno">4.6.11. </span><span class="content">SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration"></a></h4>
     Extension in duration should only be in response to user interaction. 
    <p>paramaters:</p>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>duration(int): The new duration of the creative. -2 indicates unknown ad duration.</p>
    </ul>
-   <p>Expects a response <a href="#sivic-creative-requestChangeAdDuration-response">§4.5.10 Response To SIVIC:Creative:requestChangeAdDuration</a></p>
+   <p>Expects a response <a href="#sivic-creative-requestChangeAdDuration-response">§4.5.11 Response To SIVIC:Creative:requestChangeAdDuration</a></p>
    <h4 class="heading settled" data-level="4.6.12" id="sivic-creative-clickThru"><span class="secno">4.6.12. </span><span class="content">SIVIC:Creative:clickThru</span><a class="self-link" href="#sivic-creative-clickThru"></a></h4>
-    The creative must handle click through due to the nature of cross domain iframes. This must only be called
-in response to a user initiated click through. 
-   <p>The player will decide if it will pause playback in response to click throughs.</p>
+   <p>The creative must handle click-through due to the nature of cross-origin iframes. This must only be called in response to a user-initiated click.</p>
+   <p>As a result of the click, the player may decide to pause or mute main media, or exit full screen. It will inform the creative through the <a href="#sivic-creative-clickThru-response">response message</a> of what the player state is after the click. If there is any in-creative media playing, the creative must apply the same to those.</p>
+   <p>Expects a response <a href="#sivic-creative-clickThru-response">§4.5.3 Response To SIVIC:Creative:clickThru</a>.</p>
    <h4 class="heading settled" data-level="4.6.13" id="sivic-creative-getVideoState"><span class="secno">4.6.13. </span><span class="content">SIVIC:Creative:getVideoState</span><a class="self-link" href="#sivic-creative-getVideoState"></a></h4>
     Expects a response [[#sivic-creative-getVideoState-response] 
    <h3 class="heading settled" data-level="4.7" id="creative-responses"><span class="secno">4.7. </span><span class="content">Responses from the creative to the player</span><a class="self-link" href="#creative-responses"></a></h3>
@@ -2424,9 +2484,9 @@ in response to a user initiated click through.
     The creative acknowledges the initialization parameters. 
    <h5 class="heading settled" data-level="4.7.1.2" id="sivic-player-init-reject"><span class="secno">4.7.1.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-init-reject"></a></h5>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>reason(string): An optional string error message</p>
-    <li data-md="">
+    <li data-md>
      <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
    </ul>
    <h4 class="heading settled" data-level="4.7.2" id="sivic-player-startCreative-response"><span class="secno">4.7.2. </span><span class="content">Response To SIVIC:Player:startCreative</span><a class="self-link" href="#sivic-player-startCreative-response"></a></h4>
@@ -2434,9 +2494,9 @@ in response to a user initiated click through.
     The creative acknowledges that it has started playback.  The player must make the creative visible to the user. 
    <h5 class="heading settled" data-level="4.7.2.2" id="sivic-player-startCreative-reject"><span class="secno">4.7.2.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-startCreative-reject"></a></h5>
    <ul>
-    <li data-md="">
+    <li data-md>
      <p>reason(string): An optional string error message</p>
-    <li data-md="">
+    <li data-md>
      <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§5.2.1 Error Codes</a></p>
    </ul>
    <h4 class="heading settled" data-level="4.7.3" id="sivic-player-adSkipped-response"><span class="secno">4.7.3. </span><span class="content">Response To SIVIC:Player:adSkipped</span><a class="self-link" href="#sivic-player-adSkipped-response"></a></h4>
@@ -2459,24 +2519,24 @@ the <code>adStopped</code> event after <code>adVideoComplete</code>.</p>
    <h3 class="heading settled" data-level="4.9" id="api-ad-loading"><span class="secno">4.9. </span><span class="content">How to Handle Ad Loading</span><a class="self-link" href="#api-ad-loading"></a></h3>
    <p>The player must follow this workflow for loading an ad.</p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>Player creates an element for the SIVIC creative to live in. For HTML this
 must be an iframe. The iframe must overlay the video player. The ad slot must
 be a div that is inside the iframe. The ad unit should always expect to be
 rendered in a secure iframe without access to any elements outside the iframe.</p>
-    <li data-md="">
+    <li data-md>
      <p>Player loads the JavaScript for the SIVIC creative in the iframe. Listen for
 the script’s <code>onLoad</code> event and call <code class="idl"><a data-link-type="idl" href="#dom-window-getsivicad" id="ref-for-dom-window-getsivicad">getSIVICAd</a></code> on the iframe window’s
 global scope to get a reference to the ad.</p>
-    <li data-md="">
+    <li data-md>
      <p>Player calls <code class="idl"><a data-link-type="idl" href="#dom-ad-handshakeversion" id="ref-for-dom-ad-handshakeversion">handshakeVersion()</a></code> to get the SIVIC API version of the ad
 (for compatibility) while passing in the highest version it supports itself.</p>
-    <li data-md="">
+    <li data-md>
      <p>Players calls <code class="idl"><a data-link-type="idl" href="#dom-ad-initad" id="ref-for-dom-ad-initad">initAd()</a></code> with parameters <code class="idl"><a data-link-type="idl" href="#dom-ad-initad-creativedata-envdata-creativedata" id="ref-for-dom-ad-initad-creativedata-envdata-creativedata">creativeData</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-ad-initad-creativedata-envdata-envdata" id="ref-for-dom-ad-initad-creativedata-envdata-envdata">envData</a></code>. The <code class="idl"><a data-link-type="idl" href="#dom-initparameters-environmentdata" id="ref-for-dom-initparameters-environmentdata①">EnvironmentData</a></code> object
 will contain the <code class="idl"><a data-link-type="idl">slot</a></code> and <code class="idl"><a data-link-type="idl">videoProxy</a></code> for the ad to render creative elements and control video playback
 respectively. The ad will load all required assets and elements into the ad
 slot. The ad will call <code>AdLoaded</code> when done loading.</p>
-    <li data-md="">
+    <li data-md>
      <p>Player waits for video to start buffering, or for point in stream of video
 start. Player calls <code class="idl"><a data-link-type="idl" href="#dom-ad-startad" id="ref-for-dom-ad-startad">startAd</a></code> and wait for <code>AdStarted</code>. If <code>AdStarted</code> is not immediately fired, the player should assume that there was an error
 (see <a href="#errors">§5.2 Error Handling and Timeouts</a>).</p>
@@ -2509,41 +2569,41 @@ with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fulls
    <h3 class="heading settled" data-level="4.11" id="api-end"><span class="secno">4.11. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#api-end"></a></h3>
    <p>Following are cases where ad can end:</p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>Ad was skipped, either by player or creative (if the ad contains
 the skip button). See <a href="#api-skip">§4.11.1 Ad Skips</a>.</p>
-    <li data-md="">
+    <li data-md>
      <p>The creative has fired <a href="#sivic-creative-requestStop">§4.6.3 SIVIC:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player has fired <a href="#sivic-player-adStopped">§4.4.5 SIVIC:Player:adStopped</a> message and the creative resolved.</p>
-    <li data-md="">
+    <li data-md>
      <p>Ad errors out. See <a href="#api-error">§4.11.5 Ad Errors Out</a>.</p>
    </ol>
    <h4 class="heading settled" data-level="4.11.1" id="api-skip"><span class="secno">4.11.1. </span><span class="content">Ad Skips</span><a class="self-link" href="#api-skip"></a></h4>
    <p><strong>Skip Ad Handled by Player</strong></p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>The player calls <a href="#sivic-player-adSkipped">§4.4.4 SIVIC:Player:adSkipped</a> on the ad.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player hides the creative.</p>
-    <li data-md="">
+    <li data-md>
      <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§4.6.10 SIVIC:Creative:reportTracking</a></p>
-    <li data-md="">
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§4.5.11.1 resolve</a></p>
-    <li data-md="">
+    <li data-md>
+     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§4.5.12.1 resolve</a></p>
+    <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-adSkipped-resolve">§4.7.3.1 resolve</a>.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player fires any skip tracking pixels.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
    <p><strong>Skip Ad Handled by Ad</strong></p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>The creative dispatches <a href="#sivic-creative-requestSkip">§4.6.2 SIVIC:Creative:requestSkip</a>.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player dispatches resolves the to the <code>requestSkip</code> message.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player follows all the steps in <code>Skip Ad Handled by Player</code>.</p>
    </ol>
    <h4 class="heading settled" data-level="4.11.2" id="api-end-before-complete"><span class="secno">4.11.2. </span><span class="content">Ad Ends Before Video Completion</span><a class="self-link" href="#api-end-before-complete"></a></h4>
@@ -2551,23 +2611,23 @@ the skip button). See <a href="#api-skip">§4.11.1 Ad Skips</a>.</p>
 typically at the prompting of the viewer. A good example would be a survey that
 allows the viewer to skip immediately to content when completed.</p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>The ad cleans up and dispatches <a href="#sivic-creative-requestStop">§4.6.3 SIVIC:Creative:requestStop</a>.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
    <h4 class="heading settled" data-level="4.11.3" id="api-extend"><span class="secno">4.11.3. </span><span class="content">Ad Extends Beyond Video Completion</span><a class="self-link" href="#api-extend"></a></h4>
    <p>This scenario is only possible when the <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed③">variableDurationAllowed</a></code> flag is set to <code>true</code>. Video
 duration must only be extended in response to user interaction.</p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>User interacts at any point during playback of the video, triggering extended
 ad portion.</p>
-    <li data-md="">
+    <li data-md>
      <p>The Creative dispatches <a href="#sivic-creative-requestChangeAdDuration">§4.6.11 SIVIC:Creative:requestChangeAdDuration</a> message with the new duration.</p>
-    <li data-md="">
+    <li data-md>
      <p>The ad enters its extended phase.</p>
-    <li data-md="">
+    <li data-md>
      <p>The creative dispatches <a href="#sivic-creative-requestStop">§4.6.3 SIVIC:Creative:requestStop</a> when extended phase is finished.</p>
    </ol>
    <p class="issue" id="issue-75380958"><a class="self-link" href="#issue-75380958"></a> clarify the value of the <code>duration</code> property as the current text
@@ -2575,17 +2635,17 @@ does not seem to make much sense</p>
    <h4 class="heading settled" data-level="4.11.4" id="api-complete"><span class="secno">4.11.4. </span><span class="content">Ad Completes at Video Completion</span><a class="self-link" href="#api-complete"></a></h4>
    <p>When an ad finishes at the same time as its video.</p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>The player calls <a href="#sivic-player-adStopped">§4.4.5 SIVIC:Player:adStopped</a> on the ad.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player hides the creative.</p>
-    <li data-md="">
+    <li data-md>
      <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§4.6.10 SIVIC:Creative:reportTracking</a></p>
-    <li data-md="">
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§4.5.11.1 resolve</a></p>
-    <li data-md="">
+    <li data-md>
+     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§4.5.12.1 resolve</a></p>
+    <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-adStopped-resolve">§4.7.4.1 resolve</a>.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
    <h4 class="heading settled" data-level="4.11.5" id="api-error"><span class="secno">4.11.5. </span><span class="content">Ad Errors Out</span><a class="self-link" href="#api-error"></a></h4>
@@ -2595,17 +2655,17 @@ unit playback. This might not be possible in server side stitched ads.</p>
    <p>The player may error out if the ad does not respond with <a href="#sivic-creative-ready">§4.6.1 SIVIC:Creative:ready</a> and <a href="#sivic-player-init-resolve">§4.7.1.1 resolve</a> in a reasonable amount of time.</p>
    <p>When an player errors out it must follow these steps.</p>
    <ol>
-    <li data-md="">
+    <li data-md>
      <p>The player calls <a href="#sivic-player-fatalError">§4.4.6 SIVIC:Player:fatalError</a> on the ad.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player hides the creative.</p>
-    <li data-md="">
+    <li data-md>
      <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§4.6.10 SIVIC:Creative:reportTracking</a></p>
-    <li data-md="">
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§4.5.11.1 resolve</a></p>
-    <li data-md="">
+    <li data-md>
+     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§4.5.12.1 resolve</a></p>
+    <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-fatalError-resolve">§4.7.5.1 resolve</a>.</p>
-    <li data-md="">
+    <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
    <h4 class="heading settled" data-level="4.11.6" id="api-notes"><span class="secno">4.11.6. </span><span class="content">Additional Notes</span><a class="self-link" href="#api-notes"></a></h4>
@@ -2621,34 +2681,34 @@ is true for <code>fatalError</code>.</p>
    <h2 class="heading settled" data-level="5" id="protocol"><span class="secno">5. </span><span class="content">Protocol Details</span><a class="self-link" href="#protocol"></a></h2>
    <h3 class="heading settled" data-level="5.1" id="objects"><span class="secno">5.1. </span><span class="content">Objects</span><a class="self-link" href="#objects"></a></h3>
    <h4 class="heading settled" data-level="5.1.1" id="entry-point"><span class="secno">5.1.1. </span><span class="content">Entry Point</span><a class="self-link" href="#entry-point"></a></h4>
-<pre class="idl highlight def"><span class="kt">partial</span> <span class="kt">interface</span> <span class="kt">mixin</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a> {
-  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject">SameObject</a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad">Ad</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Window" data-dfn-type="method" data-export="" data-lt="getSIVICAd()" id="dom-window-getsivicad"><code>getSIVICAd</code></dfn>();
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window"><c- g>Window</c-></a> {
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad"><c- n>Ad</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Window" data-dfn-type="method" data-export data-lt="getSIVICAd()" id="dom-window-getsivicad"><code><c- g>getSIVICAd</c-></code></dfn>();
 };
 </pre>
    <h4 class="heading settled" data-level="5.1.2" id="object-ad"><span class="secno">5.1.2. </span><span class="content">Ad Interface</span><a class="self-link" href="#object-ad"></a></h4>
-<pre class="idl highlight def"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="ad"><code>Ad</code></dfn> {
-  <a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="handshakeVersion(supportedVersion)" id="dom-ad-handshakeversion"><code>handshakeVersion</code></dfn>(<a class="n" data-link-type="idl-name">string</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/handshakeVersion(supportedVersion)" data-dfn-type="argument" data-export="" id="dom-ad-handshakeversion-supportedversion-supportedversion"><code>supportedVersion</code></dfn>);
-  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="initAd(creativeData, envData)" id="dom-ad-initad"><code>initAd</code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata①">CreativeData</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/initAd(creativeData, envData)" data-dfn-type="argument" data-export="" id="dom-ad-initad-creativedata-envdata-creativedata"><code>creativeData</code></dfn>, <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata①">EnvironmentData</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad/initAd(creativeData, envData)" data-dfn-type="argument" data-export="" id="dom-ad-initad-creativedata-envdata-envdata"><code>envData</code></dfn>);
-  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="startAd()" id="dom-ad-startad"><code>startAd</code></dfn>();
-  <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="stopAd()" id="dom-ad-stopad"><code>stopAd</code></dfn>();
-  <span class="kt">void</span> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="skipAd()" id="dom-ad-skipad"><code>skipAd</code><a class="self-link" href="#dom-ad-skipad"></a></dfn>();
-  <span class="kt">void</span> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export="" data-lt="resizeAd(width, height, viewMode)" id="dom-ad-resizead"><code>resizeAd</code><a class="self-link" href="#dom-ad-resizead"></a></dfn>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-width"><code>width</code><a class="self-link" href="#dom-ad-resizead-width-height-viewmode-width"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-height"><code>height</code><a class="self-link" href="#dom-ad-resizead-width-height-viewmode-height"></a></dfn>, <a class="n" data-link-type="idl-name">ViewMode</a> <dfn class="nv idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export="" id="dom-ad-resizead-width-height-viewmode-viewmode"><code>viewMode</code><a class="self-link" href="#dom-ad-resizead-width-height-viewmode-viewmode"></a></dfn>);
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adwidth"><code>adWidth</code><a class="self-link" href="#dom-ad-adwidth"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥"><span class="kt">float</span></a> <dfn class="nv idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adheight"><code>adHeight</code><a class="self-link" href="#dom-ad-adheight"></a></dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦"><span class="kt">float</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export="" data-readonly="" data-type="float" id="dom-ad-adduration"><code>adDuration</code></dfn>;
+<pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="ad"><code><c- g>Ad</c-></code></dfn> {
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export data-lt="handshakeVersion(supportedVersion)" id="dom-ad-handshakeversion"><code><c- g>handshakeVersion</c-></code></dfn>(<a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad/handshakeVersion(supportedVersion)" data-dfn-type="argument" data-export id="dom-ad-handshakeversion-supportedversion-supportedversion"><code><c- g>supportedVersion</c-></code></dfn>);
+  <c- b>void</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export data-lt="initAd(creativeData, envData)" id="dom-ad-initad"><code><c- g>initAd</c-></code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata①"><c- n>CreativeData</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad/initAd(creativeData, envData)" data-dfn-type="argument" data-export id="dom-ad-initad-creativedata-envdata-creativedata"><code><c- g>creativeData</c-></code></dfn>, <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata①"><c- n>EnvironmentData</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad/initAd(creativeData, envData)" data-dfn-type="argument" data-export id="dom-ad-initad-creativedata-envdata-envdata"><code><c- g>envData</c-></code></dfn>);
+  <c- b>void</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export data-lt="startAd()" id="dom-ad-startad"><code><c- g>startAd</c-></code></dfn>();
+  <c- b>void</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export data-lt="stopAd()" id="dom-ad-stopad"><code><c- g>stopAd</c-></code></dfn>();
+  <c- b>void</c-> <dfn class="idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export data-lt="skipAd()" id="dom-ad-skipad"><code><c- g>skipAd</c-></code><a class="self-link" href="#dom-ad-skipad"></a></dfn>();
+  <c- b>void</c-> <dfn class="idl-code" data-dfn-for="Ad" data-dfn-type="method" data-export data-lt="resizeAd(width, height, viewMode)" id="dom-ad-resizead"><code><c- g>resizeAd</c-></code><a class="self-link" href="#dom-ad-resizead"></a></dfn>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export id="dom-ad-resizead-width-height-viewmode-width"><code><c- g>width</c-></code><a class="self-link" href="#dom-ad-resizead-width-height-viewmode-width"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export id="dom-ad-resizead-width-height-viewmode-height"><code><c- g>height</c-></code><a class="self-link" href="#dom-ad-resizead-width-height-viewmode-height"></a></dfn>, <a class="n" data-link-type="idl-name"><c- n>ViewMode</c-></a> <dfn class="idl-code" data-dfn-for="Ad/resizeAd(width, height, viewMode)" data-dfn-type="argument" data-export id="dom-ad-resizead-width-height-viewmode-viewmode"><code><c- g>viewMode</c-></code><a class="self-link" href="#dom-ad-resizead-width-height-viewmode-viewmode"></a></dfn>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export data-readonly data-type="float" id="dom-ad-adwidth"><code><c- g>adWidth</c-></code><a class="self-link" href="#dom-ad-adwidth"></a></dfn>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export data-readonly data-type="float" id="dom-ad-adheight"><code><c- g>adHeight</c-></code><a class="self-link" href="#dom-ad-adheight"></a></dfn>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦"><c- b>float</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Ad" data-dfn-type="attribute" data-export data-readonly data-type="float" id="dom-ad-adduration"><code><c- g>adDuration</c-></code></dfn>;
 };
 </pre>
    <dl>
-    <dt data-md=""><code class="idl"><a data-link-type="idl" href="#dom-ad-handshakeversion" id="ref-for-dom-ad-handshakeversion①">handshakeVersion()</a></code>
-    <dd data-md="">
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-ad-handshakeversion" id="ref-for-dom-ad-handshakeversion①">handshakeVersion()</a></code>
+    <dd data-md>
      <p>Negotiates version support between the player and ad. The player passes <code class="idl"><a data-link-type="idl" href="#dom-ad-handshakeversion-supportedversion-supportedversion" id="ref-for-dom-ad-handshakeversion-supportedversion-supportedversion">supportedVersion</a></code> set to the highest
 version it supports. <code class="idl"><a data-link-type="idl">handshakeVersion</a></code> returns the version it supports.</p>
    </dl>
    <p class="issue" id="issue-f43489d6"><a class="self-link" href="#issue-f43489d6"></a> consider passing <code>supportedVersion</code> on the <code class="idl"><a data-link-type="idl" href="#dom-window-getsivicad" id="ref-for-dom-window-getsivicad①">getSIVICAd()</a></code> function
 call, so the ad can respond with an object that matches the requested API</p>
    <dl>
-    <dt data-md=""><code class="idl"><a data-link-type="idl" href="#dom-ad-adduration" id="ref-for-dom-ad-adduration">adDuration</a></code>
-    <dd data-md="">
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-ad-adduration" id="ref-for-dom-ad-adduration">adDuration</a></code>
+    <dd data-md>
      <p>The full duration of the ad experience, including video and extended features</p>
    </dl>
    <h4 class="heading settled" data-level="5.1.3" id="object-creative-data"><span class="secno">5.1.3. </span><span class="content">Creative Data</span><a class="self-link" href="#object-creative-data"></a></h4>
@@ -2660,54 +2720,54 @@ call, so the ad can respond with an object that matches the requested API</p>
    <h4 class="heading settled" data-level="5.2.1" id="error-codes"><span class="secno">5.2.1. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h4>
     This table indicates defined SIVIC error codes the ad may fire: 
    <dl>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1101">1101<a class="self-link" href="#1101"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1101">1101<a class="self-link" href="#1101"></a></dfn>
+    <dd data-md>
      <p>Resources could not be loaded. The SIVIC ad tried to load resources but failed.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1102">1102<a class="self-link" href="#1102"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1102">1102<a class="self-link" href="#1102"></a></dfn>
+    <dd data-md>
      <p>Incorrect interface passed from player. The video proxy interface or slot were not
 in concordance with the SIVIC spec.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1103">1103<a class="self-link" href="#1103"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1103">1103<a class="self-link" href="#1103"></a></dfn>
+    <dd data-md>
      <p>Playback area not usable by ad. The dimensions the ad needed
 were not what it received.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1104">1104<a class="self-link" href="#1104"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1104">1104<a class="self-link" href="#1104"></a></dfn>
+    <dd data-md>
      <p>Wrong handshake version.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1105">1105<a class="self-link" href="#1105"></a></dfn>
-    <dd data-md="">
-     <p>Ad not playable on web site. The ad cannot play on the given site.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1106">1106<a class="self-link" href="#1106"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1105">1105<a class="self-link" href="#1105"></a></dfn>
+    <dd data-md>
+     <p>Ad not playable for a technical reason on this site.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1106">1106<a class="self-link" href="#1106"></a></dfn>
+    <dd data-md>
      <p>Request for expand not honored. The ad requested to expand but the
 player did not allow it.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1107">1107<a class="self-link" href="#1107"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1107">1107<a class="self-link" href="#1107"></a></dfn>
+    <dd data-md>
      <p>Request for pause not honored. The ad requested pause but the player
 did not pause.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1108">1108<a class="self-link" href="#1108"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1108">1108<a class="self-link" href="#1108"></a></dfn>
+    <dd data-md>
      <p>Play mode not adequate for ad. The ad requires playback control but
 the player is not giving control. This error should only fire if the
 VAST for the ad specified that it needs playback control.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1009">1009<a class="self-link" href="#1009"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1009">1009<a class="self-link" href="#1009"></a></dfn>
+    <dd data-md>
      <p>Ad internal error. The ad had an error not related to any external dependencies.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1010">1010<a class="self-link" href="#1010"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1010">1010<a class="self-link" href="#1010"></a></dfn>
+    <dd data-md>
      <p>Device not supported. The ad could not play or render on the device.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1199">1199<a class="self-link" href="#1199"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1199">1199<a class="self-link" href="#1199"></a></dfn>
+    <dd data-md>
      <p>Player cababilities not adequate for ad. Catchall error if the ad
 could not be more specific.</p>
    </dl>
    <p>This table indicates defined SIVIC error codes the player may fire:</p>
    <dl>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1201">1201<a class="self-link" href="#1201"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1201">1201<a class="self-link" href="#1201"></a></dfn>
+    <dd data-md>
      <p>Uncaught error. The SIVIC ad threw and exception it did not catch.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="1202">1202<a class="self-link" href="#1202"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1202">1202<a class="self-link" href="#1202"></a></dfn>
+    <dd data-md>
      <p>Wrong handshake version.</p>
    </dl>
    <h3 class="heading settled" data-level="5.3" id="ad-completion"><span class="secno">5.3. </span><span class="content">Ad Completion</span><a class="self-link" href="#ad-completion"></a></h3>
@@ -2716,31 +2776,31 @@ could not be more specific.</p>
    <h2 class="heading settled" data-level="8" id="lang-specific"><span class="secno">8. </span><span class="content">Language-Specific Implementation Details</span><a class="self-link" href="#lang-specific"></a></h2>
    <h2 class="heading settled" data-level="9" id="terminology"><span class="secno">9. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <dl>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-vast">SIVIC VAST<a class="self-link" href="#sivic-vast"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-vast">SIVIC VAST<a class="self-link" href="#sivic-vast"></a></dfn>
+    <dd data-md>
      <p>The VAST document that contains the SIVIC ad unit components.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-ad-unit">SIVIC Ad Unit<a class="self-link" href="#sivic-ad-unit"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-ad-unit">SIVIC Ad Unit<a class="self-link" href="#sivic-ad-unit"></a></dfn>
+    <dd data-md>
      <p>The SIVIC ad video and the SIVIC ad creative.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-video">SIVIC Video<a class="self-link" href="#sivic-video"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-video">SIVIC Video<a class="self-link" href="#sivic-video"></a></dfn>
+    <dd data-md>
      <p>The SIVIC ad video component if it’s a progressively downloaded video file.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-video-stream">SIVIC Video Stream<a class="self-link" href="#sivic-video-stream"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-video-stream">SIVIC Video Stream<a class="self-link" href="#sivic-video-stream"></a></dfn>
+    <dd data-md>
      <p>The SIVIC ad video component if it’s SSAI video.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-live-video-stream">SIVIC Live Video Stream<a class="self-link" href="#sivic-live-video-stream"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-live-video-stream">SIVIC Live Video Stream<a class="self-link" href="#sivic-live-video-stream"></a></dfn>
+    <dd data-md>
      <p>The SIVIC ad video component if live streaming video.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-creative">SIVIC Creative<a class="self-link" href="#sivic-creative"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-creative">SIVIC Creative<a class="self-link" href="#sivic-creative"></a></dfn>
+    <dd data-md>
      <p>The SIVIC ad creative component (html doc and assets) that overlays the SIVIC
 ad video.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="sivic-secondary-video">SIVIC Secondary Video<a class="self-link" href="#sivic-secondary-video"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-secondary-video">SIVIC Secondary Video<a class="self-link" href="#sivic-secondary-video"></a></dfn>
+    <dd data-md>
      <p>Video assets that are loaded as part of the SIVIC creative and not the
 primary video.</p>
-    <dt data-md=""><dfn data-dfn-type="dfn" data-noexport="" id="content-video">Content Video<a class="self-link" href="#content-video"></a></dfn>
-    <dd data-md="">
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="content-video">Content Video<a class="self-link" href="#content-video"></a></dfn>
+    <dd data-md>
      <p>Any reference to video that is NOT a component or asset of the ad unit.</p>
    </dl>
   </main>
@@ -3014,19 +3074,46 @@ primary video.</p>
      <li><a href="#dom-videodimensions-y">dict-member for videoDimensions</a><span>, in §4.4.1</span>
     </ul>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-window">
+   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-window">5.1.1. Entry Point</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-SameObject">
+   <a href="https://heycam.github.io/webidl/#SameObject">https://heycam.github.io/webidl/#SameObject</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-SameObject">5.1.1. Entry Point</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-boolean">
+   <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-boolean">4.4.1. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-idl-boolean①">4.4.2. SIVIC:Player:init</a> <a href="#ref-for-idl-boolean②">(2)</a> <a href="#ref-for-idl-boolean③">(3)</a> <a href="#ref-for-idl-boolean④">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-float">
+   <a href="https://heycam.github.io/webidl/#idl-float">https://heycam.github.io/webidl/#idl-float</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-float">4.4.1. SIVIC:Player:resize</a> <a href="#ref-for-idl-float①">(2)</a>
+    <li><a href="#ref-for-idl-float②">4.4.2. SIVIC:Player:init</a>
+    <li><a href="#ref-for-idl-float③">5.1.2. Ad Interface</a> <a href="#ref-for-idl-float④">(2)</a> <a href="#ref-for-idl-float⑤">(3)</a> <a href="#ref-for-idl-float⑥">(4)</a> <a href="#ref-for-idl-float⑦">(5)</a>
+   </ul>
+  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window</a>
+     <li><span class="dfn-paneled" id="term-for-window" style="color:initial">Window</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-boolean">boolean</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-float">float</a>
+     <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
+     <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
+     <li><span class="dfn-paneled" id="term-for-idl-float" style="color:initial">float</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -3040,74 +3127,74 @@ primary video.</p>
    <dd>Cameron McCormack; Boris Zbarsky; Tobie Langel. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <a class="nv" href="#dictdef-resizeparameters"><code>resizeParameters</code></a> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions②">videoDimensions</a> <a class="nv" data-type="videoDimensions " href="#dom-resizeparameters-videodimensions"><code>videoDimensions</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions②">creativeDimensions</a> <a class="nv" data-type="creativeDimensions " href="#dom-resizeparameters-creativedimensions"><code>creativeDimensions</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-resizeparameters-mode"><code>mode</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑤"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-resizeparameters-fullscreen"><code>fullScreen</code></a>;
+<pre class="idl highlight def"><c- b>dictionary</c-> <a href="#dictdef-resizeparameters"><code><c- g>resizeParameters</c-></code></a> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions②"><c- n>videoDimensions</c-></a> <a data-type="videoDimensions " href="#dom-resizeparameters-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions②"><c- n>creativeDimensions</c-></a> <a data-type="creativeDimensions " href="#dom-resizeparameters-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-resizeparameters-mode"><code><c- g>mode</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑤"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-resizeparameters-fullscreen"><code><c- g>fullScreen</c-></code></a>;
 };
 
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-videodimensions"><code>videoDimensions</code></a> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-videodimensions-x"><code>x</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-videodimensions-y"><code>y</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-videodimensions-width"><code>width</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-videodimensions-height"><code>height</code></a>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧"><span class="kt">float</span></a> <a class="nv" data-type="float " href="#dom-videodimensions-transitionduration"><code>transitionDuration</code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-videodimensions"><code><c- g>videoDimensions</c-></code></a> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-videodimensions-x"><code><c- g>x</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-videodimensions-y"><code><c- g>y</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-videodimensions-width"><code><c- g>width</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-videodimensions-height"><code><c- g>height</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧"><c- b>float</c-></a> <a data-type="float " href="#dom-videodimensions-transitionduration"><code><c- g>transitionDuration</c-></code></a>;
 };
 
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-creativedimensions"><code>creativeDimensions</code></a> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-creativedimensions-x"><code>x</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-creativedimensions-y"><code>y</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-creativedimensions-width"><code>width</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">int</a> <a class="nv" data-type="int " href="#dom-creativedimensions-height"><code>height</code></a>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①①"><span class="kt">float</span></a> <a class="nv" data-type="float " href="#dom-creativedimensions-transitionduration"><code>transitionDuration</code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-creativedimensions"><code><c- g>creativeDimensions</c-></code></a> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-creativedimensions-x"><code><c- g>x</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-creativedimensions-y"><code><c- g>y</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-creativedimensions-width"><code><c- g>width</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>int</c-></a> <a data-type="int " href="#dom-creativedimensions-height"><code><c- g>height</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①①"><c- b>float</c-></a> <a data-type="float " href="#dom-creativedimensions-transitionduration"><code><c- g>transitionDuration</c-></code></a>;
 };
 
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-initparameters"><code>initParameters</code></a> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata②">EnvironmentData</a> <a class="nv" data-type="EnvironmentData " href="#dom-initparameters-environmentdata"><code>EnvironmentData</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata②">CreativeData</a> <a class="nv" data-type="CreativeData " href="#dom-initparameters-creativedata"><code>CreativeData</code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-initparameters"><code><c- g>initParameters</c-></code></a> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata②"><c- n>EnvironmentData</c-></a> <a data-type="EnvironmentData " href="#dom-initparameters-environmentdata"><code><c- g>EnvironmentData</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata②"><c- n>CreativeData</c-></a> <a data-type="CreativeData " href="#dom-initparameters-creativedata"><code><c- g>CreativeData</c-></code></a>;
 };
 
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-creativedata"><code>CreativeData</code></a> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-creativedata-adparameters"><code>adParameters</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-creativedata-adid"><code>adId</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-creativedata-creativeid"><code>creativeId</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-creativedata-adservingid"><code>adServingId</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-creativedata-clickthruurl"><code>clickThruUrl</code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-creativedata"><code><c- g>CreativeData</c-></code></a> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-creativedata-adparameters"><code><c- g>adParameters</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-creativedata-adid"><code><c- g>adId</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-creativedata-creativeid"><code><c- g>creativeId</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-creativedata-adservingid"><code><c- g>adServingId</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code></a>;
 };
 
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-environmentdata"><code>EnvironmentData</code></a> {
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions①①">videoDimensions</a> <a class="nv" data-type="videoDimensions " href="#dom-environmentdata-videodimensions"><code>videoDimensions</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions①①">creativeDimensions</a> <a class="nv" data-type="creativeDimensions " href="#dom-environmentdata-creativedimensions"><code>creativeDimensions</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-environmentdata-mode"><code>mode</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-fullscreen"><code>fullScreen</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②①"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code>fullscreenAllowed</code></a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③①"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code>variableDurationAllowed</code></a>;
-  <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate②">SkippableState</a> <a class="nv" data-type="SkippableState " href="#dom-environmentdata-skippablestate"><code>skippableState</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-environmentdata-siteurl"><code>siteUrl</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-environmentdata-appid"><code>appId</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-environmentdata-useragent"><code>useragent</code></a>;
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" data-type="string " href="#dom-environmentdata-deviceid"><code>deviceId</code></a>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④①"><span class="kt">boolean</span></a> <a class="nv" data-type="boolean " href="#dom-environmentdata-muted"><code>muted</code></a>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float②①"><span class="kt">float</span></a> <a class="nv" data-type="float " href="#dom-environmentdata-volume"><code>volume</code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></a> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions①①"><c- n>videoDimensions</c-></a> <a data-type="videoDimensions " href="#dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions①①"><c- n>creativeDimensions</c-></a> <a data-type="creativeDimensions " href="#dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-mode"><code><c- g>mode</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreen"><code><c- g>fullScreen</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate②"><c- n>SkippableState</c-></a> <a data-type="SkippableState " href="#dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-appid"><code><c- g>appId</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-useragent"><code><c- g>useragent</c-></code></a>;
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-muted"><code><c- g>muted</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float②①"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-volume"><code><c- g>volume</c-></code></a>;
 };
 
-<span class="kt">enum</span> <a class="nv" href="#enumdef-skippablestate"><code>SkippableState</code></a> {<a class="s" href="#dom-skippablestate-playerhandles"><code>"playerHandles"</code></a>, <a class="s" href="#dom-skippablestate-adhandles"><code>"adHandles"</code></a>, <a class="s" href="#dom-skippablestate-notskippable"><code>"notSkippable"</code></a>};
+<c- b>enum</c-> <a href="#enumdef-skippablestate"><code><c- g>SkippableState</c-></code></a> {<a href="#dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code></a>, <a href="#dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code></a>, <a href="#dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code></a>};
 
-<span class="kt">partial</span> <span class="kt">interface</span> <span class="kt">mixin</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①">Window</a> {
-  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①">SameObject</a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad①">Ad</a> <a class="nv" href="#dom-window-getsivicad"><code>getSIVICAd</code></a>();
+<c- b>partial</c-> <c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①"><c- g>Window</c-></a> {
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①"><c- g>SameObject</c-></a>] <a class="n" data-link-type="idl-name" href="#ad" id="ref-for-ad①"><c- n>Ad</c-></a> <a href="#dom-window-getsivicad"><code><c- g>getSIVICAd</c-></code></a>();
 };
 
-<span class="kt">interface</span> <a class="nv" href="#ad"><code>Ad</code></a> {
-  <a class="n" data-link-type="idl-name">string</a> <a class="nv" href="#dom-ad-handshakeversion"><code>handshakeVersion</code></a>(<a class="n" data-link-type="idl-name">string</a> <a class="nv" href="#dom-ad-handshakeversion-supportedversion-supportedversion"><code>supportedVersion</code></a>);
-  <span class="kt">void</span> <a class="nv" href="#dom-ad-initad"><code>initAd</code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata①①">CreativeData</a> <a class="nv" href="#dom-ad-initad-creativedata-envdata-creativedata"><code>creativeData</code></a>, <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata①①">EnvironmentData</a> <a class="nv" href="#dom-ad-initad-creativedata-envdata-envdata"><code>envData</code></a>);
-  <span class="kt">void</span> <a class="nv" href="#dom-ad-startad"><code>startAd</code></a>();
-  <span class="kt">void</span> <a class="nv" href="#dom-ad-stopad"><code>stopAd</code></a>();
-  <span class="kt">void</span> <a class="nv" href="#dom-ad-skipad"><code>skipAd</code></a>();
-  <span class="kt">void</span> <a class="nv" href="#dom-ad-resizead"><code>resizeAd</code></a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③①"><span class="kt">float</span></a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-width"><code>width</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④①"><span class="kt">float</span></a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-height"><code>height</code></a>, <a class="n" data-link-type="idl-name">ViewMode</a> <a class="nv" href="#dom-ad-resizead-width-height-viewmode-viewmode"><code>viewMode</code></a>);
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adwidth"><code>adWidth</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adheight"><code>adHeight</code></a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦①"><span class="kt">float</span></a> <a class="nv" data-readonly="" data-type="float" href="#dom-ad-adduration"><code>adDuration</code></a>;
+<c- b>interface</c-> <a href="#ad"><code><c- g>Ad</c-></code></a> {
+  <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a href="#dom-ad-handshakeversion"><code><c- g>handshakeVersion</c-></code></a>(<a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a href="#dom-ad-handshakeversion-supportedversion-supportedversion"><code><c- g>supportedVersion</c-></code></a>);
+  <c- b>void</c-> <a href="#dom-ad-initad"><code><c- g>initAd</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata①①"><c- n>CreativeData</c-></a> <a href="#dom-ad-initad-creativedata-envdata-creativedata"><code><c- g>creativeData</c-></code></a>, <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata①①"><c- n>EnvironmentData</c-></a> <a href="#dom-ad-initad-creativedata-envdata-envdata"><code><c- g>envData</c-></code></a>);
+  <c- b>void</c-> <a href="#dom-ad-startad"><code><c- g>startAd</c-></code></a>();
+  <c- b>void</c-> <a href="#dom-ad-stopad"><code><c- g>stopAd</c-></code></a>();
+  <c- b>void</c-> <a href="#dom-ad-skipad"><code><c- g>skipAd</c-></code></a>();
+  <c- b>void</c-> <a href="#dom-ad-resizead"><code><c- g>resizeAd</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③①"><c- b>float</c-></a> <a href="#dom-ad-resizead-width-height-viewmode-width"><code><c- g>width</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④①"><c- b>float</c-></a> <a href="#dom-ad-resizead-width-height-viewmode-height"><code><c- g>height</c-></code></a>, <a class="n" data-link-type="idl-name"><c- n>ViewMode</c-></a> <a href="#dom-ad-resizead-width-height-viewmode-viewmode"><code><c- g>viewMode</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤①"><c- b>float</c-></a> <a data-readonly data-type="float" href="#dom-ad-adwidth"><code><c- g>adWidth</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥①"><c- b>float</c-></a> <a data-readonly data-type="float" href="#dom-ad-adheight"><code><c- g>adHeight</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦①"><c- b>float</c-></a> <a data-readonly data-type="float" href="#dom-ad-adduration"><code><c- g>adDuration</c-></code></a>;
 };
 
 </pre>
@@ -3419,57 +3506,57 @@ call, so the ad can respond with an object that matches the requested API<a href
   </aside>
 <script>/* script-dfn-panel */
 
-        document.body.addEventListener("click", function(e) {
-            var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-            // Find the dfn element or panel, if any, that was clicked on.
-            var el = e.target;
-            var target;
-            var hitALink = false;
-            while(el.parentElement) {
-                if(el.tagName == "A") {
-                    // Clicking on a link in a <dfn> shouldn't summon the panel
-                    hitALink = true;
-                }
-                if(el.classList.contains("dfn-paneled")) {
-                    target = "dfn";
-                    break;
-                }
-                if(el.classList.contains("dfn-panel")) {
-                    target = "dfn-panel";
-                    break;
-                }
-                el = el.parentElement;
-            }
-            if(target != "dfn-panel") {
-                // Turn off any currently "on" or "activated" panels.
-                queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-                    el.classList.remove("on");
-                    el.classList.remove("activated");
-                });
-            }
-            if(target == "dfn" && !hitALink) {
-                // open the panel
-                var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-                if(dfnPanel) {
-                    dfnPanel.classList.add("on");
-                    var rect = el.getBoundingClientRect();
-                    dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-                    dfnPanel.style.top = window.scrollY + rect.top + "px";
-                    var panelRect = dfnPanel.getBoundingClientRect();
-                    var panelWidth = panelRect.right - panelRect.left;
-                    if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                        // Reposition, because the panel is overflowing
-                        dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-                    }
-                } else {
-                    console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-                }
-            } else if(target == "dfn-panel") {
-                // Switch it to "activated" state, which pins it.
-                el.classList.add("activated");
-                el.style.left = null;
-                el.style.top = null;
-            }
-
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
         });
-        </script>
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>
