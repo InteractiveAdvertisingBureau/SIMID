@@ -566,6 +566,19 @@ parameters:
 - reason (string): An optional string error message.
 - errorCode (int): the code for why the creative won’t play. See [[#error-codes]]
 
+### Response To SIVIC:Creative:clickThru ### {#sivic-creative-clickThru-response}
+
+#### resolve #### {#sivic-creative-clickThru-resolve}
+Describes the state of the player after click:
+- paused (boolean): corresponds exactly to video element paused attribute 
+- muted (boolean): corresponds exactly to video element muted attribute
+- fullscreen (boolean): true if the video element is full screen, false otherwise
+
+#### reject #### {#sivic-creative-clickThru-reject}
+parameters:
+- reason (string): An optional string error message.
+- errorCode (int): the code for why the player didn't handle clickthru correctly. See [[#error-codes]]
+
 ### Response To SIVIC:Creative:requestSkip ### {#sivic-creative-requestSkip-response}
 
 #### resolve #### {#sivic-creative-requestSkip-resolve}
@@ -703,10 +716,12 @@ paramaters:
 Expects a response [[#sivic-creative-requestChangeAdDuration-response]]
 
 ### SIVIC:Creative:clickThru ### {#sivic-creative-clickThru}
-The creative must handle click through due to the nature of cross domain iframes. This must only be called
-in response to a user initiated click through.
 
-The player will decide if it will pause playback in response to click throughs.
+The creative must handle click-through due to the nature of cross-origin iframes. This must only be called in response to a user-initiated click.
+
+As a result of the click, the player may decide to pause or mute main media, or exit full screen. It will inform the creative through the [[#sivic-creative-clickThru-response|response message]] of what the player state is after the click. If there is any in-creative media playing, the creative must apply the same to those.
+
+Expects a response [[#sivic-creative-clickThru-response]].
 
 ### SIVIC:Creative:getVideoState ### {#sivic-creative-getVideoState}
 Expects a response [[#sivic-creative-getVideoState-response]
