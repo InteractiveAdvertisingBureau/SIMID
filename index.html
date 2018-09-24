@@ -2224,10 +2224,16 @@ of <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-fo
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-messageid" id="ref-for-dom-resolvemessageargs-messageid①">messageId</a></code> refers to the <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid②">messageId</a></code> attribute
 of the message that is being resolved.</p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value②">value</a></code> may include a value associated with this <code>resolve</code> message.</p>
-   <h4 class="heading settled" data-level="4.3.2" id="##msg-proto-reject"><span class="secno">4.3.2. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-reject"><code>reject</code><a class="self-link" href="#message-reject"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-reject"></a></h4>
+		<p class="issue">
+			ResolveMessageArgs.value should be required object. Polymorphism here presents potential danegers and unnecessary processing with conditionals. 
+		</p>
+		<h4 class="heading settled" data-level="4.3.2" id="##msg-proto-reject"><span class="secno">4.3.2. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-reject"><code>reject</code><a class="self-link" href="#message-reject"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-reject"></a></h4>
    <p><code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type⑥">type</a></code> must be <code>reject</code></p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑦">args</a></code> must be a <code class="idl"><a data-link-type="idl" href="#dictdef-resolvemessageargs" id="ref-for-dictdef-resolvemessageargs①">ResolveMessageArgs</a></code> object.</p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value③">value</a></code> may include an error message associated with this <code>reject</code> message.</p>
+		<p class="issue">
+			Message "reject" args.value should be an object with properties value.errorCode and value.errorMessage. This would be consistent with general errors data conventions and it remedies the fact that not all rejection instances will be covered with corresponding erro codes.
+		</p>
    <h2 class="heading settled" data-level="5" id="api"><span class="secno">5. </span><span class="content">API Reference</span><a class="self-link" href="#api"></a></h2>
    <h3 class="heading settled" data-level="5.1" id="vast-messages"><span class="secno">5.1. </span><span class="content">Messages corresponding to VAST tracking events</span><a class="self-link" href="#vast-messages"></a></h3>
    <p>All ID’s are prepended with SIVIC:Tracking. The player must report each event to the ad whenever a tracking pixels is reported for that tracking event type.  These names correspond with VAST 4.1 tracking names.</p>
