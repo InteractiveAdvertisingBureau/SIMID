@@ -2080,6 +2080,9 @@ identifier</a>.</strong></p>
       </ul>
     </ol>
    </section>
+		<p class="issue"><a class="self-link"></a> 
+			It feels like the term "acked" is jargon. Recommendation is to spell it out as "acknowlegment".
+		</p>
    <h4 class="heading settled" data-level="4.2.2" id="sending-messages"><span class="secno">4.2.2. </span><span class="content">Sending messages</span><a class="self-link" href="#sending-messages"></a></h4>
    <p>To send a message through a <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions③">session</a>, run the <a data-link-type="dfn" href="#message-send-a-message" id="ref-for-message-send-a-message">send a message</a> algorithm.</p>
    <section class="algorithm" data-algorithm="to send a message">
@@ -2224,12 +2227,23 @@ of <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-fo
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-messageid" id="ref-for-dom-resolvemessageargs-messageid①">messageId</a></code> refers to the <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid②">messageId</a></code> attribute
 of the message that is being resolved.</p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value②">value</a></code> may include a value associated with this <code>resolve</code> message.</p>
-   <h4 class="heading settled" data-level="4.3.2" id="##msg-proto-reject"><span class="secno">4.3.2. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-reject"><code>reject</code><a class="self-link" href="#message-reject"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-reject"></a></h4>
+		<p class="issue"><a class="self-link"></a> 
+			Representation of the properties messageId and value is confusing if not misleading. At first glance is seems these proertied bemong to message - not ResolveMessageArgs.
+			This is especially severe as in section 4.3.2 that describes reject type - although value property is referenced - there is even less clear link to the fact that property value belongs to args.<br/>
+			We want to consider to either come up with formatting that makes it straightforward that these properties are associated with ResolveMessageArgs object or refer them via dot notation: ResolveMessageArgs.value and ResolveMessageArgs.messageId.
+		</p>
+		<h4 class="heading settled" data-level="4.3.2" id="##msg-proto-reject"><span class="secno">4.3.2. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-reject"><code>reject</code><a class="self-link" href="#message-reject"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-reject"></a></h4>
    <p><code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type⑥">type</a></code> must be <code>reject</code></p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑦">args</a></code> must be a <code class="idl"><a data-link-type="idl" href="#dictdef-resolvemessageargs" id="ref-for-dictdef-resolvemessageargs①">ResolveMessageArgs</a></code> object.</p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value③">value</a></code> may include an error message associated with this <code>reject</code> message.</p>
-   <h2 class="heading settled" data-level="5" id="api"><span class="secno">5. </span><span class="content">API Reference</span><a class="self-link" href="#api"></a></h2>
-   <h3 class="heading settled" data-level="5.1" id="vast-messages"><span class="secno">5.1. </span><span class="content">Messages corresponding to VAST tracking events</span><a class="self-link" href="#vast-messages"></a></h3>
+   <p class="issue"><a class="self-link"></a> 
+		 We must not assume that audience that reads reject message section has read previous "resolve" message section. 
+		 Hence, all language related to ResolveMessageArgs object must be repeated in the section that describes "reject" type.
+	</p>
+		
+		<h2 class="heading settled" data-level="5" id="api"><span class="secno">5. </span><span class="content">API Reference</span><a class="self-link" href="#api"></a></h2>
+   
+		<h3 class="heading settled" data-level="5.1" id="vast-messages"><span class="secno">5.1. </span><span class="content">Messages corresponding to VAST tracking events</span><a class="self-link" href="#vast-messages"></a></h3>
    <p>All ID’s are prepended with SIVIC:Tracking. The player must report each event to the ad whenever a tracking pixels is reported for that tracking event type.  These names correspond with VAST 4.1 tracking names.</p>
    <p>For example:</p>
 <pre>{
@@ -2237,6 +2251,9 @@ of the message that is being resolved.</p>
  args: {}
 }
 </pre>
+		 <p class="issue"><a class="self-link"></a> 
+		Section talks about ID property. Isn't it type property in point?
+	</p>
    <h4 class="heading settled" data-level="5.1.1" id="vast-error"><span class="secno">5.1.1. </span><span class="content">SIVIC:Tracking:error</span><a class="self-link" href="#vast-error"></a></h4>
     parameters: 
 <pre>errorCode(string): the vast error code
