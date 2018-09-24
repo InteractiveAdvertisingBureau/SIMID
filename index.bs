@@ -845,7 +845,7 @@ parameters:
 
 #### resolve #### {#sivic-creative-clickThru-resolve}
 Describes the state of the player after click:
-- paused (boolean): corresponds exactly to video element paused attribute 
+- paused (boolean): corresponds exactly to video element paused attribute
 - muted (boolean): corresponds exactly to video element muted attribute
 - fullscreen (boolean): true if the video element is full screen, false otherwise
 
@@ -1292,12 +1292,6 @@ This table indicates defined SIVIC error codes the player may fire:
 
 
 ## Ad Completion ## {#ad-completion}
-
-The player will call {{Ad/stopAd}} after which:
-1. The ad must immediately stop all playback and audio when the player calls {{Ad/stopAd}}.
-2. The player hides the ad after it calls {{Ad/stopAd}}.
-3. The player should wait at least 5 seconds before removing the ad. When the ad is in an iframe, this would mean not removing the ad iframe from the DOM for 5 seconds.
-
 
 # Security # {#security}
 
