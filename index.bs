@@ -1042,6 +1042,8 @@ identifies whether the ad always drops when the duration is reached, or if it
 can potentially extend the duration by pausing the underlying video or delaying
 the `adStopped` event after `adVideoComplete`.
 
+# Common Workflows # {#common-workflows}
+
 ## How to Handle Ad Loading ## {#api-ad-loading}
 
 The player must follow this workflow for loading an ad.
