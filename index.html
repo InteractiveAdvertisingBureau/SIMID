@@ -2059,6 +2059,12 @@ following steps:</p>
     </ol>
     <p><strong class="advisement"> It is recommended to use a UUID for the <a data-link-type="dfn" href="#message-session-identifier" id="ref-for-message-session-identifier③">session
 identifier</a>.</strong></p>
+		 <p class="issue">
+			 <a class="self-link"></a> sessionId specs are prone to confusion. There is already session id that arrives with VAST. 
+			 So, does session Id in the context of messaging protocol in SIVIC related to VAST session id or message session id is an entity that describes session that player maintains independent of VAST session id?
+			 We can go either way but origins of session id in SIVIC must be clarified. 
+		 </p>
+  
     <ol start="2">
      <li data-md>
       <p>Let <var>type</var> be <code>createSession</code>.</p>
