@@ -1326,3 +1326,37 @@ This table indicates defined SIVIC error codes the player may fire:
 
 : <dfn>Content Video</dfn>
 :: Any reference to video that is NOT a component or asset of the ad unit.
+
+# Interoperability # {#interoperability}
+
+## Interoperability with OMSDK ## {#interoperability-omsdk}
+
+When using the OMSDK the player should call setSlotElement with the SIVIC
+iframe as the parameter to get correct viewability measurements.
+
+The workflow would look like this:
+- The player starts OMID ad session,calling registerAdView on the element containing
+    the iframe and the video player.
+- The player attaches the SIVIC iframe to the DOM.
+- The player loads the OMSDK service script onto the page so that it can access
+    the SIVIC iframe.
+- The player uses the OMSDK session client to call setSlotElement
+    with the SIVIC iframe element as the parameter.
+- The player uses the OMSDK session client to call setVideoElement
+    on the underlying video element.
+
+The player should avoid registering the SIVIC iframe as a friendly obstruction,
+or else all viewability of the SIVIC ad will be ignored.
+
+### On iOS or Android ### {#interoperability-omsdk-iosandroid}
+
+- The player starts an OMID ad session in iOS/Android code,
+    calling registerAdView on the native view holding the native
+    player and the webview.
+- The player points the OMID ad session to the webview as part
+    of the ad session context (iOS, Android).
+- The player loads the SIVIC creative in an iframe in a web view.
+- The player loads the OMSDK service script into the webview such
+    that it can access the iframe element. This could be the same webveiw.
+- The player uses the OMSDK session client in javascript to call
+    setSlotElement on the iframe element.
