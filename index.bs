@@ -1037,11 +1037,10 @@ When a SIVIC creative is referenced from a VAST document, the value for the
 Version information should be handled by the[[#sivic-creative-ready-response]] message
 (rather than identified in the VAST file).
 
-Another attribute of the `InteractiveCreativeFile` is `variableDuration`.
-If `variableDuration` is set this means that the ad is only playable if
-the player allows the ad to pause and extend duration. If the player does
-not support this capability, then it should not render the video or creative
-and and error out instead.
+Another attribute of the `InteractiveCreativeFile` is `variableDuration` which
+identifies whether the ad always drops when the duration is reached, or if it
+can potentially extend the duration by pausing the underlying video or delaying
+the `adStopped` event after `adVideoComplete`.
 
 # Common Workflows # {#common-workflows}
 
