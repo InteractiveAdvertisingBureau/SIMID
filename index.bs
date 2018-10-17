@@ -556,9 +556,19 @@ parameters:
 
 ## Messages from the video element ## {#video-messages}
 
-All video messages will be prepended with SIVIC:Video. All video messages should be sent after their corresponding
-media events are called. If the video is wrapped or native the player should make its best effort to make messages
-correspond with the html5 video element callbacks.
+When player’s <video> element dispatches Media events, player sends corresponding messages to creative. `Message.type` of such message contains the same value as the type of event received from <video> prefixed with `sivic:video:` namespace. 
+Example:
+Video dispatches `play` event.
+`Message.type` value is `sivic:video:play`.
+Player must send messages to creative immediately after video events arrive.
+There are two categories of `sivic:video:` messages:
+1.	Messages that do not contain additional arguments that describe video state.
+Example: Message `sivic:video:play` property `args` is a blank object.
+2.	Messages that provide specific to corresponding event information. 
+Example: Message `sivic:video:timeupdate` property `args` implements parameter `currentTime`.
+Messages with `sivic:video:` types are information-only. Creative does not respond to these messages with resolve/reject feedback. 	
+Player is not required to report messages for all video events. This document describes subset of events that player must convey to creative.
+
 
 ### SIVIC:Video:durationchange ### {#sivic-video-durationchange}
 Should be called after the durationchange event is triggered on the video element.
