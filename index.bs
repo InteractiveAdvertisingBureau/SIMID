@@ -516,7 +516,7 @@ For example:
 
 <xmp>
 {
- id: "SIVIC:Tracking:impression",
+ type: "SIVIC:Tracking:impression",
  args: {}
 }
 </xmp>
