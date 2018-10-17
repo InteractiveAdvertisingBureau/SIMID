@@ -506,6 +506,13 @@ message.
 {{ResolveMessageArgs/value}} may include an error message associated with this
 `reject` message.
 
+<xmp class="idl">
+dictionary ResolveMessageArgsValue {
+  unsigned long errorCode;
+	DOMString message;
+};
+</xmp>
+
 # API Reference # {#api}
 
 ## Messages corresponding to VAST tracking events ## {#vast-messages}
