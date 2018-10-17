@@ -889,10 +889,10 @@ The player has gone full screen.
 #### reject #### {#sivic-creative-requestFullscreen-reject}
 The player did go full screen.
 
-### Response To SIVIC:Creative:requestVolume ### {#sivic-creative-requestVolume-response}
-#### resolve #### {#sivic-creative-requestVolume-resolve}
+### Response To SIVIC:Creative:requestChangeVolume ### {#sivic-creative-requestChangeVolume-response}
+#### resolve #### {#sivic-creative-requestChangeVolume-resolve}
 The player has changed the volume as requested.
-#### reject #### {#sivic-creative-requestVolume-reject}
+#### reject #### {#sivic-creative-requestChangeVolume-reject}
 The player did not change to the requested volume.
 
 
@@ -968,12 +968,12 @@ Expects a reponse [[#sivic-creative-requestResize-response]]
 ### SIVIC:Creative:requestFullScreen ### {#sivic-creative-requestFullScreen}
 Expects a reponse [[#sivic-creative-requestFullscreen-response]]
 
-### SIVIC:Creative:requestVolume ### {#sivic-creative-requestVolume}
+### SIVIC:Creative:requestChangeVolume ### {#sivic-creative-requestChangeVolume}
 paramaters:
 - volume(float): a number between 0 and 1 indicating what volume the creative wants.
 - muted(boolean): True indicates the creative wants the volume muted.
 
-Expects a reponse [[#sivic-creative-requestVolume-response]]
+Expects a reponse [[#sivic-creative-requestChangeVolume-response]]
 
 
 ### SIVIC:Creative:reportTracking ### {#sivic-creative-reportTracking}
