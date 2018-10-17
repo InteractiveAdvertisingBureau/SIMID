@@ -692,15 +692,13 @@ not yet visible (like during initialization) these dimensions will be the expect
 
 ### SIVIC:Player:init ### {#sivic-player-init}
 
-To assist in preloading assets the SIVIC:Player:init before SIVIC:Player:startCreative.
-The player should call this function early enough before playback so that assets can be
-displayed as soon as the ad starts.
+Message `SIVIC:Player:init` is designed to communicate to creative data that is required prior to cohesive user ad experience invocation. This is the first message player sends to creative. Player should dispatch `SIVIC:Player:init` before video playback starts to allow creative to complete its internal initialization logic, prepare UI, etc.
 
-The ad, however, should not assume that it has any amount of time between the
-SIVIC:Player:init call and the SIVIC:Player:startCreative message. For example a preroll might
-call SIVIC:Player:startCreative immediately after SIVIC:Player:init.
+Message `SIVIC:Player:init` is unique in a sense that it is the first opportunity player has to communicate its capacities, especially its ability to wait for creative to amicably resolve time-sensitive and asynchronous processes.
 
-When calling SIVIC:Player:init, the player shall provide the following parameters:
+Under normal circumstances player should wait for creative to respond with `resolve` message before proceeding with ad video rendering and subsequent posting of `SIVIC:Player:startCreative` message. However, creative shouldn’t assume that player is able to allot time between `SIVIC:Player:init` and `SIVIC:Player:startCreative` posts. In certain cases player may be forced to send `SIVIC:Player: startCreative` immediately after `SIVIC:Player:init`.
+
+When posting `SIVIC:Player:init`, the player shall provide the following arguments of message.args object:
 
 <xmp class="idl">
 dictionary initParameters {
@@ -794,6 +792,10 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 		- {{EnvironmentData/volume}} (number): The volume which should be between 0 and 1.0.
 
 Issue: useragent needs some definition or a link to where how this should be populated.
+
+Issue: From how arguments are presented the knee jerk reaction is that property args will contain properties that are, in turn, other objects with their cascade of properties. It should be made clear whether all properties described in this section are immediate parameters of arg object or they are grouped under specialized objects.
+
+Issue: It may make sense to add `reject` message that is linked to `SIVIC:Player:init` as an alternative to `fatalError` for the consistency sake. 
 
 ### SIVIC:Player:startCreative ### {#sivic-player-startCreative}
 
