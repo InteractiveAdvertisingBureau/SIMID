@@ -454,7 +454,7 @@ dictionary Message {
   required DOMString sessionId;
 	required unsigned long messageId;
 	required DOMString type;
-	any args;
+	required object args;
 };
 </xmp>
 
@@ -487,7 +487,7 @@ of {{Message/args}} is defined in the respective message type definitions.
 <xmp class="idl">
 dictionary ResolveMessageArgs {
   required unsigned long messageId;
-	any value;
+	require object value;
 };
 </xmp>
 
