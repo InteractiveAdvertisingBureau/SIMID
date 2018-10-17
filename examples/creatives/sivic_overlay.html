@@ -1,14 +1,8 @@
 <html>
   <head>
-    <script src="sivic_constants.js"> </script>
     <script src="sivic_protocol.js"> </script>
-    <script>
-      // The creative should first call ready
-      sivic_protocol.sendMessage(CreativeMessage.READY);
-
-
-
-    </script>
+    <script src="base_sivic_creative.js"> </script>
+    <script src="sivic_overlay.js"> </script>
   </head>
   <body>
 	<button id="request_play">Request Play</button><br>
@@ -17,5 +11,11 @@
 	<button id="fatal_error">Fatal Error</button><br>
 	<button id="request_skip">Request Skip</button><br>
 	<button id="request_stop">Request Stop</button><br>
+  <div id="information" style="color:green">Sample Sivic Ad</div>
+  <script>
+    // The creative should first call ready
+    const sivicOverlay = new SivicOverlay();
+    sivicOverlay.ready();
+  </script>
   </body>
 </html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title> A very simple SIVIC player</title>
+  <script src="sivic_protocol.js"></script>
+  <script src="sivic_player.js"></script>
+  <style>
+    .sivic_creative {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="player_div">
+    <video id="video_player" 
+           src="black_countdown.mp4"> </video>
+    <!-- SIVIC creative will be here. -->
+  </div>
+<body>
+
+<script>
+  const sivicPlayer = new SivicPlayer();
+</script>
+
+</html>
