@@ -409,6 +409,8 @@ following steps:
 
 </section>
 
+Issue: Consider spelling our `acked` as `acknowledged`. Although term `acked' is known to be used, from style perspective it feels ad an urban jargon and may be perceived as coming from "elitist" attitude. At least we should put it in definitions. 
+
 ### Receiving messages
 
 To be able to detect new incoming [=message/sessions=] and receive messages from
