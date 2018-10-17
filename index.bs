@@ -725,7 +725,7 @@ dictionary EnvironmentData {
   required boolean fullScreen;
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
-	required SkippableState skippableState;
+	required SkippableStates skippableState;
 	string siteUrl;
 	string appId;
 	string useragent;
@@ -734,7 +734,8 @@ dictionary EnvironmentData {
 	float volume;
 };
 
-enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
+enum 
+s {"playerHandles", "adHandles", "notSkippable"};
 </xmp>
 
 
@@ -774,12 +775,12 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 			completions, time spent in an interactive component, etc).
 		- {{EnvironmentData/skippableState}}: indicates whether the ad may be
 			skippable and which party controls the skippability, must be one of the
-			{{SkippableState}} enum values.
-			  - {{SkippableState/playerHandles}}: The player will render a skip button
+			{{SkippableStates}} enum values.
+			  - {{SkippableStates/playerHandles}}: The player will render a skip button
 			    and might skip the ad.
-			  - {{SkippableState/adHandles}}: The ad may or may not render a skip
+			  - {{SkippableStates/adHandles}}: The ad may or may not render a skip
 			    button.
-			  - {{SkippableState/notSkippable}}: The ad cannot be skipped and the
+			  - {{SkippableStates/notSkippable}}: The ad cannot be skipped and the
 			    SIVIC creative should not render a skip button. This may be common in
 			    DAI for live streams.
 		- {{EnvironmentData/siteUrl}} Indicating the website the ad will play on,
