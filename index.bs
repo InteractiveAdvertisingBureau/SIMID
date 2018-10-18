@@ -999,7 +999,7 @@ As a result of the click, the player may decide to pause or mute main media, or 
 Expects a response [[#sivic-creative-clickThru-response]].
 
 ### SIVIC:Creative:getVideoState ### {#sivic-creative-getVideoState}
-Expects a response [[#sivic-creative-getVideoState-response]
+Expects a response [[#sivic-creative-getVideoState-response]]
 
 ## Responses from the creative to the player ## {#creative-responses}
 
