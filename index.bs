@@ -848,19 +848,6 @@ parameters:
 - reason (string): An optional string error message.
 - errorCode (int): the code for why the creative won’t play. See [[#error-codes]]
 
-### Response To SIVIC:Creative:clickThru ### {#sivic-creative-clickThru-response}
-
-#### resolve #### {#sivic-creative-clickThru-resolve}
-Describes the state of the player after click:
-- paused (boolean): corresponds exactly to video element paused attribute 
-- muted (boolean): corresponds exactly to video element muted attribute
-- fullscreen (boolean): true if the video element is full screen, false otherwise
-
-#### reject #### {#sivic-creative-clickThru-reject}
-parameters:
-- reason (string): An optional string error message.
-- errorCode (int): the code for why the player didn't handle clickthru correctly. See [[#error-codes]]
-
 ### Response To SIVIC:Creative:requestSkip ### {#sivic-creative-requestSkip-response}
 
 #### resolve #### {#sivic-creative-requestSkip-resolve}
@@ -999,11 +986,9 @@ Expects a response [[#sivic-creative-requestChangeAdDuration-response]]
 
 ### SIVIC:Creative:clickThru ### {#sivic-creative-clickThru}
 
-The creative must handle click-through due to the nature of cross-origin iframes. This must only be called in response to a user-initiated click.
+The creative must handle click-thru due to the nature of cross-origin iframes. This message must only be sent in response to a user-initiated click that is considered a click-thru by the creative.
 
-As a result of the click, the player may decide to pause or mute main media, or exit full screen. It will inform the creative through the [[#sivic-creative-clickThru-response|response message]] of what the player state is after the click. If there is any in-creative media playing, the creative must apply the same to those.
-
-Expects a response [[#sivic-creative-clickThru-response]].
+The main purpose of this message is for the player to track click-thrus. Since not every navigation is a click-thru, it should not be used for adjusting media playback status (pause, mute). If the player wants to update media playback status as a result of navigation, it should detect it via some other environment-specific method (eg. [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) on web and in apps).
 
 ### SIVIC:Creative:getVideoState ### {#sivic-creative-getVideoState}
 Expects a response [[#sivic-creative-getVideoState-response]
