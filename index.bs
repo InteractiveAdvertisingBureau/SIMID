@@ -78,12 +78,6 @@ The SIVIC specification is intended to standardize the communication needed
 between the ad player and the ad creative itself. SIVIC is similar to the VPAID
 spec that preceded it in this regard.
 
-<img width="100%" src="images/vast-vpaid-player.png" alt="Diagram showing
-interaction between video player, VAST and VPAID">
-
-Issue: the diagram above will need to be revised to account for SSAI and
-non-SSAI scenarios
-
 ## Video Ad Flow ## {#video-ad-flow}
 
 The process of serving an ad is also more or less unchanged from the earlier
