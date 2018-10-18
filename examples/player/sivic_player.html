@@ -13,8 +13,11 @@
     }
   </style>
   <script>
-    sivicPlayer = new SivicPlayer();
+    sivicPlayer = null;
     function playAd() {
+      if (!sivicPlayer) {
+        sivicPlayer = new SivicPlayer();
+      }
       sivicPlayer.playAd();
     }
   </script>

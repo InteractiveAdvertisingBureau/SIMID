@@ -27,8 +27,8 @@ class SivicPlayer {
 
     this.trackEventsOnVideoElement_();
 
-    // TODO: Since this sample player doesn't fire any tracking events
-    // it is not illustrated how to do this in this sample code.
+    // TODO: This sample player does not fire any tracking events so
+    // doesn't notify the creative about vast events.
   }
 
   /**
@@ -36,8 +36,7 @@ class SivicPlayer {
    */
   playAd() {
     // Remove the old ad if its still playing.
-    stopAd();
-
+    this.stopAd();
 
     this.videoElement_.src = document.getElementById('video_url').value;
     this.sivicIframe_ = this.createSivicIframe_();
@@ -260,8 +259,23 @@ class SivicPlayer {
   /** The creative wants to go full screen. */
   onRequestFullScreen(incomingMessage) {
     // The spec currently says to only request fullscreen for the iframe.
-    this.sivicIframe_.requestFullscreen()
-        .then(sivicProtocol.resolve(incomingMessage));
+    let promise = null;
+    if (this.sivicIframe_.requestFullscreen) {
+      promise = this.sivicIframe_.requestFullscreen();
+    } else if (this.sivicIframe_.mozRequestFullScreen) {
+      promise = this.sivicIframe_.mozRequestFullScreen();
+    } else if (this.sivicIframe_.webkitRequestFullscreen) {
+      promise = this.sivicIframe_.webkitRequestFullscreen();
+    } else if (this.sivicIframe_.msRequestFullscreen) {
+      promise = this.sivicIframe_.msRequestFullscreen();
+    }
+    if (promise) {
+      promise.then(sivicProtocol.resolve(incomingMessage));
+    } else {
+      // TODO: Many browsers are not returning promises but are still
+      // going full screen. Assuming resolve (bad).
+      sivicProtocol.resolve(incomingMessage)
+    }
   }
   
   /** The creative wants to play video. */
