@@ -2,6 +2,7 @@
  * Contains logic for sending mesages between the SIVIC creative and the player.
  */
 class SivicProtocol {
+
   constructor() {
     /*
      * A map of messsage type to an array of callbacks.
@@ -38,7 +39,6 @@ class SivicProtocol {
 	 */
   sendMessage(messageType, messageArgs) {
     const messageId = this.nextMessageId_;
-    console.log('sending message ' + messageType + ' ' + messageId);
     // The message object as defined by the SIVIC spec.
     const message = {
       'sessionId': this.sessionId_,
@@ -46,7 +46,7 @@ class SivicProtocol {
       'type': 'SIVIC:' + messageType,
       'args': messageArgs
     }
-    // Message ID will increment 1 per message.
+    // Incrementing between messages keeps each message id unique.
     this.nextMessageId_ ++;
 
     if (EventsThatRequireResponse.includes(messageType)) {
@@ -78,6 +78,7 @@ class SivicProtocol {
 
   /**
    * Sets up a listener for resolve/reject messages.
+   * @private
    */
   addResolveRejectListener_(messageId, resolve, reject) {
     const listener = (data) => {
@@ -111,7 +112,6 @@ class SivicProtocol {
     if (!matchesSessionId || type == null) {
       return;
     }
-    console.log('receive message ' + type + ' id ' + data['messageId']);
 
     // There are 2 types of messages to handle:
     // 1. Resolve/Reject messages
@@ -154,7 +154,7 @@ class SivicProtocol {
    * @param {!Object} incomingMessage the message that is being resolved.
    * @param {!Object} outgoingArgs Any arguments that are part of the resolution.
    */
-  sendReject(data, outgoingArgs) {
+  reject(incomingMessage, outgoingArgs) {
     const messageId = incomingMessage['messageId'];
     const message = {
       'sessionId': this.sessionId_,
@@ -297,3 +297,18 @@ EventsThatRequireResponse = [
   VideoMessage.GET_VIDEO_STATE,
 ]
 
+ErrorCode = {
+  CANNOT_LOAD_RESOURCE: 1101,
+  INCORRECT_INTERFACE: 1102,
+  WRONG_DIMENSIONS: 1103,
+  WRONG_HANDSHAKE: 1104,
+  TECHNICAL_REASONS: 1105,
+  EXPAND_NOT_POSSIBLE: 1106,
+  PAUSE_NOT_HONORED: 1107,
+  PLAYMODE_NOT_ADQUATE: 1008,
+  AD_INTERNAL_ERROR: 1009,
+  DEVICE_NOT_SUPPORTED: 1010,
+  PLAYER_CAPABILITIES_NOT_ADEQUATE: 1199,
+  UNCAUGHT_ERROR: 1201,
+  WRONG_HANDSHAKE2: 1202,  // TODO: This is a repeast
+}

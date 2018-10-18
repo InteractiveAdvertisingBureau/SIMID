@@ -18,16 +18,29 @@ class SivicPlayer {
      * @type {!Element}
      */
     this.videoElement_ = document.getElementById('video_player');
+
     /**
      * A reference to the iframe holding the SIVIC creative.
-     * @type {!Element}
+     * @type {?Element}
      */
-    this.sivicIframe_ = this.createSivicIframe_();
+    this.sivicIframe_ = null;
 
     this.trackEventsOnVideoElement_();
 
     // TODO: Since this sample player doesn't fire any tracking events
     // it is not illustrated how to do this in this sample code.
+  }
+
+  /**
+   * Initializes a new SIVIC ad
+   */
+  playAd() {
+    // Remove the old ad if its still playing.
+    stopAd();
+
+
+    this.videoElement_.src = document.getElementById('video_url').value;
+    this.sivicIframe_ = this.createSivicIframe_();
   }
 
   /**
@@ -45,11 +58,13 @@ class SivicPlayer {
     playerDiv.appendChild(sivicIframe);
     // Set up css to overlay the SIVIC iframe over the video creative.
     sivicIframe.classList.add('sivic_creative');
-    // Set the iframe creative (right now it is hard coded).
-    sivicIframe.src = 'sivic_overlay.html';
+    // Set the iframe creative, this should be an html creative.
+    // TODO: This sample does not show what to do when loading fails.
+    sivicIframe.src = document.getElementById('creative_url').value;
     // TODO: contentWindow doesn't exist until after the iframe is created.
     // It may be possible that this leads to a race condition.
     sivicProtocol.setMessageTarget(sivicIframe.contentWindow);
+    sivicIframe.setAttribute('allowFullScreen', '')
     return sivicIframe;
   }
 
@@ -64,9 +79,9 @@ class SivicPlayer {
   }
 
   destroySivicIframe() {
-    if (this.sivicIframe) {
-      this.sivicIframe.remove();
-      this.sivicIframe = null;
+    if (this.sivicIframe_) {
+      this.sivicIframe_.remove();
+      this.sivicIframe_ = null;
     }
   }
 
@@ -234,38 +249,62 @@ class SivicPlayer {
         .then(this.destroySivicIframe());
   }
 
+  /**
+   * Stops the ad and destroys the ad iframe.
+   */
+  stopAd() {
+    this.videoElement_.src = '';
+    this.destroySivicIframe();
+  }
+
   /** The creative wants to go full screen. */
   onRequestFullScreen(incomingMessage) {
-    let videoPromise = this.videoElement_.requestFullScreen();
-    let iframePromise = this.sivicIframe_.requestFullScreen();
-
-    Promise.all([videoPromise, iframePromise]).then(
-      sivicProtocol.resolve(incomingMessage), //if all promises resolve
-      sivicProtocol.reject(incomingMessage) // if some or none resolve
-      );
-
+    // The spec currently says to only request fullscreen for the iframe.
+    this.sivicIframe_.requestFullscreen()
+        .then(sivicProtocol.resolve(incomingMessage));
   }
   
   /** The creative wants to play video. */
   onRequestPlay(incomingMessage) {
-
+    this.videoElement_.play().then(
+      // The play function returns a promise.
+      sivicProtocol.resolve(incomingMessage),
+      sivicProtocol.reject(incomingMessage)
+    );
   }
   
   /** The creative wants to pause video. */
   onRequestPause(incomingMessage) {
+    this.videoElement_.pause();
+    sivicProtocol.resolve(incomingMessage);
   }
   
   /** The creative wants to stop with a fatal error. */
   onCreativeFatalError(incomingMessage) {
-
+    sivicProtocol.resolve(incomingMessage);
+    const errorReason = {
+      'errorCode': ErrorCode.AD_INTERNAL_ERROR, // TODO there was no good error code.
+      'errorMessage': 'Creative had fatal error.'
+    }
+    sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, errorReason)
+        .then(this.stopAd.bind(this));
   }
 
   /** The creative wants to skip this ad. */
   onRequestSkip(incomingMessage) {
-
+    sivicProtocol.resolve(incomingMessage);
+    sivicProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
+        .then(this.stopAd.bind(this));
   }
   
   /** The creative wants to stop the ad early. */
   onRequestStop(incomingMessage) {
+    sivicProtocol.resolve(incomingMessage);
+    const stopReason = {
+      'code': 0 // TODO codes are not defined.
+    }
+    // After the creative resolves then the iframe should be destroyed.
+    sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
+        .then(this.stopAd.bind(this));
   }
 }

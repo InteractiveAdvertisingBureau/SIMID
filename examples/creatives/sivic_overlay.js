@@ -13,37 +13,29 @@ class SivicOverlay extends BaseSivicCreative {
   /** @override */
   onTimeUpdate(data) {
     super.onTimeUpdate(data);
-    this.informationElem_.innerHTML = 'Time in ad ' + this.videoState.currentTime;
+    this.informationElem_.innerHTML = 'Current Ad Time ' + this.videoState.currentTime;
   }
 
   /**
    * Adds actions to different buttons available on the overlay.
    */
   addButtonClickActions_() {
-    document.getElementById('request_play').addEventListener("click",
-      () => {
-        sivicProtocol.sendMessage(CreativeMessage.REQUEST_PLAY);
-      });
-    document.getElementById('request_pause').addEventListener("click",
-      () => {
-        sivicProtocol.sendMessage(CreativeMessage.REQUEST_PAUSE);
-      });
-    document.getElementById('request_full_screen').addEventListener("click",
-       () => {
-        sivicProtocol.sendMessage(CreativeMessage.REQUEST_FULL_SCREEN);
-      });
-   document.getElementById('fatal_error').addEventListener("click",
-      () => {
-        sivicProtocol.sendMessage(CreativeMessage.FATAL_ERROR);
-      });
-    document.getElementById('request_skip').addEventListener("click",
-      () => {
-        sivicProtocol.sendMessage(CreativeMessage.REQUEST_SKIP);
-      });
-    document.getElementById('request_stop').addEventListener("click",
-      () => {
-        sivicProtocol.sendMessage(CreativeMessage.REQUEST_STOP);
-      });
+    this.sendRequestOnButtonClick_('request_play', CreativeMessage.REQUEST_PLAY);
+    this.sendRequestOnButtonClick_('request_pause', CreativeMessage.REQUEST_PAUSE);
+    this.sendRequestOnButtonClick_('request_full_screen', CreativeMessage.REQUEST_FULL_SCREEN);
+    this.sendRequestOnButtonClick_('fatal_error', CreativeMessage.FATAL_ERROR);
+    this.sendRequestOnButtonClick_('request_skip', CreativeMessage.REQUEST_SKIP);
+    this.sendRequestOnButtonClick_('request_stop', CreativeMessage.REQUEST_STOP);
   }
 
+  /**
+   * Listens for a click event on a button
+   * @param {String} elementName The name of the element.
+   * @param {String} message The message to send to the player.
+   * @private
+   */
+  sendRequestOnButtonClick_(elementName, message) {
+    document.getElementById(elementName).addEventListener('click',
+       () => {sivicProtocol.sendMessage(message);});
+  }
 }
