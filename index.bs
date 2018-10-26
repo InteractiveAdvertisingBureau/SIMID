@@ -433,14 +433,14 @@ following steps:
 2. If |message|.{{Message/type}} is `resolve` or `reject`:
 	 1. Let |sessionId| be |message|.{{Message/sessionId}}.
 	 2. Let |messageId| be
-	    |message|.{{Message/args}}.{{ResolveMessageArgs/messageId}}.
+			|message|.{{Message/args}}.{{ResolveMessageArgs/messageId}}.
 	 3. Let |promise| be the promise in the [=resolve list=] for |sessionId|
-	    and |messageId|, if any.
+			and |messageId|, if any.
 	 4. If a |promise| was found:
-	    1. If |message|.{{Message/type}} is `resolve`, then fulfill |promise|
+			1. If |message|.{{Message/type}} is `resolve`, then fulfill |promise|
 				 with |message|.{{Message/args}}.{{ResolveMessageArgs/value}}.
-	    2. If |message|.{{Message/type}} is `reject`, then reject |promise| with
-		     |message|.{{Message/args}}.{{ResolveMessageArgs/value}}.
+			2. If |message|.{{Message/type}} is `reject`, then reject |promise| with
+				 |message|.{{Message/args}}.{{ResolveMessageArgs/value}}.
 3. Otherwise: pass |message| to the user of the protocol for handling.
 
 </section>
@@ -451,7 +451,7 @@ A protocol message is represented by the {{Message}} data structure.
 
 <xmp class="idl">
 dictionary Message {
-  required DOMString sessionId;
+	required DOMString sessionId;
 	required unsigned long messageId;
 	required DOMString type;
 	any args;
@@ -486,7 +486,7 @@ of {{Message/args}} is defined in the respective message type definitions.
 
 <xmp class="idl">
 dictionary ResolveMessageArgs {
-  required unsigned long messageId;
+	required unsigned long messageId;
 	any value;
 };
 </xmp>
@@ -508,7 +508,7 @@ message.
 
 <xmp class="idl">
 dictionary ResolveMessageArgsValue {
-  unsigned long errorCode;
+	unsigned long errorCode;
 	DOMString message;
 };
 </xmp>
@@ -517,7 +517,9 @@ dictionary ResolveMessageArgsValue {
 
 ## Messages corresponding to VAST tracking events ## {#vast-messages}
 
-All ID’s are prepended with SIVIC:Tracking. The player must report each event to the ad whenever a tracking pixels is reported for that tracking event type.  These names correspond with VAST 4.1 tracking names.
+All ID’s are prepended with SIVIC:Tracking. The player must report each event
+to the ad whenever a tracking pixels is reported for that tracking event type. 
+These names correspond with VAST 4.1 tracking names.
 
 For example:
 
@@ -531,7 +533,7 @@ For example:
 ### SIVIC:Tracking:error ### {#vast-error}
 parameters:
 <xmp>
-  errorCode(string): the vast error code
+	errorCode(string): the vast error code
 </xmp>
 ### Other tracking events that must be supported ### {#other-vast-messages}
 - SIVIC:Tracking:impression  
@@ -620,10 +622,10 @@ parameters:
 #### resolve #### {#sivic-creative-getVideoState-resolve}
 - currentSrc(string): The src of which ad has been chosen. This may need correction for server side ad insertion as
 	it should indicate the video media selected and not the url to the media playing.
-- currentTime(number): This should be the current time from the first frame of the video ad.  In the case of DAI,
+- currentTime(number): This should be the current time from the first frame of the video ad. In the case of DAI,
 	this number needs to be corrected. For example: if the video element time is 500 seconds but the ad started
 	playback 10 seconds ago (in DAI), this should be 10 seconds.
-- duration(number): This should be the duration of the ad.  Server side ad insertion may need correction.
+- duration(number): This should be the duration of the ad. Server side ad insertion may need correction.
 - ended(boolean): corresponds exactly to video element ended attribute
 - muted(boolean): corresponds exactly to video element muted attribute
 - paused(boolean): corresponds exactly to video element paused attribute
@@ -641,7 +643,7 @@ For example:
 {
  id: "SIVIC:Player:adStopped",
  args: {
-   code: 0
+	 code: 0
  }
 }
 </xmp>
@@ -652,48 +654,48 @@ For example:
 parameters:
 <xmp class="idl">
 dictionary resizeParameters {
-  required videoDimensions videoDimensions;
-  required creativeDimensions creativeDimensions;
-  required string mode;
-  required boolean fullScreen;
+	required videoDimensions videoDimensions;
+	required creativeDimensions creativeDimensions;
+	required string mode;
+	required boolean fullScreen;
 };
 </xmp>
 <xmp class="idl">
 dictionary videoDimensions {
-  required int x;
-  required int y;
-  required int width;
-  required int height;
-  float transitionDuration;
+	required int x;
+	required int y;
+	required int width;
+	required int height;
+	float transitionDuration;
 };
 </xmp>
 <xmp class="idl">
 dictionary creativeDimensions {
-  required int x;
-  required int y;
-  required int width;
-  required int height;
-  float transitionDuration;
+	required int x;
+	required int y;
+	required int width;
+	required int height;
+	float transitionDuration;
 };
 </xmp>
 
 The {{videoDimensions}} communicate to the creative the dimensions of the video element.
-The {{creativeDimensions}} tell the creative where the iframe is located as well as its dimensions.  If the iframe is
+The {{creativeDimensions}} tell the creative where the iframe is located as well as its dimensions. If the iframe is
 not yet visible (like during initialization) these dimensions will be the expected dimensions when it does become visible.
 
 - {{videoDimensions}}
-    - {{videoDimensions/x}} The x offset of the video. It should initialize at 0.
-    - {{videoDimensions/y}} The y offset of the video. It should initialize at 0.
-    - {{videoDimensions/width}} The width in pixels of the video.
-    - {{videoDimensions/height}} The height in pixels of the video.
-    - {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
+		- {{videoDimensions/x}} The x offset of the video. It should initialize at 0.
+		- {{videoDimensions/y}} The y offset of the video. It should initialize at 0.
+		- {{videoDimensions/width}} The width in pixels of the video.
+		- {{videoDimensions/height}} The height in pixels of the video.
+		- {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
 
 - {{creativeDimensions}}
-    - {{videoDimensions/x}} The x offset of the creative. It should initialize at 0.
-    - {{videoDimensions/y}} The y offset of the creative. It should initialize at 0.
-    - {{videoDimensions/width}} The width in pixels of the creative.
-    - {{videoDimensions/height}} The height in pixels of the creative.
-    - {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
+		- {{videoDimensions/x}} The x offset of the creative. It should initialize at 0.
+		- {{videoDimensions/y}} The y offset of the creative. It should initialize at 0.
+		- {{videoDimensions/width}} The width in pixels of the creative.
+		- {{videoDimensions/height}} The height in pixels of the creative.
+		- {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
 - {{resizeParameters/mode}} Can be "portrait" or "landscape".
 - {{resizeParameters/fullScreen}} True if fullscreen.
 
@@ -711,8 +713,8 @@ When calling SIVIC:Player:init, the player shall provide the following parameter
 
 <xmp class="idl">
 dictionary initParameters {
-  required EnvironmentData EnvironmentData;
-  required CreativeData CreativeData;
+	required EnvironmentData EnvironmentData;
+	required CreativeData CreativeData;
 };
 </xmp>
 <xmp class="idl">
@@ -726,10 +728,10 @@ dictionary CreativeData {
 </xmp>
 <xmp class="idl">
 dictionary EnvironmentData {
-  required videoDimensions videoDimensions;
-  required creativeDimensions creativeDimensions;
-  required string mode;
-  required boolean fullScreen;
+	required videoDimensions videoDimensions;
+	required creativeDimensions creativeDimensions;
+	required string mode;
+	required boolean fullScreen;
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
 	required SkippableState skippableState;
@@ -750,45 +752,49 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 	should pass the value for either the `Linear` or `Nonlinear` `AdParameter`
 	element specified in the VAST document.
 		- {{CreativeData/adParameters}} ad parameters from VAST, or an empty string
-			if unknown
+			if unknown.
 		- {{CreativeData/adId}} the ID of the ad from VAST, or an empty string if
-			unknown
+			unknown.
 		- {{CreativeData/creativeId}} the ID from the creative or an empty string
-			if unknown
+			if unknown.
 		- {{CreativeData/adServingId}} Quasi-unique id generated by ad server and
 			passed through all 1st and 3rd party reporting to facilitate the marriage
 			of impression-level data across multiple reporting systems. In VAST 4.1
 			and later this id is provided in the `AdServingID` node.
 		- {{CreativeData/clickThruUrl}} The click through url, provided from VAST.
+			If there is no click through url this should be an empty string.
 
 
-- {{EnvironmentData}} is used to pass information associated with the publisher playback environment.
+- {{EnvironmentData}} is used to pass information associated with the
+	publisher playback environment.
 	The object should have the following fields.
 		- {{EnvironmentData/videoDimensions}} indicates the video display area, see [[#sivic-player-resize]]
-		- {{EnvironmentData/creativeDimensions}} indicates the creative display area, see [[#sivic-player-resize]]
-		- {{resizeParameters/mode}} Can be "portrait" or "landscape".
+		- {{EnvironmentData/creativeDimensions}} indicates the creative display 
+			area, see [[#sivic-player-resize]]
+		- {{resizeParameters/mode}} Can be "portrait" or "landscape". For desktop
+			choose "landscape".
 		- {{resizeParameters/fullScreen}} True if fullscreen.
-		- {{EnvironmentData/fullscreenAllowed}}: True if the creative may choose to display
-			or not display a fullscreen option
+		- {{EnvironmentData/fullscreenAllowed}}: True if the creative may choose
+			to display or not display a fullscreen option
 		- {{EnvironmentData/variableDurationAllowed}}: If set to true the player
 			must allow the SIVIC creative to pause player-controlled video playback
 			during the ad. If `false` it will not (live streaming is a use case). An
 			example use case here is a clickthru overlays, where `variableDuration`
 			(ad requirement) is `false`, but
 			{{EnvironmentData/variableDurationAllowed}} (publisher capability) can be
-			`true` or `false`. It should not be used in any case where disallowing the
-			pause interferes with the ad KPIs (for example if it can interfere with
-			completions, time spent in an interactive component, etc).
+			`true` or `false`. It should not be used in any case where disallowing
+			the pause interferes with the ad KPIs (for example if it can interfere
+			with completions, time spent in an interactive component, etc).
 		- {{EnvironmentData/skippableState}}: indicates whether the ad may be
 			skippable and which party controls the skippability, must be one of the
 			{{SkippableState}} enum values.
-			  - {{SkippableState/playerHandles}}: The player will render a skip button
-			    and might skip the ad.
-			  - {{SkippableState/adHandles}}: The ad may or may not render a skip
-			    button.
-			  - {{SkippableState/notSkippable}}: The ad cannot be skipped and the
-			    SIVIC creative should not render a skip button. This may be common in
-			    DAI for live streams.
+				- {{SkippableState/playerHandles}}: The player will render a skip
+					button and might skip the ad.
+				- {{SkippableState/adHandles}}: The ad may or may not render a skip
+					button.
+				- {{SkippableState/notSkippable}}: The ad cannot be skipped and the
+					SIVIC creative should not render a skip button. This may be common in
+					DAI for live streams.
 		- {{EnvironmentData/siteUrl}} Indicating the website the ad will play on,
 			for example if the site was `www.xyz.com/videoId`, this information would
 			include at least `www.xyz.com`. The player may give more information.
@@ -807,11 +813,11 @@ Issue: useragent needs some definition or a link to where how this should be pop
 SIVIC:Player:startCreative must be called after the iframe is made visible.
 
 ### SIVIC:Player:adSkipped ### {#sivic-player-adSkipped}
-This indicates the player will skip the ad.  The player should hide the creative and stop video playback in this case.
+This indicates the player will skip the ad. The player should hide the creative and stop video playback in this case.
 The player should wait for a response before unloading the creative iframe.
 
 ### SIVIC:Player:adStopped ### {#sivic-player-adStopped}
-This indicates the player will stop the ad.  The player should hide the creative and stop video playback in this case.
+This indicates the player will stop the ad. The player should hide the creative and stop video playback in this case.
 The player should wait for a response before unloading the creative iframe.
 
 parameters:
@@ -824,7 +830,7 @@ The player has encountered a fatal error that will cause ad playback to stop. Th
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
 before unloading the creative iframe.
 
-- errorCode(int): reason for error.  See [[#error-codes]]
+- errorCode(int): reason for error. See [[#error-codes]]
 - errorMessage(string): Any additional information.
 
 ## Responses from the player to the creative ## {#player-responses}
@@ -875,7 +881,7 @@ The creative should continue to playback as though it could not be skipped.
 Upon resolving this request, the player must call [[#sivic-player-adStopped]].
 
 #### reject #### {#sivic-creative-requestStop-reject}
-For some reason the player could not stop playback.  The creative may continue
+For some reason the player could not stop playback. The creative may continue
 to render as though it was not stopped.
 
 ### Response To SIVIC:Creative:requestPause ### {#sivic-creative-requestPause-response}
@@ -919,14 +925,14 @@ The player did not change the ad duration.
 
 ### Response To SIVIC:Creative:reportTracking ### {#sivic-creative-reportTracking-response}
 #### resolve #### {#sivic-creative-reportTracking-resolve}
-The player sends resolve if tracking has been sent out.  Returning resolve on this message
+The player sends resolve if tracking has been sent out. Returning resolve on this message
 should not block waiting for a response from the site.
 #### reject #### {#sivic-creative-reportTracking-reject}
 The player did not send the tracking pixel.
 
 parameters:
 - reason(string): An optional string error message
-- errorCode(int): The code for why the player did not attempt to send a tracking pixel.  See [[#error-codes]]
+- errorCode(int): The code for why the player did not attempt to send a tracking pixel. See [[#error-codes]]
 
 ## Messages from the Creative to the Player ## {#creative-messages}
 All functions should be prepended with SIVIC:Creative
@@ -1019,7 +1025,7 @@ The creative acknowledges the initialization parameters.
 
 ### Response To SIVIC:Player:startCreative ### {#sivic-player-startCreative-response}
 #### resolve #### {#sivic-player-startCreative-resolve}
-The creative acknowledges that it has started playback.  The player must make the creative visible to the user.
+The creative acknowledges that it has started playback. The player must make the creative visible to the user.
 #### reject #### {#sivic-player-startCreative-reject}
 - reason(string): An optional string error message
 - errorCode(int): The code for what went wrong in initialization. See [[#error-codes]]
@@ -1243,11 +1249,6 @@ call, so the ad can respond with an object that matches the requested API
 : {{Ad/adDuration}}
 :: The full duration of the ad experience, including video and extended features
 
-### Creative Data ### {#object-creative-data}
-
-
-### Environment Data ### {#object-env-data}
-
 ## Error Handling and Timeouts ## {#errors}
 
 If the media cannot be played the player should terminate the ad and fire an error using the standard VAST errors.
@@ -1263,31 +1264,31 @@ This table indicates defined SIVIC error codes the ad may fire:
 :: Resources could not be loaded. The SIVIC ad tried to load resources but failed.
 : <dfn>1102</dfn>
 :: Incorrect interface passed from player. The video proxy interface or slot were not
-    in concordance with the SIVIC spec.
+		in concordance with the SIVIC spec.
 : <dfn>1103</dfn>
 :: Playback area not usable by ad. The dimensions the ad needed
-    were not what it received.
+		were not what it received.
 : <dfn>1104</dfn>
 :: Wrong handshake version.
 : <dfn>1105</dfn>
 :: Ad not playable for a technical reason on this site.
 : <dfn>1106</dfn>
 :: Request for expand not honored. The ad requested to expand but the
-    player did not allow it.
+		player did not allow it.
 : <dfn>1107</dfn>
 :: Request for pause not honored. The ad requested pause but the player
-    did not pause.
+		did not pause.
 : <dfn>1108</dfn>
 :: Play mode not adequate for ad. The ad requires playback control but
-    the player is not giving control. This error should only fire if the
-    VAST for the ad specified that it needs playback control.
+		the player is not giving control. This error should only fire if the
+		VAST for the ad specified that it needs playback control.
 : <dfn>1009</dfn>
 :: Ad internal error. The ad had an error not related to any external dependencies.
 : <dfn>1010</dfn>
 :: Device not supported. The ad could not play or render on the device.
 : <dfn>1199</dfn>
 :: Player cababilities not adequate for ad. Catchall error if the ad
-    could not be more specific.
+		could not be more specific.
 
 This table indicates defined SIVIC error codes the player may fire:
 
