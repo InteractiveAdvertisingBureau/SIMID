@@ -12,6 +12,9 @@ Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
 Inline Github Issues: title
 </pre>
 
+# Version # {#version-number}
+1.0
+
 # Executive Summary # {#exec-summary}
 
 The SIVIC standard is intended to address the original mandate of the VPAID
