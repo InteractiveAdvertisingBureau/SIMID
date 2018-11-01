@@ -1122,7 +1122,7 @@ Following are cases where ad can end:
 	the skip button). See [[#api-skip]].
 2. The creative has fired [[#sivic-creative-requestStop]] message and the player has allowed the ad to stop.
 3. The player has fired [[#sivic-player-adStopped]] message and the creative resolved.
-3. Ad errors out. See [[#api-error]].
+4. Ad errors out. See [[#api-error]].
 
 ### Ad Skips ### {#api-skip}
 
@@ -1131,6 +1131,7 @@ Following are cases where ad can end:
 2. The player hides the creative.
 3. The creative may dispatch any tracking pixels via [[#sivic-creative-reportTracking]]
 3. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
+	from the reportTracking call.
 4. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-adSkipped-resolve]].
 5. The player fires any skip tracking pixels.
 6. The player unloads the ad.
@@ -1167,10 +1168,12 @@ does not seem to make much sense
 When an ad finishes at the same time as its video.
 1. The player calls [[#sivic-player-adStopped]] on the ad.
 2. The player hides the creative.
-3. The creative may dispatch any tracking pixels via [[#sivic-creative-reportTracking]]
-3. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
-4. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-adStopped-resolve]].
-5. The player unloads the ad.
+3. The creative may dispatch any tracking pixels via
+  [[#sivic-creative-reportTracking]]
+4. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
+	from the reportTracking call.
+5. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-adStopped-resolve]].
+6. The player unloads the ad.
 
 ### Ad Errors Out ### {#api-error}
 
@@ -1184,10 +1187,13 @@ The player may error out if the ad does not respond with [[#sivic-creative-ready
 When an player errors out it must follow these steps.
 1. The player calls [[#sivic-player-fatalError]] on the ad.
 2. The player hides the creative.
-3. The creative may dispatch any tracking pixels via [[#sivic-creative-reportTracking]]
-3. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
-4. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-fatalError-resolve]].
-5. The player unloads the ad.
+3. The creative may dispatch any tracking pixels via
+	[[#sivic-creative-reportTracking]]
+4. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
+	from the reportTracking call.
+5. The creative dispatches `resolve` on the `adSkipped` message
+	[[#sivic-player-fatalError-resolve]].
+6. The player unloads the ad.
 
 ### Additional Notes ### {#api-notes}
 
