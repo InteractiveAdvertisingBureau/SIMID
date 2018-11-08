@@ -275,7 +275,7 @@ class SivicPlayer {
       promise = this.sivicIframe_.msRequestFullscreen();
     }
     if (promise) {
-      promise.then(sivicProtocol.resolve(incomingMessage));
+      promise.then(() => sivicProtocol.resolve(incomingMessage));
     } else {
       // TODO: Many browsers are not returning promises but are still
       // going full screen. Assuming resolve (bad).
@@ -289,6 +289,10 @@ class SivicPlayer {
       // The play function returns a promise.
       sivicProtocol.resolve(incomingMessage),
       sivicProtocol.reject(incomingMessage)
+    this.videoElement_.play().then(
+      // The play function returns a promise.
+      () => sivicProtocol.resolve(incomingMessage),
+      () => sivicProtocol.reject(incomingMessage)
     );
   }
   
