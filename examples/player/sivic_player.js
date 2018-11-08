@@ -284,6 +284,10 @@ class SivicPlayer {
       // The play function returns a promise.
       sivicProtocol.resolve(incomingMessage),
       sivicProtocol.reject(incomingMessage)
+    this.videoElement_.play().then(
+      // The play function returns a promise.
+      () => sivicProtocol.resolve(incomingMessage),
+      () => sivicProtocol.reject(incomingMessage)
     );
   }
   
