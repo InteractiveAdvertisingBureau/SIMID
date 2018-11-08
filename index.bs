@@ -320,7 +320,7 @@ A [=message/session=] is uniquely identified by a <dfn for="message">session
 identifier</dfn>. All messages belonging to a [=message/session=] *must*
 reference the same [=message/session identifier=].
 
-### Establishing a new session
+### Establishing a new session ### {#establish-session}
 
 A [=message/session=] is established by running the [=establish a new session=]
 algorithm.
@@ -1063,28 +1063,30 @@ the `adStopped` event after `adVideoComplete`.
 ## How to Handle Ad Loading ## {#api-ad-loading}
 
 The player must follow this workflow for loading an ad.
-1. Player creates an element for the SIVIC creative to live in. For HTML this
-	must be an iframe. The iframe must overlay the video player. The ad slot must
-	be a div that is inside the iframe. The ad unit should always expect to be
-	rendered in a secure iframe without access to any elements outside the iframe.
-2. Player loads the JavaScript for the SIVIC creative in the iframe. Listen for
-	the script's `onLoad` event and call {{getSIVICAd}} on the iframe window's
-	global scope to get a reference to the ad.
-3. Player calls {{Ad/handshakeVersion()}} to get the SIVIC API version of the ad
-	(for compatibility) while passing in the highest version it supports itself.
-4. Players calls {{Ad/initAd()}} with parameters
-	{{Ad/initAd(creativeData, envData)/creativeData}} and
-	{{Ad/initAd(creativeData, envData)/envData}}. The {{EnvironmentData}} object
-	will contain the {{EnvironmentData/slot}} and {{EnvironmentData/videoProxy}}
-	for the ad to render creative elements and control video playback
-	respectively. The ad will load all required assets and elements into the ad
-	slot. The ad will call `AdLoaded` when done loading.
-5. Player waits for video to start buffering, or for point in stream of video
-	start. Player calls {{Ad/startAd}} and wait for `AdStarted`. If `AdStarted`
-	is not immediately fired, the player should assume that there was an error
-	(see [[#errors]]).
 
-
+1. The player must create an iframe element for the SIVIC creative. The player
+  iframe should start out hidden. The iframe should be capable executing
+  javascript and loading resources.
+2. The player starts listening on the window that is the parent of the iframe
+   for messages from the creative.
+3. The player sets the src element of the iframe to the url provided by
+  the creatives VAST InteractiveCreativeFile element. The player should
+  assume this will be a cross domain iframe.
+4. The player waits until the creative inializes a session.
+  [[#establish-session]] The player responds with a resolve message.
+  The resolve message includes the correlator that must be present in
+  all messages going forward.
+5. The player then calls [[#sivic-player-init]] with all relevant parameters.
+  The player waits until the creative responds with resolve.  If the
+  creative responds with reject, the player should immediately unload
+  the creative's iframe.
+6. Where possible the player should wait until both the creative has responded
+  to the [[#sivic-player-init]] and the video is ready to start playing. Ready
+  to start playing means the first frame will show and playback will continue.
+7. When the video is started the player calls [[#sivic-player-startcreative]].
+  The player must overlay the creative iframe over the video element exactly.
+  The player must make the creative visible. The creative should respond to
+  this message immediately with [[#sivic-player-startCreative-resolve]].
 
 ## How to Handle Ad Playback ## {#api-ad-playback}
 
