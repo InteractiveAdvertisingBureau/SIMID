@@ -20,12 +20,12 @@ class SivicOverlay extends BaseSivicCreative {
    * Adds actions to different buttons available on the overlay.
    */
   addButtonClickActions_() {
-    this.sendRequestOnButtonClick_('request_play', CreativeMessage.REQUEST_PLAY);
-    this.sendRequestOnButtonClick_('request_pause', CreativeMessage.REQUEST_PAUSE);
-    this.sendRequestOnButtonClick_('request_full_screen', CreativeMessage.REQUEST_FULL_SCREEN);
-    this.sendRequestOnButtonClick_('fatal_error', CreativeMessage.FATAL_ERROR);
-    this.sendRequestOnButtonClick_('request_skip', CreativeMessage.REQUEST_SKIP);
-    this.sendRequestOnButtonClick_('request_stop', CreativeMessage.REQUEST_STOP);
+    this.sendMessageOnButtonClick_('request_play', CreativeMessage.REQUEST_PLAY);
+    this.sendMessageOnButtonClick_('request_pause', CreativeMessage.REQUEST_PAUSE);
+    this.sendMessageOnButtonClick_('request_full_screen', CreativeMessage.REQUEST_FULL_SCREEN);
+    this.sendMessageOnButtonClick_('fatal_error', CreativeMessage.FATAL_ERROR);
+    this.sendMessageOnButtonClick_('request_skip', CreativeMessage.REQUEST_SKIP);
+    this.sendMessageOnButtonClick_('request_stop', CreativeMessage.REQUEST_STOP);
   }
 
   /**
@@ -34,8 +34,9 @@ class SivicOverlay extends BaseSivicCreative {
    * @param {String} message The message to send to the player.
    * @private
    */
-  sendRequestOnButtonClick_(elementName, message) {
-    document.getElementById(elementName).addEventListener('click',
-       () => {sivicProtocol.sendMessage(message);});
+  sendMessageOnButtonClick_(elementName, message) {
+    const sendMessageFunction = () => {sivicProtocol.sendMessage(message);}
+    document.getElementById(elementName).addEventListener(
+        'click', sendMessageFunction.bind(this));
   }
 }

@@ -28,14 +28,14 @@ class BaseSivicCreative {
      */
     this.sivicVersion = '';
 
-    this.setupListeners_();
+    this.addListeners_();
   }
 
   /**
    * Sets up the creative to listen for messages from the player
    * @private
    */
-  setupListeners_() {
+  addListeners_() {
     sivicProtocol.addListener(PlayerMessage.INIT, this.onInit.bind(this));
     sivicProtocol.addListener(PlayerMessage.START_CREATIVE, this.onStart.bind(this));
     sivicProtocol.addListener(PlayerMessage.FATAL_ERROR, this.onFatalError.bind(this));
@@ -65,7 +65,7 @@ class BaseSivicCreative {
   }
 
   /**
-   * Recieves init message from the player.
+   * Receives init message from the player.
    * @param {!Object} eventData Data from the event.
    */
   onInit(eventData) {
@@ -87,7 +87,7 @@ class BaseSivicCreative {
   }
 
   /**
-   * Recieves start message from the player.
+   * Receives start message from the player.
    * @param {!Object} eventData Data from the event.
    */
   onStart(eventData) {
@@ -124,16 +124,12 @@ class BaseSivicCreative {
   /**
    * Asks the player for the video state.
    */
-  getVideoState() {
+  fetchVideoState() {
+    const onGetVideoStateResolve = (data) => {
+      this.videoState = data;
+    }
     sivicProtocol.sendMessage(CreativeMessages.GET_VIDEO_STATE, {})
-        .then(this.onGetVideoStateResolve.bind(this));
-  }
-
-  /**
-   * Updates the video state based on the players response
-   */
-  onGetVideoStateResolve(data) {
-    this.videoState = data;
+        .then(onGetVideoStateResolve.bind(this));
   }
 
   onDurationChange(data) {

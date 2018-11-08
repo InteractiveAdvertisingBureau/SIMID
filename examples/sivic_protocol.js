@@ -31,14 +31,17 @@ class SivicProtocol {
      this.resolutionListeners_ = {};
   }
 
-	/**
+  /**
    * Sends a message using post message.  Returns a promise
    * that will resolve or reject after the message receives a response.
    * @param {string} messageType The name of the message
    * @param {?Object} messageArgs The arguments for the message, may be null.
-	 */
+   */
   sendMessage(messageType, messageArgs) {
     const messageId = this.nextMessageId_;
+    // Incrementing between messages keeps each message id unique.
+    this.nextMessageId_ ++;
+
     // The message object as defined by the SIVIC spec.
     const message = {
       'sessionId': this.sessionId_,
@@ -46,8 +49,6 @@ class SivicProtocol {
       'type': 'SIVIC:' + messageType,
       'args': messageArgs
     }
-    // Incrementing between messages keeps each message id unique.
-    this.nextMessageId_ ++;
 
     if (EventsThatRequireResponse.includes(messageType)) {
       // If the message requires a callback this code will set
@@ -96,6 +97,9 @@ class SivicProtocol {
    * Recieves messages.
    */
   receiveMessage(event) {
+    if (!event || !event.data) {
+      return;
+    }
     const data = JSON.parse(event.data);
     if (!data) {
       // If there is no data in the event this is not a SIVIC message.
@@ -305,7 +309,7 @@ ErrorCode = {
   TECHNICAL_REASONS: 1105,
   EXPAND_NOT_POSSIBLE: 1106,
   PAUSE_NOT_HONORED: 1107,
-  PLAYMODE_NOT_ADQUATE: 1008,
+  PLAYMODE_NOT_ADEQUATE: 1008,
   AD_INTERNAL_ERROR: 1009,
   DEVICE_NOT_SUPPORTED: 1010,
   PLAYER_CAPABILITIES_NOT_ADEQUATE: 1199,

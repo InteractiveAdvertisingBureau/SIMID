@@ -10,7 +10,7 @@ class SivicPlayer {
   constructor() {
     // Only the player should generate the session ID.
     sivicProtocol.generateSessionId();
-    this.setListeners();
+    this.addListeners_();
 
 
     /**
@@ -60,14 +60,17 @@ class SivicPlayer {
     // Set the iframe creative, this should be an html creative.
     // TODO: This sample does not show what to do when loading fails.
     sivicIframe.src = document.getElementById('creative_url').value;
-    // TODO: contentWindow doesn't exist until after the iframe is created.
-    // It may be possible that this leads to a race condition.
+
     sivicProtocol.setMessageTarget(sivicIframe.contentWindow);
     sivicIframe.setAttribute('allowFullScreen', '')
     return sivicIframe;
   }
 
-  setListeners() {
+  /**
+   * Listens to all relevant messages from the SIVIC add.
+   * @private
+   */
+  addListeners_() {
     sivicProtocol.addListener(CreativeMessage.READY, this.onReady.bind(this));
     sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
     sivicProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
@@ -221,7 +224,7 @@ class SivicPlayer {
     this.videoElement_.addEventListener("seeked", () => {
       sivicProtocol.sendMessage(VideoMessage.SEEKED);
     }, true);
-    this.videoElement_.addEventListener("seeked", () => {
+    this.videoElement_.addEventListener("seeking", () => {
       sivicProtocol.sendMessage(VideoMessage.SEEKING);
     }, true);
     this.videoElement_.addEventListener("timeupdate", () => {
@@ -263,10 +266,12 @@ class SivicPlayer {
     if (this.sivicIframe_.requestFullscreen) {
       promise = this.sivicIframe_.requestFullscreen();
     } else if (this.sivicIframe_.mozRequestFullScreen) {
+      // Our tests indicate firefox will probably not respect the request.
       promise = this.sivicIframe_.mozRequestFullScreen();
     } else if (this.sivicIframe_.webkitRequestFullscreen) {
       promise = this.sivicIframe_.webkitRequestFullscreen();
     } else if (this.sivicIframe_.msRequestFullscreen) {
+      // Our tests indicate IE will probably not respect the request.
       promise = this.sivicIframe_.msRequestFullscreen();
     }
     if (promise) {

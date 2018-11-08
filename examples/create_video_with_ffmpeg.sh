@@ -1,4 +1,5 @@
-# Generates a black video file with ffmpeg
+# Generates a black video with a countdown timer.
+# Requires ffmpeg
 
 fps=10;
 seconds=30;
