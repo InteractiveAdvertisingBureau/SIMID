@@ -8,10 +8,13 @@ class SivicPlayer {
    * from the creative.
    */
   constructor() {
-    // Only the player should generate the session ID.
-    sivicProtocol.generateSessionId();
-    this.addListeners_();
+    /**
+     * The protocol for sending and receiving messages.
+     * @protected {!SivicProtocol}
+     */
+    this.sivicProtocol = new SivicProtocol();
 
+    this.addListeners_();
 
     /**
      * A reference to the video player on the players main page
@@ -61,7 +64,7 @@ class SivicPlayer {
     // TODO: This sample does not show what to do when loading fails.
     sivicIframe.src = document.getElementById('creative_url').value;
 
-    sivicProtocol.setMessageTarget(sivicIframe.contentWindow);
+    this.sivicProtocol.setMessageTarget(sivicIframe.contentWindow);
     sivicIframe.setAttribute('allowFullScreen', '')
     return sivicIframe;
   }
@@ -71,13 +74,13 @@ class SivicPlayer {
    * @private
    */
   addListeners_() {
-    sivicProtocol.addListener(CreativeMessage.READY, this.onReady.bind(this));
-    sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
-    sivicProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
-    sivicProtocol.addListener(CreativeMessage.REQUEST_PAUSE, this.onRequestPause.bind(this));
-    sivicProtocol.addListener(CreativeMessage.FATAL_ERROR, this.onCreativeFatalError.bind(this));
-    sivicProtocol.addListener(CreativeMessage.REQUEST_SKIP, this.onRequestSkip.bind(this));
-    sivicProtocol.addListener(CreativeMessage.REQUEST_STOP, this.onRequestStop.bind(this));
+    this.sivicProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));
+    this.sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
+    this.sivicProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
+    this.sivicProtocol.addListener(CreativeMessage.REQUEST_PAUSE, this.onRequestPause.bind(this));
+    this.sivicProtocol.addListener(CreativeMessage.FATAL_ERROR, this.onCreativeFatalError.bind(this));
+    this.sivicProtocol.addListener(CreativeMessage.REQUEST_SKIP, this.onRequestSkip.bind(this));
+    this.sivicProtocol.addListener(CreativeMessage.REQUEST_STOP, this.onRequestStop.bind(this));
   }
 
   destroySivicIframe() {
@@ -85,19 +88,6 @@ class SivicPlayer {
       this.sivicIframe_.remove();
       this.sivicIframe_ = null;
     }
-  }
-
-  /**
-   * Called after the SIVIC creative sends the ready message.
-   * This should be the very first message.
-   */
-  onReady(incomingData) {
-    // Ready should respond with a resolve message and version number.
-    sivicProtocol.resolve(incomingData, {'version': '1.0'});
-
-    // After resolution this example is ready to play the ad right away.
-    // If it was not ready to play right away the iframe could stay hidden.
-    this.sendInitMessage();
   }
 
   /**
@@ -157,7 +147,7 @@ class SivicPlayer {
       'environmentData' : environmentData,
       'creativeData': creativeData
     }
-    sivicProtocol.sendMessage(PlayerMessage.INIT, initMessage)
+    this.sivicProtocol.sendMessage(PlayerMessage.INIT, initMessage)
       .then(this.onAdInitialized.bind(this), this.onAdInitializedFailed.bind(this));
   }
 
@@ -170,7 +160,7 @@ class SivicPlayer {
     // If the ad is not visible it must be made visible here.
     this.showSivicIFrame_();
     this.videoElement_.play();
-    sivicProtocol.sendMessage(PlayerMessage.START_CREATIVE);
+    this.sivicProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
 
   onAdInitializedFailed(data) {
@@ -182,7 +172,7 @@ class SivicPlayer {
     // Instead of destroying the iframe immediately tell hide it until
     // it acknowledges its fatal error.
     this.hideSivicIFrame_();
-    sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, {})
+    this.sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, {})
       .then(this.destroySivicIframe.bind(this));
   }
 
@@ -202,37 +192,37 @@ class SivicPlayer {
    */
   trackEventsOnVideoElement_() {
     this.videoElement_.addEventListener("durationchange", () => {
-      sivicProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
+      this.sivicProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
     }, true);
     this.videoElement_.addEventListener("ended", this.videoComplete.bind(this), true);
     this.videoElement_.addEventListener("error", () => {
-      sivicProtocol.sendMessage(VideoMessage.ERROR,
+      this.sivicProtocol.sendMessage(VideoMessage.ERROR,
         {
           'error': '',  // TODO fill in these values correctly
           'message': ''
         });
     }, true);
     this.videoElement_.addEventListener("pause", () => {
-      sivicProtocol.sendMessage(VideoMessage.PAUSE);
+      this.sivicProtocol.sendMessage(VideoMessage.PAUSE);
     }, true);
     this.videoElement_.addEventListener("play", () => {
-      sivicProtocol.sendMessage(VideoMessage.PLAY);
+      this.sivicProtocol.sendMessage(VideoMessage.PLAY);
     }, true);
     this.videoElement_.addEventListener("playing", () => {
-      sivicProtocol.sendMessage(VideoMessage.PLAYING);
+      this.sivicProtocol.sendMessage(VideoMessage.PLAYING);
     }, true);
     this.videoElement_.addEventListener("seeked", () => {
-      sivicProtocol.sendMessage(VideoMessage.SEEKED);
+      this.sivicProtocol.sendMessage(VideoMessage.SEEKED);
     }, true);
     this.videoElement_.addEventListener("seeking", () => {
-      sivicProtocol.sendMessage(VideoMessage.SEEKING);
+      this.sivicProtocol.sendMessage(VideoMessage.SEEKING);
     }, true);
     this.videoElement_.addEventListener("timeupdate", () => {
-      sivicProtocol.sendMessage(VideoMessage.TIME_UPDATE,
+      this.sivicProtocol.sendMessage(VideoMessage.TIME_UPDATE,
         {'currentTime': this.videoElement_.currentTime});
     }, true);
     this.videoElement_.addEventListener("volumechange", () => {
-      sivicProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
+      this.sivicProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
         {'volume': this.videoElement_.volume});
     }, true);
   }
@@ -242,12 +232,12 @@ class SivicPlayer {
    * @private
    */
   videoComplete() {
-      sivicProtocol.sendMessage(VideoMessage.ENDED);
+      this.sivicProtocol.sendMessage(VideoMessage.ENDED);
       // once an ad is complete an the iframe should be hidden
       this.hideSivicIFrame_();
       // Wait for the SIVIC creative to acknowledge stop and then clean
       // up the iframe.
-      sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED)
+      this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED)
         .then(this.destroySivicIframe());
   }
 
@@ -275,11 +265,11 @@ class SivicPlayer {
       promise = this.sivicIframe_.msRequestFullscreen();
     }
     if (promise) {
-      promise.then(() => sivicProtocol.resolve(incomingMessage));
+      promise.then(() => this.sivicProtocol.resolve(incomingMessage));
     } else {
       // TODO: Many browsers are not returning promises but are still
       // going full screen. Assuming resolve (bad).
-      sivicProtocol.resolve(incomingMessage)
+      this.sivicProtocol.resolve(incomingMessage)
     }
   }
   
@@ -287,47 +277,43 @@ class SivicPlayer {
   onRequestPlay(incomingMessage) {
     this.videoElement_.play().then(
       // The play function returns a promise.
-      sivicProtocol.resolve(incomingMessage),
-      sivicProtocol.reject(incomingMessage)
-    this.videoElement_.play().then(
-      // The play function returns a promise.
-      () => sivicProtocol.resolve(incomingMessage),
-      () => sivicProtocol.reject(incomingMessage)
+      this.sivicProtocol.resolve(incomingMessage),
+      this.sivicProtocol.reject(incomingMessage)
     );
   }
   
   /** The creative wants to pause video. */
   onRequestPause(incomingMessage) {
     this.videoElement_.pause();
-    sivicProtocol.resolve(incomingMessage);
+    this.sivicProtocol.resolve(incomingMessage);
   }
   
   /** The creative wants to stop with a fatal error. */
   onCreativeFatalError(incomingMessage) {
-    sivicProtocol.resolve(incomingMessage);
+    this.sivicProtocol.resolve(incomingMessage);
     const errorReason = {
       'errorCode': ErrorCode.AD_INTERNAL_ERROR, // TODO there was no good error code.
       'errorMessage': 'Creative had fatal error.'
     }
-    sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, errorReason)
+    this.sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, errorReason)
         .then(this.stopAd.bind(this));
   }
 
   /** The creative wants to skip this ad. */
   onRequestSkip(incomingMessage) {
-    sivicProtocol.resolve(incomingMessage);
-    sivicProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
+    this.sivicProtocol.resolve(incomingMessage);
+    this.sivicProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
         .then(this.stopAd.bind(this));
   }
   
   /** The creative wants to stop the ad early. */
   onRequestStop(incomingMessage) {
-    sivicProtocol.resolve(incomingMessage);
+    this.sivicProtocol.resolve(incomingMessage);
     const stopReason = {
       'code': 0 // TODO codes are not defined.
     }
     // After the creative resolves then the iframe should be destroyed.
-    sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
+    this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
         .then(this.stopAd.bind(this));
   }
 }

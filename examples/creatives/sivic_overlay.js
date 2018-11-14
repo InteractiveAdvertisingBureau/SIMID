@@ -35,7 +35,7 @@ class SivicOverlay extends BaseSivicCreative {
    * @private
    */
   sendMessageOnButtonClick_(elementName, message) {
-    const sendMessageFunction = () => {sivicProtocol.sendMessage(message);}
+    const sendMessageFunction = () => {this.sivicProtocol.sendMessage(message);}
     document.getElementById(elementName).addEventListener(
         'click', sendMessageFunction.bind(this));
   }
