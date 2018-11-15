@@ -291,11 +291,11 @@ The {{Window/postMessage}} API conforms to the required
 ### Message Serialization ### {###msg-serialization}
 
 To <dfn for="message">serialize</dfn> a {{Message}} to a [=serialized message=],
-apply {{JSON/stringify}} to the {{Message}} data structure. The resulting
+apply `JSON.stringify` to the {{Message}} data structure. The resulting
 {{DOMString}} represents the [=serialized message=].
 
 To <dfn for="message">deserialize</dfn> a [=serialized message=] to a
-{{Message}} data structure, apply {{JSON/parse}} to the [=serialized message=].
+{{Message}} data structure, apply `JSON.parse` to the [=serialized message=].
 The resulting {{Object}} has the {{Message}} data structure.
 
 The [=message/sender=] should not transmit any [=serialized messages=] that
@@ -372,7 +372,7 @@ steps:
 		 identified by |sessionId| incremented by `1`, otherwise.
 2. Let |message| be a new {{Message}} object with its attributes initialized
 	 to |sessionId|, |messageId|, |type| and |args|.
-3. Let |serializedMessage| be the result of running {{JSON/stringify}} on
+3. Let |serializedMessage| be the result of running `JSON.stringify` on
 	 |message|.
 4. Transmit |serializedMessage| to the other party through the
 	 [=message/transport=].
@@ -423,9 +423,9 @@ following steps:
 : Output
 :: none
 
-1. Let |message| be the result of running {{JSON/parse}} on
+1. Let |message| be the result of running `JSON.parse` on
 	 |serializedMessage|.
-	 1. If {{JSON/parse}} threw an exception, ignore the exception and abort
+	 1. If `JSON.parse` threw an exception, ignore the exception and abort
 			execution of this algorithm.
 2. If |message|.{{Message/type}} is `resolve` or `reject`:
 	 1. Let |sessionId| be |message|.{{Message/sessionId}}.
