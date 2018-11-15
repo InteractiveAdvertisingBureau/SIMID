@@ -528,10 +528,14 @@ For example:
 </xmp>
 
 ### SIVIC:Tracking:error ### {#vast-error}
-parameters:
-<xmp>
-	errorCode(string): the vast error code
+`SIVIC:Tracking:error` message is sent with `args` property:
+<xmp class="idl">
+dictionary TrackingErrorArgs {
+  required DOMString errorCode;
+};
 </xmp>
+{{TrackingErrorArgs/errorCode}} is error code specified by VAST.
+
 ### Other tracking events that must be supported ### {#other-vast-messages}
 - SIVIC:Tracking:impression  
 - SIVIC:Tracking:creativeView
