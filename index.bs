@@ -338,7 +338,7 @@ identifier=].
 2. Let |type| be `createSession`.
 3. Let |args| be `undefined`.
 4. Let |sessionIdPromise| be a new unresolved {{Promise}}.
-5. Start the [=send an acked message=] algorithm with |sessionId|, |type| and
+5. Start the [=send an acknowledgement message=] algorithm with |sessionId|, |type| and
 	 |args|. Let |ackPromise| be the return value.
 6. Return |sessionIdPromise|.
 7. When |ackPromise| resolves:
@@ -384,9 +384,9 @@ While most messages can be sent "fire-and-forget", some require the sender to
 be informed that they were properly received and handled by the receiver. The
 protocol uses semantics similar to the {{Promise}} API for this.
 
-<section algorithm="to send an acked message">
+<section algorithm="to send an acknowledgement message">
 
-To <dfn for="message">send an acked message</dfn>, you *must* run the
+To <dfn for="message">send an acknowledgement message</dfn>, you *must* run the
 following steps:
 
 : Input
