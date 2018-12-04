@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title> A very simple SIVIC player</title>
+  <script src="../sivic_protocol.js"></script>
+  <script src="sivic_player.js"></script>
+  <style>
+    .sivic_creative {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script>
+    sivicPlayer = null;
+    function playAd() {
+      sivicPlayer = new SivicPlayer();
+      sivicPlayer.playAd();
+    }
+  </script>
+</head>
+
+<body>
+  <div id="player_div">
+    <video id="video_player" 
+           src="../black_countdown.mp4"> </video>
+    <!-- SIVIC creative will be here. -->
+  </div>
+
+  <div>
+    <p> This is a sample player for testing ads. </p>
+    <p> Creative Url :
+    <input type="text" id="creative_url" size = 50 
+           value="../creatives/sivic_overlay.html"></p> 
+    <p> Ad Video :
+    <input type="text" id="video_url" size = 50 
+           value="../black_countdown.mp4"><p>
+    <button onclick="playAd()"> Start new ad </button>
+  </div>
+
+
+<script>
+</script>
+<body>
+
+</html>

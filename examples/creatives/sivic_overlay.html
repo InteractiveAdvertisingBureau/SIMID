@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <script src="../sivic_protocol.js"> </script>
+    <script src="base_sivic_creative.js"> </script>
+    <script src="sivic_overlay.js"> </script>
+  </head>
+  <body>
+	<button id="request_play">Request Play</button><br>
+	<button id="request_pause">Request Pause</button><br>
+	<button id="request_full_screen">Request Full Screen</button><br>
+	<button id="fatal_error">Fatal Error</button><br>
+	<button id="request_skip">Request Skip</button><br>
+	<button id="request_stop">Request Stop</button><br>
+  <div id="information" style="color:green">Sample Sivic Ad</div>
+  <script>
+    // The creative should first call ready
+    const sivicOverlay = new SivicOverlay();
+    sivicOverlay.ready();
+  </script>
+  </body>
+</html>
