@@ -736,6 +736,7 @@ dictionary EnvironmentData {
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
 	required SkippableState skippableState;
+	required string version;
 	string siteUrl;
 	string appId;
 	string useragent;
@@ -796,6 +797,7 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 				- {{SkippableState/notSkippable}}: The ad cannot be skipped and the
 					SIVIC creative should not render a skip button. This may be common in
 					DAI for live streams.
+		- {{EnvironmentData/version}}: The version of sivic that this player uses.
 		- {{EnvironmentData/siteUrl}} Indicating the website the ad will play on,
 			for example if the site was `www.xyz.com/videoId`, this information would
 			include at least `www.xyz.com`. The player may give more information.
@@ -843,17 +845,6 @@ They player may or may not move the video but in either case it will resolve and
 parameters:
 - x (int): The new video x location.
 - y (int): The new video y location.
-
-### Response To SIVIC:Creative:ready ### {#sivic-creative-ready-response}
-
-#### resolve #### {#sivic-creative-ready-resolve}
-parameters:
-- version (string): The version of SIVIC that will be used. The version from the player will be the source of truth.
-
-#### reject #### {#sivic-creative-ready-reject}
-parameters:
-- reason (string): An optional string error message.
-- errorCode (int): the code for why the creative won’t play. See [[#error-codes]]
 
 ### Response To SIVIC:Creative:requestSkip ### {#sivic-creative-requestSkip-response}
 
@@ -924,12 +915,6 @@ parameters:
 
 ## Messages from the Creative to the Player ## {#creative-messages}
 All functions should be prepended with SIVIC:Creative
-
-### SIVIC:Creative:ready ### {#sivic-creative-ready}
-The very first call the SIVIC creative should make. This indicates it is loaded and ready to recieve messages
-from the player.
-
-Expects a response [[#sivic-creative-ready-response]]
 
 ### SIVIC:Creative:requestSkip ### {#sivic-creative-requestSkip}
 The player should stop video playback if possible.
