@@ -1,5 +1,7 @@
 /**
  * Contains logic for sending mesages between the SIVIC creative and the player.
+ * Note: Some browsers do not support promises and a more complete implementation
+ *       should consider using a polyfill.
  */
 class SivicProtocol {
 
@@ -41,10 +43,9 @@ class SivicProtocol {
    * @param {?Object} messageArgs The arguments for the message, may be null.
    * @return {!Promise} Promise that will be fulfilled when client resolves or rejects.
    */
-  sendMessage(messageType, messageArgs) {
-    const messageId = this.nextMessageId_;
+  async sendMessage(messageType, messageArgs) {
     // Incrementing between messages keeps each message id unique.
-    this.nextMessageId_ ++;
+    const messageId = this.nextMessageId_ ++;
 
     // Only create session does not need to be in the SIVIC name space
     // because it is part of the protocol.

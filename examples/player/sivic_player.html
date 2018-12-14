@@ -6,16 +6,24 @@
   <style>
     .sivic_creative {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 5;
+      left: 5;
+      width: 640px;
+      height: 480px;
     }
   </style>
   <script>
-    sivicPlayer = null;
+    let sivicPlayer;
+    function initAd() {
+      // Init ad should be called before playad.
+      sivicPlayer = new SivicPlayer(() => {sivicPlayer = null;});
+      sivicPlayer.initializeAd();
+    }
+
     function playAd() {
-      sivicPlayer = new SivicPlayer();
+      if (!sivicPlayer) {
+        initAd();
+      }
       sivicPlayer.playAd();
     }
   </script>
@@ -23,8 +31,7 @@
 
 <body>
   <div id="player_div">
-    <video id="video_player" 
-           src="../black_countdown.mp4"> </video>
+    <video id="video_player"> </video>
     <!-- SIVIC creative will be here. -->
   </div>
 
@@ -37,6 +44,7 @@
     <input type="text" id="video_url" size = 50 
            value="../black_countdown.mp4"><p>
     <button onclick="playAd()"> Start new ad </button>
+    <button onclick="initAd()"> Initialize new ad </button>
   </div>
 
 

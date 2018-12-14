@@ -6,8 +6,9 @@ class SivicPlayer {
   /**
    * Sets up the creative iframe and starts listening for messages
    * from the creative.
+   * @param {!Function} This function gets called when the ad stops.
    */
-  constructor() {
+  constructor(adComplete) {
     /**
      * The protocol for sending and receiving messages.
      * @protected {!SivicProtocol}
@@ -18,15 +19,22 @@ class SivicPlayer {
 
     /**
      * A reference to the video player on the players main page
-     * @type {!Element}
+     * @private {!Element}
      */
     this.videoElement_ = document.getElementById('video_player');
 
     /**
      * A reference to the iframe holding the SIVIC creative.
-     * @type {?Element}
+     * @private {?Element}
      */
     this.sivicIframe_ = null;
+
+
+    /**
+     * A reference to the promise returned when initialization was called.
+     * @private {?Promise}
+     */
+    this.initializationPromise_ = null;
 
     this.trackEventsOnVideoElement_();
 
@@ -35,14 +43,23 @@ class SivicPlayer {
   }
 
   /**
-   * Initializes a new SIVIC ad
+   * Initializes an ad. This should be called before an ad plays.
+   */
+  initializeAd() {
+    this.videoElement_.src = document.getElementById('video_url').value;
+    // After the iframe is created the player will wait until the ad
+    // initializes the communication channel. Then it will call
+    // sendInitMessage.
+    this.sivicIframe_ = this.createSivicIframe_();
+  }
+
+  /**
+   * Plays a SIVIC  creative once it has responded to the initialize ad message.
    */
   playAd() {
-    // Remove the old ad if its still playing.
-    this.stopAd();
-
-    this.videoElement_.src = document.getElementById('video_url').value;
-    this.sivicIframe_ = this.createSivicIframe_();
+    this.initializationPromise_.then(
+        this.startCreativePlayback_.bind(this),
+        this.onAdInitializedFailed_.bind(this));
   }
 
   /**
@@ -74,8 +91,7 @@ class SivicPlayer {
    * @private
    */
   addListeners_() {
-    this.sivicProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));
-    this.sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
+    this.sivicProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));    this.sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
     this.sivicProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
     this.sivicProtocol.addListener(CreativeMessage.REQUEST_PAUSE, this.onRequestPause.bind(this));
     this.sivicProtocol.addListener(CreativeMessage.FATAL_ERROR, this.onCreativeFatalError.bind(this));
@@ -87,6 +103,7 @@ class SivicPlayer {
     if (this.sivicIframe_) {
       this.sivicIframe_.remove();
       this.sivicIframe_ = null;
+      this.sivicProtocol = null;
     }
   }
 
@@ -147,15 +164,16 @@ class SivicPlayer {
       'environmentData' : environmentData,
       'creativeData': creativeData
     }
-    this.sivicProtocol.sendMessage(PlayerMessage.INIT, initMessage)
-      .then(this.onAdInitialized.bind(this), this.onAdInitializedFailed.bind(this));
+    this.initializationPromise_ = this.sivicProtocol.sendMessage(
+        PlayerMessage.INIT, initMessage);
   }
 
   /**
    * Called once the creative responds positively to being initialized.
    * @param {!Object} data
+   * @private
    */
-  onAdInitialized(data) {
+  startCreativePlayback_(data) {
     // Once the ad is successfully initialized it can start.
     // If the ad is not visible it must be made visible here.
     this.showSivicIFrame_();
@@ -163,7 +181,13 @@ class SivicPlayer {
     this.sivicProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
 
-  onAdInitializedFailed(data) {
+  /**
+   * Called if the creative responds with reject after the player
+   * initializes the ad.
+   * @param {!Object} data
+   * @private
+   */
+  onAdInitializedFailed_(data) {
     console.log("Ad did not inialize so we can error out.");
     const errorMessage = {
       'errorCode': data['errorCode'], // Reuse the error code from the creative.
@@ -173,7 +197,7 @@ class SivicPlayer {
     // it acknowledges its fatal error.
     this.hideSivicIFrame_();
     this.sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, {})
-      .then(this.destroySivicIframe.bind(this));
+      .then(this.stopAd.bind(this));
   }
 
   /** @private */
@@ -247,6 +271,7 @@ class SivicPlayer {
   stopAd() {
     this.videoElement_.src = '';
     this.destroySivicIframe();
+    this.onAdComplete();
   }
 
   /** The creative wants to go full screen. */
