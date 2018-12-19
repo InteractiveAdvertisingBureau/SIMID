@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 30dbdcf66519991ec52011cac10c49a7b5b449c5" name="generator">
+  <meta content="Bikeshed version 6dcb46ba8cae3704b42c05bcd8578c92d239786a" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1471,7 +1471,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-11-08">8 November 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-12-19">19 December 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1486,7 +1486,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 8 November 2018,
+In addition, as of 19 December 2018,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1594,88 +1594,75 @@ Parts of this work may be from another specification document.  If so, those par
           <li><a href="#sivic-creative-requestVideoLocation-resolve"><span class="secno">6.5.1.1</span> <span class="content">resolve</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-ready-response"><span class="secno">6.5.2</span> <span class="content">Response To SIVIC:Creative:ready</span></a>
+         <a href="#sivic-creative-requestSkip-response"><span class="secno">6.5.2</span> <span class="content">Response To SIVIC:Creative:requestSkip</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-ready-resolve"><span class="secno">6.5.2.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-ready-reject"><span class="secno">6.5.2.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestSkip-resolve"><span class="secno">6.5.2.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestSkip-reject"><span class="secno">6.5.2.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-clickThru-response"><span class="secno">6.5.3</span> <span class="content">Response To SIVIC:Creative:clickThru</span></a>
+         <a href="#sivic-creative-requestStop-response"><span class="secno">6.5.3</span> <span class="content">Response To SIVIC:Creative:requestStop</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-clickThru-resolve"><span class="secno">6.5.3.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-clickThru-reject"><span class="secno">6.5.3.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestStop-resolve"><span class="secno">6.5.3.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestStop-reject"><span class="secno">6.5.3.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestSkip-response"><span class="secno">6.5.4</span> <span class="content">Response To SIVIC:Creative:requestSkip</span></a>
+         <a href="#sivic-creative-requestPause-response"><span class="secno">6.5.4</span> <span class="content">Response To SIVIC:Creative:requestPause</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestSkip-resolve"><span class="secno">6.5.4.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestSkip-reject"><span class="secno">6.5.4.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestPause-resolve"><span class="secno">6.5.4.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestPause-reject"><span class="secno">6.5.4.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestStop-response"><span class="secno">6.5.5</span> <span class="content">Response To SIVIC:Creative:requestStop</span></a>
+         <a href="#sivic-creative-requestPlay-response"><span class="secno">6.5.5</span> <span class="content">Response To SIVIC:Creative:requestPlay</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestStop-resolve"><span class="secno">6.5.5.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestStop-reject"><span class="secno">6.5.5.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestPlay-resolve"><span class="secno">6.5.5.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestPlay-reject"><span class="secno">6.5.5.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestPause-response"><span class="secno">6.5.6</span> <span class="content">Response To SIVIC:Creative:requestPause</span></a>
+         <a href="#sivic-creative-requestFullscreen-response"><span class="secno">6.5.6</span> <span class="content">Response To SIVIC:Creative:requestFullscreen</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestPause-resolve"><span class="secno">6.5.6.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestPause-reject"><span class="secno">6.5.6.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestFullscreen-resolve"><span class="secno">6.5.6.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestFullscreen-reject"><span class="secno">6.5.6.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestPlay-response"><span class="secno">6.5.7</span> <span class="content">Response To SIVIC:Creative:requestPlay</span></a>
+         <a href="#sivic-creative-requestChangeVolume-response"><span class="secno">6.5.7</span> <span class="content">Response To SIVIC:Creative:requestChangeVolume</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestPlay-resolve"><span class="secno">6.5.7.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestPlay-reject"><span class="secno">6.5.7.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestChangeVolume-resolve"><span class="secno">6.5.7.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestChangeVolume-reject"><span class="secno">6.5.7.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestFullscreen-response"><span class="secno">6.5.8</span> <span class="content">Response To SIVIC:Creative:requestFullscreen</span></a>
+         <a href="#sivic-creative-requestResize-response"><span class="secno">6.5.8</span> <span class="content">Response To SIVIC:Creative:requestResize</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestFullscreen-resolve"><span class="secno">6.5.8.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestFullscreen-reject"><span class="secno">6.5.8.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestResize-resolve"><span class="secno">6.5.8.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestResize-reject"><span class="secno">6.5.8.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestVolume-response"><span class="secno">6.5.9</span> <span class="content">Response To SIVIC:Creative:requestVolume</span></a>
+         <a href="#sivic-creative-requestChangeAdDuration-response"><span class="secno">6.5.9</span> <span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestVolume-resolve"><span class="secno">6.5.9.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestVolume-reject"><span class="secno">6.5.9.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-requestChangeAdDuration-resolve"><span class="secno">6.5.9.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-requestChangeAdDuration-reject"><span class="secno">6.5.9.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestResize-response"><span class="secno">6.5.10</span> <span class="content">Response To SIVIC:Creative:requestResize</span></a>
+         <a href="#sivic-creative-reportTracking-response"><span class="secno">6.5.10</span> <span class="content">Response To SIVIC:Creative:reportTracking</span></a>
          <ol class="toc">
-          <li><a href="#sivic-creative-requestResize-resolve"><span class="secno">6.5.10.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestResize-reject"><span class="secno">6.5.10.2</span> <span class="content">reject</span></a>
-         </ol>
-        <li>
-         <a href="#sivic-creative-requestChangeAdDuration-response"><span class="secno">6.5.11</span> <span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span></a>
-         <ol class="toc">
-          <li><a href="#sivic-creative-requestChangeAdDuration-resolve"><span class="secno">6.5.11.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-requestChangeAdDuration-reject"><span class="secno">6.5.11.2</span> <span class="content">reject</span></a>
-         </ol>
-        <li>
-         <a href="#sivic-creative-reportTracking-response"><span class="secno">6.5.12</span> <span class="content">Response To SIVIC:Creative:reportTracking</span></a>
-         <ol class="toc">
-          <li><a href="#sivic-creative-reportTracking-resolve"><span class="secno">6.5.12.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-creative-reportTracking-reject"><span class="secno">6.5.12.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-creative-reportTracking-resolve"><span class="secno">6.5.10.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-creative-reportTracking-reject"><span class="secno">6.5.10.2</span> <span class="content">reject</span></a>
          </ol>
        </ol>
       <li>
        <a href="#creative-messages"><span class="secno">6.6</span> <span class="content">Messages from the Creative to the Player</span></a>
        <ol class="toc">
-        <li><a href="#sivic-creative-ready"><span class="secno">6.6.1</span> <span class="content">SIVIC:Creative:ready</span></a>
-        <li><a href="#sivic-creative-requestSkip"><span class="secno">6.6.2</span> <span class="content">SIVIC:Creative:requestSkip</span></a>
-        <li><a href="#sivic-creative-requestStop"><span class="secno">6.6.3</span> <span class="content">SIVIC:Creative:requestStop</span></a>
-        <li><a href="#sivic-creative-fatalError"><span class="secno">6.6.4</span> <span class="content">SIVIC:Creative:fatalError</span></a>
-        <li><a href="#sivic-creative-requestPause"><span class="secno">6.6.5</span> <span class="content">SIVIC:Creative:requestPause</span></a>
-        <li><a href="#sivic-creative-requestPlay"><span class="secno">6.6.6</span> <span class="content">SIVIC:Creative:requestPlay</span></a>
-        <li><a href="#sivic-creative-requestResize"><span class="secno">6.6.7</span> <span class="content">SIVIC:Creative:requestResize</span></a>
-        <li><a href="#sivic-creative-requestFullScreen"><span class="secno">6.6.8</span> <span class="content">SIVIC:Creative:requestFullScreen</span></a>
-        <li><a href="#sivic-creative-requestVolume"><span class="secno">6.6.9</span> <span class="content">SIVIC:Creative:requestVolume</span></a>
-        <li><a href="#sivic-creative-reportTracking"><span class="secno">6.6.10</span> <span class="content">SIVIC:Creative:reportTracking</span></a>
-        <li><a href="#sivic-creative-requestChangeAdDuration"><span class="secno">6.6.11</span> <span class="content">SIVIC:Creative:requestChangeAdDuration</span></a>
-        <li><a href="#sivic-creative-clickThru"><span class="secno">6.6.12</span> <span class="content">SIVIC:Creative:clickThru</span></a>
-        <li><a href="#sivic-creative-getVideoState"><span class="secno">6.6.13</span> <span class="content">SIVIC:Creative:getVideoState</span></a>
+        <li><a href="#sivic-creative-requestSkip"><span class="secno">6.6.1</span> <span class="content">SIVIC:Creative:requestSkip</span></a>
+        <li><a href="#sivic-creative-requestStop"><span class="secno">6.6.2</span> <span class="content">SIVIC:Creative:requestStop</span></a>
+        <li><a href="#sivic-creative-fatalError"><span class="secno">6.6.3</span> <span class="content">SIVIC:Creative:fatalError</span></a>
+        <li><a href="#sivic-creative-requestPause"><span class="secno">6.6.4</span> <span class="content">SIVIC:Creative:requestPause</span></a>
+        <li><a href="#sivic-creative-requestPlay"><span class="secno">6.6.5</span> <span class="content">SIVIC:Creative:requestPlay</span></a>
+        <li><a href="#sivic-creative-requestResize"><span class="secno">6.6.6</span> <span class="content">SIVIC:Creative:requestResize</span></a>
+        <li><a href="#sivic-creative-requestFullScreen"><span class="secno">6.6.7</span> <span class="content">SIVIC:Creative:requestFullScreen</span></a>
+        <li><a href="#sivic-creative-requestChangeVolume"><span class="secno">6.6.8</span> <span class="content">SIVIC:Creative:requestChangeVolume</span></a>
+        <li><a href="#sivic-creative-reportTracking"><span class="secno">6.6.9</span> <span class="content">SIVIC:Creative:reportTracking</span></a>
+        <li><a href="#sivic-creative-requestChangeAdDuration"><span class="secno">6.6.10</span> <span class="content">SIVIC:Creative:requestChangeAdDuration</span></a>
+        <li><a href="#sivic-creative-clickThru"><span class="secno">6.6.11</span> <span class="content">SIVIC:Creative:clickThru</span></a>
+        <li><a href="#sivic-creative-getVideoState"><span class="secno">6.6.12</span> <span class="content">SIVIC:Creative:getVideoState</span></a>
        </ol>
       <li>
        <a href="#creative-responses"><span class="secno">6.7</span> <span class="content">Responses from the creative to the player</span></a>
@@ -2031,8 +2018,8 @@ creative will use the <code class="idl"><a data-link-type="idl">postMessage</a><
    <p>The <code class="idl"><a data-link-type="idl">postMessage</a></code> API conforms to the required <a data-link-type="dfn" href="#message-transport-properties" id="ref-for-message-transport-properties">properties</a> of a <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport④">transport</a>.</p>
    <h4 class="heading settled" data-level="5.1.2" id="##msg-serialization"><span class="secno">5.1.2. </span><span class="content">Message Serialization</span><a class="self-link" href="#%23%23msg-serialization"></a></h4>
    <p>To <dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-serialize">serialize<a class="self-link" href="#message-serialize"></a></dfn> a <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message">Message</a></code> to a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑥">serialized message</a>,
-apply <code class="idl"><a data-link-type="idl">stringify</a></code> to the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①">Message</a></code> data structure. The resulting <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString">DOMString</a></code> represents the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑦">serialized message</a>.</p>
-   <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-deserialize">deserialize</dfn> a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑧">serialized message</a> to a <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message②">Message</a></code> data structure, apply <code class="idl"><a data-link-type="idl">parse</a></code> to the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑨">serialized message</a>.
+apply <code>JSON.stringify</code> to the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①">Message</a></code> data structure. The resulting <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString">DOMString</a></code> represents the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑦">serialized message</a>.</p>
+   <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-deserialize">deserialize</dfn> a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑧">serialized message</a> to a <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message②">Message</a></code> data structure, apply <code>JSON.parse</code> to the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑨">serialized message</a>.
 The resulting <code class="idl"><a data-link-type="idl">Object</a></code> has the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message③">Message</a></code> data structure.</p>
    <p>The <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender③">sender</a> should not transmit any <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message①⓪">serialized messages</a> that
 cannot be correctly <a data-link-type="dfn" href="#message-deserialize" id="ref-for-message-deserialize">deserialized</a> by the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver④">receiver</a>.</p>
@@ -2068,7 +2055,7 @@ identifier</a>.</strong></p>
      <li data-md>
       <p>Let <var>sessionIdPromise</var> be a new unresolved <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise①">Promise</a></code>.</p>
      <li data-md>
-      <p>Start the <a data-link-type="dfn" href="#message-send-an-acked-message" id="ref-for-message-send-an-acked-message">send an acked message</a> algorithm with <var>sessionId</var>, <var>type</var> and <var>args</var>. Let <var>ackPromise</var> be the return value.</p>
+      <p>Start the <a data-link-type="dfn" href="#message-send-an-acknowledgement-message" id="ref-for-message-send-an-acknowledgement-message">send an acknowledgement message</a> algorithm with <var>sessionId</var>, <var>type</var> and <var>args</var>. Let <var>ackPromise</var> be the return value.</p>
      <li data-md>
       <p>Return <var>sessionIdPromise</var>.</p>
      <li data-md>
@@ -2112,7 +2099,7 @@ steps:</p>
       <p>Let <var>message</var> be a new <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message④">Message</a></code> object with its attributes initialized
  to <var>sessionId</var>, <var>messageId</var>, <var>type</var> and <var>args</var>.</p>
      <li data-md>
-      <p>Let <var>serializedMessage</var> be the result of running <code class="idl"><a data-link-type="idl">stringify</a></code> on <var>message</var>.</p>
+      <p>Let <var>serializedMessage</var> be the result of running <code>JSON.stringify</code> on <var>message</var>.</p>
      <li data-md>
       <p>Transmit <var>serializedMessage</var> to the other party through the <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport⑥">transport</a>.</p>
      <li data-md>
@@ -2122,8 +2109,8 @@ steps:</p>
    <p>While most messages can be sent "fire-and-forget", some require the sender to
 be informed that they were properly received and handled by the receiver. The
 protocol uses semantics similar to the <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise②">Promise</a></code> API for this.</p>
-   <section class="algorithm" data-algorithm="to send an acked message">
-    <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-send-an-acked-message">send an acked message</dfn>, you <em>must</em> run the
+   <section class="algorithm" data-algorithm="to send an acknowledgement message">
+    <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-send-an-acknowledgement-message">send an acknowledgement message</dfn>, you <em>must</em> run the
 following steps:</p>
     <dl>
      <dt data-md>Input
@@ -2167,10 +2154,10 @@ following steps:</p>
     </dl>
     <ol>
      <li data-md>
-      <p>Let <var>message</var> be the result of running <code class="idl"><a data-link-type="idl">parse</a></code> on <var>serializedMessage</var>.</p>
+      <p>Let <var>message</var> be the result of running <code>JSON.parse</code> on <var>serializedMessage</var>.</p>
       <ol>
        <li data-md>
-        <p>If <code class="idl"><a data-link-type="idl">parse</a></code> threw an exception, ignore the exception and abort
+        <p>If <code>JSON.parse</code> threw an exception, ignore the exception and abort
 	execution of this algorithm.</p>
       </ol>
      <li data-md>
@@ -2246,9 +2233,12 @@ These names correspond with VAST 4.1 tracking names.</p>
 }
 </pre>
    <h4 class="heading settled" data-level="6.1.1" id="vast-error"><span class="secno">6.1.1. </span><span class="content">SIVIC:Tracking:error</span><a class="self-link" href="#vast-error"></a></h4>
-    parameters: 
-<pre>errorCode(string): the vast error code
+    <code>SIVIC:Tracking:error</code> message is sent with <code>args</code> property: 
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-trackingerrorargs"><code><c- g>TrackingErrorArgs</c-></code><a class="self-link" href="#dictdef-trackingerrorargs"></a></dfn> {
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="TrackingErrorArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-trackingerrorargs-errorcode"><code><c- g>errorCode</c-></code></dfn>;
+};
 </pre>
+   <p><code class="idl"><a data-link-type="idl" href="#dom-trackingerrorargs-errorcode" id="ref-for-dom-trackingerrorargs-errorcode">errorCode</a></code> is error code specified by VAST.</p>
    <h4 class="heading settled" data-level="6.1.2" id="other-vast-messages"><span class="secno">6.1.2. </span><span class="content">Other tracking events that must be supported</span><a class="self-link" href="#other-vast-messages"></a></h4>
    <ul>
     <li data-md>
@@ -2479,6 +2469,7 @@ call SIVIC:Player:startCreative immediately after SIVIC:Player:init.</p>
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></dfn>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate"><c- n>SkippableState</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="SkippableState " id="dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code></dfn>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-version"><code><c- g>version</c-></code></dfn>;
   <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code></dfn>;
   <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-appid"><code><c- g>appId</c-></code></dfn>;
   <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code></dfn>;
@@ -2554,6 +2545,8 @@ SIVIC creative should not render a skip button. This may be common in
 DAI for live streams.</p>
        </ul>
       <li data-md>
+       <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-version" id="ref-for-dom-environmentdata-version">version</a></code>: The version of sivic that this player uses.</p>
+      <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-siteurl" id="ref-for-dom-environmentdata-siteurl">siteUrl</a></code> Indicating the website the ad will play on,
 for example if the site was <code>www.xyz.com/videoId</code>, this information would
 include at least <code>www.xyz.com</code>. The player may give more information.
@@ -2607,88 +2600,54 @@ parameters:
     <li data-md>
      <p>y (int): The new video y location.</p>
    </ul>
-   <h4 class="heading settled" data-level="6.5.2" id="sivic-creative-ready-response"><span class="secno">6.5.2. </span><span class="content">Response To SIVIC:Creative:ready</span><a class="self-link" href="#sivic-creative-ready-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.2.1" id="sivic-creative-ready-resolve"><span class="secno">6.5.2.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-ready-resolve"></a></h5>
-    parameters: 
-   <ul>
-    <li data-md>
-     <p>version (string): The version of SIVIC that will be used. The version from the player will be the source of truth.</p>
-   </ul>
-   <h5 class="heading settled" data-level="6.5.2.2" id="sivic-creative-ready-reject"><span class="secno">6.5.2.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-ready-reject"></a></h5>
-    parameters: 
-   <ul>
-    <li data-md>
-     <p>reason (string): An optional string error message.</p>
-    <li data-md>
-     <p>errorCode (int): the code for why the creative won’t play. See <a href="#error-codes">§8.2.1 Error Codes</a></p>
-   </ul>
-   <h4 class="heading settled" data-level="6.5.3" id="sivic-creative-clickThru-response"><span class="secno">6.5.3. </span><span class="content">Response To SIVIC:Creative:clickThru</span><a class="self-link" href="#sivic-creative-clickThru-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.3.1" id="sivic-creative-clickThru-resolve"><span class="secno">6.5.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-clickThru-resolve"></a></h5>
-    Describes the state of the player after click: 
-   <ul>
-    <li data-md>
-     <p>paused (boolean): corresponds exactly to video element paused attribute</p>
-    <li data-md>
-     <p>muted (boolean): corresponds exactly to video element muted attribute</p>
-    <li data-md>
-     <p>fullscreen (boolean): true if the video element is full screen, false otherwise</p>
-   </ul>
-   <h5 class="heading settled" data-level="6.5.3.2" id="sivic-creative-clickThru-reject"><span class="secno">6.5.3.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-clickThru-reject"></a></h5>
-    parameters: 
-   <ul>
-    <li data-md>
-     <p>reason (string): An optional string error message.</p>
-    <li data-md>
-     <p>errorCode (int): the code for why the player didn’t handle clickthru correctly. See <a href="#error-codes">§8.2.1 Error Codes</a></p>
-   </ul>
-   <h4 class="heading settled" data-level="6.5.4" id="sivic-creative-requestSkip-response"><span class="secno">6.5.4. </span><span class="content">Response To SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.4.1" id="sivic-creative-requestSkip-resolve"><span class="secno">6.5.4.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestSkip-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.2" id="sivic-creative-requestSkip-response"><span class="secno">6.5.2. </span><span class="content">Response To SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.2.1" id="sivic-creative-requestSkip-resolve"><span class="secno">6.5.2.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestSkip-resolve"></a></h5>
     Upon resolving this request, the player must call <a href="#sivic-player-adSkipped">§6.4.4 SIVIC:Player:adSkipped</a>. 
-   <h5 class="heading settled" data-level="6.5.4.2" id="sivic-creative-requestSkip-reject"><span class="secno">6.5.4.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestSkip-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.2.2" id="sivic-creative-requestSkip-reject"><span class="secno">6.5.2.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestSkip-reject"></a></h5>
     The creative should continue to playback as though it could not be skipped. 
-   <h4 class="heading settled" data-level="6.5.5" id="sivic-creative-requestStop-response"><span class="secno">6.5.5. </span><span class="content">Response To SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.5.1" id="sivic-creative-requestStop-resolve"><span class="secno">6.5.5.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestStop-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.3" id="sivic-creative-requestStop-response"><span class="secno">6.5.3. </span><span class="content">Response To SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.3.1" id="sivic-creative-requestStop-resolve"><span class="secno">6.5.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestStop-resolve"></a></h5>
     Upon resolving this request, the player must call <a href="#sivic-player-adStopped">§6.4.5 SIVIC:Player:adStopped</a>. 
-   <h5 class="heading settled" data-level="6.5.5.2" id="sivic-creative-requestStop-reject"><span class="secno">6.5.5.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestStop-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.3.2" id="sivic-creative-requestStop-reject"><span class="secno">6.5.3.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestStop-reject"></a></h5>
     For some reason the player could not stop playback. The creative may continue
 to render as though it was not stopped. 
-   <h4 class="heading settled" data-level="6.5.6" id="sivic-creative-requestPause-response"><span class="secno">6.5.6. </span><span class="content">Response To SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.6.1" id="sivic-creative-requestPause-resolve"><span class="secno">6.5.6.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPause-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.4" id="sivic-creative-requestPause-response"><span class="secno">6.5.4. </span><span class="content">Response To SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.4.1" id="sivic-creative-requestPause-resolve"><span class="secno">6.5.4.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPause-resolve"></a></h5>
     The player paused the video. 
-   <h5 class="heading settled" data-level="6.5.6.2" id="sivic-creative-requestPause-reject"><span class="secno">6.5.6.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPause-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.4.2" id="sivic-creative-requestPause-reject"><span class="secno">6.5.4.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPause-reject"></a></h5>
     The player did not pause the video. 
-   <h4 class="heading settled" data-level="6.5.7" id="sivic-creative-requestPlay-response"><span class="secno">6.5.7. </span><span class="content">Response To SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.7.1" id="sivic-creative-requestPlay-resolve"><span class="secno">6.5.7.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPlay-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.5" id="sivic-creative-requestPlay-response"><span class="secno">6.5.5. </span><span class="content">Response To SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.5.1" id="sivic-creative-requestPlay-resolve"><span class="secno">6.5.5.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPlay-resolve"></a></h5>
     The player is playing the video. 
-   <h5 class="heading settled" data-level="6.5.7.2" id="sivic-creative-requestPlay-reject"><span class="secno">6.5.7.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPlay-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.5.2" id="sivic-creative-requestPlay-reject"><span class="secno">6.5.5.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPlay-reject"></a></h5>
     The player did not play the video. 
-   <h4 class="heading settled" data-level="6.5.8" id="sivic-creative-requestFullscreen-response"><span class="secno">6.5.8. </span><span class="content">Response To SIVIC:Creative:requestFullscreen</span><a class="self-link" href="#sivic-creative-requestFullscreen-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.8.1" id="sivic-creative-requestFullscreen-resolve"><span class="secno">6.5.8.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestFullscreen-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.6" id="sivic-creative-requestFullscreen-response"><span class="secno">6.5.6. </span><span class="content">Response To SIVIC:Creative:requestFullscreen</span><a class="self-link" href="#sivic-creative-requestFullscreen-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.6.1" id="sivic-creative-requestFullscreen-resolve"><span class="secno">6.5.6.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestFullscreen-resolve"></a></h5>
     The player has gone full screen. 
-   <h5 class="heading settled" data-level="6.5.8.2" id="sivic-creative-requestFullscreen-reject"><span class="secno">6.5.8.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestFullscreen-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.6.2" id="sivic-creative-requestFullscreen-reject"><span class="secno">6.5.6.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestFullscreen-reject"></a></h5>
     The player did go full screen. 
-   <h4 class="heading settled" data-level="6.5.9" id="sivic-creative-requestVolume-response"><span class="secno">6.5.9. </span><span class="content">Response To SIVIC:Creative:requestVolume</span><a class="self-link" href="#sivic-creative-requestVolume-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.9.1" id="sivic-creative-requestVolume-resolve"><span class="secno">6.5.9.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestVolume-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.7" id="sivic-creative-requestChangeVolume-response"><span class="secno">6.5.7. </span><span class="content">Response To SIVIC:Creative:requestChangeVolume</span><a class="self-link" href="#sivic-creative-requestChangeVolume-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.7.1" id="sivic-creative-requestChangeVolume-resolve"><span class="secno">6.5.7.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestChangeVolume-resolve"></a></h5>
     The player has changed the volume as requested. 
-   <h5 class="heading settled" data-level="6.5.9.2" id="sivic-creative-requestVolume-reject"><span class="secno">6.5.9.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestVolume-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.7.2" id="sivic-creative-requestChangeVolume-reject"><span class="secno">6.5.7.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestChangeVolume-reject"></a></h5>
     The player did not change to the requested volume. 
-   <h4 class="heading settled" data-level="6.5.10" id="sivic-creative-requestResize-response"><span class="secno">6.5.10. </span><span class="content">Response To SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.10.1" id="sivic-creative-requestResize-resolve"><span class="secno">6.5.10.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestResize-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.8" id="sivic-creative-requestResize-response"><span class="secno">6.5.8. </span><span class="content">Response To SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.8.1" id="sivic-creative-requestResize-resolve"><span class="secno">6.5.8.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestResize-resolve"></a></h5>
     The player has resized exactly as it has been requested. 
-   <h5 class="heading settled" data-level="6.5.10.2" id="sivic-creative-requestResize-reject"><span class="secno">6.5.10.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestResize-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.8.2" id="sivic-creative-requestResize-reject"><span class="secno">6.5.8.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestResize-reject"></a></h5>
     The player did not resize to the exact request. If the player was only able to partially comply, it should still
 reject the message. Then the player should call the message <a href="#sivic-player-resize">§6.4.1 SIVIC:Player:resize</a> to let the creative know
 what resize happened. 
-   <h4 class="heading settled" data-level="6.5.11" id="sivic-creative-requestChangeAdDuration-response"><span class="secno">6.5.11. </span><span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.11.1" id="sivic-creative-requestChangeAdDuration-resolve"><span class="secno">6.5.11.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.9" id="sivic-creative-requestChangeAdDuration-response"><span class="secno">6.5.9. </span><span class="content">Response To SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.9.1" id="sivic-creative-requestChangeAdDuration-resolve"><span class="secno">6.5.9.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-resolve"></a></h5>
     The player changed the ad duration. 
-   <h5 class="heading settled" data-level="6.5.11.2" id="sivic-creative-requestChangeAdDuration-reject"><span class="secno">6.5.11.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.9.2" id="sivic-creative-requestChangeAdDuration-reject"><span class="secno">6.5.9.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-reject"></a></h5>
     The player did not change the ad duration. 
-   <h4 class="heading settled" data-level="6.5.12" id="sivic-creative-reportTracking-response"><span class="secno">6.5.12. </span><span class="content">Response To SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking-response"></a></h4>
-   <h5 class="heading settled" data-level="6.5.12.1" id="sivic-creative-reportTracking-resolve"><span class="secno">6.5.12.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-reportTracking-resolve"></a></h5>
+   <h4 class="heading settled" data-level="6.5.10" id="sivic-creative-reportTracking-response"><span class="secno">6.5.10. </span><span class="content">Response To SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking-response"></a></h4>
+   <h5 class="heading settled" data-level="6.5.10.1" id="sivic-creative-reportTracking-resolve"><span class="secno">6.5.10.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-reportTracking-resolve"></a></h5>
     The player sends resolve if tracking has been sent out. Returning resolve on this message
 should not block waiting for a response from the site. 
-   <h5 class="heading settled" data-level="6.5.12.2" id="sivic-creative-reportTracking-reject"><span class="secno">6.5.12.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-reportTracking-reject"></a></h5>
+   <h5 class="heading settled" data-level="6.5.10.2" id="sivic-creative-reportTracking-reject"><span class="secno">6.5.10.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-reportTracking-reject"></a></h5>
     The player did not send the tracking pixel. 
    <p>parameters:</p>
    <ul>
@@ -2699,20 +2658,16 @@ should not block waiting for a response from the site.
    </ul>
    <h3 class="heading settled" data-level="6.6" id="creative-messages"><span class="secno">6.6. </span><span class="content">Messages from the Creative to the Player</span><a class="self-link" href="#creative-messages"></a></h3>
     All functions should be prepended with SIVIC:Creative 
-   <h4 class="heading settled" data-level="6.6.1" id="sivic-creative-ready"><span class="secno">6.6.1. </span><span class="content">SIVIC:Creative:ready</span><a class="self-link" href="#sivic-creative-ready"></a></h4>
-    The very first call the SIVIC creative should make. This indicates it is loaded and ready to recieve messages
-from the player. 
-   <p>Expects a response <a href="#sivic-creative-ready-response">§6.5.2 Response To SIVIC:Creative:ready</a></p>
-   <h4 class="heading settled" data-level="6.6.2" id="sivic-creative-requestSkip"><span class="secno">6.6.2. </span><span class="content">SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip"></a></h4>
+   <h4 class="heading settled" data-level="6.6.1" id="sivic-creative-requestSkip"><span class="secno">6.6.1. </span><span class="content">SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip"></a></h4>
     The player should stop video playback if possible. 
    <p>If the player cannot stop video playback, the player still does not unload the iframe.</p>
-   <p>Expects a response <a href="#sivic-creative-requestSkip-response">§6.5.4 Response To SIVIC:Creative:requestSkip</a></p>
-   <h4 class="heading settled" data-level="6.6.3" id="sivic-creative-requestStop"><span class="secno">6.6.3. </span><span class="content">SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop"></a></h4>
+   <p>Expects a response <a href="#sivic-creative-requestSkip-response">§6.5.2 Response To SIVIC:Creative:requestSkip</a></p>
+   <h4 class="heading settled" data-level="6.6.2" id="sivic-creative-requestStop"><span class="secno">6.6.2. </span><span class="content">SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop"></a></h4>
     The player should stop video playback if possible. 
    <p>If the player cannot stop video playback, the player still unloads the iframe. The creative may hide all elements
 in this case if it doesn’t wish to be seen.</p>
-   <p>Expects a response <a href="#sivic-creative-requestStop-response">§6.5.5 Response To SIVIC:Creative:requestStop</a></p>
-   <h4 class="heading settled" data-level="6.6.4" id="sivic-creative-fatalError"><span class="secno">6.6.4. </span><span class="content">SIVIC:Creative:fatalError</span><a class="self-link" href="#sivic-creative-fatalError"></a></h4>
+   <p>Expects a response <a href="#sivic-creative-requestStop-response">§6.5.3 Response To SIVIC:Creative:requestStop</a></p>
+   <h4 class="heading settled" data-level="6.6.3" id="sivic-creative-fatalError"><span class="secno">6.6.3. </span><span class="content">SIVIC:Creative:fatalError</span><a class="self-link" href="#sivic-creative-fatalError"></a></h4>
     After this message is received, the iframe should be unloaded and the video ad should stop playback if possible.
 If the video ad continues to play the iframe should still be unloaded. 
    <p>parameters:</p>
@@ -2722,16 +2677,16 @@ If the video ad continues to play the iframe should still be unloaded.
     <li data-md>
      <p>errorMessage(string): Any optional additional information about the fatal error.</p>
    </ul>
-   <h4 class="heading settled" data-level="6.6.5" id="sivic-creative-requestPause"><span class="secno">6.6.5. </span><span class="content">SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause"></a></h4>
-    Expects a response <a href="#sivic-creative-requestPause-response">§6.5.6 Response To SIVIC:Creative:requestPause</a> 
-   <h4 class="heading settled" data-level="6.6.6" id="sivic-creative-requestPlay"><span class="secno">6.6.6. </span><span class="content">SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay"></a></h4>
-    Expects a response <a href="#sivic-creative-requestPlay-response">§6.5.7 Response To SIVIC:Creative:requestPlay</a> 
-   <h4 class="heading settled" data-level="6.6.7" id="sivic-creative-requestResize"><span class="secno">6.6.7. </span><span class="content">SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize"></a></h4>
+   <h4 class="heading settled" data-level="6.6.4" id="sivic-creative-requestPause"><span class="secno">6.6.4. </span><span class="content">SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause"></a></h4>
+    Expects a response <a href="#sivic-creative-requestPause-response">§6.5.4 Response To SIVIC:Creative:requestPause</a> 
+   <h4 class="heading settled" data-level="6.6.5" id="sivic-creative-requestPlay"><span class="secno">6.6.5. </span><span class="content">SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay"></a></h4>
+    Expects a response <a href="#sivic-creative-requestPlay-response">§6.5.5 Response To SIVIC:Creative:requestPlay</a> 
+   <h4 class="heading settled" data-level="6.6.6" id="sivic-creative-requestResize"><span class="secno">6.6.6. </span><span class="content">SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize"></a></h4>
    <p>Request resize should use the <code class="idl"><a data-link-type="idl" href="#dictdef-resizeparameters" id="ref-for-dictdef-resizeparameters">resizeParameters</a></code> which are explained in <a href="#sivic-player-resize">§6.4.1 SIVIC:Player:resize</a></p>
-   <p>Expects a reponse <a href="#sivic-creative-requestResize-response">§6.5.10 Response To SIVIC:Creative:requestResize</a></p>
-   <h4 class="heading settled" data-level="6.6.8" id="sivic-creative-requestFullScreen"><span class="secno">6.6.8. </span><span class="content">SIVIC:Creative:requestFullScreen</span><a class="self-link" href="#sivic-creative-requestFullScreen"></a></h4>
-    Expects a reponse <a href="#sivic-creative-requestFullscreen-response">§6.5.8 Response To SIVIC:Creative:requestFullscreen</a> 
-   <h4 class="heading settled" data-level="6.6.9" id="sivic-creative-requestVolume"><span class="secno">6.6.9. </span><span class="content">SIVIC:Creative:requestVolume</span><a class="self-link" href="#sivic-creative-requestVolume"></a></h4>
+   <p>Expects a reponse <a href="#sivic-creative-requestResize-response">§6.5.8 Response To SIVIC:Creative:requestResize</a></p>
+   <h4 class="heading settled" data-level="6.6.7" id="sivic-creative-requestFullScreen"><span class="secno">6.6.7. </span><span class="content">SIVIC:Creative:requestFullScreen</span><a class="self-link" href="#sivic-creative-requestFullScreen"></a></h4>
+    Expects a reponse <a href="#sivic-creative-requestFullscreen-response">§6.5.6 Response To SIVIC:Creative:requestFullscreen</a> 
+   <h4 class="heading settled" data-level="6.6.8" id="sivic-creative-requestChangeVolume"><span class="secno">6.6.8. </span><span class="content">SIVIC:Creative:requestChangeVolume</span><a class="self-link" href="#sivic-creative-requestChangeVolume"></a></h4>
     paramaters: 
    <ul>
     <li data-md>
@@ -2739,8 +2694,8 @@ If the video ad continues to play the iframe should still be unloaded.
     <li data-md>
      <p>muted(boolean): True indicates the creative wants the volume muted.</p>
    </ul>
-   <p>Expects a reponse <a href="#sivic-creative-requestVolume-response">§6.5.9 Response To SIVIC:Creative:requestVolume</a></p>
-   <h4 class="heading settled" data-level="6.6.10" id="sivic-creative-reportTracking"><span class="secno">6.6.10. </span><span class="content">SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking"></a></h4>
+   <p>Expects a reponse <a href="#sivic-creative-requestChangeVolume-response">§6.5.7 Response To SIVIC:Creative:requestChangeVolume</a></p>
+   <h4 class="heading settled" data-level="6.6.9" id="sivic-creative-reportTracking"><span class="secno">6.6.9. </span><span class="content">SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking"></a></h4>
     paramaters: 
    <ul>
     <li data-md>
@@ -2749,20 +2704,26 @@ If the video ad continues to play the iframe should still be unloaded.
       <string>): an array or tracking pixels that the publisher should fire</string>
      </p>
    </ul>
-   <p>Expects a response <a href="#sivic-creative-reportTracking-response">§6.5.12 Response To SIVIC:Creative:reportTracking</a></p>
-   <h4 class="heading settled" data-level="6.6.11" id="sivic-creative-requestChangeAdDuration"><span class="secno">6.6.11. </span><span class="content">SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration"></a></h4>
+   <p>Expects a response <a href="#sivic-creative-reportTracking-response">§6.5.10 Response To SIVIC:Creative:reportTracking</a></p>
+   <h4 class="heading settled" data-level="6.6.10" id="sivic-creative-requestChangeAdDuration"><span class="secno">6.6.10. </span><span class="content">SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration"></a></h4>
     Extension in duration should only be in response to user interaction. 
    <p>paramaters:</p>
    <ul>
     <li data-md>
      <p>duration(int): The new duration of the creative. -2 indicates unknown ad duration.</p>
    </ul>
-   <p>Expects a response <a href="#sivic-creative-requestChangeAdDuration-response">§6.5.11 Response To SIVIC:Creative:requestChangeAdDuration</a></p>
-   <h4 class="heading settled" data-level="6.6.12" id="sivic-creative-clickThru"><span class="secno">6.6.12. </span><span class="content">SIVIC:Creative:clickThru</span><a class="self-link" href="#sivic-creative-clickThru"></a></h4>
-   <p>The creative must handle click-through due to the nature of cross-origin iframes. This must only be called in response to a user-initiated click.</p>
-   <p>As a result of the click, the player may decide to pause or mute main media, or exit full screen. It will inform the creative through the <a href="#sivic-creative-clickThru-response">response message</a> of what the player state is after the click. If there is any in-creative media playing, the creative must apply the same to those.</p>
-   <p>Expects a response <a href="#sivic-creative-clickThru-response">§6.5.3 Response To SIVIC:Creative:clickThru</a>.</p>
-   <h4 class="heading settled" data-level="6.6.13" id="sivic-creative-getVideoState"><span class="secno">6.6.13. </span><span class="content">SIVIC:Creative:getVideoState</span><a class="self-link" href="#sivic-creative-getVideoState"></a></h4>
+   <p>Expects a response <a href="#sivic-creative-requestChangeAdDuration-response">§6.5.9 Response To SIVIC:Creative:requestChangeAdDuration</a></p>
+   <h4 class="heading settled" data-level="6.6.11" id="sivic-creative-clickThru"><span class="secno">6.6.11. </span><span class="content">SIVIC:Creative:clickThru</span><a class="self-link" href="#sivic-creative-clickThru"></a></h4>
+   <p>The creative must handle click-thru due to the nature of cross-origin iframes. This message must only be sent in response to a user-initiated click that is considered a click-thru by the creative.</p>
+   <p>The main purpose of this message is for the player to track click-thrus. Since not every navigation is a click-thru, it should not be used for adjusting media playback status (pause, mute). If the player wants to update media playback status as a result of navigation, it should detect it via some other environment-specific method (eg. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API">Page Visibility API</a> on web and in apps).</p>
+   <p>Parameters:</p>
+   <ul>
+    <li data-md>
+     <p>x (int): the x coordinate of the click relative to the left of the creative.</p>
+    <li data-md>
+     <p>y (int): the y coordinate of the click relative to the top of the creative.</p>
+   </ul>
+   <h4 class="heading settled" data-level="6.6.12" id="sivic-creative-getVideoState"><span class="secno">6.6.12. </span><span class="content">SIVIC:Creative:getVideoState</span><a class="self-link" href="#sivic-creative-getVideoState"></a></h4>
     Expects a response <a href="#sivic-creative-getVideoState-response">§6.3.1 Response To SIVIC:Creative:getVideoState</a> 
    <h3 class="heading settled" data-level="6.7" id="creative-responses"><span class="secno">6.7. </span><span class="content">Responses from the creative to the player</span><a class="self-link" href="#creative-responses"></a></h3>
    <h4 class="heading settled" data-level="6.7.1" id="sivic-player-init-response"><span class="secno">6.7.1. </span><span class="content">Response To SIVIC:Player:init</span><a class="self-link" href="#sivic-player-init-response"></a></h4>
@@ -2796,7 +2757,7 @@ If the video ad continues to play the iframe should still be unloaded.
     After resolve is called, the iframe will be removed. 
    <h3 class="heading settled" data-level="6.8" id="api-vast"><span class="secno">6.8. </span><span class="content">Referencing a SIVIC creative from VAST</span><a class="self-link" href="#api-vast"></a></h3>
    <p>When a SIVIC creative is referenced from a VAST document, the value for the <code>apiFramework</code> attribute in the <code>InteractiveCreativeFile</code> element must be <code>SIVIC</code> (all caps). This attribute identifies the SIVIC API for the creative.
-Version information should be handled by the<a href="#sivic-creative-ready-response">§6.5.2 Response To SIVIC:Creative:ready</a> message
+Version information should be handled by the<a href="#sivic-creative-ready-response"></a> message
 (rather than identified in the VAST file).</p>
    <p>Another attribute of the <code>InteractiveCreativeFile</code> is <code>variableDuration</code> which
 identifies whether the ad always drops when the duration is reached, or if it
@@ -2854,7 +2815,7 @@ respond to SIVIC:Creative:requestPlay message with resolve and play the video.</
 height, which would not require any API?</p>
    <p>The player may resize the ad slot. The player must call <a href="#sivic-player-resize">§6.4.1 SIVIC:Player:resize</a> any time the ad slot size is changed.</p>
    <p>If <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreenallowed" id="ref-for-dom-environmentdata-fullscreenallowed①">fullscreenAllowed</a></code> is <code>true</code>, the SIVIC creative may
-call the <a href="#sivic-creative-requestFullScreen">§6.6.8 SIVIC:Creative:requestFullScreen</a> method. The player must resize only the ad
+call the <a href="#sivic-creative-requestFullScreen">§6.6.7 SIVIC:Creative:requestFullScreen</a> method. The player must resize only the ad
 slot to fullscreen (not the video). The SIVIC creative then will resize the
 video as it sees fit. The player must call <a href="#sivic-player-resize">§6.4.1 SIVIC:Player:resize</a> on the SIVIC creative
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen②">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl">width</a></code> and <code class="idl"><a data-link-type="idl">width</a></code> set to the full screen dimensions.</p>
@@ -2868,7 +2829,7 @@ with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fulls
      <p>Ad was skipped, either by player or creative (if the ad contains
 the skip button). See <a href="#api-skip">§7.3.1 Ad Skips</a>.</p>
     <li data-md>
-     <p>The creative has fired <a href="#sivic-creative-requestStop">§6.6.3 SIVIC:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
+     <p>The creative has fired <a href="#sivic-creative-requestStop">§6.6.2 SIVIC:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
     <li data-md>
      <p>The player has fired <a href="#sivic-player-adStopped">§6.4.5 SIVIC:Player:adStopped</a> message and the creative resolved.</p>
     <li data-md>
@@ -2882,9 +2843,9 @@ the skip button). See <a href="#api-skip">§7.3.1 Ad Skips</a>.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§6.6.10 SIVIC:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§6.6.9 SIVIC:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§6.5.12.1 resolve</a> from the reportTracking call.</p>
+     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§6.5.10.1 resolve</a> from the reportTracking call.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-adSkipped-resolve">§6.7.3.1 resolve</a>.</p>
     <li data-md>
@@ -2895,7 +2856,7 @@ the skip button). See <a href="#api-skip">§7.3.1 Ad Skips</a>.</p>
    <p><strong>Skip Ad Handled by Ad</strong></p>
    <ol>
     <li data-md>
-     <p>The creative dispatches <a href="#sivic-creative-requestSkip">§6.6.2 SIVIC:Creative:requestSkip</a>.</p>
+     <p>The creative dispatches <a href="#sivic-creative-requestSkip">§6.6.1 SIVIC:Creative:requestSkip</a>.</p>
     <li data-md>
      <p>The player dispatches resolves the to the <code>requestSkip</code> message.</p>
     <li data-md>
@@ -2907,7 +2868,7 @@ typically at the prompting of the viewer. A good example would be a survey that
 allows the viewer to skip immediately to content when completed.</p>
    <ol>
     <li data-md>
-     <p>The ad cleans up and dispatches <a href="#sivic-creative-requestStop">§6.6.3 SIVIC:Creative:requestStop</a>.</p>
+     <p>The ad cleans up and dispatches <a href="#sivic-creative-requestStop">§6.6.2 SIVIC:Creative:requestStop</a>.</p>
     <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
@@ -2919,11 +2880,11 @@ duration must only be extended in response to user interaction.</p>
      <p>User interacts at any point during playback of the video, triggering extended
 ad portion.</p>
     <li data-md>
-     <p>The Creative dispatches <a href="#sivic-creative-requestChangeAdDuration">§6.6.11 SIVIC:Creative:requestChangeAdDuration</a> message with the new duration.</p>
+     <p>The Creative dispatches <a href="#sivic-creative-requestChangeAdDuration">§6.6.10 SIVIC:Creative:requestChangeAdDuration</a> message with the new duration.</p>
     <li data-md>
      <p>The ad enters its extended phase.</p>
     <li data-md>
-     <p>The creative dispatches <a href="#sivic-creative-requestStop">§6.6.3 SIVIC:Creative:requestStop</a> when extended phase is finished.</p>
+     <p>The creative dispatches <a href="#sivic-creative-requestStop">§6.6.2 SIVIC:Creative:requestStop</a> when extended phase is finished.</p>
    </ol>
    <p class="issue" id="issue-75380958"><a class="self-link" href="#issue-75380958"></a> clarify the value of the <code>duration</code> property as the current text
 does not seem to make much sense</p>
@@ -2935,9 +2896,9 @@ does not seem to make much sense</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§6.6.10 SIVIC:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§6.6.9 SIVIC:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§6.5.12.1 resolve</a> from the reportTracking call.</p>
+     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§6.5.10.1 resolve</a> from the reportTracking call.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-adStopped-resolve">§6.7.4.1 resolve</a>.</p>
     <li data-md>
@@ -2947,7 +2908,7 @@ does not seem to make much sense</p>
    <p>The SIVIC creative or the player may terminate the ad unit with an error at any
 time. If the SIVIC creative indicates an error, the player should try to stop ad
 unit playback. This might not be possible in server side stitched ads.</p>
-   <p>The player may error out if the ad does not respond with <a href="#sivic-creative-ready">§6.6.1 SIVIC:Creative:ready</a> and <a href="#sivic-player-init-resolve">§6.7.1.1 resolve</a> in a reasonable amount of time.</p>
+   <p>The player may error out if the ad does not respond with <a href="#sivic-creative-ready"></a> and <a href="#sivic-player-init-resolve">§6.7.1.1 resolve</a> in a reasonable amount of time.</p>
    <p>When an player errors out it must follow these steps.</p>
    <ol>
     <li data-md>
@@ -2955,9 +2916,9 @@ unit playback. This might not be possible in server side stitched ads.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§6.6.10 SIVIC:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§6.6.9 SIVIC:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§6.5.12.1 resolve</a> from the reportTracking call.</p>
+     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§6.5.10.1 resolve</a> from the reportTracking call.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-fatalError-resolve">§6.7.5.1 resolve</a>.</p>
     <li data-md>
@@ -2969,7 +2930,7 @@ between calling <a href="#sivic-player-adStopped">§6.4.5 SIVIC:Player:adStopped
 player should take into consideration that dropping a SIVIC ad unit before it has
 dispatched <code>resolved</code> may result in tracking discrepancies, and that calling <a href="#sivic-player-adStopped">§6.4.5 SIVIC:Player:adStopped</a> before the ad experience has ended (which is AFTER the optional
 lean-in phase) could harm the overall ad experience.</p>
-   <p>The SIVIC creative may also dispatch <a href="#sivic-creative-requestStop">§6.6.3 SIVIC:Creative:requestStop</a> at any time, signaling to the
+   <p>The SIVIC creative may also dispatch <a href="#sivic-creative-requestStop">§6.6.2 SIVIC:Creative:requestStop</a> at any time, signaling to the
 player that the ad has finished and unloaded. Any further interaction with the
 SIVIC creative after <code>requestStop</code> may not result in the desired outcome. The same
 is true for <code>fatalError</code>.</p>
@@ -3293,7 +3254,12 @@ primary video.</p>
      <li><a href="#dictdef-environmentdata">(dictionary)</a><span>, in §6.4.2</span>
      <li><a href="#dom-initparameters-environmentdata">dict-member for initParameters</a><span>, in §6.4.2</span>
     </ul>
-   <li><a href="#dom-resolvemessageargsvalue-errorcode">errorCode</a><span>, in §5.3.2</span>
+   <li>
+    errorCode
+    <ul>
+     <li><a href="#dom-resolvemessageargsvalue-errorcode">dict-member for ResolveMessageArgsValue</a><span>, in §5.3.2</span>
+     <li><a href="#dom-trackingerrorargs-errorcode">dict-member for TrackingErrorArgs</a><span>, in §6.1.1</span>
+    </ul>
    <li><a href="#message-establish-a-new-session">establish a new session</a><span>, in §5.2.1</span>
    <li>
     fullScreen
@@ -3339,7 +3305,7 @@ primary video.</p>
    <li><a href="#dictdef-resolvemessageargs">ResolveMessageArgs</a><span>, in §5.3.1</span>
    <li><a href="#dictdef-resolvemessageargsvalue">ResolveMessageArgsValue</a><span>, in §5.3.2</span>
    <li><a href="#message-send-a-message">send a message</a><span>, in §5.2.2</span>
-   <li><a href="#message-send-an-acked-message">send an acked message</a><span>, in §5.2.2</span>
+   <li><a href="#message-send-an-acknowledgement-message">send an acknowledgement message</a><span>, in §5.2.2</span>
    <li><a href="#message-sender">sender</a><span>, in §5.1</span>
    <li><a href="#message-serialize">serialize</a><span>, in §5.1.2</span>
    <li><a href="#message-serialized-message">serialized message</a><span>, in §5.1</span>
@@ -3359,6 +3325,7 @@ primary video.</p>
    <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §6.4.2</span>
    <li><a href="#dom-ad-startad">startAd()</a><span>, in §8.1.2</span>
    <li><a href="#dom-ad-stopad">stopAd()</a><span>, in §8.1.2</span>
+   <li><a href="#dictdef-trackingerrorargs">TrackingErrorArgs</a><span>, in §6.1.1</span>
    <li>
     transitionDuration
     <ul>
@@ -3370,6 +3337,7 @@ primary video.</p>
    <li><a href="#dom-environmentdata-useragent">useragent</a><span>, in §6.4.2</span>
    <li><a href="#dom-resolvemessageargs-value">value</a><span>, in §5.3.1</span>
    <li><a href="#dom-environmentdata-variabledurationallowed">variableDurationAllowed</a><span>, in §6.4.2</span>
+   <li><a href="#dom-environmentdata-version">version</a><span>, in §6.4.2</span>
    <li>
     videoDimensions
     <ul>
@@ -3416,6 +3384,7 @@ primary video.</p>
     <li><a href="#ref-for-idl-DOMString">5.1.2. Message Serialization</a>
     <li><a href="#ref-for-idl-DOMString①">5.3. Message Data Structure</a> <a href="#ref-for-idl-DOMString②">(2)</a>
     <li><a href="#ref-for-idl-DOMString③">5.3.2. reject messages</a>
+    <li><a href="#ref-for-idl-DOMString④">6.1.1. SIVIC:Tracking:error</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-promise">
@@ -3501,6 +3470,10 @@ primary video.</p>
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString③①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-resolvemessageargsvalue-message"><code><c- g>message</c-></code></a>;
 };
 
+<c- b>dictionary</c-> <a href="#dictdef-trackingerrorargs"><code><c- g>TrackingErrorArgs</c-></code></a> {
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString④①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-trackingerrorargs-errorcode"><code><c- g>errorCode</c-></code></a>;
+};
+
 <c- b>dictionary</c-> <a href="#dictdef-resizeparameters"><code><c- g>resizeParameters</c-></code></a> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions②"><c- n>videoDimensions</c-></a> <a data-type="videoDimensions " href="#dom-resizeparameters-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions②"><c- n>creativeDimensions</c-></a> <a data-type="creativeDimensions " href="#dom-resizeparameters-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
@@ -3545,6 +3518,7 @@ primary video.</p>
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></a>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate②"><c- n>SkippableState</c-></a> <a data-type="SkippableState " href="#dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-version"><code><c- g>version</c-></code></a>;
   <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code></a>;
   <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-appid"><code><c- g>appId</c-></code></a>;
   <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-useragent"><code><c- g>useragent</c-></code></a>;
@@ -3661,10 +3635,10 @@ call, so the ad can respond with an object that matches the requested API<a href
     <li><a href="#ref-for-message-send-a-message">5.2.2. Sending messages</a> <a href="#ref-for-message-send-a-message①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="message-send-an-acked-message">
-   <b><a href="#message-send-an-acked-message">#message-send-an-acked-message</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="message-send-an-acknowledgement-message">
+   <b><a href="#message-send-an-acknowledgement-message">#message-send-an-acknowledgement-message</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-message-send-an-acked-message">5.2.1. Establishing a new session</a>
+    <li><a href="#ref-for-message-send-an-acknowledgement-message">5.2.1. Establishing a new session</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-message">
@@ -3729,10 +3703,16 @@ call, so the ad can respond with an object that matches the requested API<a href
     <li><a href="#ref-for-dom-resolvemessageargs-value③">5.3.2. reject messages</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="dom-trackingerrorargs-errorcode">
+   <b><a href="#dom-trackingerrorargs-errorcode">#dom-trackingerrorargs-errorcode</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-trackingerrorargs-errorcode">6.1.1. SIVIC:Tracking:error</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="dictdef-resizeparameters">
    <b><a href="#dictdef-resizeparameters">#dictdef-resizeparameters</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-resizeparameters">6.6.7. SIVIC:Creative:requestResize</a>
+    <li><a href="#ref-for-dictdef-resizeparameters">6.6.6. SIVIC:Creative:requestResize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-resizeparameters-videodimensions">
@@ -3893,6 +3873,12 @@ call, so the ad can respond with an object that matches the requested API<a href
    <b><a href="#dom-environmentdata-skippablestate">#dom-environmentdata-skippablestate</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-environmentdata-skippablestate">6.4.2. SIVIC:Player:init</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-environmentdata-version">
+   <b><a href="#dom-environmentdata-version">#dom-environmentdata-version</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-environmentdata-version">6.4.2. SIVIC:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-siteurl">
