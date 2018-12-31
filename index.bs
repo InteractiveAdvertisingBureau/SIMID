@@ -232,8 +232,7 @@ requirements.
 
 # Messaging Protocol # {#msg-proto}
 
-To facilitate asynchronous communication between the video player and the SIVIC
-creative, we employ a messaging protocol.
+To facilitate asynchronous communication between the video player and the interactive creative, SIVIC employs a messaging protocol.
 
 The protocol defines both the data structure of messages exchanged by both
 parties and the algorithms needed to reliably handle the exchange of these
