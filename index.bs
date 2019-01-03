@@ -281,12 +281,7 @@ the [=message/receiver=] explicitly sends a message back to the
 
 ### {{Window/postMessage}} Transport
 
-Unless otherwise negotiated by both parties, in SIVIC the video player and
-creative will use the {{Window/postMessage}} API as their [=message/transport=]
-across the <{iframe}> boundary separating them.
-
-The {{Window/postMessage}} API conforms to the required
-[=message/transport/properties=] of a [=message/transport=].
+In SIVIC the media player and creative use the standard postMessage API to communicate across the cross-origin <{iframe}> boundary.
 
 ### Message Serialization ### {###msg-serialization}
 
