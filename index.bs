@@ -249,7 +249,7 @@ Issue: add link to final location of reference implementation
 ## Transport Layer
 
 A <dfn for="message">transport</dfn> is a communication mechanism that can send
-[=serialized messages=] between two parties. In SIVIC's case those are the video
+[=serialized messages=] between two parties. In SIVIC's case, those are the video
 player and the creative.
 
 A <dfn for="message">serialized message</dfn> is a text string that one of the
@@ -258,7 +258,7 @@ parties, the <dfn for="message">sender</dfn>, forwards to the other party, the
 
 The [=message/transport=] must guarantee the following <dfn
 for="message/transport">properties</dfn>:
-- It must guarantee that both parties of the channel are unambiguously defined,
+- It must guarantee that both parties of the channel are unambiguously defined
 	and that only those two parties observe any [=serialized messages=] sent by
 	either of them.
 - It must guarantee that all [=serialized messages=] eventually get delivered to
