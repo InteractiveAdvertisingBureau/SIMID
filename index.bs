@@ -822,13 +822,15 @@ parameters:
 
 Issue: These codes need to be defined.
 
-### SIVIC:Player:fatalError ### {#sivic-player-fatalError}
-The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
-possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
-before unloading the creative iframe.
+### SIVIC:Player:log ### {#sivic-player-log}
+The player is sending a log message to the creative.
 
-- errorCode(int): reason for error. See [[#error-codes]]
-- errorMessage(string): Any additional information.
+Note: If the creative is doing something out of spec and the player
+will not exit with a fatal error, the player's log message should
+start with "WARNING:". Creative developers should monitor for this message.
+
+parameters:
+- message(string): Any information might want to send to the creative.
 
 ## Responses from the player to the creative ## {#player-responses}
 
@@ -982,6 +984,16 @@ Parameters:
 
 ### SIVIC:Creative:getVideoState ### {#sivic-creative-getVideoState}
 Expects a response [[#sivic-creative-getVideoState-response]]
+
+### SIVIC:Creative:log ### {#sivic-creative-log}
+The creative is sending a log message to the player.
+
+Note: If the player is doing something out of spec and the creative
+will not exit with a fatal error, the creatives log message should
+start with "WARNING:". Player developers should monitor for this message.
+
+parameters:
+- message(string): Any information might want to send to the creative.
 
 ## Responses from the creative to the player ## {#creative-responses}
 
