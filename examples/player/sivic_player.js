@@ -91,7 +91,8 @@ class SivicPlayer {
    * @private
    */
   addListeners_() {
-    this.sivicProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));    this.sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
+    this.sivicProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));
+    this.sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
     this.sivicProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
     this.sivicProtocol.addListener(CreativeMessage.REQUEST_PAUSE, this.onRequestPause.bind(this));
     this.sivicProtocol.addListener(CreativeMessage.FATAL_ERROR, this.onCreativeFatalError.bind(this));
@@ -271,7 +272,7 @@ class SivicPlayer {
   stopAd() {
     this.videoElement_.src = '';
     this.destroySivicIframe();
-    this.onAdComplete();
+    // TODO: Let the ad know it is being stopped.
   }
 
   /** The creative wants to go full screen. */
