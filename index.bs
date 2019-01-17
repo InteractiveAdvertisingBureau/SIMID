@@ -470,7 +470,8 @@ attributes may never occur twice.
 A {{Message}} has {{Message/timestamp}} property. {{Message/timestamp}} is expressed in 
 a number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time). 
 {{Message}} sender should make the best effort to set `timestamp` value as close as possible 
-to the moment the underlying process occurs. 
+to the moment the underlying process occurs. However, the `receiver` should not assume that `timestamp` 
+value reflects the exact instant {{Message}} triggering event chain was accomplished. 
 
 For example, if {{Message}} communicates ad video state change, media player sets {{Message/timestamp}} value to the moment the corresponding video event arrives from `HTMLVideoElement`.
 
