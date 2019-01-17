@@ -1207,46 +1207,7 @@ player that the ad has finished and unloaded. Any further interaction with the
 SIVIC creative after `requestStop` may not result in the desired outcome. The same
 is true for `fatalError`.
 
-# Protocol Details # {#protocol}
-
-## Objects ## {#objects}
-
-### Entry Point ### {#entry-point}
-
-<xmp class="idl">
-	partial interface mixin Window {
-		[SameObject] Ad getSIVICAd();
-	};
-</xmp>
-
-### Ad Interface ### {#object-ad}
-
-<xmp class="idl">
-interface Ad {
-	string handshakeVersion(string supportedVersion);
-	void initAd(CreativeData creativeData, EnvironmentData envData);
-	void startAd();
-	void stopAd();
-	void skipAd();
-	void resizeAd(float width, float height, ViewMode viewMode);
-	readonly attribute float adWidth;
-	readonly attribute float adHeight;
-	readonly attribute float adDuration;
-};
-</xmp>
-
-: {{Ad/handshakeVersion()}}
-:: Negotiates version support between the player and ad. The player passes
-	{{Ad/handshakeVersion(supportedVersion)/supportedVersion}} set to the highest
-	version it supports. {{Ad/handshakeVersion}} returns the version it supports.
-
-Issue: consider passing `supportedVersion` on the {{getSIVICAd()}} function
-call, so the ad can respond with an object that matches the requested API
-
-: {{Ad/adDuration}}
-:: The full duration of the ad experience, including video and extended features
-
-## Error Handling and Timeouts ## {#errors}
+# Error Handling and Timeouts # {#errors}
 
 If the media cannot be played the player should terminate the ad and fire an error using the standard VAST errors.
 
@@ -1254,7 +1215,7 @@ If either the interactive ad or player wants to terminate with an error the play
 
 The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.
 
-### Error Codes ### {#error-codes}
+## Error Codes ## {#error-codes}
 This table indicates defined SIVIC error codes the ad may fire:
 
 : <dfn>1101</dfn>
@@ -1298,10 +1259,6 @@ This table indicates defined SIVIC error codes the player may fire:
 ## Ad Completion ## {#ad-completion}
 
 # Security # {#security}
-
-# Examples # {#examples}
-
-# Language-Specific Implementation Details # {#lang-specific}
 
 # Terminology # {#terminology}
 
