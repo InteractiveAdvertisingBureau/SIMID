@@ -13,7 +13,7 @@ Inline Github Issues: title
 </pre>
 
 # Version # {#version-number}
-1.0
+0.1
 
 # Executive Summary # {#exec-summary}
 
