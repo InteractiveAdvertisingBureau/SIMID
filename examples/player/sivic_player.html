@@ -6,8 +6,8 @@
   <style>
     .sivic_creative {
       position: absolute;
-      top: 5;
       left: 5;
+      border-width: 0px;
       width: 640px;
       height: 480px;
     }
@@ -15,6 +15,11 @@
   <script>
     let sivicPlayer;
     function initAd() {
+      // clean old ad if it exists
+      if (sivicPlayer) {
+        sivicPlayer.stopAd();
+      }
+
       // Init ad should be called before playad.
       sivicPlayer = new SivicPlayer(() => {sivicPlayer = null;});
       sivicPlayer.initializeAd();
@@ -30,10 +35,6 @@
 </head>
 
 <body>
-  <div id="player_div">
-    <video id="video_player"> </video>
-    <!-- SIVIC creative will be here. -->
-  </div>
 
   <div>
     <p> This is a sample player for testing ads. </p>
@@ -47,6 +48,10 @@
     <button onclick="initAd()"> Initialize new ad </button>
   </div>
 
+  <div id="player_div">
+    <video id="video_player"> </video>
+    <!-- SIVIC creative will be here. -->
+  </div>
 
 <script>
 </script>

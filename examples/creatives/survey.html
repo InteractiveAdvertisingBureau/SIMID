@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <style>
+    .survey-button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 20px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 25px;
+      box-shadow: 1px 2px #111;
+    }
+    .survey-button:hover {
+      background-color: #2C8F30; /* Dark Green */
+      color: white;
+    }
+    .survey-button:active {
+      background-color: #1C7F20; /* Darker Green */
+      box-shadow: 0px 1px #111;
+    }
+    .survey-question {
+      text-align: center;
+      color: yellow;
+      font-size: 20px;
+    }
+    .title {
+      text-align: center;
+      color: white;
+      font-size: 30px;
+    }
+    .survey-div {
+      transition: 1s ease-in-out;
+      -ms-transform: translate(-250px, 0px); /* IE 9 */
+      -webkit-transform: translate(-250px, 0px); /* Safari */
+      transform: translate(-250px, 0px);
+      visibility: hidden;
+      text-align:center;
+      align-items: center;
+      position: absolute;
+      top: 120px;
+      left: 100px;
+    }
+    .survey-div.showing {
+      -ms-transform: translate(0px, 0px); /* IE 9 */
+      -webkit-transform: translate(0px, 0px); /* Safari */
+      transform: translate(0px, 0px);     
+      visibility: visible;
+    }
+    </style>
+    <script src="../sivic_protocol.js"> </script>
+    <script src="base_sivic_creative.js"> </script>
+    <script src="survey.js"> </script>
+  </head>
+  <body>
+  <div id="title" class="title">Sample Sivic Survey Ad</div>
+  <div id="question1" class='survey-div'>
+    <div class="survey-question">Would You Like A Survey?</div>
+    <button id="option1" class="survey-button">Yes</button><br>
+    <button id="option2" class="survey-button">No</button><br>
+    <button id="option3" class="survey-button">Maybe</button><br>
+  </div>
+  <div id="question2" class='survey-div'>
+    <div class="survey-question">Can you answer one last question?</div>
+    <button id="option4" class="survey-button">Absolutely</button><br>
+    <button id="option5" class="survey-button">Never</button><br>
+    <button id="option6" class="survey-button">Perhaps</button><br>
+  </div>
+  <script>
+    // The creative should first call ready.
+    const survey = new SivicSurvey();
+    // This implementation is immediately ready but other creatives
+    // may wish to wait for assets to load before calling ready.
+    survey.ready();
+  </script>
+  </body>
+</html>
