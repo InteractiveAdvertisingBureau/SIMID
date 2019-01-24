@@ -350,7 +350,7 @@ algorithm.
 <section algorithm="to send a message">
 
 To <dfn for="message">send a message</dfn>, you *must* run the following
-steps:
+steps synchronously:
 
 : Input
 :: |sessionId|, a [=session identifier=]
