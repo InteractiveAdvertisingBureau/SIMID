@@ -651,7 +651,6 @@ parameters:
 dictionary resizeParameters {
 	required videoDimensions videoDimensions;
 	required creativeDimensions creativeDimensions;
-	required string mode;
 	required boolean fullScreen;
 };
 </xmp>
@@ -691,7 +690,6 @@ not yet visible (like during initialization) these dimensions will be the expect
 		- {{videoDimensions/width}} The width in pixels of the creative.
 		- {{videoDimensions/height}} The height in pixels of the creative.
 		- {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
-- {{resizeParameters/mode}} Can be "portrait" or "landscape".
 - {{resizeParameters/fullScreen}} True if fullscreen.
 
 ### SIVIC:Player:init ### {#sivic-player-init}
@@ -725,7 +723,6 @@ dictionary CreativeData {
 dictionary EnvironmentData {
 	required videoDimensions videoDimensions;
 	required creativeDimensions creativeDimensions;
-	required string mode;
 	required boolean fullScreen;
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
@@ -767,8 +764,6 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 		- {{EnvironmentData/videoDimensions}} indicates the video display area, see [[#sivic-player-resize]]
 		- {{EnvironmentData/creativeDimensions}} indicates the creative display 
 			area, see [[#sivic-player-resize]]
-		- {{resizeParameters/mode}} Can be "portrait" or "landscape". For desktop
-			choose "landscape".
 		- {{resizeParameters/fullScreen}} True if fullscreen.
 		- {{EnvironmentData/fullscreenAllowed}}: True if the creative may choose
 			to display or not display a fullscreen option
