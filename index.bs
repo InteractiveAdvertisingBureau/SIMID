@@ -364,13 +364,14 @@ steps:
 		 by |sessionId|.
 	 - |messageId| of the previous message sent on the [=message/session=]
 		 identified by |sessionId| incremented by `1`, otherwise.
-2. Let |message| be a new {{Message}} object with its attributes initialized
-	 to |sessionId|, |messageId|, |type| and |args|.
-3. Let |serializedMessage| be the result of running `JSON.stringify` on
+2. Let |timestamp| be the current number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time).
+3. Let |message| be a new {{Message}} object with its attributes initialized
+	 to |sessionId|, |messageId|, |type|, |timestamp| and |args|.
+4. Let |serializedMessage| be the result of running `JSON.stringify` on
 	 |message|.
-4. Transmit |serializedMessage| to the other party through the
+5. Transmit |serializedMessage| to the other party through the
 	 [=message/transport=].
-5. Return |messageId|.
+6. Return |messageId|.
 
 </section>
 
