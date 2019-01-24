@@ -24,6 +24,17 @@ class SivicPlayer {
     this.videoElement_ = document.getElementById('video_player');
 
     /**
+     * Holds on to the content video src.
+     * Note: An ideal implementation would use multiple video elements to avoid rebuffering.
+     */
+    this.contentVideo = '';
+
+    /**
+     * Holds on to the content video time.
+     */
+    this.contentVideoTime = 0;
+
+    /**
      * A reference to the iframe holding the SIVIC creative.
      * @private {?Element}
      */
@@ -46,7 +57,6 @@ class SivicPlayer {
    * Initializes an ad. This should be called before an ad plays.
    */
   initializeAd() {
-    this.videoElement_.src = document.getElementById('video_url').value;
     // After the iframe is created the player will wait until the ad
     // initializes the communication channel. Then it will call
     // sendInitMessage.
@@ -57,6 +67,8 @@ class SivicPlayer {
    * Plays a SIVIC  creative once it has responded to the initialize ad message.
    */
   playAd() {
+    this.contentVideo = this.videoElement_.src;
+    this.videoElement_.src = document.getElementById('video_url').value;
     this.initializationPromise_.then(
         this.startCreativePlayback_.bind(this),
         this.onAdInitializedFailed_.bind(this));
