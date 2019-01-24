@@ -518,9 +518,10 @@ dictionary ResolveMessageArgsValue {
 
 ## Messages corresponding to VAST tracking events ## {#vast-messages}
 
-All ID’s are prepended with SIVIC:Tracking. The player must report each event
-to the ad whenever a tracking pixels is reported for that tracking event type. 
-These names correspond with VAST 4.1 tracking names.
+These types correspond with VAST 4.1 tracking events names. Message types are prepended with SIVIC:Tracking. 
+
+The player must report each message to the creative whenever corresponding VAST tracking pixels are reported for that tracking event type. Player dispatches SIVIC:Tracking message immediately **after** related tracker pixels are sent. 
+
 
 For example:
 
