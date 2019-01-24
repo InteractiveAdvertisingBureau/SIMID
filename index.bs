@@ -558,11 +558,19 @@ dictionary TrackingErrorArgs {
 - SIVIC:Tracking:clickTracking
 - SIVIC:Tracking:customClick
 
-## Messages from the video element ## {#video-messages}
+## Messages triggered by video element events ## {#video-messages}
 
-All video messages will be prepended with SIVIC:Video. All video messages should be sent after their corresponding
-media events are called. If the video is wrapped or native the player should make its best effort to make messages
-correspond with the html5 video element callbacks.
+When video element that renders ad media dispatches events, player posts corresponding messages to SIVIC creative. Video element related messages include original media event type names. `Message.type` values are prepended with SIVIC:Video namespace. 
+
+Example:
+1. Video element dispatches event `play`.
+1. Player sends message to SIVIC creative with `Message.type = SIVIC:Video:play`.
+
+Video messages should be reported immediately after player receives related event. 
+
+`Message.timestamp` property value is set to the time media element dispatches event. 
+
+
 
 ### SIVIC:Video:durationchange ### {#sivic-video-durationchange}
 Should be called after the durationchange event is triggered on the video element.
