@@ -444,6 +444,7 @@ A protocol message is represented by the {{Message}} data structure.
 dictionary Message {
 	required DOMString sessionId;
 	required unsigned long messageId;
+	required unsigned long timestamp;
 	required DOMString type;
 	any args;
 };
@@ -459,6 +460,14 @@ specified by {{Message/sessionId}}.
 Note: The combination of {{Message/sessionId}} and {{Message/messageId}}
 uniquely identifies a single message. The combination of the values of these two
 attributes may never occur twice.
+
+A {{Message}} has {{Message/timestamp}} property. {{Message/timestamp}} is expressed in 
+a number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time). 
+{{Message}} sender should make the best effort to set `timestamp` value as close as possible 
+to the moment the underlying process occurs. However, the `receiver` should not assume that `timestamp` 
+value reflects the exact instant {{Message}} triggering event chain was accomplished. 
+
+For example, if {{Message}} communicates ad video state change, media player sets {{Message/timestamp}} value to the moment the corresponding video event arrives from `HTMLVideoElement`.
 
 A {{Message}} has an associated {{Message/type}}, a string that defines the type
 of message that is being sent and informs the receiver how to interpret the
