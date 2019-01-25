@@ -350,7 +350,7 @@ algorithm.
 <section algorithm="to send a message">
 
 To <dfn for="message">send a message</dfn>, you *must* run the following
-steps:
+steps synchronously:
 
 : Input
 :: |sessionId|, a [=session identifier=]
@@ -364,13 +364,14 @@ steps:
 		 by |sessionId|.
 	 - |messageId| of the previous message sent on the [=message/session=]
 		 identified by |sessionId| incremented by `1`, otherwise.
-2. Let |message| be a new {{Message}} object with its attributes initialized
-	 to |sessionId|, |messageId|, |type| and |args|.
-3. Let |serializedMessage| be the result of running `JSON.stringify` on
+2. Let |timestamp| be the current number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time).
+3. Let |message| be a new {{Message}} object with its attributes initialized
+	 to |sessionId|, |messageId|, |type|, |timestamp| and |args|.
+4. Let |serializedMessage| be the result of running `JSON.stringify` on
 	 |message|.
-4. Transmit |serializedMessage| to the other party through the
+5. Transmit |serializedMessage| to the other party through the
 	 [=message/transport=].
-5. Return |messageId|.
+6. Return |messageId|.
 
 </section>
 
@@ -444,6 +445,7 @@ A protocol message is represented by the {{Message}} data structure.
 dictionary Message {
 	required DOMString sessionId;
 	required unsigned long messageId;
+	required unsigned long timestamp;
 	required DOMString type;
 	any args;
 };
@@ -459,6 +461,14 @@ specified by {{Message/sessionId}}.
 Note: The combination of {{Message/sessionId}} and {{Message/messageId}}
 uniquely identifies a single message. The combination of the values of these two
 attributes may never occur twice.
+
+A {{Message}} has {{Message/timestamp}} property. {{Message/timestamp}} is expressed in 
+a number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time). 
+{{Message}} sender should make the best effort to set `timestamp` value as close as possible 
+to the moment the underlying process occurs. However, the `receiver` should not assume that `timestamp` 
+value reflects the exact instant {{Message}} triggering event chain was accomplished. 
+
+For example, if {{Message}} communicates ad video state change, media player sets {{Message/timestamp}} value to the moment the corresponding video event arrives from `HTMLVideoElement`.
 
 A {{Message}} has an associated {{Message/type}}, a string that defines the type
 of message that is being sent and informs the receiver how to interpret the
@@ -508,9 +518,10 @@ dictionary ResolveMessageArgsValue {
 
 ## Messages corresponding to VAST tracking events ## {#vast-messages}
 
-All ID’s are prepended with SIVIC:Tracking. The player must report each event
-to the ad whenever a tracking pixels is reported for that tracking event type. 
-These names correspond with VAST 4.1 tracking names.
+These types correspond with VAST 4.1 tracking events names. Message types are prepended with SIVIC:Tracking. 
+
+The player must report each message to the creative whenever corresponding VAST tracking pixels are reported for that tracking event type. Player dispatches SIVIC:Tracking message immediately **after** related tracker pixels are sent. 
+
 
 For example:
 
@@ -558,11 +569,19 @@ dictionary TrackingErrorArgs {
 - SIVIC:Tracking:clickTracking
 - SIVIC:Tracking:customClick
 
-## Messages from the video element ## {#video-messages}
+## Messages triggered by video element events ## {#video-messages}
 
-All video messages will be prepended with SIVIC:Video. All video messages should be sent after their corresponding
-media events are called. If the video is wrapped or native the player should make its best effort to make messages
-correspond with the html5 video element callbacks.
+When video element that renders ad media dispatches events, player posts corresponding messages to SIVIC creative. Video element related messages include original media event type names. `Message.type` values are prepended with SIVIC:Video namespace. 
+
+Example:
+1. Video element dispatches event `play`.
+1. Player sends message to SIVIC creative with `Message.type = SIVIC:Video:play`.
+
+Video messages should be reported immediately after player receives related event. 
+
+`Message.timestamp` property value is set to the time media element dispatches event. 
+
+
 
 ### SIVIC:Video:durationchange ### {#sivic-video-durationchange}
 Should be called after the durationchange event is triggered on the video element.
@@ -651,7 +670,6 @@ parameters:
 dictionary resizeParameters {
 	required videoDimensions videoDimensions;
 	required creativeDimensions creativeDimensions;
-	required string mode;
 	required boolean fullScreen;
 };
 </xmp>
@@ -691,7 +709,6 @@ not yet visible (like during initialization) these dimensions will be the expect
 		- {{videoDimensions/width}} The width in pixels of the creative.
 		- {{videoDimensions/height}} The height in pixels of the creative.
 		- {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
-- {{resizeParameters/mode}} Can be "portrait" or "landscape".
 - {{resizeParameters/fullScreen}} True if fullscreen.
 
 ### SIVIC:Player:init ### {#sivic-player-init}
@@ -725,7 +742,6 @@ dictionary CreativeData {
 dictionary EnvironmentData {
 	required videoDimensions videoDimensions;
 	required creativeDimensions creativeDimensions;
-	required string mode;
 	required boolean fullScreen;
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
@@ -767,8 +783,6 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 		- {{EnvironmentData/videoDimensions}} indicates the video display area, see [[#sivic-player-resize]]
 		- {{EnvironmentData/creativeDimensions}} indicates the creative display 
 			area, see [[#sivic-player-resize]]
-		- {{resizeParameters/mode}} Can be "portrait" or "landscape". For desktop
-			choose "landscape".
 		- {{resizeParameters/fullScreen}} True if fullscreen.
 		- {{EnvironmentData/fullscreenAllowed}}: True if the creative may choose
 			to display or not display a fullscreen option
