@@ -6,8 +6,14 @@
   <style>
     .sivic_creative {
       position: absolute;
-      left: 5;
+      top: 0;
       border-width: 0px;
+      width: 640px;
+      height: 480px;
+    }
+    .overlayed {
+      position: absolute;
+      top: 0;
       width: 640px;
       height: 480px;
     }
@@ -37,19 +43,26 @@
 <body>
 
   <div>
-    <p> This is a sample player for testing ads. </p>
-    <p> Creative Url :
+    <p><h1><center>SIVIC Sample Ad Player</center></h1></p>
+    <p> sample ads 
+    <p> MediaFile :
     <input type="text" id="creative_url" size = 50 
            value="../creatives/sivic_overlay.html"></p> 
-    <p> Ad Video :
+    <p> InteractiveCreativeFile apiFramework="SIVIC" :
     <input type="text" id="video_url" size = 50 
            value="../fakeAd.mp4"><p>
+    <p> AdParameters
+    <input type="text" id="ad_params" size = 150 
+           value=""><p>
     <button onclick="playAd()"> Start ad playback </button>
     <button onclick="initAd()"> Initialize the creative </button>
   </div>
 
-  <div id="player_div">
+  <div id="player_div" style="position:absolute;">
     <video id="video_player" src="../fakeContent.mp4" controls> </video>
+    <div id="ad_video_div" class="overlayed" style="display:none;">
+      <video id="ad_video_player" class="overlayed" style="display:none;" src="">
+    </div>
     <!-- SIVIC creative will be here. -->
   </div>
 

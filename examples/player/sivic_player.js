@@ -21,25 +21,19 @@ class SivicPlayer {
      * A reference to the video player on the players main page
      * @private {!Element}
      */
-    this.videoElement_ = document.getElementById('video_player');
+    this.contentVideoElement_ = document.getElementById('video_player');
 
     /**
-     * Holds on to the content video src.
-     * Note: An ideal implementation would use multiple video elements to avoid rebuffering.
+     * A reference to a video player for playing ads.
+     * @private {!Element}
      */
-    this.contentVideo = '';
-
-    /**
-     * Holds on to the content video time.
-     */
-    this.contentVideoTime = 0;
+    this.adVideoElement_ = document.getElementById('ad_video_player');
 
     /**
      * A reference to the iframe holding the SIVIC creative.
      * @private {?Element}
      */
     this.sivicIframe_ = null;
-
 
     /**
      * A reference to the promise returned when initialization was called.
@@ -48,6 +42,7 @@ class SivicPlayer {
     this.initializationPromise_ = null;
 
     this.trackEventsOnVideoElement_();
+    this.hideAdPlayer_();
 
     // TODO: This sample player does not fire any tracking events so
     // doesn't notify the creative about vast events.
@@ -67,8 +62,8 @@ class SivicPlayer {
    * Plays a SIVIC  creative once it has responded to the initialize ad message.
    */
   playAd() {
-    this.contentVideo = this.videoElement_.src;
-    this.videoElement_.src = document.getElementById('video_url').value;
+    this.contentVideoElement_.pause();
+    this.adVideoElement_.src = document.getElementById('video_url').value;
     this.initializationPromise_.then(
         this.startCreativePlayback_.bind(this),
         this.onAdInitializedFailed_.bind(this));
@@ -143,10 +138,10 @@ class SivicPlayer {
    * Initializes the SIVIC creative with all data it needs.
    */
   sendInitMessage() {
-    const videoDimensions = this.getDimensions(this.videoElement_);
+    const videoDimensions = this.getDimensions(this.contentVideoElement_);
     // Since the creative starts as hidden it will take on the
     // video element dimensions, so tell the ad about those dimensions.
-    const creativeDimensions = this.getDimensions(this.videoElement_);
+    const creativeDimensions = this.getDimensions(this.contentVideoElement_);
 
     const environmentData = {
       'videoDimenions': videoDimensions,
@@ -160,8 +155,8 @@ class SivicPlayer {
       'appId': '', // This is not relevant on desktop
       'useragent': '', // This should be filled in for sdks and players
       'deviceId': '', // This should be filled in on mobile
-      'muted': this.videoElement_.muted,
-      'volume': this.videoElement_.volume
+      'muted': this.adVideoElement_.muted,
+      'volume': this.adVideoElement_.volume
     }
 
     const creativeData = {
@@ -190,7 +185,8 @@ class SivicPlayer {
     // Once the ad is successfully initialized it can start.
     // If the ad is not visible it must be made visible here.
     this.showSivicIFrame_();
-    this.videoElement_.play();
+    this.showAdPlayer_();
+    this.adVideoElement_.play();
     this.sivicProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
 
@@ -223,44 +219,57 @@ class SivicPlayer {
     this.sivicIframe_.style.display = '';
   }
 
+  /** @private */
+  showAdPlayer_() {
+      // show the ad video element
+    this.adVideoElement_.style.display = '';
+    document.getElementById('ad_video_div').style.display = '';
+  }
+
+  /** @private */
+  hideAdPlayer_() {
+    this.adVideoElement_.style.display = 'none';
+    document.getElementById('ad_video_div').style.display = 'none';
+  }
+
   /**
    * Tracks the events on the video element specified by the sivic spec
    * @private
    */
   trackEventsOnVideoElement_() {
-    this.videoElement_.addEventListener("durationchange", () => {
+    this.adVideoElement_.addEventListener("durationchange", () => {
       this.sivicProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
     }, true);
-    this.videoElement_.addEventListener("ended", this.videoComplete.bind(this), true);
-    this.videoElement_.addEventListener("error", () => {
+    this.adVideoElement_.addEventListener("ended", this.videoComplete.bind(this), true);
+    this.adVideoElement_.addEventListener("error", () => {
       this.sivicProtocol.sendMessage(VideoMessage.ERROR,
         {
           'error': '',  // TODO fill in these values correctly
           'message': ''
         });
     }, true);
-    this.videoElement_.addEventListener("pause", () => {
+    this.adVideoElement_.addEventListener("pause", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PAUSE);
     }, true);
-    this.videoElement_.addEventListener("play", () => {
+    this.adVideoElement_.addEventListener("play", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PLAY);
     }, true);
-    this.videoElement_.addEventListener("playing", () => {
+    this.adVideoElement_.addEventListener("playing", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PLAYING);
     }, true);
-    this.videoElement_.addEventListener("seeked", () => {
+    this.adVideoElement_.addEventListener("seeked", () => {
       this.sivicProtocol.sendMessage(VideoMessage.SEEKED);
     }, true);
-    this.videoElement_.addEventListener("seeking", () => {
+    this.adVideoElement_.addEventListener("seeking", () => {
       this.sivicProtocol.sendMessage(VideoMessage.SEEKING);
     }, true);
-    this.videoElement_.addEventListener("timeupdate", () => {
+    this.adVideoElement_.addEventListener("timeupdate", () => {
       this.sivicProtocol.sendMessage(VideoMessage.TIME_UPDATE,
-        {'currentTime': this.videoElement_.currentTime});
+        {'currentTime': this.adVideoElement_.currentTime});
     }, true);
-    this.videoElement_.addEventListener("volumechange", () => {
+    this.adVideoElement_.addEventListener("volumechange", () => {
       this.sivicProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
-        {'volume': this.videoElement_.volume});
+        {'volume': this.adVideoElement_.volume});
     }, true);
   }
 
@@ -282,7 +291,9 @@ class SivicPlayer {
    * Stops the ad and destroys the ad iframe.
    */
   stopAd() {
-    this.videoElement_.src = '';
+    this.adVideoElement_.src = '';
+    this.hideAdPlayer_();
+    this.contentVideoElement_.play();
     this.destroySivicIframe();
     // TODO: Let the ad know it is being stopped.
   }
@@ -313,7 +324,7 @@ class SivicPlayer {
   
   /** The creative wants to play video. */
   onRequestPlay(incomingMessage) {
-    this.videoElement_.play().then(
+    this.adVideoElement_.play().then(
       // The play function returns a promise.
       this.sivicProtocol.resolve(incomingMessage),
       this.sivicProtocol.reject(incomingMessage)
@@ -322,7 +333,7 @@ class SivicPlayer {
   
   /** The creative wants to pause video. */
   onRequestPause(incomingMessage) {
-    this.videoElement_.pause();
+    this.adVideoElement_.pause();
     this.sivicProtocol.resolve(incomingMessage);
   }
   
