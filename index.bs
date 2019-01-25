@@ -854,6 +854,14 @@ start with "WARNING:". Creative developers should monitor for this message.
 parameters:
 - message(string): Logging information from the player to the creative.
 
+### SIVIC:Player:appBackgrounding ### {#sivic-player-app-backgrounding}
+The ad is in app and the app is going to move to the background.
+
+Expects a response [[#sivic-player-app-backgrounding-response]]
+
+### SIVIC:Player:appForegrounding ### {#sivic-player-app-foregrounding}
+The ad is in app and the app has moved from the background to the foreground.
+
 ## Responses from the player to the creative ## {#player-responses}
 
 ### Response To SIVIC:Creative:requestVideoLocation ### {#sivic-creative-requestVideoLocation-response}
@@ -1044,6 +1052,11 @@ After resolve is called, the iframe will be removed.
 ### Response To SIVIC:Player:fatalError ### {#sivic-player-fatalError-response}
 #### resolve #### {#sivic-player-fatalError-resolve}
 After resolve is called, the iframe will be removed.
+
+### Response To SIVIC:Player:appBackgrounding ### {#sivic-player-app-backgrounding-response}
+#### resolve #### {#sivic-player-app-backgrounding-resolve}
+The player should try wait for a resolve message from the creative before the backgrounding hook
+is complete. Any creative that does nothing should resolve this message immediately.
 
 ## Referencing a SIVIC creative from VAST ## {#api-vast}
 
