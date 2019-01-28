@@ -160,8 +160,8 @@ class SivicPlayer {
     }
 
     const creativeData = {
-      'adParameters' : '', // TODO allow this to be set on the sample player page.
-      // These values might be unknown if not parsing actual vast.
+      'adParameters' : document.getElementById('ad_params').value,
+      // These values should be populated from the VAST response.
       'adId' : '',
       'creativeId' : '',
       'adServingId': '',
