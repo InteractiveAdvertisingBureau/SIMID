@@ -6,8 +6,14 @@
   <style>
     .sivic_creative {
       position: absolute;
-      left: 5;
+      top: 0;
       border-width: 0px;
+      width: 640px;
+      height: 480px;
+    }
+    .overlayed {
+      position: absolute;
+      top: 0;
       width: 640px;
       height: 480px;
     }
@@ -31,25 +37,64 @@
       }
       sivicPlayer.playAd();
     }
+
+    function switchCreative(value) {
+      document.getElementById('creative_url').value = '../creatives/' + value;
+      // populate ad parameters with some hard coded values
+      let adParams = '';
+      switch (value) {
+        case 'sivic_overlay.html':
+          break;
+        case 'survey.html':
+          let adParamsObj = [
+            {'question':'Would you like a survey?',
+             'answers':['Yes', 'No', 'Not Sure']},
+            {'question':'Are you certain?',
+             'answers':['Of course', 'Not Really', 'Well...']},
+            {'question':'What animals do you like?',
+             'answers':['Cats', 'Dogs', 'Other']}
+          ];
+          adParams = JSON.stringify(adParamsObj);
+          break;
+      }
+      document.getElementById('ad_params').value = adParams;
+    }
   </script>
 </head>
 
 <body>
 
   <div>
-    <p> This is a sample player for testing ads. </p>
-    <p> Creative Url :
-    <input type="text" id="creative_url" size = 50 
-           value="../creatives/sivic_overlay.html"></p> 
-    <p> Ad Video :
-    <input type="text" id="video_url" size = 50 
-           value="../black_countdown.mp4"><p>
-    <button onclick="playAd()"> Start new ad </button>
-    <button onclick="initAd()"> Initialize new ad </button>
+    <p><h1><center>SIVIC Sample Ad Player</center></h1></p>
+    <table>
+      <tr>
+        <td>InteractiveCreativeFile</td>
+        <td><input type="text" id="creative_url" size = 30 
+           value="../creatives/sivic_overlay.html">
+        <button onclick="switchCreative('sivic_overlay.html')">overlay</button>
+        <button onclick="switchCreative('survey.html')">survey</button>
+        </td>
+      </tr>
+      <tr>
+        <td>MediaFile</td>
+        <td><input type="text" id="video_url" size = 30 
+           value="../fakeAd.mp4">
+        </td>
+      </tr>
+      <tr>
+        <td>AdParameters</td>
+        <td><textarea id="ad_params" rows = 5 cols = 50></textarea></td>
+      </tr>
+    </table>
+    <button onclick="playAd()"> Start ad playback </button>
+    <button onclick="initAd()"> Initialize the creative </button>
   </div>
 
-  <div id="player_div">
-    <video id="video_player"> </video>
+  <div id="player_div" style="position:absolute;">
+    <video id="video_player" src="../fakeContent.mp4" controls> </video>
+    <div id="ad_video_div" class="overlayed" style="display:none;">
+      <video id="ad_video_player" class="overlayed" style="display:none;" src="">
+    </div>
     <!-- SIVIC creative will be here. -->
   </div>
 
