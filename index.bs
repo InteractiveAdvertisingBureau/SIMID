@@ -579,12 +579,12 @@ dictionary TrackingParameters {
 </xmp>
 
 Anytime the player would send a tracking pixel the player must send
-the SIVIC:Video:trackingEvent message to the creative. Event if there
+the SIVIC:Video:trackingEvent message to the creative. Even if there
 is no tracking pixel associated with the event the player must still send
 this message to the SIVIC creative.
 
-For example, if the first quartile of the video is reached the player must sent the message
-SIVIC:Video:trackingEvent with the event parameter being firstQuartile. This message would
+For example, if the first quartile of the video is reached the player must send the message
+SIVIC:Video:trackingEvent with the event parameter being firstQuartile. This message must
 be sent regardless of whether or not the player is sending tracking pixels.
 
 The event parameter must match exactly the tracking event name as defined in VAST.
@@ -592,7 +592,9 @@ The event parameter must match exactly the tracking event name as defined in VAS
 The macros map must be populated with all the macros the player would use on the
 tracking event.
 
-Errors and impressions are also considered tracking events.
+Notes:
+Errors and impressions are also considered tracking events. The progress tracking
+event can be ignored.
 
 ### SIVIC:Video:volumechange ### {#sivic-video-volumechange}
 Should be called after the volumechange event is triggered on the video element.
