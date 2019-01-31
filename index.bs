@@ -562,6 +562,9 @@ Should be called after the seeked event is triggered on the video element.
 ### SIVIC:Video:seeking ### {#sivic-video-seeking}
 Should be called after the seeking event is triggered on the video element.
 
+### SIVIC:Video:stalled ### {#sivic-video-stalled}
+Should be called after the stalled event is triggered on the video element.
+
 ### SIVIC:Video:timeupdate ### {#sivic-video-timeupdate}
 Should be called after the timeupdate event is triggered on the video element.
 
