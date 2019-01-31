@@ -807,7 +807,12 @@ The player should wait for a response before unloading the creative iframe.
 parameters:
 - code(int): reason for ad stopping
 
-Issue: These codes need to be defined.
+The player should use the following table to determine which code to send.
+ - 0: Unspecified
+ - 1: User initiated close
+ - 2: Ad video playback complete
+ - 3: Player initiated close
+ - 4: Creative initiated close
 
 ### SIVIC:Player:fatalError ### {#sivic-player-fatalError}
 The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
