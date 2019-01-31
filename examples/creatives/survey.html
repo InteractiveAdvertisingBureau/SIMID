@@ -35,15 +35,15 @@
     }
     .survey-div {
       transition: 1s ease-in-out;
-      -ms-transform: translate(-250px, 0px); /* IE 9 */
-      -webkit-transform: translate(-250px, 0px); /* Safari */
-      transform: translate(-250px, 0px);
+      -ms-transform: translate(-300px, 0px); /* IE 9 */
+      -webkit-transform: translate(-300px, 0px); /* Safari */
+      transform: translate(-300px, 0px);
       visibility: hidden;
       text-align:center;
       align-items: center;
       position: absolute;
       top: 120px;
-      left: 100px;
+      left: 220px;
     }
     .survey-div.showing {
       -ms-transform: translate(0px, 0px); /* IE 9 */
@@ -58,17 +58,11 @@
   </head>
   <body>
   <div id="title" class="title">Sample Sivic Survey Ad</div>
-  <div id="question1" class='survey-div'>
-    <div class="survey-question">Would You Like A Survey?</div>
-    <button id="option1" class="survey-button">Yes</button><br>
-    <button id="option2" class="survey-button">No</button><br>
-    <button id="option3" class="survey-button">Maybe</button><br>
-  </div>
-  <div id="question2" class='survey-div'>
-    <div class="survey-question">Can you answer one last question?</div>
-    <button id="option4" class="survey-button">Absolutely</button><br>
-    <button id="option5" class="survey-button">Never</button><br>
-    <button id="option6" class="survey-button">Perhaps</button><br>
+  <div id="question" class='survey-div'>
+    <div id="current-question" class="survey-question"></div>
+    <button id="option0" class="survey-button"></button><br>
+    <button id="option1" class="survey-button"></button><br>
+    <button id="option2" class="survey-button"></button><br>
   </div>
   <script>
     // The creative should first call ready.
