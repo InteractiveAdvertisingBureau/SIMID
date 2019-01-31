@@ -516,6 +516,59 @@ dictionary ResolveMessageArgsValue {
 
 # API Reference # {#api}
 
+## Messages corresponding to VAST tracking events ## {#vast-messages}
+
+These types correspond with VAST 4.1 tracking events names. Message types are prepended with SIVIC:Tracking. 
+
+The player must report each message to the creative whenever corresponding VAST tracking pixels are reported for that tracking event type. Player dispatches SIVIC:Tracking message immediately **after** related tracker pixels are sent. 
+
+
+For example:
+
+<xmp>
+{
+ type: "SIVIC:Tracking:impression",
+ args: {}
+}
+</xmp>
+
+### SIVIC:Tracking:error ### {#vast-error}
+`SIVIC:Tracking:error` message is sent with `args` property:
+<xmp class="idl">
+dictionary TrackingErrorArgs {
+  required DOMString errorCode;
+};
+</xmp>
+{{TrackingErrorArgs/errorCode}} is error code specified by VAST.
+
+### Other tracking events that must be supported ### {#other-vast-messages}
+- SIVIC:Tracking:impression  
+- SIVIC:Tracking:creativeView
+- SIVIC:Tracking:mute  
+- SIVIC:Tracking:unmute 
+- SIVIC:Tracking:pause 
+- SIVIC:Tracking:resume
+- SIVIC:Tracking:rewind
+- SIVIC:Tracking:skip
+- SIVIC:Tracking:playerExpand  
+- SIVIC:Tracking:playerCollapse  
+- SIVIC:Tracking:loaded  
+- SIVIC:Tracking:start  
+- SIVIC:Tracking:firstQuartile  
+- SIVIC:Tracking:midpoint  
+- SIVIC:Tracking:thirdQuartile  
+- SIVIC:Tracking:complete  
+- SIVIC:Tracking:otherAdInteraction  
+- SIVIC:Tracking:progress  
+- SIVIC:Tracking:closeLinear  
+- SIVIC:Tracking:fullscreen
+- SIVIC:Tracking:exitFullscreen
+- SIVIC:Tracking:expand
+- SIVIC:Tracking:collapse
+- SIVIC:Tracking:clickThrough
+- SIVIC:Tracking:clickTracking
+- SIVIC:Tracking:customClick
+
 ## Messages triggered by video element events ## {#video-messages}
 
 When video element that renders ad media dispatches events, player posts corresponding messages to SIVIC creative. Video element related messages include original media event type names. `Message.type` values are prepended with SIVIC:Video namespace. 
@@ -569,27 +622,6 @@ parameters:
 - currentTime(number): corresponds to videoElement.currentTime attribute. For server side ad insertion
 	this must be calculated to be the total time the video ad has played. For example: if the video element
 	time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.
-
-### SIVIC:Video:trackingEvent ### {#sivic-video-trackingevent}
-<xmp class="idl">
-dictionary TrackingParameters {
-  required string event;
-  required map<string, string> macros;
-};
-</xmp>
-
-Anytime a tracking event is encountered the player must inform the SIVIC ad. If there
-is no tracking pixel associated with the event the player must still inform the SIVIC
-ad that the event happened.
-
-For example, if the first quartile of the video is reached the player must sent the message
-SIVIC:Video:trackingEvent with the event parameter being firstQuartile. This message would
-be sent regardless of whether or not the player is sending tracking pixels.
-
-The event parameter must match exactly the tracking event name as defined in VAST.
-
-The macros map must be populated with all macros the player would use to populate this
-type tracking event.
 
 ### SIVIC:Video:volumechange ### {#sivic-video-volumechange}
 Should be called after the volumechange event is triggered on the video element.
