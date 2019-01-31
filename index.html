@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 9c6ae748322940994300e90a77c34437364b40a6" name="generator">
+  <meta content="Bikeshed version eee3e9e7543e2188fb60d183a6cf3fe3a7d971c1" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1471,7 +1471,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-01-24">24 January 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-01-31">31 January 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1486,7 +1486,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 24 January 2019,
+In addition, as of 31 January 2019,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1553,7 +1553,7 @@ Parts of this work may be from another specification document.  If so, those par
         <li><a href="#other-vast-messages"><span class="secno">6.1.2</span> <span class="content">Other tracking events that must be supported</span></a>
        </ol>
       <li>
-       <a href="#video-messages"><span class="secno">6.2</span> <span class="content">Messages from the video element</span></a>
+       <a href="#video-messages"><span class="secno">6.2</span> <span class="content">Messages triggered by video element events</span></a>
        <ol class="toc">
         <li><a href="#sivic-video-durationchange"><span class="secno">6.2.1</span> <span class="content">SIVIC:Video:durationchange</span></a>
         <li><a href="#sivic-video-ended"><span class="secno">6.2.2</span> <span class="content">SIVIC:Video:ended</span></a>
@@ -2059,7 +2059,7 @@ identifier</a>.</strong></p>
    <p>To send a message through a <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions③">session</a>, run the <a data-link-type="dfn" href="#message-send-a-message" id="ref-for-message-send-a-message">send a message</a> algorithm.</p>
    <section class="algorithm" data-algorithm="to send a message">
     <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-send-a-message">send a message</dfn>, you <em>must</em> run the following
-steps:</p>
+steps synchronously:</p>
     <dl>
      <dt data-md>Input
      <dd data-md>
@@ -2083,8 +2083,10 @@ steps:</p>
         <p><var>messageId</var> of the previous message sent on the <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions⑤">session</a> identified by <var>sessionId</var> incremented by <code>1</code>, otherwise.</p>
       </ul>
      <li data-md>
+      <p>Let <var>timestamp</var> be the current number of milliseconds since January 1, 1970, 00:00:00 UTC (<code>Epoch</code> time).</p>
+     <li data-md>
       <p>Let <var>message</var> be a new <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message④">Message</a></code> object with its attributes initialized
- to <var>sessionId</var>, <var>messageId</var>, <var>type</var> and <var>args</var>.</p>
+ to <var>sessionId</var>, <var>messageId</var>, <var>type</var>, <var>timestamp</var> and <var>args</var>.</p>
      <li data-md>
       <p>Let <var>serializedMessage</var> be the result of running <code>JSON.stringify</code> on <var>message</var>.</p>
      <li data-md>
@@ -2174,6 +2176,7 @@ following steps:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-message"><code><c- g>Message</c-></code></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code></dfn>;
   <c- b>any</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code></dfn>;
 };
@@ -2184,15 +2187,19 @@ identifies the <a data-link-type="dfn">messaging session</a> to which the <code 
 increments with each message sent by the sender over the <a data-link-type="dfn">messaging session</a> specified by <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid②">sessionId</a></code>.</p>
    <p class="note" role="note"><span>Note:</span> The combination of <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid③">sessionId</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid①">messageId</a></code> uniquely identifies a single message. The combination of the values of these two
 attributes may never occur twice.</p>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑨">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type③">type</a></code>, a string that defines the type
+   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑨">Message</a></code> has <code class="idl"><a data-link-type="idl" href="#dom-message-timestamp" id="ref-for-dom-message-timestamp">timestamp</a></code> property. <code class="idl"><a data-link-type="idl" href="#dom-message-timestamp" id="ref-for-dom-message-timestamp①">timestamp</a></code> is expressed in
+a number of milliseconds since January 1, 1970, 00:00:00 UTC (<code>Epoch</code> time). <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①⓪">Message</a></code> sender should make the best effort to set <code>timestamp</code> value as close as possible 
+to the moment the underlying process occurs. However, the <code>receiver</code> should not assume that <code>timestamp</code> value reflects the exact instant <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①①">Message</a></code> triggering event chain was accomplished.</p>
+   <p>For example, if <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①②">Message</a></code> communicates ad video state change, media player sets <code class="idl"><a data-link-type="idl" href="#dom-message-timestamp" id="ref-for-dom-message-timestamp②">timestamp</a></code> value to the moment the corresponding video event arrives from <code>HTMLVideoElement</code>.</p>
+   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①③">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type③">type</a></code>, a string that defines the type
 of message that is being sent and informs the receiver how to interpret the <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args③">args</a></code> parameter.</p>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①⓪">Message</a></code> may have associated <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args④">args</a></code>, which are <code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type④">type</a></code>-specific additional arguments. The data structure and meaning
+   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①④">Message</a></code> may have associated <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args④">args</a></code>, which are <code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type④">type</a></code>-specific additional arguments. The data structure and meaning
 of <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑤">args</a></code> is defined in the respective message type definitions.</p>
    <h4 class="heading settled" data-level="5.3.1" id="##msg-proto-resolve"><span class="secno">5.3.1. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-resolve"><code>resolve</code><a class="self-link" href="#message-resolve"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-resolve"></a></h4>
    <p><code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type⑤">type</a></code> must be <code>resolve</code></p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑥">args</a></code> must be a <code class="idl"><a data-link-type="idl" href="#dictdef-resolvemessageargs" id="ref-for-dictdef-resolvemessageargs">ResolveMessageArgs</a></code> object:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></dfn>;
   <c- b>any</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code></dfn>;
 };
 </pre>
@@ -2204,15 +2211,14 @@ of the message that is being resolved.</p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑦">args</a></code> must be a <code class="idl"><a data-link-type="idl" href="#dictdef-resolvemessageargs" id="ref-for-dictdef-resolvemessageargs①">ResolveMessageArgs</a></code> object.</p>
    <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value③">value</a></code> may include an error message associated with this <code>reject</code> message.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-resolvemessageargsvalue"><code><c- g>ResolveMessageArgsValue</c-></code><a class="self-link" href="#dictdef-resolvemessageargsvalue"></a></dfn> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-resolvemessageargsvalue-errorcode"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-resolvemessageargsvalue-errorcode"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-resolvemessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-resolvemessageargsvalue-message"></a></dfn>;
 };
 </pre>
    <h2 class="heading settled" data-level="6" id="api"><span class="secno">6. </span><span class="content">API Reference</span><a class="self-link" href="#api"></a></h2>
    <h3 class="heading settled" data-level="6.1" id="vast-messages"><span class="secno">6.1. </span><span class="content">Messages corresponding to VAST tracking events</span><a class="self-link" href="#vast-messages"></a></h3>
-   <p>All ID’s are prepended with SIVIC:Tracking. The player must report each event
-to the ad whenever a tracking pixels is reported for that tracking event type. 
-These names correspond with VAST 4.1 tracking names.</p>
+   <p>These types correspond with VAST 4.1 tracking events names. Message types are prepended with SIVIC:Tracking.</p>
+   <p>The player must report each message to the creative whenever corresponding VAST tracking pixels are reported for that tracking event type. Player dispatches SIVIC:Tracking message immediately <strong>after</strong> related tracker pixels are sent.</p>
    <p>For example:</p>
 <pre>{
  type: "SIVIC:Tracking:impression",
@@ -2281,10 +2287,17 @@ These names correspond with VAST 4.1 tracking names.</p>
     <li data-md>
      <p>SIVIC:Tracking:customClick</p>
    </ul>
-   <h3 class="heading settled" data-level="6.2" id="video-messages"><span class="secno">6.2. </span><span class="content">Messages from the video element</span><a class="self-link" href="#video-messages"></a></h3>
-   <p>All video messages will be prepended with SIVIC:Video. All video messages should be sent after their corresponding
-media events are called. If the video is wrapped or native the player should make its best effort to make messages
-correspond with the html5 video element callbacks.</p>
+   <h3 class="heading settled" data-level="6.2" id="video-messages"><span class="secno">6.2. </span><span class="content">Messages triggered by video element events</span><a class="self-link" href="#video-messages"></a></h3>
+   <p>When video element that renders ad media dispatches events, player posts corresponding messages to SIVIC creative. Video element related messages include original media event type names. <code>Message.type</code> values are prepended with SIVIC:Video namespace.</p>
+   <p>Example:</p>
+   <ol>
+    <li data-md>
+     <p>Video element dispatches event <code>play</code>.</p>
+    <li data-md>
+     <p>Player sends message to SIVIC creative with <code>Message.type = SIVIC:Video:play</code>.</p>
+   </ol>
+   <p>Video messages should be reported immediately after player receives related event.</p>
+   <p><code>Message.timestamp</code> property value is set to the time media element dispatches event.</p>
    <h4 class="heading settled" data-level="6.2.1" id="sivic-video-durationchange"><span class="secno">6.2.1. </span><span class="content">SIVIC:Video:durationchange</span><a class="self-link" href="#sivic-video-durationchange"></a></h4>
     Should be called after the durationchange event is triggered on the video element. 
    <p>parameters:</p>
@@ -2370,7 +2383,6 @@ playback 10 seconds ago (in DAI), this should be 10 seconds.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-resizeparameters"><code><c- g>resizeParameters</c-></code></dfn> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions"><c- n>videoDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="videoDimensions " id="dom-resizeparameters-videodimensions"><code><c- g>videoDimensions</c-></code></dfn>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions"><c- n>creativeDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="creativeDimensions " id="dom-resizeparameters-creativedimensions"><code><c- g>creativeDimensions</c-></code></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="string " id="dom-resizeparameters-mode"><code><c- g>mode</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="resizeParameters" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-resizeparameters-fullscreen"><code><c- g>fullScreen</c-></code></dfn>;
 };
 </pre>
@@ -2423,8 +2435,6 @@ not yet visible (like during initialization) these dimensions will be the expect
        <p><code class="idl"><a data-link-type="idl" href="#dom-videodimensions-transitionduration" id="ref-for-dom-videodimensions-transitionduration①">transitionDuration</a></code> Number in seconds the transition animation should take, this can be accomplished by transition-property in css</p>
      </ul>
     <li data-md>
-     <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-mode" id="ref-for-dom-resizeparameters-mode">mode</a></code> Can be "portrait" or "landscape".</p>
-    <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen">fullScreen</a></code> True if fullscreen.</p>
    </ul>
    <h4 class="heading settled" data-level="6.4.2" id="sivic-player-init"><span class="secno">6.4.2. </span><span class="content">SIVIC:Player:init</span><a class="self-link" href="#sivic-player-init"></a></h4>
@@ -2451,7 +2461,6 @@ call SIVIC:Player:startCreative immediately after SIVIC:Player:init.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></dfn> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions①"><c- n>videoDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="videoDimensions " id="dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code></dfn>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions①"><c- n>creativeDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="creativeDimensions " id="dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="string " id="dom-environmentdata-mode"><code><c- g>mode</c-></code><a class="self-link" href="#dom-environmentdata-mode"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreen"><code><c- g>fullScreen</c-></code><a class="self-link" href="#dom-environmentdata-fullscreen"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></dfn>;
@@ -2501,9 +2510,6 @@ The object should have the following fields.</p>
       <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-creativedimensions" id="ref-for-dom-environmentdata-creativedimensions">creativeDimensions</a></code> indicates the creative display
 area, see <a href="#sivic-player-resize">§6.4.1 SIVIC:Player:resize</a></p>
-      <li data-md>
-       <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-mode" id="ref-for-dom-resizeparameters-mode①">mode</a></code> Can be "portrait" or "landscape". For desktop
-choose "landscape".</p>
       <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen①">fullScreen</a></code> True if fullscreen.</p>
       <li data-md>
@@ -3252,12 +3258,6 @@ primary video.</p>
      <li><a href="#dom-message-messageid">dict-member for Message</a><span>, in §5.3</span>
      <li><a href="#dom-resolvemessageargs-messageid">dict-member for ResolveMessageArgs</a><span>, in §5.3.1</span>
     </ul>
-   <li>
-    mode
-    <ul>
-     <li><a href="#dom-environmentdata-mode">dict-member for EnvironmentData</a><span>, in §6.4.2</span>
-     <li><a href="#dom-resizeparameters-mode">dict-member for resizeParameters</a><span>, in §6.4.1</span>
-    </ul>
    <li><a href="#dom-environmentdata-muted">muted</a><span>, in §6.4.2</span>
    <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §6.4.2</span>
    <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §6.4.2</span>
@@ -3286,6 +3286,7 @@ primary video.</p>
    <li><a href="#sivic-video-stream">SIVIC Video Stream</a><span>, in §10</span>
    <li><a href="#dom-environmentdata-skippablestate">skippableState</a><span>, in §6.4.2</span>
    <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §6.4.2</span>
+   <li><a href="#dom-message-timestamp">timestamp</a><span>, in §5.3</span>
    <li><a href="#dictdef-trackingerrorargs">TrackingErrorArgs</a><span>, in §6.1.1</span>
    <li>
     transitionDuration
@@ -3366,9 +3367,9 @@ primary video.</p>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
    <a href="https://heycam.github.io/webidl/#idl-unsigned-long">https://heycam.github.io/webidl/#idl-unsigned-long</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-unsigned-long">5.3. Message Data Structure</a>
-    <li><a href="#ref-for-idl-unsigned-long①">5.3.1. resolve messages</a>
-    <li><a href="#ref-for-idl-unsigned-long②">5.3.2. reject messages</a>
+    <li><a href="#ref-for-idl-unsigned-long">5.3. Message Data Structure</a> <a href="#ref-for-idl-unsigned-long①">(2)</a>
+    <li><a href="#ref-for-idl-unsigned-long②">5.3.1. resolve messages</a>
+    <li><a href="#ref-for-idl-unsigned-long③">5.3.2. reject messages</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -3401,18 +3402,19 @@ primary video.</p>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a href="#dictdef-message"><code><c- g>Message</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-sessionid"><code><c- g>sessionId</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-messageid"><code><c- g>messageId</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long④"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-messageid"><code><c- g>messageId</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-timestamp"><code><c- g>timestamp</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-type"><code><c- g>type</c-></code></a>;
   <c- b>any</c-> <a data-type="any " href="#dom-message-args"><code><c- g>args</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></a>;
   <c- b>any</c-> <a data-type="any " href="#dom-resolvemessageargs-value"><code><c- g>value</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-resolvemessageargsvalue"><code><c- g>ResolveMessageArgsValue</c-></code></a> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargsvalue-errorcode"><code><c- g>errorCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargsvalue-errorcode"><code><c- g>errorCode</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString③①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-resolvemessageargsvalue-message"><code><c- g>message</c-></code></a>;
 };
 
@@ -3423,7 +3425,6 @@ primary video.</p>
 <c- b>dictionary</c-> <a href="#dictdef-resizeparameters"><code><c- g>resizeParameters</c-></code></a> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions②"><c- n>videoDimensions</c-></a> <a data-type="videoDimensions " href="#dom-resizeparameters-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions②"><c- n>creativeDimensions</c-></a> <a data-type="creativeDimensions " href="#dom-resizeparameters-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-resizeparameters-mode"><code><c- g>mode</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑤"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-resizeparameters-fullscreen"><code><c- g>fullScreen</c-></code></a>;
 };
 
@@ -3459,7 +3460,6 @@ primary video.</p>
 <c- b>dictionary</c-> <a href="#dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></a> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions①①"><c- n>videoDimensions</c-></a> <a data-type="videoDimensions " href="#dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedimensions" id="ref-for-dictdef-creativedimensions①①"><c- n>creativeDimensions</c-></a> <a data-type="creativeDimensions " href="#dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-environmentdata-mode"><code><c- g>mode</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreen"><code><c- g>fullScreen</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③①"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></a>;
@@ -3567,7 +3567,7 @@ does not seem to make much sense<a href="#issue-75380958"> ↵ </a></div>
    <ul>
     <li><a href="#ref-for-dictdef-message">5.1.2. Message Serialization</a> <a href="#ref-for-dictdef-message①">(2)</a> <a href="#ref-for-dictdef-message②">(3)</a> <a href="#ref-for-dictdef-message③">(4)</a>
     <li><a href="#ref-for-dictdef-message④">5.2.2. Sending messages</a>
-    <li><a href="#ref-for-dictdef-message⑤">5.3. Message Data Structure</a> <a href="#ref-for-dictdef-message⑥">(2)</a> <a href="#ref-for-dictdef-message⑦">(3)</a> <a href="#ref-for-dictdef-message⑧">(4)</a> <a href="#ref-for-dictdef-message⑨">(5)</a> <a href="#ref-for-dictdef-message①⓪">(6)</a>
+    <li><a href="#ref-for-dictdef-message⑤">5.3. Message Data Structure</a> <a href="#ref-for-dictdef-message⑥">(2)</a> <a href="#ref-for-dictdef-message⑦">(3)</a> <a href="#ref-for-dictdef-message⑧">(4)</a> <a href="#ref-for-dictdef-message⑨">(5)</a> <a href="#ref-for-dictdef-message①⓪">(6)</a> <a href="#ref-for-dictdef-message①①">(7)</a> <a href="#ref-for-dictdef-message①②">(8)</a> <a href="#ref-for-dictdef-message①③">(9)</a> <a href="#ref-for-dictdef-message①④">(10)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-message-sessionid">
@@ -3582,6 +3582,12 @@ does not seem to make much sense<a href="#issue-75380958"> ↵ </a></div>
    <ul>
     <li><a href="#ref-for-dom-message-messageid">5.3. Message Data Structure</a> <a href="#ref-for-dom-message-messageid①">(2)</a>
     <li><a href="#ref-for-dom-message-messageid②">5.3.1. resolve messages</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-message-timestamp">
+   <b><a href="#dom-message-timestamp">#dom-message-timestamp</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-message-timestamp">5.3. Message Data Structure</a> <a href="#ref-for-dom-message-timestamp①">(2)</a> <a href="#ref-for-dom-message-timestamp②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-message-type">
@@ -3646,13 +3652,6 @@ does not seem to make much sense<a href="#issue-75380958"> ↵ </a></div>
    <b><a href="#dom-resizeparameters-creativedimensions">#dom-resizeparameters-creativedimensions</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-resizeparameters-creativedimensions">6.4.1. SIVIC:Player:resize</a> <a href="#ref-for-dom-resizeparameters-creativedimensions①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-resizeparameters-mode">
-   <b><a href="#dom-resizeparameters-mode">#dom-resizeparameters-mode</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-resizeparameters-mode">6.4.1. SIVIC:Player:resize</a>
-    <li><a href="#ref-for-dom-resizeparameters-mode①">6.4.2. SIVIC:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-resizeparameters-fullscreen">
