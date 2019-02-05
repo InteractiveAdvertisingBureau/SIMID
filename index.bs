@@ -268,8 +268,7 @@ for="message/transport">properties</dfn>:
 	that they were sent by the sender.
 
 The [=message/transport=] is not required to deliver [=serialized messages=]
-synchronously, but it should make a best effort to deliver them as soon as
-possible.
+synchronously, but it must deliver them as soon as possible.
 
 Note: This means that a [=message/sender=] can not assume that a message is
 delivered to the [=message/receiver=] unless the [=message/receiver=] sends a
@@ -464,7 +463,7 @@ attributes may never occur twice.
 
 A {{Message}} has {{Message/timestamp}} property. {{Message/timestamp}} is expressed in 
 a number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time). 
-{{Message}} sender should make the best effort to set `timestamp` value as close as possible 
+{{Message}} sender must set `timestamp` value as close as possible 
 to the moment the underlying process occurs. However, the `receiver` should not assume that `timestamp` 
 value reflects the exact instant {{Message}} triggering event chain was accomplished. 
 
