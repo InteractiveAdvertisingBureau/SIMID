@@ -950,6 +950,13 @@ paramaters:
 
 Expects a response [[#sivic-creative-reportTracking-response]]
 
+The creative is not required to use SIVIC:Creative:reportTracking. However, the player
+must implement SIVIC:Creative:reportTracking.
+
+All tracking urls sent through SIVIC:Creative:reportTracking must have their
+macros replaced as though they were tracking pixels specified in VAST. Then they must
+be reported by the player as though they were tracking pixels.
+
 ### SIVIC:Creative:requestChangeAdDuration ### {#sivic-creative-requestChangeAdDuration}
 Extension in duration should only be in response to user interaction.
 
