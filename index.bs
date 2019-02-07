@@ -654,7 +654,6 @@ dictionary videoDimensions {
 	required int y;
 	required int width;
 	required int height;
-	float transitionDuration;
 };
 </xmp>
 <xmp class="idl">
@@ -663,7 +662,6 @@ dictionary creativeDimensions {
 	required int y;
 	required int width;
 	required int height;
-	float transitionDuration;
 };
 </xmp>
 
@@ -676,14 +674,12 @@ not yet visible (like during initialization) these dimensions will be the expect
 		- {{videoDimensions/y}} The y offset of the video. It should initialize at 0. 0 is defined as the top left corner of the player.
 		- {{videoDimensions/width}} The width in pixels of the video.
 		- {{videoDimensions/height}} The height in pixels of the video.
-		- {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
 
 - {{creativeDimensions}}
 		- {{videoDimensions/x}} The x offset of the creative. It should initialize at 0. 0 is defined as the top left corner of the player.
 		- {{videoDimensions/y}} The y offset of the creative. It should initialize at 0. 0 is defined as the top left corner of the player.
 		- {{videoDimensions/width}} The width in pixels of the creative.
 		- {{videoDimensions/height}} The height in pixels of the creative.
-		- {{videoDimensions/transitionDuration}} Number in seconds the transition animation should take, this can be accomplished by transition-property in css
 - {{resizeParameters/fullScreen}} True if fullscreen.
 
 ### SIVIC:Player:init ### {#sivic-player-init}
