@@ -828,14 +828,6 @@ parameters:
 
 ## Responses from the player to the creative ## {#player-responses}
 
-### Response To SIVIC:Creative:requestVideoLocation ### {#sivic-creative-requestVideoLocation-response}
-
-#### resolve #### {#sivic-creative-requestVideoLocation-resolve}
-They player may or may not move the video but in either case it will resolve and tell the creative the video location.
-parameters:
-- x (int): The new video x location.
-- y (int): The new video y location.
-
 ### Response To SIVIC:Creative:requestSkip ### {#sivic-creative-requestSkip-response}
 
 #### resolve #### {#sivic-creative-requestSkip-resolve}
