@@ -685,15 +685,16 @@ not yet visible (like during initialization) these dimensions will be the expect
 
 ### SIVIC:Player:init ### {#sivic-player-init}
 
-To assist in preloading assets the SIVIC:Player:init before SIVIC:Player:startCreative.
-The player should call this function early enough before playback so that assets can be
-displayed as soon as the ad starts.
+To assist in preloading assets the player must send the SIVIC:Player:init message
+before SIVIC:Player:startCreative.  The player should send this message early
+enough before playback so that assets can be displayed as soon as the ad starts.
 
-The ad, however, should not assume that it has any amount of time between the
-SIVIC:Player:init call and the SIVIC:Player:startCreative message. For example a preroll might
-call SIVIC:Player:startCreative immediately after SIVIC:Player:init.
+The ad, however, should not assume it is given any amount of time between the
+SIVIC:Player:init message and the SIVIC:Player:startCreative message.
+For example a preroll might send SIVIC:Player:startCreative immediately
+after SIVIC:Player:init.
 
-When calling SIVIC:Player:init, the player shall provide the following parameters:
+With SIVIC:Player:init, the player shall provide the following parameters:
 
 <xmp class="idl">
 dictionary initParameters {
