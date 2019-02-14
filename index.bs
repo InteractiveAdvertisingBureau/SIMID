@@ -1227,13 +1227,13 @@ This table indicates defined SIVIC error codes the creative may fire:
 :: Play mode not adequate for creative. The creative requires playback control but
 		the player is not giving control. This error should only fire if the
 		VAST for the ad specified that it needs playback control.
-: <dfn>1008</dfn>
+: <dfn>1108</dfn>
 :: Ad internal error. The creative had an error not related to any external dependencies.
-: <dfn>1009</dfn>
+: <dfn>1109</dfn>
 :: Device not supported. The creative could not play or render on the device.
-: <dfn>1010</dfn>
+: <dfn>1110</dfn>
 :: The player is not following the spec in the way it sends messages.
-: <dfn>1011</dfn>
+: <dfn>1111</dfn>
 :: The player is not responding adequately to messages.
 
 This table indicates defined SIVIC error codes the player may fire:
@@ -1250,20 +1250,18 @@ This table indicates defined SIVIC error codes the player may fire:
 : <dfn>1204</dfn>
 :: SIVIC creative is doing actions not supported on this site.
 : <dfn>1205</dfn>
-:: SIVIC creative is spamming messages causing the player to terminate.
+:: SIVIC creative is overloading the postmessage channel causing the player to terminate.
 : <dfn>1206</dfn>
 :: The SIVIC creatives video could not be loaded.
 : <dfn>1207</dfn>
-:: The SIVIC creatives video buffer time was too long and timed out.
+:: The video/audio media related to the SIVIC creative buffered for too long and timed out.
 : <dfn>1208</dfn>
 :: The SIVIC creative is taking too long to resolve or reject messages.
 : <dfn>1209</dfn>
-:: The SIVIC creatives video is not supported on this device.
+:: The SIVIC creatives media from the VAST response is not supported on this device.
 : <dfn>1210</dfn>
-:: The SIVIC creative is being unresponsive.
-: <dfn>1211</dfn>
 :: The SIVIC creative is not following the spec when initializing.
-: <dfn>1212</dfn>
+: <dfn>1211</dfn>
 :: The SIVIC creative is not following the spec in the way it sends messages.
 
 
