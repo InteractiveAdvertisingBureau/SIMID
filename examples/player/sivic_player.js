@@ -111,8 +111,8 @@ class SivicPlayer {
     if (this.sivicIframe_) {
       this.sivicIframe_.remove();
       this.sivicIframe_ = null;
-      this.sivicProtocol = new SivicProtocol();
-      this.addListeners();
+      this.sivicProtocol = reset();
+      this.addListeners_();
     }
   }
 

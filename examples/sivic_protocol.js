@@ -36,6 +36,15 @@ class SivicProtocol {
         this.receiveMessage.bind(this), false);
   }
 
+  /* Reverts this protocol to its original state */
+  reset() {
+    this.listeners_ = new Map();
+    this.sessionId_ = '';
+    this.nextMessageId_ = 1;
+    // TODO: Perhaps we should reject all associated promises.
+    this.resolutionListeners_ = {};
+  }
+
   /**
    * Sends a message using post message.  Returns a promise
    * that will resolve or reject after the message receives a response.
@@ -105,7 +114,7 @@ class SivicProtocol {
   }
 
   /**
-   * Recieves messages.
+   * Recieves messages from either the player or creative.
    */
   receiveMessage(event) {
     if (!event || !event.data) {
