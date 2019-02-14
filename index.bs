@@ -811,8 +811,8 @@ parameters:
 The player should use the following table to determine which code to send.
  - 0: Unspecified
  - 1: User initiated close
- - 2: Ad video playback complete
- - 3: Player initiated close
+ - 2: Ad media playback complete
+ - 3: Player initiating close before media playback complete
  - 4: Creative initiated close
 
 ### SIVIC:Player:fatalError ### {#sivic-player-fatalError}
