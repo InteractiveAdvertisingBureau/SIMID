@@ -41,6 +41,18 @@ class SivicPlayer {
      */
     this.initializationPromise_ = null;
 
+    /**
+     * A map of events tracked on the video element.
+     * @private {!Map}
+     */
+    this.videoTrackingEvents_ = new Map();
+
+    /**
+     * A function to execute on ad completion
+     * @private (!Function)
+     */
+    this.adComplete_ = adComplete;
+
     this.trackEventsOnVideoElement_();
     this.hideAdPlayer_();
 
@@ -111,7 +123,7 @@ class SivicPlayer {
     if (this.sivicIframe_) {
       this.sivicIframe_.remove();
       this.sivicIframe_ = null;
-      this.sivicProtocol = reset();
+      this.sivicProtocol.reset();
       this.addListeners_();
     }
   }
@@ -238,6 +250,8 @@ class SivicPlayer {
    * @private
    */
   trackEventsOnVideoElement_() {
+    this.videoTrackingEvents_ = 
+
     this.adVideoElement_.addEventListener("durationchange", () => {
       this.sivicProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
     }, true);

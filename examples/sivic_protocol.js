@@ -151,12 +151,7 @@ class SivicProtocol {
       const specificType = type.substr(6);
       const listeners = this.listeners_[specificType];
       if (listeners) {
-        // calls each of the listeners with the data.
         listeners.forEach((listener) => listener(data));
-      } else {
-        // Typically this could be ignored, but this sample logs these
-        // messages to find potential bugs.
-        console.log('Unexpected message type ' + type);
       }
     }
   }
