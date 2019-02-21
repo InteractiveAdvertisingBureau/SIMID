@@ -1203,44 +1203,66 @@ If either the interactive ad or player wants to terminate with an error the play
 The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.
 
 ## Error Codes ## {#error-codes}
-This table indicates defined SIVIC error codes the ad may fire:
+This table indicates defined SIVIC error codes the creative may fire:
 
+: <dfn>1100</dfn>
+:: Unspecified error. Catchall error if the creative could not find a matching error code.
+		The creative should be more specific in the error message.
 : <dfn>1101</dfn>
-:: Resources could not be loaded. The SIVIC ad tried to load resources but failed.
+:: Resources could not be loaded. The SIVIC creative tried to load resources but failed.
 : <dfn>1102</dfn>
-:: Incorrect interface passed from player. The video proxy interface or slot were not
-		in concordance with the SIVIC spec.
-: <dfn>1103</dfn>
-:: Playback area not usable by ad. The dimensions the ad needed
+:: Playback area not usable by creative. The dimensions the creative needed
 		were not what it received.
+: <dfn>1103</dfn>
+:: Wrong SIVIC version. The creative could not support the players version.
 : <dfn>1104</dfn>
-:: Wrong handshake version.
+:: Creative not playable for a technical reason on this site.
 : <dfn>1105</dfn>
-:: Ad not playable for a technical reason on this site.
-: <dfn>1106</dfn>
-:: Request for expand not honored. The ad requested to expand but the
+:: Request for expand not honored. The creative requested to expand but the
 		player did not allow it.
-: <dfn>1107</dfn>
-:: Request for pause not honored. The ad requested pause but the player
+: <dfn>1106</dfn>
+:: Request for pause not honored. The creative requested pause but the player
 		did not pause.
-: <dfn>1108</dfn>
-:: Play mode not adequate for ad. The ad requires playback control but
+: <dfn>1107</dfn>
+:: Play mode not adequate for creative. The creative requires playback control but
 		the player is not giving control. This error should only fire if the
 		VAST for the ad specified that it needs playback control.
-: <dfn>1009</dfn>
-:: Ad internal error. The ad had an error not related to any external dependencies.
-: <dfn>1010</dfn>
-:: Device not supported. The ad could not play or render on the device.
-: <dfn>1199</dfn>
-:: Player cababilities not adequate for ad. Catchall error if the ad
-		could not be more specific.
+: <dfn>1108</dfn>
+:: Ad internal error. The creative had an error not related to any external dependencies.
+: <dfn>1109</dfn>
+:: Device not supported. The creative could not play or render on the device.
+: <dfn>1110</dfn>
+:: The player is not following the spec in the way it sends messages.
+: <dfn>1111</dfn>
+:: The player is not responding adequately to messages.
 
 This table indicates defined SIVIC error codes the player may fire:
 
+: <dfn>1200</dfn>
+:: Unspecified error. Catchall error if the player could not find a matching error code.
+		The player should be more specific in the error message.
 : <dfn>1201</dfn>
-:: Uncaught error. The SIVIC ad threw and exception it did not catch.
+:: Wrong SIVIC version. The player could not support the creatives version.
 : <dfn>1202</dfn>
-:: Wrong handshake version.
+:: SIVIC creative requesting more time than the player is willing to support.
+: <dfn>1203</dfn>
+:: SIVIC creative requesting more functionality than the player is willing to support.
+: <dfn>1204</dfn>
+:: SIVIC creative is doing actions not supported on this site.
+: <dfn>1205</dfn>
+:: SIVIC creative is overloading the postmessage channel causing the player to terminate.
+: <dfn>1206</dfn>
+:: The SIVIC creatives video could not be loaded.
+: <dfn>1207</dfn>
+:: The video/audio media related to the SIVIC creative buffered for too long and timed out.
+: <dfn>1208</dfn>
+:: The SIVIC creative is taking too long to resolve or reject messages.
+: <dfn>1209</dfn>
+:: The SIVIC creatives media from the VAST response is not supported on this device.
+: <dfn>1210</dfn>
+:: The SIVIC creative is not following the spec when initializing.
+: <dfn>1211</dfn>
+:: The SIVIC creative is not following the spec in the way it sends messages.
 
 
 ## Ad Completion ## {#ad-completion}
