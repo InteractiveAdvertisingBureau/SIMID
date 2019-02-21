@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version d76ab51ece93be5af3a1621c820b89fd4f9cc432" name="generator">
+  <meta content="Bikeshed version 1cff2db4ee2c3bba7a4077d3007528ec73b0485d" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1471,7 +1471,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-02-12">12 February 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-02-21">21 February 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1486,7 +1486,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 12 February 2019,
+In addition, as of 21 February 2019,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2510,7 +2510,19 @@ The player should wait for a response before unloading the creative iframe.
     <li data-md>
      <p>code(int): reason for ad stopping</p>
    </ul>
-   <p class="issue" id="issue-c8f72188"><a class="self-link" href="#issue-c8f72188"></a> These codes need to be defined.</p>
+   <p>The player should use the following table to determine which code to send.</p>
+   <ul>
+    <li data-md>
+     <p>0: Unspecified</p>
+    <li data-md>
+     <p>1: User initiated close</p>
+    <li data-md>
+     <p>2: Ad media playback complete</p>
+    <li data-md>
+     <p>3: Player initiating close before media playback complete</p>
+    <li data-md>
+     <p>4: Creative initiated close</p>
+   </ul>
    <h4 class="heading settled" data-level="6.3.6" id="sivic-player-fatalError"><span class="secno">6.3.6. </span><span class="content">SIVIC:Player:fatalError</span><a class="self-link" href="#sivic-player-fatalError"></a></h4>
     The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
@@ -2886,57 +2898,90 @@ is true for <code>fatalError</code>.</p>
    <p>If either the interactive ad or player wants to terminate with an error the player should fire a 902 error. In cases where this is not possible like live server side ad insertion the player should remove the ad overlay and continue tracking quartiles and completion.</p>
    <p>The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.</p>
    <h3 class="heading settled" data-level="8.1" id="error-codes"><span class="secno">8.1. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h3>
-    This table indicates defined SIVIC error codes the ad may fire: 
+    This table indicates defined SIVIC error codes the creative may fire: 
    <dl>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1100">1100<a class="self-link" href="#1100"></a></dfn>
+    <dd data-md>
+     <p>Unspecified error. Catchall error if the creative could not find a matching error code.
+	The creative should be more specific in the error message.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1101">1101<a class="self-link" href="#1101"></a></dfn>
     <dd data-md>
-     <p>Resources could not be loaded. The SIVIC ad tried to load resources but failed.</p>
+     <p>Resources could not be loaded. The SIVIC creative tried to load resources but failed.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1102">1102<a class="self-link" href="#1102"></a></dfn>
     <dd data-md>
-     <p>Incorrect interface passed from player. The video proxy interface or slot were not
-	in concordance with the SIVIC spec.</p>
+     <p>Playback area not usable by creative. The dimensions the creative needed
+	were not what it received.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1103">1103<a class="self-link" href="#1103"></a></dfn>
     <dd data-md>
-     <p>Playback area not usable by ad. The dimensions the ad needed
-	were not what it received.</p>
+     <p>Wrong SIVIC version. The creative could not support the players version.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1104">1104<a class="self-link" href="#1104"></a></dfn>
     <dd data-md>
-     <p>Wrong handshake version.</p>
+     <p>Creative not playable for a technical reason on this site.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1105">1105<a class="self-link" href="#1105"></a></dfn>
     <dd data-md>
-     <p>Ad not playable for a technical reason on this site.</p>
+     <p>Request for expand not honored. The creative requested to expand but the
+	player did not allow it.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1106">1106<a class="self-link" href="#1106"></a></dfn>
     <dd data-md>
-     <p>Request for expand not honored. The ad requested to expand but the
-	player did not allow it.</p>
+     <p>Request for pause not honored. The creative requested pause but the player
+	did not pause.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1107">1107<a class="self-link" href="#1107"></a></dfn>
     <dd data-md>
-     <p>Request for pause not honored. The ad requested pause but the player
-	did not pause.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1108">1108<a class="self-link" href="#1108"></a></dfn>
-    <dd data-md>
-     <p>Play mode not adequate for ad. The ad requires playback control but
+     <p>Play mode not adequate for creative. The creative requires playback control but
 	the player is not giving control. This error should only fire if the
 	VAST for the ad specified that it needs playback control.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1009">1009<a class="self-link" href="#1009"></a></dfn>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1108">1108<a class="self-link" href="#1108"></a></dfn>
     <dd data-md>
-     <p>Ad internal error. The ad had an error not related to any external dependencies.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1010">1010<a class="self-link" href="#1010"></a></dfn>
+     <p>Ad internal error. The creative had an error not related to any external dependencies.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1109">1109<a class="self-link" href="#1109"></a></dfn>
     <dd data-md>
-     <p>Device not supported. The ad could not play or render on the device.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1199">1199<a class="self-link" href="#1199"></a></dfn>
+     <p>Device not supported. The creative could not play or render on the device.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1110">1110<a class="self-link" href="#1110"></a></dfn>
     <dd data-md>
-     <p>Player cababilities not adequate for ad. Catchall error if the ad
-	could not be more specific.</p>
+     <p>The player is not following the spec in the way it sends messages.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1111">1111<a class="self-link" href="#1111"></a></dfn>
+    <dd data-md>
+     <p>The player is not responding adequately to messages.</p>
    </dl>
    <p>This table indicates defined SIVIC error codes the player may fire:</p>
    <dl>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1200">1200<a class="self-link" href="#1200"></a></dfn>
+    <dd data-md>
+     <p>Unspecified error. Catchall error if the player could not find a matching error code.
+	The player should be more specific in the error message.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1201">1201<a class="self-link" href="#1201"></a></dfn>
     <dd data-md>
-     <p>Uncaught error. The SIVIC ad threw and exception it did not catch.</p>
+     <p>Wrong SIVIC version. The player could not support the creatives version.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1202">1202<a class="self-link" href="#1202"></a></dfn>
     <dd data-md>
-     <p>Wrong handshake version.</p>
+     <p>SIVIC creative requesting more time than the player is willing to support.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1203">1203<a class="self-link" href="#1203"></a></dfn>
+    <dd data-md>
+     <p>SIVIC creative requesting more functionality than the player is willing to support.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1204">1204<a class="self-link" href="#1204"></a></dfn>
+    <dd data-md>
+     <p>SIVIC creative is doing actions not supported on this site.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1205">1205<a class="self-link" href="#1205"></a></dfn>
+    <dd data-md>
+     <p>SIVIC creative is overloading the postmessage channel causing the player to terminate.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1206">1206<a class="self-link" href="#1206"></a></dfn>
+    <dd data-md>
+     <p>The SIVIC creatives video could not be loaded.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1207">1207<a class="self-link" href="#1207"></a></dfn>
+    <dd data-md>
+     <p>The video/audio media related to the SIVIC creative buffered for too long and timed out.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1208">1208<a class="self-link" href="#1208"></a></dfn>
+    <dd data-md>
+     <p>The SIVIC creative is taking too long to resolve or reject messages.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1209">1209<a class="self-link" href="#1209"></a></dfn>
+    <dd data-md>
+     <p>The SIVIC creatives media from the VAST response is not supported on this device.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1210">1210<a class="self-link" href="#1210"></a></dfn>
+    <dd data-md>
+     <p>The SIVIC creative is not following the spec when initializing.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="1211">1211<a class="self-link" href="#1211"></a></dfn>
+    <dd data-md>
+     <p>The SIVIC creative is not following the spec in the way it sends messages.</p>
    </dl>
    <h3 class="heading settled" data-level="8.2" id="ad-completion"><span class="secno">8.2. </span><span class="content">Ad Completion</span><a class="self-link" href="#ad-completion"></a></h3>
    <h2 class="heading settled" data-level="9" id="security"><span class="secno">9. </span><span class="content">Security</span><a class="self-link" href="#security"></a></h2>
@@ -3119,8 +3164,7 @@ primary video.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#1009">1009</a><span>, in §8.1</span>
-   <li><a href="#1010">1010</a><span>, in §8.1</span>
+   <li><a href="#1100">1100</a><span>, in §8.1</span>
    <li><a href="#1101">1101</a><span>, in §8.1</span>
    <li><a href="#1102">1102</a><span>, in §8.1</span>
    <li><a href="#1103">1103</a><span>, in §8.1</span>
@@ -3129,9 +3173,21 @@ primary video.</p>
    <li><a href="#1106">1106</a><span>, in §8.1</span>
    <li><a href="#1107">1107</a><span>, in §8.1</span>
    <li><a href="#1108">1108</a><span>, in §8.1</span>
-   <li><a href="#1199">1199</a><span>, in §8.1</span>
+   <li><a href="#1109">1109</a><span>, in §8.1</span>
+   <li><a href="#1110">1110</a><span>, in §8.1</span>
+   <li><a href="#1111">1111</a><span>, in §8.1</span>
+   <li><a href="#1200">1200</a><span>, in §8.1</span>
    <li><a href="#1201">1201</a><span>, in §8.1</span>
    <li><a href="#1202">1202</a><span>, in §8.1</span>
+   <li><a href="#1203">1203</a><span>, in §8.1</span>
+   <li><a href="#1204">1204</a><span>, in §8.1</span>
+   <li><a href="#1205">1205</a><span>, in §8.1</span>
+   <li><a href="#1206">1206</a><span>, in §8.1</span>
+   <li><a href="#1207">1207</a><span>, in §8.1</span>
+   <li><a href="#1208">1208</a><span>, in §8.1</span>
+   <li><a href="#1209">1209</a><span>, in §8.1</span>
+   <li><a href="#1210">1210</a><span>, in §8.1</span>
+   <li><a href="#1211">1211</a><span>, in §8.1</span>
    <li><a href="#dom-skippablestate-adhandles">"adHandles"</a><span>, in §6.3.2</span>
    <li><a href="#dom-creativedata-adid">adId</a><span>, in §6.3.2</span>
    <li><a href="#dom-creativedata-adparameters">adParameters</a><span>, in §6.3.2</span>
@@ -3152,8 +3208,8 @@ primary video.</p>
    <li><a href="#dom-creativedata-creativeid">creativeId</a><span>, in §6.3.2</span>
    <li><a href="#message-deserialize">deserialize</a><span>, in §5.1.2</span>
    <li><a href="#dom-environmentdata-deviceid">deviceId</a><span>, in §6.3.2</span>
-   <li><a href="#dom-initparameters-environmentdata">environmentData</a><span>, in §6.3.2</span>
    <li><a href="#dictdef-environmentdata">EnvironmentData</a><span>, in §6.3.2</span>
+   <li><a href="#dom-initparameters-environmentdata">environmentData</a><span>, in §6.3.2</span>
    <li><a href="#dom-resolvemessageargsvalue-errorcode">errorCode</a><span>, in §5.3.2</span>
    <li><a href="#message-establish-a-new-session">establish a new session</a><span>, in §5.2.1</span>
    <li><a href="#dom-trackingparameters-event">event</a><span>, in §6.1.11</span>
@@ -3173,8 +3229,8 @@ primary video.</p>
     </ul>
    <li><a href="#dictdef-initparameters">InitParameters</a><span>, in §6.3.2</span>
    <li><a href="#dom-trackingparameters-macros">macros</a><span>, in §6.1.11</span>
-   <li><a href="#dom-resolvemessageargsvalue-message">message</a><span>, in §5.3.2</span>
    <li><a href="#dictdef-message">Message</a><span>, in §5.3</span>
+   <li><a href="#dom-resolvemessageargsvalue-message">message</a><span>, in §5.3.2</span>
    <li>
     messageId
     <ul>
@@ -3406,7 +3462,6 @@ non-SSAI scenarios<a href="#issue-f49d752f"> ↵ </a></div>
    <div class="issue"> add link to final location of reference implementation<a href="#issue-a2fd907b"> ↵ </a></div>
    <div class="issue"> should we also include video element location and size here?<a href="#issue-a3715b66"> ↵ </a></div>
    <div class="issue"> useragent needs some definition or a link to where how this should be populated.<a href="#issue-ba704354"> ↵ </a></div>
-   <div class="issue"> These codes need to be defined.<a href="#issue-c8f72188"> ↵ </a></div>
    <div class="issue"> can width / height coordination not be done through the iframe width
 height, which would not require any API?<a href="#issue-6ed90d5c"> ↵ </a></div>
    <div class="issue"> should the player not also resize the video slot?<a href="#issue-eea3696d"> ↵ </a></div>
