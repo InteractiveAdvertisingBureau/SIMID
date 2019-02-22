@@ -53,6 +53,12 @@ class SivicPlayer {
      */
     this.adComplete_ = adComplete;
 
+    /**
+     * A promise that resolves once start is called.
+     * @private {?Promise}
+     */
+    this.startPromise_ = new Promise();
+
     this.trackEventsOnVideoElement_();
     this.hideAdPlayer_();
 
@@ -75,10 +81,12 @@ class SivicPlayer {
    */
   playAd() {
     this.contentVideoElement_.pause();
-    this.adVideoElement_.src = document.getElementById('video_url').value;
-    this.initializationPromise_.then(
-        this.startCreativePlayback_.bind(this),
-        this.onAdInitializedFailed_.bind(this));
+    this.startPromise_.then(() => {
+      this.adVideoElement_.src = document.getElementById('video_url').value;
+      this.initializationPromise_.then(() => {
+          this.startCreativePlayback_.bind(this),
+          this.onAdInitializedFailed_.bind(this)});
+    });
   }
 
   /**
@@ -124,7 +132,10 @@ class SivicPlayer {
       this.sivicIframe_.remove();
       this.sivicIframe_ = null;
       this.sivicProtocol.reset();
-      this.addListeners_();
+      for(let [key, func] of this.videoTrackingEvents_) {
+        this.adVideoElement_.removeEventListener(key, func, true);
+      }
+      this.videoTrackingEvents_.clear();
     }
   }
 
@@ -187,6 +198,7 @@ class SivicPlayer {
     }
     this.initializationPromise_ = this.sivicProtocol.sendMessage(
         PlayerMessage.INIT, initMessage);
+    this.startPromise_.resolve();
   }
 
   /**
@@ -250,42 +262,44 @@ class SivicPlayer {
    * @private
    */
   trackEventsOnVideoElement_() {
-    this.videoTrackingEvents_ = 
-
-    this.adVideoElement_.addEventListener("durationchange", () => {
+    this.videoTrackingEvents_.set("durationchange", () => {
       this.sivicProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
-    }, true);
-    this.adVideoElement_.addEventListener("ended", this.videoComplete.bind(this), true);
-    this.adVideoElement_.addEventListener("error", () => {
+    });
+    this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
+    this.videoTrackingEvents_.set("error", () => {
       this.sivicProtocol.sendMessage(VideoMessage.ERROR,
         {
           'error': '',  // TODO fill in these values correctly
           'message': ''
         });
-    }, true);
-    this.adVideoElement_.addEventListener("pause", () => {
+    });
+    this.videoTrackingEvents_.set("pause", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PAUSE);
-    }, true);
-    this.adVideoElement_.addEventListener("play", () => {
+    });
+    this.videoTrackingEvents_.set("play", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PLAY);
-    }, true);
-    this.adVideoElement_.addEventListener("playing", () => {
+    });
+    this.videoTrackingEvents_.set("playing", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PLAYING);
-    }, true);
-    this.adVideoElement_.addEventListener("seeked", () => {
+    });
+    this.videoTrackingEvents_.set("seeked", () => {
       this.sivicProtocol.sendMessage(VideoMessage.SEEKED);
-    }, true);
-    this.adVideoElement_.addEventListener("seeking", () => {
+    });
+    this.videoTrackingEvents_.set("seeking", () => {
       this.sivicProtocol.sendMessage(VideoMessage.SEEKING);
-    }, true);
-    this.adVideoElement_.addEventListener("timeupdate", () => {
+    });
+    this.videoTrackingEvents_.set("timeupdate", () => {
       this.sivicProtocol.sendMessage(VideoMessage.TIME_UPDATE,
         {'currentTime': this.adVideoElement_.currentTime});
-    }, true);
-    this.adVideoElement_.addEventListener("volumechange", () => {
+    });
+    this.videoTrackingEvents_.set("volumechange", () => {
       this.sivicProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
         {'volume': this.adVideoElement_.volume});
-    }, true);
+    });
+
+    for(let [key, func] of this.videoTrackingEvents_) {
+      this.adVideoElement_.addEventListener(key, func, true);
+    }
   }
 
   /**
