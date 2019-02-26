@@ -67,6 +67,7 @@ class SivicProtocol {
       'sessionId': this.sessionId_,
       'messageId': messageId,
       'type': nameSpacedMessage,
+      'timestamp': Date.now(),
       'args': messageArgs
     }
 
@@ -104,10 +105,12 @@ class SivicProtocol {
    */
   addResolveRejectListener_(messageId, resolve, reject) {
     const listener = (data) => {
-      if (data['type'] == 'resolve') {
-        resolve(data['args']);
-      } else if (data['type'] == 'reject') {
-        reject(data['args']);
+      const type = data['type'];
+      const args = data['args']['value'];
+      if (type == 'resolve') {
+        resolve(args);
+      } else if (type == 'reject') {
+        reject(args);
       }
     }
     this.resolutionListeners_[messageId] = listener.bind(this);
@@ -194,12 +197,17 @@ class SivicProtocol {
    * @param {!Object} outgoingArgs Any arguments that are part of the resolution.
    */
   resolve(incomingMessage, outgoingArgs) {
-    const messageId = incomingMessage['messageId'];
+    const messageId = this.nextMessageId_ ++;
+    const resolveMessageArgs = {
+      'messageId': incomingMessage['messageId'],
+      'value': outgoingArgs,
+    };
     const message = {
       'sessionId': this.sessionId_,
       'messageId': messageId,
       'type': ProtocolMessage.RESOLVE,
-      'args': outgoingArgs
+      'timestamp': Date.now(),
+      'args': resolveMessageArgs
     }
     this.target_.postMessage(JSON.stringify(message), '*');
   }
@@ -210,12 +218,17 @@ class SivicProtocol {
    * @param {!Object} outgoingArgs Any arguments that are part of the resolution.
    */
   reject(incomingMessage, outgoingArgs) {
-    const messageId = incomingMessage['messageId'];
+    const messageId = this.nextMessageId_ ++;
+    const rejectMessageArgs = {
+      'messageId': incomingMessage['messageId'],
+      'value': outgoingArgs,
+    };
     const message = {
       'sessionId': this.sessionId_,
       'messageId': messageId,
       'type': ProtocolMessage.REJECT,
-      'args': outgoingArgs
+      'timestamp': Date.now(),
+      'args': rejectMessageArgs
     }
     this.target_.postMessage(JSON.stringify(message), '*');
   }
@@ -364,8 +377,9 @@ EventsThatRequireResponse = [
   PlayerMessage.FATAL_ERROR,
   ProtocolMessage.CREATE_SESSION,
   VideoMessage.GET_VIDEO_STATE,
-]
+];
 
+// A list of errors the creative might send to the player.
 CreativeErrorCode = {
   UNSPECIFIED: 1100,
   CANNOT_LOAD_RESOURCE: 1101,
@@ -379,8 +393,9 @@ CreativeErrorCode = {
   DEVICE_NOT_SUPPORTED: 1109,
   MESSAGES_NOT_FOLLOWING_SPEC: 1110,
   PLAYER_RESPONSE_TIMEOUT: 1111,
-}
+};
 
+// A list of errors the player might send to the creative.
 PlayerErrorCode = {
   UNSPECIFIED: 1200,
   WRONG_VERSION: 1201,
@@ -394,4 +409,13 @@ PlayerErrorCode = {
   MEDIA_NOT_SUPPORTED: 1209,
   SPEC_NOT_FOLLOWED_ON_INIT: 1210,
   SPEC_NOT_FOLLOWED_ON_MESSAGES: 1211,
-}
+};
+
+// A list of reasons a player could stop the ad.
+StopCode = {
+  UNSPECIFIED: 0,
+  USER_INITIATED: 1,
+  MEDIA_PLAYBACK_COMPLETE: 2,
+  PLAYER_INITATED: 3,
+  CREATIVE_INITIATED: 4,
+};
