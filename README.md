@@ -2,6 +2,8 @@
 
 The latest human-readable version is available at https://interactiveadvertisingbureau.github.io/SIVIC/
 
+The sample implementation is available at https://interactiveadvertisingbureau.github.io/SIVIC/examples/player/sivic_player.html
+
 ## Contributing
 
 1. Check out this repository to your local machine.
