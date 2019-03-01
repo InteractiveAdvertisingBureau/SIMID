@@ -36,6 +36,15 @@ class SivicProtocol {
         this.receiveMessage.bind(this), false);
   }
 
+  /* Reverts this protocol to its original state */
+  reset() {
+    this.listeners_.clear();
+    this.sessionId_ = '';
+    this.nextMessageId_ = 1;
+    // TODO: Perhaps we should reject all associated promises.
+    this.resolutionListeners_ = {};
+  }
+
   /**
    * Sends a message using post message.  Returns a promise
    * that will resolve or reject after the message receives a response.
@@ -58,6 +67,7 @@ class SivicProtocol {
       'sessionId': this.sessionId_,
       'messageId': messageId,
       'type': nameSpacedMessage,
+      'timestamp': Date.now(),
       'args': messageArgs
     }
 
@@ -95,17 +105,19 @@ class SivicProtocol {
    */
   addResolveRejectListener_(messageId, resolve, reject) {
     const listener = (data) => {
-      if (data['type'] == 'resolve') {
-        resolve(data['args']);
-      } else if (data['type'] == 'reject') {
-        reject(data['args']);
+      const type = data['type'];
+      const args = data['args']['value'];
+      if (type == 'resolve') {
+        resolve(args);
+      } else if (type == 'reject') {
+        reject(args);
       }
     }
     this.resolutionListeners_[messageId] = listener.bind(this);
   }
 
   /**
-   * Recieves messages.
+   * Recieves messages from either the player or creative.
    */
   receiveMessage(event) {
     if (!event || !event.data) {
@@ -142,12 +154,7 @@ class SivicProtocol {
       const specificType = type.substr(6);
       const listeners = this.listeners_[specificType];
       if (listeners) {
-        // calls each of the listeners with the data.
         listeners.forEach((listener) => listener(data));
-      } else {
-        // Typically this could be ignored, but this sample logs these
-        // messages to find potential bugs.
-        console.log('Unexpected message type ' + type);
       }
     }
   }
@@ -190,12 +197,17 @@ class SivicProtocol {
    * @param {!Object} outgoingArgs Any arguments that are part of the resolution.
    */
   resolve(incomingMessage, outgoingArgs) {
-    const messageId = incomingMessage['messageId'];
+    const messageId = this.nextMessageId_ ++;
+    const resolveMessageArgs = {
+      'messageId': incomingMessage['messageId'],
+      'value': outgoingArgs,
+    };
     const message = {
       'sessionId': this.sessionId_,
       'messageId': messageId,
       'type': ProtocolMessage.RESOLVE,
-      'args': outgoingArgs
+      'timestamp': Date.now(),
+      'args': resolveMessageArgs
     }
     this.target_.postMessage(JSON.stringify(message), '*');
   }
@@ -206,12 +218,17 @@ class SivicProtocol {
    * @param {!Object} outgoingArgs Any arguments that are part of the resolution.
    */
   reject(incomingMessage, outgoingArgs) {
-    const messageId = incomingMessage['messageId'];
+    const messageId = this.nextMessageId_ ++;
+    const rejectMessageArgs = {
+      'messageId': incomingMessage['messageId'],
+      'value': outgoingArgs,
+    };
     const message = {
       'sessionId': this.sessionId_,
       'messageId': messageId,
       'type': ProtocolMessage.REJECT,
-      'args': outgoingArgs
+      'timestamp': Date.now(),
+      'args': rejectMessageArgs
     }
     this.target_.postMessage(JSON.stringify(message), '*');
   }
@@ -360,20 +377,45 @@ EventsThatRequireResponse = [
   PlayerMessage.FATAL_ERROR,
   ProtocolMessage.CREATE_SESSION,
   VideoMessage.GET_VIDEO_STATE,
-]
+];
 
-ErrorCode = {
+// A list of errors the creative might send to the player.
+CreativeErrorCode = {
+  UNSPECIFIED: 1100,
   CANNOT_LOAD_RESOURCE: 1101,
-  INCORRECT_INTERFACE: 1102,
-  WRONG_DIMENSIONS: 1103,
-  WRONG_HANDSHAKE: 1104,
-  TECHNICAL_REASONS: 1105,
-  EXPAND_NOT_POSSIBLE: 1106,
-  PAUSE_NOT_HONORED: 1107,
-  PLAYMODE_NOT_ADEQUATE: 1008,
-  AD_INTERNAL_ERROR: 1009,
-  DEVICE_NOT_SUPPORTED: 1010,
-  PLAYER_CAPABILITIES_NOT_ADEQUATE: 1199,
-  UNCAUGHT_ERROR: 1201,
-  WRONG_HANDSHAKE2: 1202,  // TODO: This is a repeast
-}
+  PLAYBACK_AREA_UNUSABLE: 1102,
+  INCORRECT_VERSION: 1103,
+  TECHNICAL_ERROR: 1104,
+  EXPAND_NOT_POSSIBLE: 1105,
+  PAUSE_NOT_HONORED: 1106,
+  PLAYMODE_NOT_ADEQUATE: 1107,
+  CREATIVE_INTERNAL_ERROR: 1108,
+  DEVICE_NOT_SUPPORTED: 1109,
+  MESSAGES_NOT_FOLLOWING_SPEC: 1110,
+  PLAYER_RESPONSE_TIMEOUT: 1111,
+};
+
+// A list of errors the player might send to the creative.
+PlayerErrorCode = {
+  UNSPECIFIED: 1200,
+  WRONG_VERSION: 1201,
+  UNSUPPORTED_TIME: 1202,
+  UNSUPPORTED_FUNCTIONALITY_REQUEST: 1203,
+  UNSUPPORTED_ACTIONS: 1204,
+  POSTMESSAGE_CHANNEL_OVERLOADED: 1205,
+  VIDEO_COULD_NOT_LOAD: 1206,
+  VIDEO_TIME_OUT: 1207,
+  RESPONSE_TIMEOUT: 1208,
+  MEDIA_NOT_SUPPORTED: 1209,
+  SPEC_NOT_FOLLOWED_ON_INIT: 1210,
+  SPEC_NOT_FOLLOWED_ON_MESSAGES: 1211,
+};
+
+// A list of reasons a player could stop the ad.
+StopCode = {
+  UNSPECIFIED: 0,
+  USER_INITIATED: 1,
+  MEDIA_PLAYBACK_COMPLETE: 2,
+  PLAYER_INITATED: 3,
+  CREATIVE_INITIATED: 4,
+};
