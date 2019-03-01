@@ -17,217 +17,200 @@ Inline Github Issues: title
 
 # Executive Summary # {#exec-summary}
 
-The SIVIC standard is intended to address the original mandate of the VPAID
-spec: to establish a common communication protocol between video players and ad
-units that allows a single “executable ad” (one that requires software logic to
-be executed as part of ad playback) to be displayed as an enhancement of
-standard video advertisement, in any compliant video player, with the result
-that advertisers using VPAID ads can provide rich ad experiences for viewers and
-collect ad playback and interaction details that are just as rich as the ad
-experience.
+SIVIC is a standard for providing rich interactivity in the context of
+streaming audio and video ads. While the VAST standard addresses how publishers
+discover various metadata assets related to an ad campaign, SIVIC addresses
+how the publisher’s video player should communicate and interface with a rich
+interactive layer and vice versa. As such, one can think of the SIVIC creative
+as one of the assets listed in a VAST document.
 
-The SIVIC revision is needed specifically to address the following concerns with
-VPAID:
-- **Publisher control:** compatibility with running the interactive code in
-	parallel to the video rather than having the code manage the video delivery,
-	incorporating the following:
-		- VAST 4 style delivery (interactive code delivered separately from the
-			media file)
-		- Compatibility with server-side ad insertion, including live streams
-		- Compatibility with the need to pre-cache at least the video asset on
-			mobile
-- **Security:** compatibility with running in a “protected”/safe iframe and/or
-	being passed a proxy video object by the publisher
-- **Clarity of purpose:** Movement of verification and viewability codebase to a
-	separate codebase, either client-resident in the case of the OM SDK or a
-	separate call to a verification script in VAST 4.1
-- **Clarity of purpose, security, performance:** Unintended usage of VPAID that
-	is disruptive to the user experience and/or publisher operations (specifically
-	client-side arbitration, but other scenarios may exist)
+A main tenet of SIVIC is the separation of the interactive layer from the media
+asset. This clear separation allows publisher players to be in control of their
+streams and enables use cases such as server-side ad insertion (SSAI), as well
+as live streaming.
 
-By specifying a separation of the video asset from the codebase, VAST 4.0 + has
-already done some of the work required to resolve the issues above. The SIVIC
-spec is intended to close the gaps for the purpose of enabling and reporting on
-rich (interactive and dynamic) video ad experiences. Viewability and
-verification will now be handled in separate standard efforts.
+SIVIC was built with strong security from the ground up, and is designed to be
+sandboxed from the media player, providing peace of mind to publishers when
+serving ads from third party services. SIVIC aims to provide the tools and
+controls to allow creatives to offer rich augmented user experiences while
+degrading gracefully if certain features are not supported.
 
-Additionally, the new standard should support all reasonably well-adopted ad
-formats currently available using VPAID.
+<img width="100%" src="images/sivic_overlay.png" alt="A diagram showing SIVIC ads sandboxed from the publisher player environment.">
+A diagram showing SIVIC ads sandboxed from the publisher player environment
 
-# Intended Audience # {#audience}
+SIVIC is part of a broader effort to replace the older VPAID standard. While
+OMID replaces the use case of verification and measurement, SIVIC replaces
+the use case of interactive streaming media ads, the original intended purpose
+of the VPAID standard. SIVIC provides a path for VPAID deprecation and allows
+the industry to move to more secure and transparent standards. SIVIC aims to
+gain broad industry adoption by ensuring that the standard is focused on the
+primary use case of interactivity.
 
-Anyone involved in digital video advertising can benefit from being familiar
-with this specification, however implementation details are targeted toward the
-developers of executable video ads and of video players intended to support
-interactive and/or dynamic video ads enabled by the spec. Specifically, video
-software engineers and video product managers should use this document as a
-guide when implementing technology designed to support SIVIC.
+## SIVIC vs. VPAID Comparison ## {#sivic-vs-vpaid}
+
+<img width="100%" src="images/sivic_vs_vpaid.png" alt="A diagram showing the difference between SIVIC and VPAID security.">
+<style>
+  table.alternatecolor tr:nth-child(odd) {
+    background: #CCCCCC;
+    vertical-align: top;
+  }
+</style>
+<table class="alternatecolor">
+  <tbody>
+    <tr style="background:black;color:white">
+      <td width="20%">Feature</td>
+      <td width="40%" colspan="1" rowspan="1">VPAID</td>
+      <td width="40%">SIVIC</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Resource nature</td>
+      <td colspan="1" rowspan="1">JavaScript file with MIME type application/javascript.</td>
+      <td colspan="1" rowspan="1">HTML file with MIME typetext/html.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Security</td>
+      <td colspan="1" rowspan="1">Creative directly accesses player DOM.</td>
+      <td colspan="1" rowspan="1">Strictly sandboxed into a cross-origin iframe.</td>
+    </tr>
+    <tr class="c13">
+      <td colspan="1" rowspan="1">Video asset management</td>
+      <td colspan="1" rowspan="1">Creative manages media playback.</td>
+      <td colspan="1" rowspan="1">Player manages media playback.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Pre-caching</td>
+      <td colspan="1" rowspan="1">Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.</td>
+      <td colspan="1" rowspan="1">Video and interactive overlay can be pre-cached.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Errors influence on performance</td>
+      <td colspan="1" rowspan="1">Possible site-wide fatal errors can result in significant publisher site performance deterioration.</td>
+      <td colspan="1" rowspan="1">Internal creative errors do not affect player DOM, directly. Risks are limited to interactive component performance only.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">SSAI feasibility</td>
+      <td colspan="1" rowspan="1">SSAI is not possible.</td>
+      <td rowspan="1">Interactive creatives can be rendered in SSAI context.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Latencies</td>
+      <td colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and background processes (verification, trading, wrapping, etc.) Each of these characteristics imposes great latencies.</td>
+      <td colspan="1" rowspan="1">Players can pre-load video and creative assets due to having full control over decisioning and displaying the creative. Ad decisioning latency is removed.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">API</td>
+      <td colspan="1" rowspan="1">Both player and creative must support specific javascript functions.</td>
+      <td colspan="1" rowspan="1">Utilizes native to browsers postMessage API. No custom functions participate in player vs. creative relationships. Player and creative communicate via exchanging of messages based on special protocol.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Ad blocking</td>
+      <td colspan="1" rowspan="1">VPAID can prevent an ad from rendering.</td>
+      <td colspan="1" rowspan="1">SIVIC is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. </td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Verification services</td>
+      <td colspan="1" rowspan="1">Verification features can be fully engaged by VPAID scripts.</td>
+      <td colspan="1" rowspan="1">SIVIC cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIVIC to be focused on interactivity only.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Creative wrapping</td>
+      <td colspan="1" rowspan="1">VPAID ads can load other ads (including other VPAID ads).</td>
+      <td colspan="1" rowspan="1">Cannot be executed.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Audio advertising</td>
+      <td colspan="1" rowspan="1">Out of standard scope.</td>
+      <td colspan="1" rowspan="1">Enables interactive components serving with audio ads.</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1">Environment constraints</td>
+      <td colspan="1" rowspan="1">Player must be an HTML video element.</td>
+      <td colspan="1" rowspan="1">Player can be native or web so long as the SIVIC creative has sandboxed DOM access like in a web view.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Intended Audience ## {#intended-audience}
+
+The SIVIC standard specification is geared toward the digital media
+(video/audio) advertising community. Anyone who is involved can benefit
+from reading the introductory sections. The API and implementation details
+sections are predominantly targeted to engineers developing ad creation
+or serving products with SIVIC interactivity.
+
 
 # Introduction # {#intro}
 
-## Enabling Advanced Video Advertising ## {#enabling-advanced-video-advertising}
+Throughout this document, the SIVIC interactive component is referred
+as a “SIVIC creative” or “creative”.
 
-Standard video ads are limited in what they can do and what they can track. They
-play back linearly from start to finish and support only the tracking provided
-to the publisher in advance via VAST.
+Unless otherwise noted, all features that are discussed in this standard are
+required unless otherwise noted. Standard RFC language will be used.
+See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+for RFC 2119 for enforcement terminology used in this standard.
 
-In cases where the player environment is capable of supporting execution of code
-as part of the video playback experience, that code can be used to present the
-viewer with an array of interactive and/or dynamic features, commonly including
-additional video or image galleries, more detailed product information, store or
-dealer locators, and audience-specific personalized elements.
+## SIVIC Interactive Creative Nature ## {#sivic-interactive-creative-nature}
 
-The SIVIC specification is intended to standardize the communication needed
-between the ad player and the ad creative itself. SIVIC is similar to the VPAID
-spec that preceded it in this regard.
+<img width="100%" src="images/sivic_assets.png" alt="A diagram showing SIVIC where and how sivic video and html assets load.">
 
-## Video Ad Flow ## {#video-ad-flow}
+The SIVIC creative portion is described in the VAST <InteractiveCreativeFile/>
+node as a URL to an HTML resource with MIME type text/html. 
 
-The process of serving an ad is also more or less unchanged from the earlier
-VPAID specification, with two main exceptions.
+Example:
+```
+<MediaFiles>
+<MediaFile …>https://example.com/mediafile.mp4</MediaFile>
+<InteractiveCreativeFile type="text/html" apiFramework="SIVIC" variableDuration="true">
+   	<![CDATA[https://adserver.com/ads/creative.html]]>
+</InteractiveCreativeFile>
+</MediaFiles>
+```
 
-- Access to the video is no longer mediated by the code layer described in this
-	spec, as was the case for VPAID. Pre-caching for mobile and SSAI require
-	direct access to the video and this is reflected in the VAST 4.1 spec, which
-	now separates the video media file from the `InteractiveCreativeFile` asset.
-	Removing this parent-child relationship between the code and the video also no
-	longer allows the code to act as a gatekeeper for the video, which led to the
-	exploitation of VPAID for client-side arbitration.
-- SIVIC also has to account for the SSAI use case - in this case, the video ad
-	is part of an ongoing video stream delivered by the publisher and the SIVIC
-	code is downloaded and executed on a parallel path to the stream.
+Because the creative is an HTML resource that originates in the advertiser’s
+domain, interactive component loading entails creating a cross-origin iframe.
+This means bi-directional communication between the player and creative
+requires using the postMessage API. This, in turn, means that all
+communication between player and creative is asynchronous.
 
-<img width="100%" src="images/vpaid-player.png" alt="Diagram showing interaction
-between video player and VPAID">
+## SIVIC Ad Serving Flow ## {#video-ad-flow}
 
-Issue: the diagram above will need to be revised to account for SSAI and
-non-SSAI scenarios
+The SIVIC ad experience is delivered by concurrently rendering
+the streaming media and the interactive creative. The player obtains
+both media and creative data from VAST 4.x, loads the resources, assembles
+the ad, and ensures a cohesive ad experience.
 
-## Cross-Platform Support ## {#cross-platform}
+Diagram below illustrates resources loading and ad compilation.
+<img width="100%" src="images/sivic_resource_loading.png" alt="Diagram illustrates resources loading and ad compilation.">
 
-As was the case with VPAID, SIVIC is designed to be a
-cross-platform standard, and should be the preferred standard for enabling
-advanced video creative on any device capable of supporting the execution of
-ad-resident code on the device, including desktop, mobile and OTT.
+## Player and Creative Communication ## {#player-creative-communication}
+
+Player and SIVIC creative communicate by sending bidirectional messages over
+the standard postMessage API. SIVIC API requirements govern message construction
+conventions as well as the message data structure.
+
+See sections [[#msg-proto]], [[#api]].
 
 ## Scope and Limitation ## {#scope}
 
-The most important change in scope between VPAID and the SIVIC specification is
-that SIVIC is now only intended to be used to support advanced video creative.
-Verification and viewability are now handled by the Open Measurement spec, and
-part of the rationale for revising SIVIC is clarifying and narrowing the usage
-of code by ad vendors to support the publishers’ need for security and
-performance. Any use of the SIVIC spec to support something other than
-interactive or dynamic content within the ad unit should be by default
-considered as counter to the intentions of the spec.
+The use of HTML is only required for the SIVIC creative, not the publisher
+property hosting that creative. As long as the publisher can load HTML and
+communicate with it over the standard postMessage interface, it can support
+SIVIC. In practice, this means that SIVIC can be hosted in web page iframes,
+mobile app web views, and other platforms. 
 
-Another out-of-scope consideration for this spec is that there may be cases
-where the device is not capable or not willing to execute third-party code
-alongside the video. In these cases an alternate “thin client” solution may need
-to be provided using VAST or another approach, but it will not be addressed
-here. An example of advanced creative supported by VAST include end cards
-executed using VAST companion assets, as well as proprietary ad units developed
-by several mobile SDKs to support advanced video executions in a manner that is
-easily pre-cached.
+Note that certain devices, including TV sets and OTT boxes, limit loading of
+external assets, have limited HTML rendering capabilities or are unable to
+overlay video and HTML. These devices are unable to support SIVIC.
 
-## Market Needs ## {#market-needs}
 
-The VPAID spec that preceded the SIVIC spec was outlined to follow general
-principles, some of which are generally accepted good design principles
-(simplicity, portability, consistency) and others of which reinforce at this
-point relatively well-known aspects of the relationship between the player and
-the ad (the player is in control, and implements support for the full spec to
-support a variety of ad units, whereas a given ad unit implements only the
-aspects of the spec that it needs).
+SIVIC cannot be used to decide which media to show on the client
+pre-impression. This is because the media file must be present alongside
+the SIVIC creative and delivered via the VAST4 media file node. SIVIC should
+not be set up to measure viewability.
 
-In the hopes of going a bit deeper than the abstract principles underlying the
-spec in this new revision, instead we reflect below the market needs driving the
-replacement of VPAID with SIVIC.
-
-- Publisher needs:
-		- Security
-		- Performance
-		- Low latency
-		- Protection of publisher page creative elements from ad code
-		- The minimization of errors and playback issues
-
-- Agency/advertiser/ad platform needs:
-		- Maximum creative control, without interfering with publisher needs above
-		- Access to player-managed capabilities like fullscreen
-		- Ability to pass data into the creative
-		- A defined interface for communicating with elements outside the player and
-			ad
-		- Ability to understand playback environment/device capabilities that may be
-			required for creative execution
-		- The ability to correlate the measurement of interactive events with other
-			measurement now happening outside of VPAID (eg viewability and
-			verification)
-
-- Needs of both:
-		- Document clarity - we should be careful to minimize any confusion about
-			how to implement a player or recognized ad format
-		- Position relative to other standards (VAST, OMID, etc) in any cases of
-			overlap or potential confusion
-
-## Primary Use Cases ## {#use-cases}
-
-The standards revisions in this document intend to support scalable, performant
-interactive video execution in the following cases
-- Server-side ad insertion, with interactive creative operating in parallel to a
-	publisher-controlled video stream
-- Mobile and other bandwidth-constrained scenarios that require pre-loading of
-	assets to enable instant playback
-- Desktop and other playback scenarios currently executed via VPAID, with a
-	reduction in errors, non-standard executions, and performance and security
-	issues. The significant change between VPAID and SIVIC for these scenarios is
-	that video playback control now resides with the publisher player in all
-	cases.
-- In service of all of the above, it is also understood that this version of the
-	SIVIC spec should be interoperable with VAST 4.1.
-- In all cases the understanding is that the playback environment (device and
-	platform) support and permit the execution of code as required by SIVIC.
-
-## Video Player Requirements ## {#player-reqs}
-
-The video player must implement ad loading, check for presence of SIVIC, manage
-video playback, and if present, implement the correct SIVIC version. Recovery
-mechanisms should also be in place should the ad unit fail to follow specified
-protocols correctly. For example, if the video player does not receive the
-AdStopped event from an ad unit after sending a call to {{Ad/stopAd}}, the video
-player should be prepared to react appropriately.
-
-[[#ad-completion]] provides details on error handling and recommended recovery
-action for specific timeout situations.
-
-### Displaying Ad Unit Creative ### {#displaying-creative}
-
-The video advertising industry expects that an impression has indicated that an
-ad was viewed by an end user. Therefore, the video player should ensure that no
-other visual elements from the video player, the webpage, or other ads, display
-over a video ad that is currently in progress.
-
-### Close Control ### {#close-control}
-
-This specification does not mandate a close control or behavior by the video ad
-creative or the video player. Currently, the publisher video player is in full
-control and can dismiss the video ad creative at any point in time. The video
-ad creative can also dismiss itself at any point in time. Some implementations
-may have a publisher provided close control and others may not. Video ad
-creatives may opt to show its own close control. Video ad creatives and
-video players should ensure that consumers are presented with a good ad
-experience.
-
-## Ad Unit Requirements ## {#ad-reqs}
-
-If the ad unit implements SIVIC, it must indicate the correct version. The ad
-unit must implement all methods and properties listed, but can either decline
-from responding or returning a value that indicates that the method or property
-is not supported.
-
-The ad unit should never allow uncaught exceptions to be thrown during calls
-into SIVIC from the video player. See Implementation sections for more specific
-requirements.
-
+Any use of the SIVIC spec to support something other than interactive or
+dynamic content within the ad unit should be by default considered as counter
+to the intentions of the spec.
 
 
 # Messaging Protocol # {#msg-proto}
@@ -1157,6 +1140,16 @@ When an player errors out it must follow these steps.
 5. The creative dispatches `resolve` on the `adSkipped` message
 	[[#sivic-player-fatalError-resolve]].
 6. The player unloads the ad.
+
+### Close Control ### {#close-control}
+
+This specification does not mandate a close control or behavior by the video
+ad creative or the video player. Currently, the publisher video player is in
+full control and can dismiss the video ad creative at any point in time. The
+video ad creative can also request to be dismissed at any point in time. Some
+implementations may have a publisher provided close control and others may not.
+Video ad creatives may opt to show its own close control. Video ad creatives and
+video players should ensure that consumers are presented with a good ad experience.
 
 ### Additional Notes ### {#api-notes}
 
