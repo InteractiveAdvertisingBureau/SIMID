@@ -41,11 +41,34 @@ class SivicPlayer {
      */
     this.initializationPromise_ = null;
 
+    /**
+     * A map of events tracked on the video element.
+     * @private {!Map}
+     */
+    this.videoTrackingEvents_ = new Map();
+
+    /**
+     * A function to execute on ad completion
+     * @private (!Function)
+     */
+    this.adComplete_ = adComplete;
+
+
+    /**
+     * Resolution function for the session created message
+     */
+    this.sessionCreatedResolve_ = null;
+
+    /**
+     * A promise that resolves once the creative creates a session.
+     * @private {?Promise}
+     */
+    this.sessionCreated_ = new Promise((resolve, reject) => {
+      this.sessionCreatedResolve_ = resolve;
+    });
+
     this.trackEventsOnVideoElement_();
     this.hideAdPlayer_();
-
-    // TODO: This sample player does not fire any tracking events so
-    // doesn't notify the creative about vast events.
   }
 
   /**
@@ -63,10 +86,12 @@ class SivicPlayer {
    */
   playAd() {
     this.contentVideoElement_.pause();
-    this.adVideoElement_.src = document.getElementById('video_url').value;
-    this.initializationPromise_.then(
-        this.startCreativePlayback_.bind(this),
-        this.onAdInitializedFailed_.bind(this));
+    // First make sure that a session is created.
+    this.sessionCreated_.then(() => {
+      // Once the creative responds to the initialize message, start playback.
+      this.initializationPromise_.then(this.startCreativePlayback_.bind(this))
+          .catch(this.onAdInitializedFailed_.bind(this));
+    });
   }
 
   /**
@@ -111,8 +136,13 @@ class SivicPlayer {
     if (this.sivicIframe_) {
       this.sivicIframe_.remove();
       this.sivicIframe_ = null;
-      this.sivicProtocol = null;
+      this.sivicProtocol.reset();
     }
+    this.videoTrackingEvents_.clear();
+    for(let [key, func] of this.videoTrackingEvents_) {
+      this.adVideoElement_.removeEventListener(key, func, true);
+    }
+    this.adComplete_();
   }
 
   /**
@@ -174,6 +204,8 @@ class SivicPlayer {
     }
     this.initializationPromise_ = this.sivicProtocol.sendMessage(
         PlayerMessage.INIT, initMessage);
+    // It is possible that start is called before this initializationm message is sent.
+    this.sessionCreatedResolve_();
   }
 
   /**
@@ -186,6 +218,7 @@ class SivicPlayer {
     // If the ad is not visible it must be made visible here.
     this.showSivicIFrame_();
     this.showAdPlayer_();
+    this.adVideoElement_.src = document.getElementById('video_url').value;
     this.adVideoElement_.play();
     this.sivicProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
@@ -198,14 +231,13 @@ class SivicPlayer {
    */
   onAdInitializedFailed_(data) {
     console.log("Ad did not inialize so we can error out.");
-    const errorMessage = {
-      'errorCode': data['errorCode'], // Reuse the error code from the creative.
-      'errorMessage': 'Ad failed to initialize.' 
+    const closeMessage = {
+      'code': StopReason.CREATIVE_INITIATED,
     }
     // Instead of destroying the iframe immediately tell hide it until
     // it acknowledges its fatal error.
     this.hideSivicIFrame_();
-    this.sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, {})
+    this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
       .then(this.stopAd.bind(this));
   }
 
@@ -237,40 +269,44 @@ class SivicPlayer {
    * @private
    */
   trackEventsOnVideoElement_() {
-    this.adVideoElement_.addEventListener("durationchange", () => {
+    this.videoTrackingEvents_.set("durationchange", () => {
       this.sivicProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
-    }, true);
-    this.adVideoElement_.addEventListener("ended", this.videoComplete.bind(this), true);
-    this.adVideoElement_.addEventListener("error", () => {
+    });
+    this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
+    this.videoTrackingEvents_.set("error", () => {
       this.sivicProtocol.sendMessage(VideoMessage.ERROR,
         {
           'error': '',  // TODO fill in these values correctly
           'message': ''
         });
-    }, true);
-    this.adVideoElement_.addEventListener("pause", () => {
+    });
+    this.videoTrackingEvents_.set("pause", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PAUSE);
-    }, true);
-    this.adVideoElement_.addEventListener("play", () => {
+    });
+    this.videoTrackingEvents_.set("play", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PLAY);
-    }, true);
-    this.adVideoElement_.addEventListener("playing", () => {
+    });
+    this.videoTrackingEvents_.set("playing", () => {
       this.sivicProtocol.sendMessage(VideoMessage.PLAYING);
-    }, true);
-    this.adVideoElement_.addEventListener("seeked", () => {
+    });
+    this.videoTrackingEvents_.set("seeked", () => {
       this.sivicProtocol.sendMessage(VideoMessage.SEEKED);
-    }, true);
-    this.adVideoElement_.addEventListener("seeking", () => {
+    });
+    this.videoTrackingEvents_.set("seeking", () => {
       this.sivicProtocol.sendMessage(VideoMessage.SEEKING);
-    }, true);
-    this.adVideoElement_.addEventListener("timeupdate", () => {
+    });
+    this.videoTrackingEvents_.set("timeupdate", () => {
       this.sivicProtocol.sendMessage(VideoMessage.TIME_UPDATE,
         {'currentTime': this.adVideoElement_.currentTime});
-    }, true);
-    this.adVideoElement_.addEventListener("volumechange", () => {
+    });
+    this.videoTrackingEvents_.set("volumechange", () => {
       this.sivicProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
         {'volume': this.adVideoElement_.volume});
-    }, true);
+    });
+
+    for(let [key, func] of this.videoTrackingEvents_) {
+      this.adVideoElement_.addEventListener(key, func, true);
+    }
   }
 
   /**
@@ -281,6 +317,9 @@ class SivicPlayer {
       this.sivicProtocol.sendMessage(VideoMessage.ENDED);
       // once an ad is complete an the iframe should be hidden
       this.hideSivicIFrame_();
+      const closeMessage = {
+        'code': StopReason.CREATIVE_INITIATED,
+      }
       // Wait for the SIVIC creative to acknowledge stop and then clean
       // up the iframe.
       this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED)
@@ -340,12 +379,11 @@ class SivicPlayer {
   /** The creative wants to stop with a fatal error. */
   onCreativeFatalError(incomingMessage) {
     this.sivicProtocol.resolve(incomingMessage);
-    const errorReason = {
-      'errorCode': ErrorCode.AD_INTERNAL_ERROR, // TODO there was no good error code.
-      'errorMessage': 'Creative had fatal error.'
+    const closeMessage = {
+      'code': StopReason.CREATIVE_INITIATED,
     }
-    this.sivicProtocol.sendMessage(PlayerMessage.FATAL_ERROR, errorReason)
-        .then(this.stopAd.bind(this));
+    this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
+      .then(this.destroySivicIframe());
   }
 
   /** The creative wants to skip this ad. */
@@ -363,6 +401,16 @@ class SivicPlayer {
     }
     // After the creative resolves then the iframe should be destroyed.
     this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
-        .then(this.stopAd.bind(this));
+        .then(this.destroySivicIframe());
+  }
+
+  /**
+   * The player must implement sending tracking pixels from the creative.
+   * This sample implementation does not show how to send tracking pixels or
+   * replace macros. That should be done using the players standard workflow.
+   */
+  onReportTracking(incomingMessage) {
+    const requestedUrlArray = incomingMessage.args['trackingUrls']
+    console.log('The creative has asked for the player to ping ' + requestedUrlArray);
   }
 }
