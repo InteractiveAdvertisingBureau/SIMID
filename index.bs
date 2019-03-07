@@ -1052,10 +1052,10 @@ The player did not change to the requested volume.
 ### SIVIC:Creative:requestFullScreen ### {#sivic-creative-requestFullScreen}
 The creative is requesting to go full screen. Not all browsers support this.
 
-#### resolve #### {#sivic-creative-requestFullscreen-resolve}
+#### resolve #### {#sivic-creative-requestFullScreen-resolve}
 The player has gone full screen.
-#### reject #### {#sivic-creative-requestFullscreen-reject}
-The player did go full screen.
+#### reject #### {#sivic-creative-requestFullScreen-reject}
+The player did not go full screen.
 
 ### SIVIC:Creative:requestPause ### {#sivic-creative-requestPause}
 The creative wants the video element to pause media playback.
