@@ -232,7 +232,7 @@ class SivicPlayer {
   onAdInitializedFailed_(data) {
     console.log("Ad did not inialize so we can error out.");
     const closeMessage = {
-      'code': StopReason.CREATIVE_INITIATED,
+      'code': StopCode.CREATIVE_INITIATED,
     }
     // Instead of destroying the iframe immediately tell hide it until
     // it acknowledges its fatal error.
@@ -260,6 +260,7 @@ class SivicPlayer {
 
   /** @private */
   hideAdPlayer_() {
+    // Unload the video
     this.adVideoElement_.style.display = 'none';
     document.getElementById('ad_video_div').style.display = 'none';
   }
@@ -318,7 +319,7 @@ class SivicPlayer {
       // once an ad is complete an the iframe should be hidden
       this.hideSivicIFrame_();
       const closeMessage = {
-        'code': StopReason.CREATIVE_INITIATED,
+        'code': StopCode.MEDIA_PLAYBACK_COMPLETE,
       }
       // Wait for the SIVIC creative to acknowledge stop and then clean
       // up the iframe.
@@ -380,28 +381,28 @@ class SivicPlayer {
   onCreativeFatalError(incomingMessage) {
     this.sivicProtocol.resolve(incomingMessage);
     const closeMessage = {
-      'code': StopReason.CREATIVE_INITIATED,
+      'code': StopCode.CREATIVE_INITIATED,
     }
     this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
-      .then(this.destroySivicIframe());
+      .then(this.stopAd());
   }
 
   /** The creative wants to skip this ad. */
   onRequestSkip(incomingMessage) {
     this.sivicProtocol.resolve(incomingMessage);
     this.sivicProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
-        .then(this.stopAd.bind(this));
+        .then(this.stopAd());
   }
   
   /** The creative wants to stop the ad early. */
   onRequestStop(incomingMessage) {
     this.sivicProtocol.resolve(incomingMessage);
     const stopReason = {
-      'code': 0 // TODO codes are not defined.
+      'code': StopCode.CREATIVE_INITIATED,
     }
     // After the creative resolves then the iframe should be destroyed.
     this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
-        .then(this.destroySivicIframe());
+        .then(this.stopAd());
   }
 
   /**
