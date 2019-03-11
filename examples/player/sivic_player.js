@@ -176,7 +176,6 @@ class SivicPlayer {
     const environmentData = {
       'videoDimenions': videoDimensions,
       'creativeDimensions': creativeDimensions,
-      'mode': 'portrait', // TODO: maybe there should be a desktop mode available
       'fullscreen': false,
       'fullscreenAllowed': true,
       'variableDurationAllowed': true,
