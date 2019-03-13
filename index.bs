@@ -1052,10 +1052,10 @@ The player did not change to the requested volume.
 ### SIVIC:Creative:requestFullScreen ### {#sivic-creative-requestFullScreen}
 The creative is requesting to go full screen. Not all browsers support this.
 
-#### resolve #### {#sivic-creative-requestFullscreen-resolve}
+#### resolve #### {#sivic-creative-requestFullScreen-resolve}
 The player has gone full screen.
-#### reject #### {#sivic-creative-requestFullscreen-reject}
-The player did go full screen.
+#### reject #### {#sivic-creative-requestFullScreen-reject}
+The player did not go full screen.
 
 ### SIVIC:Creative:requestPause ### {#sivic-creative-requestPause}
 The creative wants the video element to pause media playback.
@@ -1269,15 +1269,16 @@ When an player errors out it must follow these steps.
 	[[#sivic-player-fatalError-resolve]].
 6. The player unloads the ad.
 
-### Close Control ### {#close-control}
+### User Experience ### {#user-experience}
 
-This specification does not mandate a close control or behavior by the video
-ad creative or the video player. Currently, the publisher video player is in
-full control and can dismiss the video ad creative at any point in time. The
-video ad creative can also request to be dismissed at any point in time. Some
-implementations may have a publisher provided close control and others may not.
-Video ad creatives may opt to show its own close control. Video ad creatives and
-video players should ensure that consumers are presented with a good ad experience.
+This specification does not define the user experience for a close control or other generic media interaction 
+behavior by the ad creative or the media player. The publisher media player is in
+full control over its user experience and can present its controls (or hide them) as needed.
+The publisher media player may dismiss the ad creative at any point in time. The
+ad creative can also request to be dismissed at any point in time. Some
+implementations may have a publisher provided close control, as well as various other controls, and others may not.
+Ad creatives may opt to show its own controls, including a close control. Ad creatives and
+media players should ensure that consumers are presented with a good ad experience.
 
 ### Additional Notes ### {#api-notes}
 
