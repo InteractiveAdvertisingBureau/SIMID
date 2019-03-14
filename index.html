@@ -1727,7 +1727,7 @@ sandboxed from the media player, providing peace of mind to publishers when
 serving ads from third party services. SIVIC aims to provide the tools and
 controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
-   <p><img alt="A diagram showing SIVIC ads sandboxed from the publisher player environment." src="images/sivic_figure_1_overlay.png" width="100%"> A diagram showing SIVIC ads sandboxed from the publisher player environment</p>
+   <p><img alt="A diagram showing SIVIC ads sandboxed from the publisher player environment." src="images/sivic_diagram_1_overlay.png" width="100%"> A diagram showing SIVIC ads sandboxed from the publisher player environment</p>
    <p>SIVIC is part of a broader effort to replace the older VPAID standard. While
 OMID replaces the use case of verification and measurement, SIVIC replaces
 the use case of interactive streaming media ads, the original intended purpose
@@ -1736,7 +1736,7 @@ the industry to move to more secure and transparent standards. SIVIC aims to
 gain broad industry adoption by ensuring that the standard is focused on the
 primary use case of interactivity.</p>
    <h3 class="heading settled" data-level="2.1" id="sivic-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIVIC vs. VPAID Comparison</span><a class="self-link" href="#sivic-vs-vpaid"></a></h3>
-   <p><img alt="A diagram showing the difference between SIVIC and VPAID security." src="images/sivic_figure_2_api_models.png" width="100%"></p>
+   <p><img alt="A diagram showing the difference between SIVIC and VPAID security." src="images/sivic_diagram_2_api_models.png" width="100%"></p>
    <table class="alternatecolor">
     <tbody>
      <tr style="background:black;color:white">
@@ -1809,7 +1809,7 @@ as a “SIVIC creative” or “creative”.</p>
 required unless otherwise noted. Standard RFC language will be used.
 See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a> for RFC 2119 for enforcement terminology used in this standard.</p>
    <h3 class="heading settled" data-level="3.1" id="sivic-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIVIC Interactive Creative Nature</span><a class="self-link" href="#sivic-interactive-creative-nature"></a></h3>
-   <p><img alt="A diagram showing SIVIC where and how sivic video and html assets load." src="images/sivic_figure_3_assets.png" width="100%"></p>
+   <p><img alt="A diagram showing SIVIC where and how sivic video and html assets load." src="images/sivic_diagram_3_assets.png" width="100%"></p>
    <p>
     The SIVIC creative portion is described in the VAST 
     <interactivecreativefile> node as a URL to an HTML resource with MIME type text/html.</interactivecreativefile>
@@ -1832,7 +1832,7 @@ communication between player and creative is asynchronous.</p>
 the streaming media and the interactive creative. The player obtains
 both media and creative data from VAST 4.x, loads the resources, assembles
 the ad, and ensures a cohesive ad experience.</p>
-   <p>Diagram below illustrates resources loading and ad compilation. <img alt="Diagram illustrates resources loading and ad compilation." src="images/sivic_resource_loading.png" width="100%"></p>
+   <p>Diagram below illustrates resources loading and ad compilation. <img alt="Diagram illustrates resources loading and ad compilation." src="images/sivic_diagram_4_loading.png" width="100%"></p>
    <h3 class="heading settled" data-level="3.3" id="player-creative-communication"><span class="secno">3.3. </span><span class="content">Player and Creative Communication</span><a class="self-link" href="#player-creative-communication"></a></h3>
    <p>Player and SIVIC creative communicate by sending bidirectional messages over
 the standard postMessage API. SIVIC API requirements govern message construction
