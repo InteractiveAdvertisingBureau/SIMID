@@ -35,7 +35,7 @@ serving ads from third party services. SIVIC aims to provide the tools and
 controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.
 
-<img width="100%" src="images/sivic_overlay.png" alt="A diagram showing SIVIC ads sandboxed from the publisher player environment.">
+<img width="100%" src="images/sivic_figure_1_overlay.png" alt="A diagram showing SIVIC ads sandboxed from the publisher player environment.">
 A diagram showing SIVIC ads sandboxed from the publisher player environment
 
 SIVIC is part of a broader effort to replace the older VPAID standard. While
@@ -48,7 +48,7 @@ primary use case of interactivity.
 
 ## SIVIC vs. VPAID Comparison ## {#sivic-vs-vpaid}
 
-<img width="100%" src="images/sivic_vs_vpaid.png" alt="A diagram showing the difference between SIVIC and VPAID security.">
+<img width="100%" src="images/sivic_figure_2_api_models.png" alt="A diagram showing the difference between SIVIC and VPAID security.">
 <style>
   table.alternatecolor tr:nth-child(odd) {
     background: #CCCCCC;
@@ -151,7 +151,7 @@ for RFC 2119 for enforcement terminology used in this standard.
 
 ## SIVIC Interactive Creative Nature ## {#sivic-interactive-creative-nature}
 
-<img width="100%" src="images/sivic_assets.png" alt="A diagram showing SIVIC where and how sivic video and html assets load.">
+<img width="100%" src="images/sivic_figure_3_assets.png" alt="A diagram showing SIVIC where and how sivic video and html assets load.">
 
 The SIVIC creative portion is described in the VAST <InteractiveCreativeFile/>
 node as a URL to an HTML resource with MIME type text/html. 
