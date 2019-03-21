@@ -1,7 +1,7 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>Secure Interface for Video Interactive Creative (SIVIC)</title>
+  <title>Secure Interactive Media Interface Definition (SIMID)</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
@@ -1212,8 +1212,8 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 9c9e00cfdaddb9b81439182b02ae23e5d5b65b2d" name="generator">
-  <link href="https://interactiveadvertisingbureau.github.io/SIVIC/" rel="canonical">
+  <meta content="Bikeshed version 8ac92da89bb2253e0da87e20a9b9caa745f5f5b6" name="generator">
+  <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
   table.alternatecolor tr:nth-child(odd) {
     background: #CCCCCC;
@@ -1476,14 +1476,14 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">Secure Interface for Video Interactive Creative (SIVIC)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-14">14 March 2019</time></span></h2>
+   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID)</h1>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-21">21 March 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://interactiveadvertisingbureau.github.io/SIVIC/">https://interactiveadvertisingbureau.github.io/SIVIC/</a>
+     <dd><a class="u-url" href="https://interactiveadvertisingbureau.github.io/SIMID/">https://interactiveadvertisingbureau.github.io/SIMID/</a>
      <dt>Issue Tracking:
-     <dd><a href="https://github.com/InteractiveAdvertisingBureau/SIVIC/issues/">GitHub</a>
+     <dd><a href="https://github.com/InteractiveAdvertisingBureau/SIMID/issues/">GitHub</a>
      <dd><a href="#issues-index">Inline In Spec</a>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:pieter.mees@zentrick.com">Pieter Mees</a> (<span class="p-org org">Zentrick</span>)
@@ -1492,7 +1492,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 14 March 2019,
+In addition, as of 21 March 2019,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1510,14 +1510,14 @@ Parts of this work may be from another specification document.  If so, those par
     <li>
      <a href="#exec-summary"><span class="secno">2</span> <span class="content">Executive Summary</span></a>
      <ol class="toc">
-      <li><a href="#sivic-vs-vpaid"><span class="secno">2.1</span> <span class="content">SIVIC vs. VPAID Comparison</span></a>
+      <li><a href="#sivic-vs-vpaid"><span class="secno">2.1</span> <span class="content">SIMID vs. VPAID Comparison</span></a>
       <li><a href="#intended-audience"><span class="secno">2.2</span> <span class="content">Intended Audience</span></a>
      </ol>
     <li>
      <a href="#intro"><span class="secno">3</span> <span class="content">Introduction</span></a>
      <ol class="toc">
-      <li><a href="#sivic-interactive-creative-nature"><span class="secno">3.1</span> <span class="content">SIVIC Interactive Creative Nature</span></a>
-      <li><a href="#video-ad-flow"><span class="secno">3.2</span> <span class="content">SIVIC Ad Serving Flow</span></a>
+      <li><a href="#sivic-interactive-creative-nature"><span class="secno">3.1</span> <span class="content">SIMID Interactive Creative Nature</span></a>
+      <li><a href="#video-ad-flow"><span class="secno">3.2</span> <span class="content">SIMID Ad Serving Flow</span></a>
       <li><a href="#player-creative-communication"><span class="secno">3.3</span> <span class="content">Player and Creative Communication</span></a>
       <li><a href="#scope"><span class="secno">3.4</span> <span class="content">Scope and Limitation</span></a>
      </ol>
@@ -1551,119 +1551,125 @@ Parts of this work may be from another specification document.  If so, those par
       <li>
        <a href="#video-messages"><span class="secno">5.2</span> <span class="content">Messages triggered by video element events</span></a>
        <ol class="toc">
-        <li><a href="#sivic-video-durationchange"><span class="secno">5.2.1</span> <span class="content">SIVIC:Video:durationchange</span></a>
-        <li><a href="#sivic-video-ended"><span class="secno">5.2.2</span> <span class="content">SIVIC:Video:ended</span></a>
-        <li><a href="#sivic-video-error"><span class="secno">5.2.3</span> <span class="content">SIVIC:Video:error</span></a>
-        <li><a href="#sivic-video-pause"><span class="secno">5.2.4</span> <span class="content">SIVIC:Video:pause</span></a>
-        <li><a href="#sivic-video-play"><span class="secno">5.2.5</span> <span class="content">SIVIC:Video:play</span></a>
-        <li><a href="#sivic-video-playing"><span class="secno">5.2.6</span> <span class="content">SIVIC:Video:playing</span></a>
-        <li><a href="#sivic-video-seeked"><span class="secno">5.2.7</span> <span class="content">SIVIC:Video:seeked</span></a>
-        <li><a href="#sivic-video-seeking"><span class="secno">5.2.8</span> <span class="content">SIVIC:Video:seeking</span></a>
-        <li><a href="#sivic-video-stalled"><span class="secno">5.2.9</span> <span class="content">SIVIC:Video:stalled</span></a>
-        <li><a href="#sivic-video-timeupdate"><span class="secno">5.2.10</span> <span class="content">SIVIC:Video:timeupdate</span></a>
-        <li><a href="#sivic-video-volumechange"><span class="secno">5.2.11</span> <span class="content">SIVIC:Video:volumechange</span></a>
+        <li><a href="#sivic-video-durationchange"><span class="secno">5.2.1</span> <span class="content">SIMID:Video:durationchange</span></a>
+        <li><a href="#sivic-video-ended"><span class="secno">5.2.2</span> <span class="content">SIMID:Video:ended</span></a>
+        <li><a href="#sivic-video-error"><span class="secno">5.2.3</span> <span class="content">SIMID:Video:error</span></a>
+        <li><a href="#sivic-video-pause"><span class="secno">5.2.4</span> <span class="content">SIMID:Video:pause</span></a>
+        <li><a href="#sivic-video-play"><span class="secno">5.2.5</span> <span class="content">SIMID:Video:play</span></a>
+        <li><a href="#sivic-video-playing"><span class="secno">5.2.6</span> <span class="content">SIMID:Video:playing</span></a>
+        <li><a href="#sivic-video-seeked"><span class="secno">5.2.7</span> <span class="content">SIMID:Video:seeked</span></a>
+        <li><a href="#sivic-video-seeking"><span class="secno">5.2.8</span> <span class="content">SIMID:Video:seeking</span></a>
+        <li><a href="#sivic-video-stalled"><span class="secno">5.2.9</span> <span class="content">SIMID:Video:stalled</span></a>
+        <li><a href="#sivic-video-timeupdate"><span class="secno">5.2.10</span> <span class="content">SIMID:Video:timeupdate</span></a>
+        <li><a href="#sivic-video-volumechange"><span class="secno">5.2.11</span> <span class="content">SIMID:Video:volumechange</span></a>
        </ol>
       <li>
        <a href="#player-messages"><span class="secno">5.3</span> <span class="content">Messages from the player</span></a>
        <ol class="toc">
         <li>
-         <a href="#sivic-player-adSkipped"><span class="secno">5.3.1</span> <span class="content">SIVIC:Player:adSkipped</span></a>
+         <a href="#sivic-player-adSkipped"><span class="secno">5.3.1</span> <span class="content">SIMID:Player:adSkipped</span></a>
          <ol class="toc">
           <li><a href="#sivic-player-adSkipped-resolve"><span class="secno">5.3.1.1</span> <span class="content">resolve</span></a>
          </ol>
         <li>
-         <a href="#sivic-player-adStopped"><span class="secno">5.3.2</span> <span class="content">SIVIC:Player:adStopped</span></a>
+         <a href="#sivic-player-adStopped"><span class="secno">5.3.2</span> <span class="content">SIMID:Player:adStopped</span></a>
          <ol class="toc">
           <li><a href="#sivic-player-adStopped-resolve"><span class="secno">5.3.2.1</span> <span class="content">resolve</span></a>
          </ol>
         <li>
-         <a href="#sivic-player-fatalError"><span class="secno">5.3.3</span> <span class="content">SIVIC:Player:fatalError</span></a>
+         <a href="#sivic-player-app-backgrounding"><span class="secno">5.3.3</span> <span class="content">SIMID:Player:appBackgrounding</span></a>
          <ol class="toc">
-          <li><a href="#sivic-player-fatalError-resolve"><span class="secno">5.3.3.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-player-app-backgrounding-resolve"><span class="secno">5.3.3.1</span> <span class="content">resolve</span></a>
+         </ol>
+        <li><a href="#sivic-player-app-foregrounding"><span class="secno">5.3.4</span> <span class="content">SIMID:Player:appForegrounding</span></a>
+        <li>
+         <a href="#sivic-player-fatalError"><span class="secno">5.3.5</span> <span class="content">SIMID:Player:fatalError</span></a>
+         <ol class="toc">
+          <li><a href="#sivic-player-fatalError-resolve"><span class="secno">5.3.5.1</span> <span class="content">resolve</span></a>
          </ol>
         <li>
-         <a href="#sivic-player-init"><span class="secno">5.3.4</span> <span class="content">SIVIC:Player:init</span></a>
+         <a href="#sivic-player-init"><span class="secno">5.3.6</span> <span class="content">SIMID:Player:init</span></a>
          <ol class="toc">
-          <li><a href="#sivic-player-init-resolve"><span class="secno">5.3.4.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-player-init-reject"><span class="secno">5.3.4.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-player-init-resolve"><span class="secno">5.3.6.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-player-init-reject"><span class="secno">5.3.6.2</span> <span class="content">reject</span></a>
          </ol>
-        <li><a href="#sivic-player-log"><span class="secno">5.3.5</span> <span class="content">SIVIC:Player:log</span></a>
-        <li><a href="#sivic-player-resize"><span class="secno">5.3.6</span> <span class="content">SIVIC:Player:resize</span></a>
+        <li><a href="#sivic-player-log"><span class="secno">5.3.7</span> <span class="content">SIMID:Player:log</span></a>
+        <li><a href="#sivic-player-resize"><span class="secno">5.3.8</span> <span class="content">SIMID:Player:resize</span></a>
         <li>
-         <a href="#sivic-player-startCreative"><span class="secno">5.3.7</span> <span class="content">SIVIC:Player:startCreative</span></a>
+         <a href="#sivic-player-startCreative"><span class="secno">5.3.9</span> <span class="content">SIMID:Player:startCreative</span></a>
          <ol class="toc">
-          <li><a href="#sivic-player-startCreative-resolve"><span class="secno">5.3.7.1</span> <span class="content">resolve</span></a>
-          <li><a href="#sivic-player-startCreative-reject"><span class="secno">5.3.7.2</span> <span class="content">reject</span></a>
+          <li><a href="#sivic-player-startCreative-resolve"><span class="secno">5.3.9.1</span> <span class="content">resolve</span></a>
+          <li><a href="#sivic-player-startCreative-reject"><span class="secno">5.3.9.2</span> <span class="content">reject</span></a>
          </ol>
        </ol>
       <li>
        <a href="#creative-messages"><span class="secno">5.4</span> <span class="content">Messages from the Creative to the Player</span></a>
        <ol class="toc">
-        <li><a href="#sivic-creative-clickThru"><span class="secno">5.4.1</span> <span class="content">SIVIC:Creative:clickThru</span></a>
-        <li><a href="#sivic-creative-fatalError"><span class="secno">5.4.2</span> <span class="content">SIVIC:Creative:fatalError</span></a>
+        <li><a href="#sivic-creative-clickThru"><span class="secno">5.4.1</span> <span class="content">SIMID:Creative:clickThru</span></a>
+        <li><a href="#sivic-creative-fatalError"><span class="secno">5.4.2</span> <span class="content">SIMID:Creative:fatalError</span></a>
         <li>
-         <a href="#sivic-creative-getVideoState"><span class="secno">5.4.3</span> <span class="content">SIVIC:Creative:getVideoState</span></a>
+         <a href="#sivic-creative-getVideoState"><span class="secno">5.4.3</span> <span class="content">SIMID:Creative:getVideoState</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-getVideoState-resolve"><span class="secno">5.4.3.1</span> <span class="content">resolve</span></a>
          </ol>
-        <li><a href="#sivic-creative-log"><span class="secno">5.4.4</span> <span class="content">SIVIC:Creative:log</span></a>
+        <li><a href="#sivic-creative-log"><span class="secno">5.4.4</span> <span class="content">SIMID:Creative:log</span></a>
         <li>
-         <a href="#sivic-creative-reportTracking"><span class="secno">5.4.5</span> <span class="content">SIVIC:Creative:reportTracking</span></a>
+         <a href="#sivic-creative-reportTracking"><span class="secno">5.4.5</span> <span class="content">SIMID:Creative:reportTracking</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-reportTracking-resolve"><span class="secno">5.4.5.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-reportTracking-reject"><span class="secno">5.4.5.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestChangeAdDuration"><span class="secno">5.4.6</span> <span class="content">SIVIC:Creative:requestChangeAdDuration</span></a>
+         <a href="#sivic-creative-requestChangeAdDuration"><span class="secno">5.4.6</span> <span class="content">SIMID:Creative:requestChangeAdDuration</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestChangeAdDuration-resolve"><span class="secno">5.4.6.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestChangeAdDuration-reject"><span class="secno">5.4.6.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestChangeVolume"><span class="secno">5.4.7</span> <span class="content">SIVIC:Creative:requestChangeVolume</span></a>
+         <a href="#sivic-creative-requestChangeVolume"><span class="secno">5.4.7</span> <span class="content">SIMID:Creative:requestChangeVolume</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestChangeVolume-resolve"><span class="secno">5.4.7.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestChangeVolume-reject"><span class="secno">5.4.7.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestFullScreen"><span class="secno">5.4.8</span> <span class="content">SIVIC:Creative:requestFullScreen</span></a>
+         <a href="#sivic-creative-requestFullScreen"><span class="secno">5.4.8</span> <span class="content">SIMID:Creative:requestFullScreen</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestFullScreen-resolve"><span class="secno">5.4.8.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestFullScreen-reject"><span class="secno">5.4.8.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestPause"><span class="secno">5.4.9</span> <span class="content">SIVIC:Creative:requestPause</span></a>
+         <a href="#sivic-creative-requestPause"><span class="secno">5.4.9</span> <span class="content">SIMID:Creative:requestPause</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestPause-resolve"><span class="secno">5.4.9.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestPause-reject"><span class="secno">5.4.9.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestPlay"><span class="secno">5.4.10</span> <span class="content">SIVIC:Creative:requestPlay</span></a>
+         <a href="#sivic-creative-requestPlay"><span class="secno">5.4.10</span> <span class="content">SIMID:Creative:requestPlay</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestPlay-resolve"><span class="secno">5.4.10.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestPlay-reject"><span class="secno">5.4.10.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestResize"><span class="secno">5.4.11</span> <span class="content">SIVIC:Creative:requestResize</span></a>
+         <a href="#sivic-creative-requestResize"><span class="secno">5.4.11</span> <span class="content">SIMID:Creative:requestResize</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestResize-resolve"><span class="secno">5.4.11.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestResize-reject"><span class="secno">5.4.11.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestSkip"><span class="secno">5.4.12</span> <span class="content">SIVIC:Creative:requestSkip</span></a>
+         <a href="#sivic-creative-requestSkip"><span class="secno">5.4.12</span> <span class="content">SIMID:Creative:requestSkip</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestSkip-resolve"><span class="secno">5.4.12.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestSkip-reject"><span class="secno">5.4.12.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#sivic-creative-requestStop"><span class="secno">5.4.13</span> <span class="content">SIVIC:Creative:requestStop</span></a>
+         <a href="#sivic-creative-requestStop"><span class="secno">5.4.13</span> <span class="content">SIMID:Creative:requestStop</span></a>
          <ol class="toc">
           <li><a href="#sivic-creative-requestStop-resolve"><span class="secno">5.4.13.1</span> <span class="content">resolve</span></a>
           <li><a href="#sivic-creative-requestStop-reject"><span class="secno">5.4.13.2</span> <span class="content">reject</span></a>
          </ol>
        </ol>
      </ol>
-    <li><a href="#api-vast"><span class="secno">6</span> <span class="content">Referencing a SIVIC creative from VAST</span></a>
+    <li><a href="#api-vast"><span class="secno">6</span> <span class="content">Referencing a SIMID creative from VAST</span></a>
     <li>
      <a href="#common-workflows"><span class="secno">7</span> <span class="content">Common Workflows</span></a>
      <ol class="toc">
@@ -1712,37 +1718,37 @@ Parts of this work may be from another specification document.  If so, those par
    <h2 class="heading settled" data-level="1" id="version-number"><span class="secno">1. </span><span class="content">Version</span><a class="self-link" href="#version-number"></a></h2>
     0.1 
    <h2 class="heading settled" data-level="2" id="exec-summary"><span class="secno">2. </span><span class="content">Executive Summary</span><a class="self-link" href="#exec-summary"></a></h2>
-   <p>SIVIC is a standard for providing rich interactivity in the context of
+   <p>SIMID is a standard for providing rich interactivity in the context of
 streaming audio and video ads. While the VAST standard addresses how publishers
-discover various metadata assets related to an ad campaign, SIVIC addresses
+discover various metadata assets related to an ad campaign, SIMID addresses
 how the publisher’s video player should communicate and interface with a rich
-interactive layer and vice versa. As such, one can think of the SIVIC creative
+interactive layer and vice versa. As such, one can think of the SIMID creative
 as one of the assets listed in a VAST document.</p>
-   <p>A main tenet of SIVIC is the separation of the interactive layer from the media
+   <p>A main tenet of SIMID is the separation of the interactive layer from the media
 asset. This clear separation allows publisher players to be in control of their
 streams and enables use cases such as server-side ad insertion (SSAI), as well
 as live streaming.</p>
-   <p>SIVIC was built with strong security from the ground up, and is designed to be
+   <p>SIMID was built with strong security from the ground up, and is designed to be
 sandboxed from the media player, providing peace of mind to publishers when
-serving ads from third party services. SIVIC aims to provide the tools and
+serving ads from third party services. SIMID aims to provide the tools and
 controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
-   <p><img alt="A diagram showing SIVIC ads sandboxed from the publisher player environment." src="images/sivic_diagram_1_overlay.png" width="100%"> A diagram showing SIVIC ads sandboxed from the publisher player environment</p>
-   <p>SIVIC is part of a broader effort to replace the older VPAID standard. While
-OMID replaces the use case of verification and measurement, SIVIC replaces
+   <p><img alt="A diagram showing SIMID ads sandboxed from the publisher player environment." src="images/sivic_figure_1_overlay.png" width="100%"> A diagram showing SIMID ads sandboxed from the publisher player environment</p>
+   <p>SIMID is part of a broader effort to replace the older VPAID standard. While
+OMID replaces the use case of verification and measurement, SIMID replaces
 the use case of interactive streaming media ads, the original intended purpose
-of the VPAID standard. SIVIC provides a path for VPAID deprecation and allows
-the industry to move to more secure and transparent standards. SIVIC aims to
+of the VPAID standard. SIMID provides a path for VPAID deprecation and allows
+the industry to move to more secure and transparent standards. SIMID aims to
 gain broad industry adoption by ensuring that the standard is focused on the
 primary use case of interactivity.</p>
-   <h3 class="heading settled" data-level="2.1" id="sivic-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIVIC vs. VPAID Comparison</span><a class="self-link" href="#sivic-vs-vpaid"></a></h3>
-   <p><img alt="A diagram showing the difference between SIVIC and VPAID security." src="images/sivic_diagram_2_api_models.png" width="100%"></p>
+   <h3 class="heading settled" data-level="2.1" id="sivic-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIMID vs. VPAID Comparison</span><a class="self-link" href="#sivic-vs-vpaid"></a></h3>
+   <p><img alt="A diagram showing the difference between SIMID and VPAID security." src="images/sivic_figure_2_api_models.png" width="100%"></p>
    <table class="alternatecolor">
     <tbody>
      <tr style="background:black;color:white">
       <td width="20%">Feature
       <td colspan="1" rowspan="1" width="40%">VPAID
-      <td width="40%">SIVIC
+      <td width="40%">SIMID
      <tr>
       <td colspan="1" rowspan="1">Resource nature
       <td colspan="1" rowspan="1">JavaScript file with MIME type application/javascript.
@@ -1778,11 +1784,11 @@ primary use case of interactivity.</p>
      <tr>
       <td colspan="1" rowspan="1">Ad blocking
       <td colspan="1" rowspan="1">VPAID can prevent an ad from rendering.
-      <td colspan="1" rowspan="1">SIVIC is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. 
+      <td colspan="1" rowspan="1">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. 
      <tr>
       <td colspan="1" rowspan="1">Verification services
       <td colspan="1" rowspan="1">Verification features can be fully engaged by VPAID scripts.
-      <td colspan="1" rowspan="1">SIVIC cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIVIC to be focused on interactivity only.
+      <td colspan="1" rowspan="1">SIMID cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.
      <tr>
       <td colspan="1" rowspan="1">Creative wrapping
       <td colspan="1" rowspan="1">VPAID ads can load other ads (including other VPAID ads).
@@ -1794,30 +1800,30 @@ primary use case of interactivity.</p>
      <tr>
       <td colspan="1" rowspan="1">Environment constraints
       <td colspan="1" rowspan="1">Player must be an HTML video element.
-      <td colspan="1" rowspan="1">Player can be native or web so long as the SIVIC creative has sandboxed DOM access like in a web view.
+      <td colspan="1" rowspan="1">Player can be native or web so long as the SIMID creative has sandboxed DOM access like in a web view.
    </table>
    <h3 class="heading settled" data-level="2.2" id="intended-audience"><span class="secno">2.2. </span><span class="content">Intended Audience</span><a class="self-link" href="#intended-audience"></a></h3>
-   <p>The SIVIC standard specification is geared toward the digital media
+   <p>The SIMID standard specification is geared toward the digital media
 (video/audio) advertising community. Anyone who is involved can benefit
 from reading the introductory sections. The API and implementation details
 sections are predominantly targeted to engineers developing ad creation
-or serving products with SIVIC interactivity.</p>
+or serving products with SIMID interactivity.</p>
    <h2 class="heading settled" data-level="3" id="intro"><span class="secno">3. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
-   <p>Throughout this document, the SIVIC interactive component is referred
-as a “SIVIC creative” or “creative”.</p>
+   <p>Throughout this document, the SIMID interactive component is referred
+as a “SIMID creative” or “creative”.</p>
    <p>Unless otherwise noted, all features that are discussed in this standard are
 required unless otherwise noted. Standard RFC language will be used.
 See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a> for RFC 2119 for enforcement terminology used in this standard.</p>
-   <h3 class="heading settled" data-level="3.1" id="sivic-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIVIC Interactive Creative Nature</span><a class="self-link" href="#sivic-interactive-creative-nature"></a></h3>
-   <p><img alt="A diagram showing SIVIC where and how sivic video and html assets load." src="images/sivic_diagram_3_assets.png" width="100%"></p>
+   <h3 class="heading settled" data-level="3.1" id="sivic-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIMID Interactive Creative Nature</span><a class="self-link" href="#sivic-interactive-creative-nature"></a></h3>
+   <p><img alt="A diagram showing SIMID where and how sivic video and html assets load." src="images/sivic_figure_3_assets.png" width="100%"></p>
    <p>
-    The SIVIC creative portion is described in the VAST 
+    The SIMID creative portion is described in the VAST 
     <interactivecreativefile> node as a URL to an HTML resource with MIME type text/html.</interactivecreativefile>
    </p>
    <p>Example:</p>
 <pre>&lt;MediaFiles>
 &lt;MediaFile …>https://example.com/mediafile.mp4&lt;/MediaFile>
-&lt;InteractiveCreativeFile type="text/html" apiFramework="SIVIC" variableDuration="true">
+&lt;InteractiveCreativeFile type="text/html" apiFramework="SIMID" variableDuration="true">
    	&lt;![CDATA[https://adserver.com/ads/creative.html]]>
 &lt;/InteractiveCreativeFile>
 &lt;/MediaFiles>
@@ -1827,43 +1833,43 @@ domain, interactive component loading entails creating a cross-origin iframe.
 This means bi-directional communication between the player and creative
 requires using the postMessage API. This, in turn, means that all
 communication between player and creative is asynchronous.</p>
-   <h3 class="heading settled" data-level="3.2" id="video-ad-flow"><span class="secno">3.2. </span><span class="content">SIVIC Ad Serving Flow</span><a class="self-link" href="#video-ad-flow"></a></h3>
-   <p>The SIVIC ad experience is delivered by concurrently rendering
+   <h3 class="heading settled" data-level="3.2" id="video-ad-flow"><span class="secno">3.2. </span><span class="content">SIMID Ad Serving Flow</span><a class="self-link" href="#video-ad-flow"></a></h3>
+   <p>The SIMID ad experience is delivered by concurrently rendering
 the streaming media and the interactive creative. The player obtains
 both media and creative data from VAST 4.x, loads the resources, assembles
 the ad, and ensures a cohesive ad experience.</p>
-   <p>Diagram below illustrates resources loading and ad compilation. <img alt="Diagram illustrates resources loading and ad compilation." src="images/sivic_diagram_4_loading.png" width="100%"></p>
+   <p>Diagram below illustrates resources loading and ad compilation. <img alt="Diagram illustrates resources loading and ad compilation." src="images/sivic_resource_loading.png" width="100%"></p>
    <h3 class="heading settled" data-level="3.3" id="player-creative-communication"><span class="secno">3.3. </span><span class="content">Player and Creative Communication</span><a class="self-link" href="#player-creative-communication"></a></h3>
-   <p>Player and SIVIC creative communicate by sending bidirectional messages over
-the standard postMessage API. SIVIC API requirements govern message construction
+   <p>Player and SIMID creative communicate by sending bidirectional messages over
+the standard postMessage API. SIMID API requirements govern message construction
 conventions as well as the message data structure.</p>
    <p>See sections <a href="#msg-proto">§4 Messaging Protocol</a>, <a href="#api">§5 API Reference</a>.</p>
    <h3 class="heading settled" data-level="3.4" id="scope"><span class="secno">3.4. </span><span class="content">Scope and Limitation</span><a class="self-link" href="#scope"></a></h3>
-   <p>The use of HTML is only required for the SIVIC creative, not the publisher
+   <p>The use of HTML is only required for the SIMID creative, not the publisher
 property hosting that creative. As long as the publisher can load HTML and
 communicate with it over the standard postMessage interface, it can support
-SIVIC. In practice, this means that SIVIC can be hosted in web page iframes,
+SIMID. In practice, this means that SIMID can be hosted in web page iframes,
 mobile app web views, and other platforms.</p>
    <p>Note that certain devices, including TV sets and OTT boxes, limit loading of
 external assets, have limited HTML rendering capabilities or are unable to
-overlay video and HTML. These devices are unable to support SIVIC.</p>
-   <p>SIVIC cannot be used to decide which media to show on the client
+overlay video and HTML. These devices are unable to support SIMID.</p>
+   <p>SIMID cannot be used to decide which media to show on the client
 pre-impression. This is because the media file must be present alongside
-the SIVIC creative and delivered via the VAST4 media file node. SIVIC should
+the SIMID creative and delivered via the VAST4 media file node. SIMID should
 not be set up to measure viewability.</p>
-   <p>Any use of the SIVIC spec to support something other than interactive or
+   <p>Any use of the SIMID spec to support something other than interactive or
 dynamic content within the ad unit should be by default considered as counter
 to the intentions of the spec.</p>
    <h2 class="heading settled" data-level="4" id="msg-proto"><span class="secno">4. </span><span class="content">Messaging Protocol</span><a class="self-link" href="#msg-proto"></a></h2>
-   <p>To facilitate asynchronous communication between the video player and the interactive creative, SIVIC employs a messaging protocol.</p>
+   <p>To facilitate asynchronous communication between the video player and the interactive creative, SIMID employs a messaging protocol.</p>
    <p>The protocol defines both the data structure of messages exchanged by both
 parties and the algorithms needed to reliably handle the exchange of these
 messages.</p>
    <p>The protocol is designed to be easily implemented on top of the <code class="idl"><a data-link-type="idl">postMessage</a></code> interface, available across <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element">iframe</a></code> elements which are
-used to isolate the SIVIC ad from the video player.</p>
+used to isolate the SIMID ad from the video player.</p>
    <p class="issue" id="issue-a2fd907b"><a class="self-link" href="#issue-a2fd907b"></a> add link to final location of reference implementation</p>
    <h3 class="heading settled" data-level="4.1" id="transport-layer"><span class="secno">4.1. </span><span class="content">Transport Layer</span><a class="self-link" href="#transport-layer"></a></h3>
-   <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-transport">transport</dfn> is a communication mechanism that can send <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message">serialized messages</a> between two parties. In SIVIC’s case, those are the video
+   <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-transport">transport</dfn> is a communication mechanism that can send <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message">serialized messages</a> between two parties. In SIMID’s case, those are the video
 player and the creative.</p>
    <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-serialized-message">serialized message</dfn> is a text string that one of the
 parties, the <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-sender">sender</dfn>, forwards to the other party, the <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-receiver">receiver</dfn>, through the <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport">transport</a>.</p>
@@ -1889,7 +1895,7 @@ delivered to the <a data-link-type="dfn" href="#message-receiver" id="ref-for-me
 message back that acknowledges receipt. It also means that exceptions on the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver②">receiver’s</a> side can’t be caught by the <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender①">sender</a> unless
 the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver③">receiver</a> explicitly sends a message back to the <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender②">sender</a> with the exception.</p>
    <h4 class="heading settled" data-level="4.1.1" id="postmessage-transport"><span class="secno">4.1.1. </span><span class="content"><code class="idl"><a data-link-type="idl">postMessage</a></code> Transport</span><a class="self-link" href="#postmessage-transport"></a></h4>
-   <p>In SIVIC the media player and creative use the standard postMessage API to communicate across the cross-origin <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element①">iframe</a></code> boundary.</p>
+   <p>In SIMID the media player and creative use the standard postMessage API to communicate across the cross-origin <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element①">iframe</a></code> boundary.</p>
    <h4 class="heading settled" data-level="4.1.2" id="##msg-serialization"><span class="secno">4.1.2. </span><span class="content">Message Serialization</span><a class="self-link" href="#%23%23msg-serialization"></a></h4>
    <p>To <dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-serialize">serialize<a class="self-link" href="#message-serialize"></a></dfn> a <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message">Message</a></code> to a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑥">serialized message</a>,
 apply <code>JSON.stringify</code> to the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①">Message</a></code> data structure. The resulting <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString">DOMString</a></code> represents the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑦">serialized message</a>.</p>
@@ -2111,142 +2117,150 @@ of the message that is being resolved.</p>
       <td width="30%">resolve
       <td width="30%">reject
      <tr>
-      <td><a href="#sivic-video-durationchange">§5.2.1 SIVIC:Video:durationchange</a>
+      <td><a href="#sivic-video-durationchange">§5.2.1 SIMID:Video:durationchange</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-ended">§5.2.2 SIVIC:Video:ended</a>
+      <td><a href="#sivic-video-ended">§5.2.2 SIMID:Video:ended</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-error">§5.2.3 SIVIC:Video:error</a>
+      <td><a href="#sivic-video-error">§5.2.3 SIMID:Video:error</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-pause">§5.2.4 SIVIC:Video:pause</a>
+      <td><a href="#sivic-video-pause">§5.2.4 SIMID:Video:pause</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-play">§5.2.5 SIVIC:Video:play</a>
+      <td><a href="#sivic-video-play">§5.2.5 SIMID:Video:play</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-playing">§5.2.6 SIVIC:Video:playing</a>
+      <td><a href="#sivic-video-playing">§5.2.6 SIMID:Video:playing</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-seeked">§5.2.7 SIVIC:Video:seeked</a>
+      <td><a href="#sivic-video-seeked">§5.2.7 SIMID:Video:seeked</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-seeking">§5.2.8 SIVIC:Video:seeking</a>
+      <td><a href="#sivic-video-seeking">§5.2.8 SIMID:Video:seeking</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-stalled">§5.2.9 SIVIC:Video:stalled</a>
+      <td><a href="#sivic-video-stalled">§5.2.9 SIMID:Video:stalled</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-timeupdate">§5.2.10 SIVIC:Video:timeupdate</a>
+      <td><a href="#sivic-video-timeupdate">§5.2.10 SIMID:Video:timeupdate</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-video-volumechange">§5.2.11 SIVIC:Video:volumechange</a>
+      <td><a href="#sivic-video-volumechange">§5.2.11 SIMID:Video:volumechange</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-player-adSkipped">§5.3.1 SIVIC:Player:adSkipped</a>
+      <td><a href="#sivic-player-adSkipped">§5.3.1 SIMID:Player:adSkipped</a>
       <td><a href="#sivic-player-adSkipped-resolve">§5.3.1.1 resolve</a>
       <td>n/a
      <tr>
-      <td><a href="#sivic-player-adStopped">§5.3.2 SIVIC:Player:adStopped</a>
+      <td><a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a>
       <td><a href="#sivic-player-adStopped-resolve">§5.3.2.1 resolve</a>
       <td>n/a
      <tr>
-      <td><a href="#sivic-player-fatalError">§5.3.3 SIVIC:Player:fatalError</a>
-      <td><a href="#sivic-player-fatalError-resolve">§5.3.3.1 resolve</a>
+      <td><a href="#sivic-player-app-backgrounding">§5.3.3 SIMID:Player:appBackgrounding</a>
+      <td><a href="#sivic-player-app-backgrounding-resolve">§5.3.3.1 resolve</a>
       <td>n/a
      <tr>
-      <td><a href="#sivic-player-init">§5.3.4 SIVIC:Player:init</a>
-      <td><a href="#sivic-player-init-resolve">§5.3.4.1 resolve</a>
-      <td><a href="#sivic-player-init-reject">§5.3.4.2 reject</a>
-     <tr>
-      <td><a href="#sivic-player-log">§5.3.5 SIVIC:Player:log</a>
+      <td><a href="#sivic-player-app-foregrounding">§5.3.4 SIMID:Player:appForegrounding</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a>
+      <td><a href="#sivic-player-fatalError">§5.3.5 SIMID:Player:fatalError</a>
+      <td><a href="#sivic-player-fatalError-resolve">§5.3.5.1 resolve</a>
+      <td>n/a
+     <tr>
+      <td><a href="#sivic-player-init">§5.3.6 SIMID:Player:init</a>
+      <td><a href="#sivic-player-init-resolve">§5.3.6.1 resolve</a>
+      <td><a href="#sivic-player-init-reject">§5.3.6.2 reject</a>
+     <tr>
+      <td><a href="#sivic-player-log">§5.3.7 SIMID:Player:log</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-player-startCreative">§5.3.7 SIVIC:Player:startCreative</a>
-      <td><a href="#sivic-player-startCreative-resolve">§5.3.7.1 resolve</a>
-      <td><a href="#sivic-player-startCreative-reject">§5.3.7.2 reject</a>
-     <tr>
-      <td><a href="#sivic-creative-clickThru">§5.4.1 SIVIC:Creative:clickThru</a>
+      <td><a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-creative-fatalError">§5.4.2 SIVIC:Creative:fatalError</a>
+      <td><a href="#sivic-player-startCreative">§5.3.9 SIMID:Player:startCreative</a>
+      <td><a href="#sivic-player-startCreative-resolve">§5.3.9.1 resolve</a>
+      <td><a href="#sivic-player-startCreative-reject">§5.3.9.2 reject</a>
+     <tr>
+      <td><a href="#sivic-creative-clickThru">§5.4.1 SIMID:Creative:clickThru</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-creative-getVideoState">§5.4.3 SIVIC:Creative:getVideoState</a>
+      <td><a href="#sivic-creative-fatalError">§5.4.2 SIMID:Creative:fatalError</a>
+      <td>n/a
+      <td>n/a
+     <tr>
+      <td><a href="#sivic-creative-getVideoState">§5.4.3 SIMID:Creative:getVideoState</a>
       <td><a href="#sivic-creative-getVideoState-resolve">§5.4.3.1 resolve</a>
       <td>n/a
      <tr>
-      <td><a href="#sivic-creative-log">§5.4.4 SIVIC:Creative:log</a>
+      <td><a href="#sivic-creative-log">§5.4.4 SIMID:Creative:log</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#sivic-creative-reportTracking">§5.4.5 SIVIC:Creative:reportTracking</a>
+      <td><a href="#sivic-creative-reportTracking">§5.4.5 SIMID:Creative:reportTracking</a>
       <td><a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a>
       <td><a href="#sivic-creative-reportTracking-reject">§5.4.5.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestChangeAdDuration">§5.4.6 SIVIC:Creative:requestChangeAdDuration</a>
+      <td><a href="#sivic-creative-requestChangeAdDuration">§5.4.6 SIMID:Creative:requestChangeAdDuration</a>
       <td><a href="#sivic-creative-requestChangeAdDuration-resolve">§5.4.6.1 resolve</a>
       <td><a href="#sivic-creative-requestChangeAdDuration-reject">§5.4.6.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestChangeVolume">§5.4.7 SIVIC:Creative:requestChangeVolume</a>
+      <td><a href="#sivic-creative-requestChangeVolume">§5.4.7 SIMID:Creative:requestChangeVolume</a>
       <td><a href="#sivic-creative-requestChangeVolume-resolve">§5.4.7.1 resolve</a>
       <td><a href="#sivic-creative-requestChangeVolume-reject">§5.4.7.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestFullScreen">§5.4.8 SIVIC:Creative:requestFullScreen</a>
+      <td><a href="#sivic-creative-requestFullScreen">§5.4.8 SIMID:Creative:requestFullScreen</a>
       <td><a href="#sivic-creative-requestFullScreen-resolve">§5.4.8.1 resolve</a>
       <td><a href="#sivic-creative-requestFullScreen-reject">§5.4.8.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestPause">§5.4.9 SIVIC:Creative:requestPause</a>
+      <td><a href="#sivic-creative-requestPause">§5.4.9 SIMID:Creative:requestPause</a>
       <td><a href="#sivic-creative-requestPause-resolve">§5.4.9.1 resolve</a>
       <td><a href="#sivic-creative-requestPause-reject">§5.4.9.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestPlay">§5.4.10 SIVIC:Creative:requestPlay</a>
+      <td><a href="#sivic-creative-requestPlay">§5.4.10 SIMID:Creative:requestPlay</a>
       <td><a href="#sivic-creative-requestPlay-resolve">§5.4.10.1 resolve</a>
       <td><a href="#sivic-creative-requestPlay-reject">§5.4.10.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestResize">§5.4.11 SIVIC:Creative:requestResize</a>
+      <td><a href="#sivic-creative-requestResize">§5.4.11 SIMID:Creative:requestResize</a>
       <td><a href="#sivic-creative-requestResize-resolve">§5.4.11.1 resolve</a>
       <td><a href="#sivic-creative-requestResize-reject">§5.4.11.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestSkip">§5.4.12 SIVIC:Creative:requestSkip</a>
+      <td><a href="#sivic-creative-requestSkip">§5.4.12 SIMID:Creative:requestSkip</a>
       <td><a href="#sivic-creative-requestSkip-resolve">§5.4.12.1 resolve</a>
       <td><a href="#sivic-creative-requestSkip-reject">§5.4.12.2 reject</a>
      <tr>
-      <td><a href="#sivic-creative-requestStop">§5.4.13 SIVIC:Creative:requestStop</a>
+      <td><a href="#sivic-creative-requestStop">§5.4.13 SIMID:Creative:requestStop</a>
       <td><a href="#sivic-creative-requestStop-resolve">§5.4.13.1 resolve</a>
       <td><a href="#sivic-creative-requestStop-reject">§5.4.13.2 reject</a>
    </table>
    <h3 class="heading settled" data-level="5.2" id="video-messages"><span class="secno">5.2. </span><span class="content">Messages triggered by video element events</span><a class="self-link" href="#video-messages"></a></h3>
-   <p>When video element that renders ad media dispatches events, player posts corresponding messages to SIVIC creative. Video element related messages include original media event type names. <code>Message.type</code> values are prepended with SIVIC:Video namespace.</p>
+   <p>When video element that renders ad media dispatches events, player posts corresponding messages to SIMID creative. Video element related messages include original media event type names. <code>Message.type</code> values are prepended with SIMID:Video namespace.</p>
    <p>Example:</p>
    <ol>
     <li data-md>
      <p>Video element dispatches event <code>play</code>.</p>
     <li data-md>
-     <p>Player sends message to SIVIC creative with <code>Message.type = SIVIC:Video:play</code>.</p>
+     <p>Player sends message to SIMID creative with <code>Message.type = SIMID:Video:play</code>.</p>
    </ol>
    <p>Video messages should be reported immediately after player receives related event.</p>
    <p><code>Message.timestamp</code> property value is set to the time media element dispatches event.</p>
-   <h4 class="heading settled" data-level="5.2.1" id="sivic-video-durationchange"><span class="secno">5.2.1. </span><span class="content">SIVIC:Video:durationchange</span><a class="self-link" href="#sivic-video-durationchange"></a></h4>
+   <h4 class="heading settled" data-level="5.2.1" id="sivic-video-durationchange"><span class="secno">5.2.1. </span><span class="content">SIMID:Video:durationchange</span><a class="self-link" href="#sivic-video-durationchange"></a></h4>
     Should be called after the durationchange event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
@@ -2254,9 +2268,9 @@ of the message that is being resolved.</p>
      <p>duration(float): The number in seconds of the video duration. For server side ad insertion this must be calculated
 to be the total duration of the ad.</p>
    </ul>
-   <h4 class="heading settled" data-level="5.2.2" id="sivic-video-ended"><span class="secno">5.2.2. </span><span class="content">SIVIC:Video:ended</span><a class="self-link" href="#sivic-video-ended"></a></h4>
+   <h4 class="heading settled" data-level="5.2.2" id="sivic-video-ended"><span class="secno">5.2.2. </span><span class="content">SIMID:Video:ended</span><a class="self-link" href="#sivic-video-ended"></a></h4>
     Should be called after the ended event is triggered on the video element. 
-   <h4 class="heading settled" data-level="5.2.3" id="sivic-video-error"><span class="secno">5.2.3. </span><span class="content">SIVIC:Video:error</span><a class="self-link" href="#sivic-video-error"></a></h4>
+   <h4 class="heading settled" data-level="5.2.3" id="sivic-video-error"><span class="secno">5.2.3. </span><span class="content">SIMID:Video:error</span><a class="self-link" href="#sivic-video-error"></a></h4>
     Should be called after the error event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
@@ -2265,19 +2279,19 @@ to be the total duration of the ad.</p>
     <li data-md>
      <p>message(DOMString): corresponds to videoElement.error.message.</p>
    </ul>
-   <h4 class="heading settled" data-level="5.2.4" id="sivic-video-pause"><span class="secno">5.2.4. </span><span class="content">SIVIC:Video:pause</span><a class="self-link" href="#sivic-video-pause"></a></h4>
+   <h4 class="heading settled" data-level="5.2.4" id="sivic-video-pause"><span class="secno">5.2.4. </span><span class="content">SIMID:Video:pause</span><a class="self-link" href="#sivic-video-pause"></a></h4>
     Should be called after the pause event is triggered on the video element. 
-   <h4 class="heading settled" data-level="5.2.5" id="sivic-video-play"><span class="secno">5.2.5. </span><span class="content">SIVIC:Video:play</span><a class="self-link" href="#sivic-video-play"></a></h4>
+   <h4 class="heading settled" data-level="5.2.5" id="sivic-video-play"><span class="secno">5.2.5. </span><span class="content">SIMID:Video:play</span><a class="self-link" href="#sivic-video-play"></a></h4>
     Should be called after the play event is triggered on the video element. 
-   <h4 class="heading settled" data-level="5.2.6" id="sivic-video-playing"><span class="secno">5.2.6. </span><span class="content">SIVIC:Video:playing</span><a class="self-link" href="#sivic-video-playing"></a></h4>
+   <h4 class="heading settled" data-level="5.2.6" id="sivic-video-playing"><span class="secno">5.2.6. </span><span class="content">SIMID:Video:playing</span><a class="self-link" href="#sivic-video-playing"></a></h4>
     Should be called after the playing event is triggered on the video element. 
-   <h4 class="heading settled" data-level="5.2.7" id="sivic-video-seeked"><span class="secno">5.2.7. </span><span class="content">SIVIC:Video:seeked</span><a class="self-link" href="#sivic-video-seeked"></a></h4>
+   <h4 class="heading settled" data-level="5.2.7" id="sivic-video-seeked"><span class="secno">5.2.7. </span><span class="content">SIMID:Video:seeked</span><a class="self-link" href="#sivic-video-seeked"></a></h4>
     Should be called after the seeked event is triggered on the video element. 
-   <h4 class="heading settled" data-level="5.2.8" id="sivic-video-seeking"><span class="secno">5.2.8. </span><span class="content">SIVIC:Video:seeking</span><a class="self-link" href="#sivic-video-seeking"></a></h4>
+   <h4 class="heading settled" data-level="5.2.8" id="sivic-video-seeking"><span class="secno">5.2.8. </span><span class="content">SIMID:Video:seeking</span><a class="self-link" href="#sivic-video-seeking"></a></h4>
     Should be called after the seeking event is triggered on the video element. 
-   <h4 class="heading settled" data-level="5.2.9" id="sivic-video-stalled"><span class="secno">5.2.9. </span><span class="content">SIVIC:Video:stalled</span><a class="self-link" href="#sivic-video-stalled"></a></h4>
+   <h4 class="heading settled" data-level="5.2.9" id="sivic-video-stalled"><span class="secno">5.2.9. </span><span class="content">SIMID:Video:stalled</span><a class="self-link" href="#sivic-video-stalled"></a></h4>
     Should be called after the stalled event is triggered on the video element. 
-   <h4 class="heading settled" data-level="5.2.10" id="sivic-video-timeupdate"><span class="secno">5.2.10. </span><span class="content">SIVIC:Video:timeupdate</span><a class="self-link" href="#sivic-video-timeupdate"></a></h4>
+   <h4 class="heading settled" data-level="5.2.10" id="sivic-video-timeupdate"><span class="secno">5.2.10. </span><span class="content">SIMID:Video:timeupdate</span><a class="self-link" href="#sivic-video-timeupdate"></a></h4>
     Should be called after the timeupdate event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
@@ -2286,7 +2300,7 @@ to be the total duration of the ad.</p>
 this must be calculated to be the total time the video ad has played. For example: if the video element
 time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.</p>
    </ul>
-   <h4 class="heading settled" data-level="5.2.11" id="sivic-video-volumechange"><span class="secno">5.2.11. </span><span class="content">SIVIC:Video:volumechange</span><a class="self-link" href="#sivic-video-volumechange"></a></h4>
+   <h4 class="heading settled" data-level="5.2.11" id="sivic-video-volumechange"><span class="secno">5.2.11. </span><span class="content">SIMID:Video:volumechange</span><a class="self-link" href="#sivic-video-volumechange"></a></h4>
     Should be called after the volumechange event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
@@ -2294,21 +2308,21 @@ time is 500 seconds but the ad started playback 10 seconds ago (in DAI), current
      <p>volume(number): corresponds to videoElement.volume attribute.</p>
    </ul>
    <h3 class="heading settled" data-level="5.3" id="player-messages"><span class="secno">5.3. </span><span class="content">Messages from the player</span><a class="self-link" href="#player-messages"></a></h3>
-    All messages from the player should be prepended with SIVIC:Player. 
+    All messages from the player should be prepended with SIMID:Player. 
    <p>For example:</p>
 <pre>{
- id: "SIVIC:Player:adStopped",
+ id: "SIMID:Player:adStopped",
  args: {
    code: 0
  }
 }
 </pre>
-   <h4 class="heading settled" data-level="5.3.1" id="sivic-player-adSkipped"><span class="secno">5.3.1. </span><span class="content">SIVIC:Player:adSkipped</span><a class="self-link" href="#sivic-player-adSkipped"></a></h4>
+   <h4 class="heading settled" data-level="5.3.1" id="sivic-player-adSkipped"><span class="secno">5.3.1. </span><span class="content">SIMID:Player:adSkipped</span><a class="self-link" href="#sivic-player-adSkipped"></a></h4>
     This indicates the player will skip the ad. The player should hide the creative and stop video playback in this case.
 The player should wait for a response before unloading the creative iframe. 
    <h5 class="heading settled" data-level="5.3.1.1" id="sivic-player-adSkipped-resolve"><span class="secno">5.3.1.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-adSkipped-resolve"></a></h5>
     After resolve is called, the iframe will be removed. 
-   <h4 class="heading settled" data-level="5.3.2" id="sivic-player-adStopped"><span class="secno">5.3.2. </span><span class="content">SIVIC:Player:adStopped</span><a class="self-link" href="#sivic-player-adStopped"></a></h4>
+   <h4 class="heading settled" data-level="5.3.2" id="sivic-player-adStopped"><span class="secno">5.3.2. </span><span class="content">SIMID:Player:adStopped</span><a class="self-link" href="#sivic-player-adStopped"></a></h4>
     This indicates the player will stop the ad. The player should hide the creative and stop video playback in this case.
 The player should wait for a response before unloading the creative iframe. 
    <p>parameters:</p>
@@ -2331,7 +2345,14 @@ The player should wait for a response before unloading the creative iframe.
    </ul>
    <h5 class="heading settled" data-level="5.3.2.1" id="sivic-player-adStopped-resolve"><span class="secno">5.3.2.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-adStopped-resolve"></a></h5>
     After resolve is called, the iframe will be removed. 
-   <h4 class="heading settled" data-level="5.3.3" id="sivic-player-fatalError"><span class="secno">5.3.3. </span><span class="content">SIVIC:Player:fatalError</span><a class="self-link" href="#sivic-player-fatalError"></a></h4>
+   <h4 class="heading settled" data-level="5.3.3" id="sivic-player-app-backgrounding"><span class="secno">5.3.3. </span><span class="content">SIMID:Player:appBackgrounding</span><a class="self-link" href="#sivic-player-app-backgrounding"></a></h4>
+    The ad is in app and the app is going to move to the background. 
+   <h5 class="heading settled" data-level="5.3.3.1" id="sivic-player-app-backgrounding-resolve"><span class="secno">5.3.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-app-backgrounding-resolve"></a></h5>
+    The player should try wait for a resolve message from the creative before the backgrounding hook
+is complete. Any creative that does nothing should resolve this message immediately. 
+   <h4 class="heading settled" data-level="5.3.4" id="sivic-player-app-foregrounding"><span class="secno">5.3.4. </span><span class="content">SIMID:Player:appForegrounding</span><a class="self-link" href="#sivic-player-app-foregrounding"></a></h4>
+    The ad is in app and the app has moved from the background to the foreground. 
+   <h4 class="heading settled" data-level="5.3.5" id="sivic-player-fatalError"><span class="secno">5.3.5. </span><span class="content">SIMID:Player:fatalError</span><a class="self-link" href="#sivic-player-fatalError"></a></h4>
     The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
 before unloading the creative iframe. 
@@ -2341,17 +2362,17 @@ before unloading the creative iframe.
     <li data-md>
      <p>errorMessage(DOMString): Any additional information.</p>
    </ul>
-   <h5 class="heading settled" data-level="5.3.3.1" id="sivic-player-fatalError-resolve"><span class="secno">5.3.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-fatalError-resolve"></a></h5>
+   <h5 class="heading settled" data-level="5.3.5.1" id="sivic-player-fatalError-resolve"><span class="secno">5.3.5.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-fatalError-resolve"></a></h5>
     After resolve is called, the iframe will be removed. 
-   <h4 class="heading settled" data-level="5.3.4" id="sivic-player-init"><span class="secno">5.3.4. </span><span class="content">SIVIC:Player:init</span><a class="self-link" href="#sivic-player-init"></a></h4>
-   <p>To assist in preloading assets the player must send the SIVIC:Player:init message
-before SIVIC:Player:startCreative.  The player should send this message early
+   <h4 class="heading settled" data-level="5.3.6" id="sivic-player-init"><span class="secno">5.3.6. </span><span class="content">SIMID:Player:init</span><a class="self-link" href="#sivic-player-init"></a></h4>
+   <p>To assist in preloading assets the player must send the SIMID:Player:init message
+before SIMID:Player:startCreative.  The player should send this message early
 enough before playback so that assets can be displayed as soon as the ad starts.</p>
    <p>The ad, however, should not assume it is given any amount of time between the
-SIVIC:Player:init message and the SIVIC:Player:startCreative message.
-For example a preroll might send SIVIC:Player:startCreative immediately
-after SIVIC:Player:init.</p>
-   <p>With SIVIC:Player:init, the player shall provide the following parameters:</p>
+SIMID:Player:init message and the SIMID:Player:startCreative message.
+For example a preroll might send SIMID:Player:startCreative immediately
+after SIMID:Player:init.</p>
+   <p>With SIMID:Player:init, the player shall provide the following parameters:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-initparameters"><code><c- g>InitParameters</c-></code><a class="self-link" href="#dictdef-initparameters"></a></dfn> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata"><c- n>EnvironmentData</c-></a> <dfn class="idl-code" data-dfn-for="InitParameters" data-dfn-type="dict-member" data-export data-type="EnvironmentData " id="dom-initparameters-environmentdata"><code><c- g>environmentData</c-></code><a class="self-link" href="#dom-initparameters-environmentdata"></a></dfn>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata"><c- n>CreativeData</c-></a> <dfn class="idl-code" data-dfn-for="InitParameters" data-dfn-type="dict-member" data-export data-type="CreativeData " id="dom-initparameters-creativedata"><code><c- g>creativeData</c-></code><a class="self-link" href="#dom-initparameters-creativedata"></a></dfn>;
@@ -2413,10 +2434,10 @@ publisher playback environment.
 The object should have the following fields.</p>
      <ul>
       <li data-md>
-       <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-videodimensions" id="ref-for-dom-environmentdata-videodimensions">videoDimensions</a></code> indicates the video display area, see <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a></p>
+       <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-videodimensions" id="ref-for-dom-environmentdata-videodimensions">videoDimensions</a></code> indicates the video display area, see <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a></p>
       <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-creativedimensions" id="ref-for-dom-environmentdata-creativedimensions">creativeDimensions</a></code> indicates the creative display
-area, see <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a></p>
+area, see <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a></p>
       <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreen" id="ref-for-dom-environmentdata-fullscreen">fullScreen</a></code> True if fullscreen.</p>
       <li data-md>
@@ -2424,7 +2445,7 @@ area, see <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a></p>
 to display or not display a fullscreen option</p>
       <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed">variableDurationAllowed</a></code>: If set to true the player
-must allow the SIVIC creative to pause player-controlled video playback
+must allow the SIMID creative to pause player-controlled video playback
 during the ad. If <code>false</code> it will not (live streaming is a use case). An
 example use case here is a clickthru overlays, where <code>variableDuration</code> (ad requirement) is <code>false</code>, but <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed①">variableDurationAllowed</a></code> (publisher capability) can be <code>true</code> or <code>false</code>. It should not be used in any case where disallowing
 the pause interferes with the ad KPIs (for example if it can interfere
@@ -2441,7 +2462,7 @@ button and might skip the ad.</p>
 button.</p>
         <li data-md>
          <p><code class="idl"><a data-link-type="idl" href="#dom-skippablestate-notskippable" id="ref-for-dom-skippablestate-notskippable">notSkippable</a></code>: The ad cannot be skipped and the
-SIVIC creative should not render a skip button. This may be common in
+SIMID creative should not render a skip button. This may be common in
 DAI for live streams.</p>
        </ul>
       <li data-md>
@@ -2465,16 +2486,16 @@ party tracking of custom events</p>
      </ul>
    </ul>
    <p class="issue" id="issue-ba704354"><a class="self-link" href="#issue-ba704354"></a> useragent needs some definition or a link to where how this should be populated.</p>
-   <h5 class="heading settled" data-level="5.3.4.1" id="sivic-player-init-resolve"><span class="secno">5.3.4.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-init-resolve"></a></h5>
+   <h5 class="heading settled" data-level="5.3.6.1" id="sivic-player-init-resolve"><span class="secno">5.3.6.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-init-resolve"></a></h5>
     The creative acknowledges the initialization parameters. 
-   <h5 class="heading settled" data-level="5.3.4.2" id="sivic-player-init-reject"><span class="secno">5.3.4.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-init-reject"></a></h5>
+   <h5 class="heading settled" data-level="5.3.6.2" id="sivic-player-init-reject"><span class="secno">5.3.6.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-init-reject"></a></h5>
    <ul>
     <li data-md>
      <p>reason(DOMString): An optional string error message</p>
     <li data-md>
      <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§8.1 Error Codes</a></p>
    </ul>
-   <h4 class="heading settled" data-level="5.3.5" id="sivic-player-log"><span class="secno">5.3.5. </span><span class="content">SIVIC:Player:log</span><a class="self-link" href="#sivic-player-log"></a></h4>
+   <h4 class="heading settled" data-level="5.3.7" id="sivic-player-log"><span class="secno">5.3.7. </span><span class="content">SIMID:Player:log</span><a class="self-link" href="#sivic-player-log"></a></h4>
     The player is sending a log message to the creative. 
    <p class="note" role="note"><span>Note:</span> If the creative is doing something out of spec and the player
 will not exit with a fatal error, the player’s log message should
@@ -2484,7 +2505,7 @@ start with "WARNING:". Creative developers should monitor for this message.</p>
     <li data-md>
      <p>message(DOMString): Logging information from the player to the creative.</p>
    </ul>
-   <h4 class="heading settled" data-level="5.3.6" id="sivic-player-resize"><span class="secno">5.3.6. </span><span class="content">SIVIC:Player:resize</span><a class="self-link" href="#sivic-player-resize"></a></h4>
+   <h4 class="heading settled" data-level="5.3.8" id="sivic-player-resize"><span class="secno">5.3.8. </span><span class="content">SIMID:Player:resize</span><a class="self-link" href="#sivic-player-resize"></a></h4>
    <p>parameters:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-resizeparameters"><code><c- g>ResizeParameters</c-></code></dfn> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-videodimensions" id="ref-for-dictdef-videodimensions①"><c- n>VideoDimensions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="ResizeParameters" data-dfn-type="dict-member" data-export data-type="VideoDimensions " id="dom-resizeparameters-videodimensions"><code><c- g>videoDimensions</c-></code></dfn>;
@@ -2541,11 +2562,11 @@ not yet visible (like during initialization) these dimensions will be the expect
        <p><code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen">fullScreen</a></code> <code>true</code> if fullscreen.</p>
      </ul>
    </ul>
-   <h4 class="heading settled" data-level="5.3.7" id="sivic-player-startCreative"><span class="secno">5.3.7. </span><span class="content">SIVIC:Player:startCreative</span><a class="self-link" href="#sivic-player-startCreative"></a></h4>
-   <p>SIVIC:Player:startCreative must be called after the iframe is made visible.</p>
-   <h5 class="heading settled" data-level="5.3.7.1" id="sivic-player-startCreative-resolve"><span class="secno">5.3.7.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-startCreative-resolve"></a></h5>
+   <h4 class="heading settled" data-level="5.3.9" id="sivic-player-startCreative"><span class="secno">5.3.9. </span><span class="content">SIMID:Player:startCreative</span><a class="self-link" href="#sivic-player-startCreative"></a></h4>
+   <p>SIMID:Player:startCreative must be called after the iframe is made visible.</p>
+   <h5 class="heading settled" data-level="5.3.9.1" id="sivic-player-startCreative-resolve"><span class="secno">5.3.9.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-startCreative-resolve"></a></h5>
     The creative acknowledges that it has started playback. The player must make the creative visible to the user. 
-   <h5 class="heading settled" data-level="5.3.7.2" id="sivic-player-startCreative-reject"><span class="secno">5.3.7.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-startCreative-reject"></a></h5>
+   <h5 class="heading settled" data-level="5.3.9.2" id="sivic-player-startCreative-reject"><span class="secno">5.3.9.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-startCreative-reject"></a></h5>
    <ul>
     <li data-md>
      <p>reason(DOMString): An optional string error message</p>
@@ -2553,8 +2574,8 @@ not yet visible (like during initialization) these dimensions will be the expect
      <p>errorCode(int): The code for what went wrong in initialization. See <a href="#error-codes">§8.1 Error Codes</a></p>
    </ul>
    <h3 class="heading settled" data-level="5.4" id="creative-messages"><span class="secno">5.4. </span><span class="content">Messages from the Creative to the Player</span><a class="self-link" href="#creative-messages"></a></h3>
-    All functions should be prepended with SIVIC:Creative 
-   <h4 class="heading settled" data-level="5.4.1" id="sivic-creative-clickThru"><span class="secno">5.4.1. </span><span class="content">SIVIC:Creative:clickThru</span><a class="self-link" href="#sivic-creative-clickThru"></a></h4>
+    All functions should be prepended with SIMID:Creative 
+   <h4 class="heading settled" data-level="5.4.1" id="sivic-creative-clickThru"><span class="secno">5.4.1. </span><span class="content">SIMID:Creative:clickThru</span><a class="self-link" href="#sivic-creative-clickThru"></a></h4>
    <p>The creative must handle click-thru due to the nature of cross-origin iframes. This message must only be sent in response to a user-initiated click that is considered a click-thru by the creative.</p>
    <p>The main purpose of this message is for the player to track click-thrus. Since not every navigation is a click-thru, it should not be used for adjusting media playback status (pause, mute). If the player wants to update media playback status as a result of navigation, it should detect it via some other environment-specific method (eg. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API">Page Visibility API</a> on web and in apps).</p>
    <p>Parameters:</p>
@@ -2564,7 +2585,7 @@ not yet visible (like during initialization) these dimensions will be the expect
     <li data-md>
      <p>y (int): the y coordinate of the click relative to the top of the creative.</p>
    </ul>
-   <h4 class="heading settled" data-level="5.4.2" id="sivic-creative-fatalError"><span class="secno">5.4.2. </span><span class="content">SIVIC:Creative:fatalError</span><a class="self-link" href="#sivic-creative-fatalError"></a></h4>
+   <h4 class="heading settled" data-level="5.4.2" id="sivic-creative-fatalError"><span class="secno">5.4.2. </span><span class="content">SIMID:Creative:fatalError</span><a class="self-link" href="#sivic-creative-fatalError"></a></h4>
     After this message is received, the iframe should be unloaded and the video ad should stop playback if possible.
 If the video ad continues to play the iframe should still be unloaded. 
    <p>parameters:</p>
@@ -2574,7 +2595,7 @@ If the video ad continues to play the iframe should still be unloaded.
     <li data-md>
      <p>errorMessage(DOMString): Any optional additional information about the fatal error.</p>
    </ul>
-   <h4 class="heading settled" data-level="5.4.3" id="sivic-creative-getVideoState"><span class="secno">5.4.3. </span><span class="content">SIVIC:Creative:getVideoState</span><a class="self-link" href="#sivic-creative-getVideoState"></a></h4>
+   <h4 class="heading settled" data-level="5.4.3" id="sivic-creative-getVideoState"><span class="secno">5.4.3. </span><span class="content">SIMID:Creative:getVideoState</span><a class="self-link" href="#sivic-creative-getVideoState"></a></h4>
     Expects a response with information about the video state. 
    <h5 class="heading settled" data-level="5.4.3.1" id="sivic-creative-getVideoState-resolve"><span class="secno">5.4.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-getVideoState-resolve"></a></h5>
    <ul>
@@ -2599,7 +2620,7 @@ playback 10 seconds ago (in DAI), this should be 10 seconds.</p>
      <p>fullscreen(boolean): true if the video element is full screen, false otherwise</p>
    </ul>
    <p class="issue" id="issue-a3715b66"><a class="self-link" href="#issue-a3715b66"></a> should we also include video element location and size here?</p>
-   <h4 class="heading settled" data-level="5.4.4" id="sivic-creative-log"><span class="secno">5.4.4. </span><span class="content">SIVIC:Creative:log</span><a class="self-link" href="#sivic-creative-log"></a></h4>
+   <h4 class="heading settled" data-level="5.4.4" id="sivic-creative-log"><span class="secno">5.4.4. </span><span class="content">SIMID:Creative:log</span><a class="self-link" href="#sivic-creative-log"></a></h4>
     The creative is sending a log message to the player. 
    <p class="note" role="note"><span>Note:</span> If the player is doing something out of spec and the creative
 will not exit with a fatal error, the creatives log message should
@@ -2609,7 +2630,7 @@ start with "WARNING:". Player developers should monitor for this message.</p>
     <li data-md>
      <p>message(DOMString): Logging information sent from the creative to the player.</p>
    </ul>
-   <h4 class="heading settled" data-level="5.4.5" id="sivic-creative-reportTracking"><span class="secno">5.4.5. </span><span class="content">SIVIC:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking"></a></h4>
+   <h4 class="heading settled" data-level="5.4.5" id="sivic-creative-reportTracking"><span class="secno">5.4.5. </span><span class="content">SIMID:Creative:reportTracking</span><a class="self-link" href="#sivic-creative-reportTracking"></a></h4>
     paramaters: 
    <ul>
     <li data-md>
@@ -2618,9 +2639,9 @@ start with "WARNING:". Player developers should monitor for this message.</p>
       <string>): an array or tracking pixels that the publisher should fire</string>
      </p>
    </ul>
-   <p>The creative is not required to use SIVIC:Creative:reportTracking. However, the player
-must implement SIVIC:Creative:reportTracking.</p>
-   <p>All tracking urls sent through SIVIC:Creative:reportTracking must have their
+   <p>The creative is not required to use SIMID:Creative:reportTracking. However, the player
+must implement SIMID:Creative:reportTracking.</p>
+   <p>All tracking urls sent through SIMID:Creative:reportTracking must have their
 macros replaced as though they were tracking pixels specified in VAST. Then they must
 be reported by the player as though they were tracking pixels.</p>
    <h5 class="heading settled" data-level="5.4.5.1" id="sivic-creative-reportTracking-resolve"><span class="secno">5.4.5.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-reportTracking-resolve"></a></h5>
@@ -2635,7 +2656,7 @@ should not block waiting for a response from the site.
     <li data-md>
      <p>errorCode(int): The code for why the player did not attempt to send a tracking pixel. See <a href="#error-codes">§8.1 Error Codes</a></p>
    </ul>
-   <h4 class="heading settled" data-level="5.4.6" id="sivic-creative-requestChangeAdDuration"><span class="secno">5.4.6. </span><span class="content">SIVIC:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration"></a></h4>
+   <h4 class="heading settled" data-level="5.4.6" id="sivic-creative-requestChangeAdDuration"><span class="secno">5.4.6. </span><span class="content">SIMID:Creative:requestChangeAdDuration</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration"></a></h4>
     Extension in duration should only be in response to user interaction. 
    <p>paramaters:</p>
    <ul>
@@ -2646,7 +2667,7 @@ should not block waiting for a response from the site.
     The player changed the ad duration. 
    <h5 class="heading settled" data-level="5.4.6.2" id="sivic-creative-requestChangeAdDuration-reject"><span class="secno">5.4.6.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestChangeAdDuration-reject"></a></h5>
     The player did not change the ad duration. 
-   <h4 class="heading settled" data-level="5.4.7" id="sivic-creative-requestChangeVolume"><span class="secno">5.4.7. </span><span class="content">SIVIC:Creative:requestChangeVolume</span><a class="self-link" href="#sivic-creative-requestChangeVolume"></a></h4>
+   <h4 class="heading settled" data-level="5.4.7" id="sivic-creative-requestChangeVolume"><span class="secno">5.4.7. </span><span class="content">SIMID:Creative:requestChangeVolume</span><a class="self-link" href="#sivic-creative-requestChangeVolume"></a></h4>
     paramaters: 
    <ul>
     <li data-md>
@@ -2658,50 +2679,50 @@ should not block waiting for a response from the site.
     The player has changed the volume as requested. 
    <h5 class="heading settled" data-level="5.4.7.2" id="sivic-creative-requestChangeVolume-reject"><span class="secno">5.4.7.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestChangeVolume-reject"></a></h5>
     The player did not change to the requested volume. 
-   <h4 class="heading settled" data-level="5.4.8" id="sivic-creative-requestFullScreen"><span class="secno">5.4.8. </span><span class="content">SIVIC:Creative:requestFullScreen</span><a class="self-link" href="#sivic-creative-requestFullScreen"></a></h4>
+   <h4 class="heading settled" data-level="5.4.8" id="sivic-creative-requestFullScreen"><span class="secno">5.4.8. </span><span class="content">SIMID:Creative:requestFullScreen</span><a class="self-link" href="#sivic-creative-requestFullScreen"></a></h4>
     The creative is requesting to go full screen. Not all browsers support this. 
    <h5 class="heading settled" data-level="5.4.8.1" id="sivic-creative-requestFullScreen-resolve"><span class="secno">5.4.8.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestFullScreen-resolve"></a></h5>
     The player has gone full screen. 
    <h5 class="heading settled" data-level="5.4.8.2" id="sivic-creative-requestFullScreen-reject"><span class="secno">5.4.8.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestFullScreen-reject"></a></h5>
     The player did not go full screen. 
-   <h4 class="heading settled" data-level="5.4.9" id="sivic-creative-requestPause"><span class="secno">5.4.9. </span><span class="content">SIVIC:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause"></a></h4>
+   <h4 class="heading settled" data-level="5.4.9" id="sivic-creative-requestPause"><span class="secno">5.4.9. </span><span class="content">SIMID:Creative:requestPause</span><a class="self-link" href="#sivic-creative-requestPause"></a></h4>
     The creative wants the video element to pause media playback. 
    <h5 class="heading settled" data-level="5.4.9.1" id="sivic-creative-requestPause-resolve"><span class="secno">5.4.9.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPause-resolve"></a></h5>
     The player paused the video. 
    <h5 class="heading settled" data-level="5.4.9.2" id="sivic-creative-requestPause-reject"><span class="secno">5.4.9.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPause-reject"></a></h5>
     The player did not pause the video. 
-   <h4 class="heading settled" data-level="5.4.10" id="sivic-creative-requestPlay"><span class="secno">5.4.10. </span><span class="content">SIVIC:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay"></a></h4>
+   <h4 class="heading settled" data-level="5.4.10" id="sivic-creative-requestPlay"><span class="secno">5.4.10. </span><span class="content">SIMID:Creative:requestPlay</span><a class="self-link" href="#sivic-creative-requestPlay"></a></h4>
     The creative wants the video element to resume media playback. 
    <h5 class="heading settled" data-level="5.4.10.1" id="sivic-creative-requestPlay-resolve"><span class="secno">5.4.10.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestPlay-resolve"></a></h5>
     The player is playing the video. 
    <h5 class="heading settled" data-level="5.4.10.2" id="sivic-creative-requestPlay-reject"><span class="secno">5.4.10.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestPlay-reject"></a></h5>
     The player did not play the video. 
-   <h4 class="heading settled" data-level="5.4.11" id="sivic-creative-requestResize"><span class="secno">5.4.11. </span><span class="content">SIVIC:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize"></a></h4>
-   <p>Request resize should use the <code class="idl"><a data-link-type="idl" href="#dictdef-resizeparameters" id="ref-for-dictdef-resizeparameters①">ResizeParameters</a></code> which are explained in <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a></p>
+   <h4 class="heading settled" data-level="5.4.11" id="sivic-creative-requestResize"><span class="secno">5.4.11. </span><span class="content">SIMID:Creative:requestResize</span><a class="self-link" href="#sivic-creative-requestResize"></a></h4>
+   <p>Request resize should use the <code class="idl"><a data-link-type="idl" href="#dictdef-resizeparameters" id="ref-for-dictdef-resizeparameters①">ResizeParameters</a></code> which are explained in <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a></p>
    <h5 class="heading settled" data-level="5.4.11.1" id="sivic-creative-requestResize-resolve"><span class="secno">5.4.11.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestResize-resolve"></a></h5>
     The player has resized exactly as it has been requested. 
    <h5 class="heading settled" data-level="5.4.11.2" id="sivic-creative-requestResize-reject"><span class="secno">5.4.11.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestResize-reject"></a></h5>
     The player did not resize to the exact request. If the player was only able to partially comply, it should still
-reject the message. Then the player should call the message <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a> to let the creative know
+reject the message. Then the player should call the message <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> to let the creative know
 what resize happened. 
-   <h4 class="heading settled" data-level="5.4.12" id="sivic-creative-requestSkip"><span class="secno">5.4.12. </span><span class="content">SIVIC:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip"></a></h4>
+   <h4 class="heading settled" data-level="5.4.12" id="sivic-creative-requestSkip"><span class="secno">5.4.12. </span><span class="content">SIMID:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip"></a></h4>
     The player should stop video playback if possible. 
    <p>If the player cannot stop video playback, the player still does not unload the iframe.</p>
    <h5 class="heading settled" data-level="5.4.12.1" id="sivic-creative-requestSkip-resolve"><span class="secno">5.4.12.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestSkip-resolve"></a></h5>
-    Upon resolving this request, the player must call <a href="#sivic-player-adSkipped">§5.3.1 SIVIC:Player:adSkipped</a>. 
+    Upon resolving this request, the player must call <a href="#sivic-player-adSkipped">§5.3.1 SIMID:Player:adSkipped</a>. 
    <h5 class="heading settled" data-level="5.4.12.2" id="sivic-creative-requestSkip-reject"><span class="secno">5.4.12.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestSkip-reject"></a></h5>
     The creative should continue to playback as though it could not be skipped. 
-   <h4 class="heading settled" data-level="5.4.13" id="sivic-creative-requestStop"><span class="secno">5.4.13. </span><span class="content">SIVIC:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop"></a></h4>
+   <h4 class="heading settled" data-level="5.4.13" id="sivic-creative-requestStop"><span class="secno">5.4.13. </span><span class="content">SIMID:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop"></a></h4>
     The player should stop video playback if possible. 
    <p>If the player cannot stop video playback, the player still unloads the iframe. The creative may hide all elements
 in this case if it doesn’t wish to be seen.</p>
    <h5 class="heading settled" data-level="5.4.13.1" id="sivic-creative-requestStop-resolve"><span class="secno">5.4.13.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestStop-resolve"></a></h5>
-    Upon resolving this request, the player must call <a href="#sivic-player-adStopped">§5.3.2 SIVIC:Player:adStopped</a>. 
+    Upon resolving this request, the player must call <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a>. 
    <h5 class="heading settled" data-level="5.4.13.2" id="sivic-creative-requestStop-reject"><span class="secno">5.4.13.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestStop-reject"></a></h5>
     For some reason the player could not stop playback. The creative may continue
 to render as though it was not stopped. 
-   <h2 class="heading settled" data-level="6" id="api-vast"><span class="secno">6. </span><span class="content">Referencing a SIVIC creative from VAST</span><a class="self-link" href="#api-vast"></a></h2>
-   <p>When a SIVIC creative is referenced from a VAST document, the value for the <code>apiFramework</code> attribute in the <code>InteractiveCreativeFile</code> element must be <code>SIVIC</code> (all caps). This attribute identifies the SIVIC API for the creative.
+   <h2 class="heading settled" data-level="6" id="api-vast"><span class="secno">6. </span><span class="content">Referencing a SIMID creative from VAST</span><a class="self-link" href="#api-vast"></a></h2>
+   <p>When a SIMID creative is referenced from a VAST document, the value for the <code>apiFramework</code> attribute in the <code>InteractiveCreativeFile</code> element must be <code>SIMID</code> (all caps). This attribute identifies the SIMID API for the creative.
 Version negotiation should be handled by the <a href="#api-ad-loading">§7.1 How to Handle Ad Loading</a> algorithm
 (rather than identified in the VAST file).</p>
    <p>Another attribute of the <code>InteractiveCreativeFile</code> is <code>variableDuration</code> which
@@ -2713,7 +2734,7 @@ the <code>adStopped</code> event after <code>adVideoComplete</code>.</p>
    <p>The player must follow this workflow for loading an ad.</p>
    <ol>
     <li data-md>
-     <p>The player must create an iframe element for the SIVIC creative. The player
+     <p>The player must create an iframe element for the SIMID creative. The player
 iframe should start out hidden. The iframe should be capable executing
 javascript and loading resources.</p>
     <li data-md>
@@ -2728,43 +2749,43 @@ assume this will be a cross domain iframe.</p>
 The resolve message includes the correlator that must be present in
 all messages going forward.</p>
     <li data-md>
-     <p>The player then calls <a href="#sivic-player-init">§5.3.4 SIVIC:Player:init</a> with all relevant parameters.
+     <p>The player then calls <a href="#sivic-player-init">§5.3.6 SIMID:Player:init</a> with all relevant parameters.
 The player waits until the creative responds with resolve.  If the
 creative responds with reject, the player should immediately unload
 the creative’s iframe.</p>
     <li data-md>
      <p>Where possible the player should wait until both the creative has responded
-to the <a href="#sivic-player-init">§5.3.4 SIVIC:Player:init</a> and the video is ready to start playing. Ready
+to the <a href="#sivic-player-init">§5.3.6 SIMID:Player:init</a> and the video is ready to start playing. Ready
 to start playing means the first frame will show and playback will continue.</p>
     <li data-md>
-     <p>When the video is started the player calls <a href="#sivic-player-startCreative">§5.3.7 SIVIC:Player:startCreative</a>.
+     <p>When the video is started the player calls <a href="#sivic-player-startCreative">§5.3.9 SIMID:Player:startCreative</a>.
 The player must overlay the creative iframe over the video element exactly.
 The player must make the creative visible. The creative should respond to
-this message immediately with <a href="#sivic-player-startCreative-resolve">§5.3.7.1 resolve</a>.</p>
+this message immediately with <a href="#sivic-player-startCreative-resolve">§5.3.9.1 resolve</a>.</p>
    </ol>
    <h3 class="heading settled" data-level="7.2" id="api-ad-playback"><span class="secno">7.2. </span><span class="content">How to Handle Ad Playback</span><a class="self-link" href="#api-ad-playback"></a></h3>
    <p>The video player is responsible for handling playback of the video as well as
-tracking video related events. The SIVIC creative on the other hand handles
+tracking video related events. The SIMID creative on the other hand handles
 playback of interactive content and internal tracking related to interactivity
 (custom events, creative impression if desired (recommended)).</p>
    <h4 class="heading settled" data-level="7.2.1" id="api-ad-pause"><span class="secno">7.2.1. </span><span class="content">Ad Pause</span><a class="self-link" href="#api-ad-pause"></a></h4>
    <p>If the <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed②">variableDurationAllowed</a></code> flag is set to <code>true</code> then
-the player should enable video pause by the SIVIC creative via the
-SIVIC:Creative:requestPause message. The player must respond to
-SIVIC:Creative:requestPause with the <code>AdPaused</code> event.</p>
-   <p>When the SIVIC creative would like to resume video playback, it should call the
-SIVIC:Creative:requestPlay message. The player must
-respond to SIVIC:Creative:requestPlay message with resolve and play the video.</p>
+the player should enable video pause by the SIMID creative via the
+SIMID:Creative:requestPause message. The player must respond to
+SIMID:Creative:requestPause with the <code>AdPaused</code> event.</p>
+   <p>When the SIMID creative would like to resume video playback, it should call the
+SIMID:Creative:requestPlay message. The player must
+respond to SIMID:Creative:requestPlay message with resolve and play the video.</p>
    <h4 class="heading settled" data-level="7.2.2" id="api-resizing"><span class="secno">7.2.2. </span><span class="content">Ad Resizing and Fullscreen</span><a class="self-link" href="#api-resizing"></a></h4>
    <p class="issue" id="issue-6ed90d5c"><a class="self-link" href="#issue-6ed90d5c"></a> can width / height coordination not be done through the iframe width
 height, which would not require any API?</p>
-   <p>The player may resize the ad slot. The player must call <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a> any time the ad slot size is changed.</p>
-   <p>If <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreenallowed" id="ref-for-dom-environmentdata-fullscreenallowed①">fullscreenAllowed</a></code> is <code>true</code>, the SIVIC creative may
-call the <a href="#sivic-creative-requestFullScreen">§5.4.8 SIVIC:Creative:requestFullScreen</a> method. The player must resize only the ad
-slot to fullscreen (not the video). The SIVIC creative then will resize the
-video as it sees fit. The player must call <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a> on the SIVIC creative
+   <p>The player may resize the ad slot. The player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> any time the ad slot size is changed.</p>
+   <p>If <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreenallowed" id="ref-for-dom-environmentdata-fullscreenallowed①">fullscreenAllowed</a></code> is <code>true</code>, the SIMID creative may
+call the <a href="#sivic-creative-requestFullScreen">§5.4.8 SIMID:Creative:requestFullScreen</a> method. The player must resize only the ad
+slot to fullscreen (not the video). The SIMID creative then will resize the
+video as it sees fit. The player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> on the SIMID creative
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen①">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions">creativeDimensions</a></code> set to the full screen dimensions.</p>
-   <p>If player goes fullscreen on its own. Then the player must call <a href="#sivic-player-resize">§5.3.6 SIVIC:Player:resize</a> on the SIVIC creative
+   <p>If player goes fullscreen on its own. Then the player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> on the SIMID creative
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen②">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions①">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions①">creativeDimensions</a></code> set to the full screen dimensions.</p>
    <p class="issue" id="issue-eea3696d"><a class="self-link" href="#issue-eea3696d"></a> should the player not also resize the video slot?</p>
    <h3 class="heading settled" data-level="7.3" id="api-end"><span class="secno">7.3. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#api-end"></a></h3>
@@ -2774,9 +2795,9 @@ with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fulls
      <p>Ad was skipped, either by player or creative (if the ad contains
 the skip button). See <a href="#api-skip">§7.3.1 Ad Skips</a>.</p>
     <li data-md>
-     <p>The creative has fired <a href="#sivic-creative-requestStop">§5.4.13 SIVIC:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
+     <p>The creative has fired <a href="#sivic-creative-requestStop">§5.4.13 SIMID:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
     <li data-md>
-     <p>The player has fired <a href="#sivic-player-adStopped">§5.3.2 SIVIC:Player:adStopped</a> message and the creative resolved.</p>
+     <p>The player has fired <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> message and the creative resolved.</p>
     <li data-md>
      <p>Ad errors out. See <a href="#api-error">§7.3.5 Ad Errors Out</a>.</p>
    </ol>
@@ -2784,11 +2805,11 @@ the skip button). See <a href="#api-skip">§7.3.1 Ad Skips</a>.</p>
    <p><strong>Skip Ad Handled by Player</strong></p>
    <ol>
     <li data-md>
-     <p>The player calls <a href="#sivic-player-adSkipped">§5.3.1 SIVIC:Player:adSkipped</a> on the ad.</p>
+     <p>The player calls <a href="#sivic-player-adSkipped">§5.3.1 SIMID:Player:adSkipped</a> on the ad.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIVIC:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIMID:Creative:reportTracking</a></p>
     <li data-md>
      <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> from the reportTracking call.</p>
     <li data-md>
@@ -2801,7 +2822,7 @@ the skip button). See <a href="#api-skip">§7.3.1 Ad Skips</a>.</p>
    <p><strong>Skip Ad Handled by Ad</strong></p>
    <ol>
     <li data-md>
-     <p>The creative dispatches <a href="#sivic-creative-requestSkip">§5.4.12 SIVIC:Creative:requestSkip</a>.</p>
+     <p>The creative dispatches <a href="#sivic-creative-requestSkip">§5.4.12 SIMID:Creative:requestSkip</a>.</p>
     <li data-md>
      <p>The player dispatches resolves the to the <code>requestSkip</code> message.</p>
     <li data-md>
@@ -2813,7 +2834,7 @@ typically at the prompting of the viewer. A good example would be a survey that
 allows the viewer to skip immediately to content when completed.</p>
    <ol>
     <li data-md>
-     <p>The ad cleans up and dispatches <a href="#sivic-creative-requestStop">§5.4.13 SIVIC:Creative:requestStop</a>.</p>
+     <p>The ad cleans up and dispatches <a href="#sivic-creative-requestStop">§5.4.13 SIMID:Creative:requestStop</a>.</p>
     <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
@@ -2825,11 +2846,11 @@ duration must only be extended in response to user interaction.</p>
      <p>User interacts at any point during playback of the video, triggering extended
 ad portion.</p>
     <li data-md>
-     <p>The Creative dispatches <a href="#sivic-creative-requestChangeAdDuration">§5.4.6 SIVIC:Creative:requestChangeAdDuration</a> message with the new duration.</p>
+     <p>The Creative dispatches <a href="#sivic-creative-requestChangeAdDuration">§5.4.6 SIMID:Creative:requestChangeAdDuration</a> message with the new duration.</p>
     <li data-md>
      <p>The ad enters its extended phase.</p>
     <li data-md>
-     <p>The creative dispatches <a href="#sivic-creative-requestStop">§5.4.13 SIVIC:Creative:requestStop</a> when extended phase is finished.</p>
+     <p>The creative dispatches <a href="#sivic-creative-requestStop">§5.4.13 SIMID:Creative:requestStop</a> when extended phase is finished.</p>
    </ol>
    <p class="issue" id="issue-75380958"><a class="self-link" href="#issue-75380958"></a> clarify the value of the <code>duration</code> property as the current text
 does not seem to make much sense</p>
@@ -2837,11 +2858,11 @@ does not seem to make much sense</p>
    <p>When an ad finishes at the same time as its video.</p>
    <ol>
     <li data-md>
-     <p>The player calls <a href="#sivic-player-adStopped">§5.3.2 SIVIC:Player:adStopped</a> on the ad.</p>
+     <p>The player calls <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> on the ad.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIVIC:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIMID:Creative:reportTracking</a></p>
     <li data-md>
      <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> from the reportTracking call.</p>
     <li data-md>
@@ -2850,22 +2871,22 @@ does not seem to make much sense</p>
      <p>The player unloads the ad.</p>
    </ol>
    <h4 class="heading settled" data-level="7.3.5" id="api-error"><span class="secno">7.3.5. </span><span class="content">Ad Errors Out</span><a class="self-link" href="#api-error"></a></h4>
-   <p>The SIVIC creative or the player may terminate the ad unit with an error at any
-time. If the SIVIC creative indicates an error, the player should try to stop ad
+   <p>The SIMID creative or the player may terminate the ad unit with an error at any
+time. If the SIMID creative indicates an error, the player should try to stop ad
 unit playback. This might not be possible in server side stitched ads.</p>
-   <p>The player may error out if the ad does not respond with <a href="#sivic-player-init-resolve">§5.3.4.1 resolve</a> in a reasonable amount of time.</p>
+   <p>The player may error out if the ad does not respond with <a href="#sivic-player-init-resolve">§5.3.6.1 resolve</a> in a reasonable amount of time.</p>
    <p>When an player errors out it must follow these steps.</p>
    <ol>
     <li data-md>
-     <p>The player calls <a href="#sivic-player-fatalError">§5.3.3 SIVIC:Player:fatalError</a> on the ad.</p>
+     <p>The player calls <a href="#sivic-player-fatalError">§5.3.5 SIMID:Player:fatalError</a> on the ad.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIVIC:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIMID:Creative:reportTracking</a></p>
     <li data-md>
      <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> from the reportTracking call.</p>
     <li data-md>
-     <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-fatalError-resolve">§5.3.3.1 resolve</a>.</p>
+     <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-fatalError-resolve">§5.3.5.1 resolve</a>.</p>
     <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
@@ -2879,21 +2900,21 @@ implementations may have a publisher provided close control, as well as various 
 Ad creatives may opt to show its own controls, including a close control. Ad creatives and
 media players should ensure that consumers are presented with a good ad experience.</p>
    <h4 class="heading settled" data-level="7.3.7" id="api-notes"><span class="secno">7.3.7. </span><span class="content">Additional Notes</span><a class="self-link" href="#api-notes"></a></h4>
-   <p>The player may call <a href="#sivic-player-adStopped">§5.3.2 SIVIC:Player:adStopped</a> at any time. The creative should respond with <code>resolved</code> after finishing its ad end logic. The player should allow 1 second
-between calling <a href="#sivic-player-adStopped">§5.3.2 SIVIC:Player:adStopped</a> and receiving <code>resolved</code>. The implementer of the
-player should take into consideration that dropping a SIVIC ad unit before it has
-dispatched <code>resolved</code> may result in tracking discrepancies, and that calling <a href="#sivic-player-adStopped">§5.3.2 SIVIC:Player:adStopped</a> before the ad experience has ended (which is AFTER the optional
+   <p>The player may call <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> at any time. The creative should respond with <code>resolved</code> after finishing its ad end logic. The player should allow 1 second
+between calling <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> and receiving <code>resolved</code>. The implementer of the
+player should take into consideration that dropping a SIMID ad unit before it has
+dispatched <code>resolved</code> may result in tracking discrepancies, and that calling <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> before the ad experience has ended (which is AFTER the optional
 lean-in phase) could harm the overall ad experience.</p>
-   <p>The SIVIC creative may also dispatch <a href="#sivic-creative-requestStop">§5.4.13 SIVIC:Creative:requestStop</a> at any time, signaling to the
+   <p>The SIMID creative may also dispatch <a href="#sivic-creative-requestStop">§5.4.13 SIMID:Creative:requestStop</a> at any time, signaling to the
 player that the ad has finished and unloaded. Any further interaction with the
-SIVIC creative after <code>requestStop</code> may not result in the desired outcome. The same
+SIMID creative after <code>requestStop</code> may not result in the desired outcome. The same
 is true for <code>fatalError</code>.</p>
    <h2 class="heading settled" data-level="8" id="errors"><span class="secno">8. </span><span class="content">Error Handling and Timeouts</span><a class="self-link" href="#errors"></a></h2>
    <p>If the media cannot be played the player should terminate the ad and fire an error using the standard VAST errors.</p>
    <p>If either the interactive ad or player wants to terminate with an error the player should fire a 902 error. In cases where this is not possible like live server side ad insertion the player should remove the ad overlay and continue tracking quartiles and completion.</p>
    <p>The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.</p>
    <h3 class="heading settled" data-level="8.1" id="error-codes"><span class="secno">8.1. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h3>
-    This table indicates defined SIVIC error codes the creative may fire. 
+    This table indicates defined SIMID error codes the creative may fire. 
    <table class="alternatecolor">
     <tbody>
      <tr style="background:black;color:white">
@@ -2908,14 +2929,14 @@ is true for <code>fatalError</code>.</p>
      <tr>
       <td>1101
       <td>Resources could not be loaded.
-      <td>The SIVIC creative tried to load resources but failed.
+      <td>The SIMID creative tried to load resources but failed.
      <tr>
       <td>1102
       <td>Playback area not usable by creative.
       <td>The dimensions the creative needed were not what it received.
      <tr>
       <td>1103
-      <td>Wrong SIVIC version.
+      <td>Wrong SIMID version.
       <td>The creative could not support the players version.
      <tr>
       <td>1104
@@ -2952,7 +2973,7 @@ is true for <code>fatalError</code>.</p>
       <td>The player is not responding adequately to messages.
       <td>
    </table>
-   <p>This table indicates defined SIVIC error codes the player may fire.</p>
+   <p>This table indicates defined SIMID error codes the player may fire.</p>
    <table class="alternatecolor">
     <tbody>
      <tr style="background:black;color:white">
@@ -2966,78 +2987,78 @@ is true for <code>fatalError</code>.</p>
 		      The player should be more specific in the error message.
      <tr>
       <td>1201
-      <td>Wrong SIVIC version.
+      <td>Wrong SIMID version.
       <td>The player could not support the creatives version.
      <tr>
       <td>1202
-      <td>SIVIC creative requesting more time than the player
+      <td>SIMID creative requesting more time than the player
           is willing to support.
       <td>
      <tr>
       <td>1203
-      <td>SIVIC creative requesting more functionality than the player is
+      <td>SIMID creative requesting more functionality than the player is
           willing to support.
       <td>
      <tr>
       <td>1204
-      <td>SIVIC creative is doing actions not supported on this site.
+      <td>SIMID creative is doing actions not supported on this site.
       <td>
      <tr>
       <td>1205
-      <td>SIVIC creative is overloading the postmessage channel.
+      <td>SIMID creative is overloading the postmessage channel.
       <td>
      <tr>
       <td>1206
-      <td>The SIVIC creatives video could not be loaded.
+      <td>The SIMID creatives video could not be loaded.
       <td>
      <tr>
       <td>1207
       <td>Media Timeout.
-      <td>The video/audio media related to the SIVIC creative buffered
+      <td>The video/audio media related to the SIMID creative buffered
           for too long and timed out.
      <tr>
       <td>1208
-      <td>The SIVIC creative is taking too long to resolve or reject messages.
+      <td>The SIMID creative is taking too long to resolve or reject messages.
       <td>
      <tr>
       <td>1209
-      <td>The SIVIC creatives media from the VAST response is not supported
+      <td>The SIMID creatives media from the VAST response is not supported
           on this device.
       <td>
      <tr>
       <td>1210
-      <td>The SIVIC creative is not following the spec when initializing.
+      <td>The SIMID creative is not following the spec when initializing.
       <td>
      <tr>
       <td>1211
-      <td>The SIVIC creative is not following the spec in the way it
+      <td>The SIMID creative is not following the spec in the way it
           sends messages.
       <td>
    </table>
    <h2 class="heading settled" data-level="9" id="terminology"><span class="secno">9. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <dl>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-vast">SIVIC VAST<a class="self-link" href="#sivic-vast"></a></dfn>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-vast">SIMID VAST<a class="self-link" href="#simid-vast"></a></dfn>
     <dd data-md>
-     <p>The VAST document that contains the SIVIC ad unit components.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-ad-unit">SIVIC Ad Unit<a class="self-link" href="#sivic-ad-unit"></a></dfn>
+     <p>The VAST document that contains the SIMID ad unit components.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-ad-unit">SIMID Ad Unit<a class="self-link" href="#simid-ad-unit"></a></dfn>
     <dd data-md>
-     <p>The SIVIC ad video and the SIVIC ad creative.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-video">SIVIC Video<a class="self-link" href="#sivic-video"></a></dfn>
+     <p>The SIMID ad video and the SIMID ad creative.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-video">SIMID Video<a class="self-link" href="#simid-video"></a></dfn>
     <dd data-md>
-     <p>The SIVIC ad video component if it’s a progressively downloaded video file.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-video-stream">SIVIC Video Stream<a class="self-link" href="#sivic-video-stream"></a></dfn>
+     <p>The SIMID ad video component if it’s a progressively downloaded video file.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-video-stream">SIMID Video Stream<a class="self-link" href="#simid-video-stream"></a></dfn>
     <dd data-md>
-     <p>The SIVIC ad video component if it’s SSAI video.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-live-video-stream">SIVIC Live Video Stream<a class="self-link" href="#sivic-live-video-stream"></a></dfn>
+     <p>The SIMID ad video component if it’s SSAI video.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-live-video-stream">SIMID Live Video Stream<a class="self-link" href="#simid-live-video-stream"></a></dfn>
     <dd data-md>
-     <p>The SIVIC ad video component if live streaming video.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-creative">SIVIC Creative<a class="self-link" href="#sivic-creative"></a></dfn>
+     <p>The SIMID ad video component if live streaming video.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-creative">SIMID Creative<a class="self-link" href="#simid-creative"></a></dfn>
     <dd data-md>
-     <p>The SIVIC ad creative component (html doc and assets) that overlays the SIVIC
+     <p>The SIMID ad creative component (html doc and assets) that overlays the SIMID
 ad video.</p>
-    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="sivic-secondary-video">SIVIC Secondary Video<a class="self-link" href="#sivic-secondary-video"></a></dfn>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-secondary-video">SIMID Secondary Video<a class="self-link" href="#simid-secondary-video"></a></dfn>
     <dd data-md>
-     <p>Video assets that are loaded as part of the SIVIC creative and not the
+     <p>Video assets that are loaded as part of the SIMID creative and not the
 primary video.</p>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="content-video">Content Video<a class="self-link" href="#content-video"></a></dfn>
     <dd data-md>
@@ -3193,45 +3214,45 @@ primary video.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#dom-skippablestate-adhandles">"adHandles"</a><span>, in §5.3.4</span>
-   <li><a href="#dom-creativedata-adid">adId</a><span>, in §5.3.4</span>
-   <li><a href="#dom-creativedata-adparameters">adParameters</a><span>, in §5.3.4</span>
-   <li><a href="#dom-creativedata-adservingid">adServingId</a><span>, in §5.3.4</span>
-   <li><a href="#dom-environmentdata-appid">appId</a><span>, in §5.3.4</span>
+   <li><a href="#dom-skippablestate-adhandles">"adHandles"</a><span>, in §5.3.6</span>
+   <li><a href="#dom-creativedata-adid">adId</a><span>, in §5.3.6</span>
+   <li><a href="#dom-creativedata-adparameters">adParameters</a><span>, in §5.3.6</span>
+   <li><a href="#dom-creativedata-adservingid">adServingId</a><span>, in §5.3.6</span>
+   <li><a href="#dom-environmentdata-appid">appId</a><span>, in §5.3.6</span>
    <li><a href="#dom-message-args">args</a><span>, in §4.3</span>
-   <li><a href="#dom-creativedata-clickthruurl">clickThruUrl</a><span>, in §5.3.4</span>
+   <li><a href="#dom-creativedata-clickthruurl">clickThruUrl</a><span>, in §5.3.6</span>
    <li><a href="#content-video">Content Video</a><span>, in §9</span>
-   <li><a href="#dictdef-creativedata">CreativeData</a><span>, in §5.3.4</span>
-   <li><a href="#dom-initparameters-creativedata">creativeData</a><span>, in §5.3.4</span>
+   <li><a href="#dictdef-creativedata">CreativeData</a><span>, in §5.3.6</span>
+   <li><a href="#dom-initparameters-creativedata">creativeData</a><span>, in §5.3.6</span>
    <li>
     creativeDimensions
     <ul>
-     <li><a href="#dom-environmentdata-creativedimensions">dict-member for EnvironmentData</a><span>, in §5.3.4</span>
-     <li><a href="#dom-resizeparameters-creativedimensions">dict-member for ResizeParameters</a><span>, in §5.3.6</span>
+     <li><a href="#dom-environmentdata-creativedimensions">dict-member for EnvironmentData</a><span>, in §5.3.6</span>
+     <li><a href="#dom-resizeparameters-creativedimensions">dict-member for ResizeParameters</a><span>, in §5.3.8</span>
     </ul>
-   <li><a href="#dictdef-creativedimensions">CreativeDimensions</a><span>, in §5.3.6</span>
-   <li><a href="#dom-creativedata-creativeid">creativeId</a><span>, in §5.3.4</span>
+   <li><a href="#dictdef-creativedimensions">CreativeDimensions</a><span>, in §5.3.8</span>
+   <li><a href="#dom-creativedata-creativeid">creativeId</a><span>, in §5.3.6</span>
    <li><a href="#message-deserialize">deserialize</a><span>, in §4.1.2</span>
-   <li><a href="#dom-environmentdata-deviceid">deviceId</a><span>, in §5.3.4</span>
-   <li><a href="#dom-initparameters-environmentdata">environmentData</a><span>, in §5.3.4</span>
-   <li><a href="#dictdef-environmentdata">EnvironmentData</a><span>, in §5.3.4</span>
+   <li><a href="#dom-environmentdata-deviceid">deviceId</a><span>, in §5.3.6</span>
+   <li><a href="#dom-initparameters-environmentdata">environmentData</a><span>, in §5.3.6</span>
+   <li><a href="#dictdef-environmentdata">EnvironmentData</a><span>, in §5.3.6</span>
    <li><a href="#dom-resolvemessageargsvalue-errorcode">errorCode</a><span>, in §4.3.2</span>
    <li><a href="#message-establish-a-new-session">establish a new session</a><span>, in §4.2.1</span>
    <li>
     fullScreen
     <ul>
-     <li><a href="#dom-environmentdata-fullscreen">dict-member for EnvironmentData</a><span>, in §5.3.4</span>
-     <li><a href="#dom-resizeparameters-fullscreen">dict-member for ResizeParameters</a><span>, in §5.3.6</span>
+     <li><a href="#dom-environmentdata-fullscreen">dict-member for EnvironmentData</a><span>, in §5.3.6</span>
+     <li><a href="#dom-resizeparameters-fullscreen">dict-member for ResizeParameters</a><span>, in §5.3.8</span>
     </ul>
-   <li><a href="#dom-environmentdata-fullscreenallowed">fullscreenAllowed</a><span>, in §5.3.4</span>
+   <li><a href="#dom-environmentdata-fullscreenallowed">fullscreenAllowed</a><span>, in §5.3.6</span>
    <li><a href="#message-handle-an-incoming-message">handle an incoming message</a><span>, in §4.2.3</span>
    <li>
     height
     <ul>
-     <li><a href="#dom-creativedimensions-height">dict-member for CreativeDimensions</a><span>, in §5.3.6</span>
-     <li><a href="#dom-videodimensions-height">dict-member for VideoDimensions</a><span>, in §5.3.6</span>
+     <li><a href="#dom-creativedimensions-height">dict-member for CreativeDimensions</a><span>, in §5.3.8</span>
+     <li><a href="#dom-videodimensions-height">dict-member for VideoDimensions</a><span>, in §5.3.8</span>
     </ul>
-   <li><a href="#dictdef-initparameters">InitParameters</a><span>, in §5.3.4</span>
+   <li><a href="#dictdef-initparameters">InitParameters</a><span>, in §5.3.6</span>
    <li><a href="#dom-resolvemessageargsvalue-message">message</a><span>, in §4.3.2</span>
    <li><a href="#dictdef-message">Message</a><span>, in §4.3</span>
    <li>
@@ -3240,13 +3261,13 @@ primary video.</p>
      <li><a href="#dom-message-messageid">dict-member for Message</a><span>, in §4.3</span>
      <li><a href="#dom-resolvemessageargs-messageid">dict-member for ResolveMessageArgs</a><span>, in §4.3.1</span>
     </ul>
-   <li><a href="#dom-environmentdata-muted">muted</a><span>, in §5.3.4</span>
-   <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §5.3.4</span>
-   <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §5.3.4</span>
+   <li><a href="#dom-environmentdata-muted">muted</a><span>, in §5.3.6</span>
+   <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §5.3.6</span>
+   <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §5.3.6</span>
    <li><a href="#message-transport-properties">properties</a><span>, in §4.1</span>
    <li><a href="#message-receiver">receiver</a><span>, in §4.1</span>
    <li><a href="#message-reject">reject</a><span>, in §4.3.2</span>
-   <li><a href="#dictdef-resizeparameters">ResizeParameters</a><span>, in §5.3.6</span>
+   <li><a href="#dictdef-resizeparameters">ResizeParameters</a><span>, in §5.3.8</span>
    <li><a href="#message-resolve">resolve</a><span>, in §4.3.1</span>
    <li><a href="#dictdef-resolvemessageargs">ResolveMessageArgs</a><span>, in §4.3.1</span>
    <li><a href="#dictdef-resolvemessageargsvalue">ResolveMessageArgsValue</a><span>, in §4.3.2</span>
@@ -3258,48 +3279,48 @@ primary video.</p>
    <li><a href="#dom-message-sessionid">sessionId</a><span>, in §4.3</span>
    <li><a href="#message-session-identifier">session identifier</a><span>, in §4.2</span>
    <li><a href="#message-sessions">sessions</a><span>, in §4.2</span>
-   <li><a href="#dom-environmentdata-siteurl">siteUrl</a><span>, in §5.3.4</span>
-   <li><a href="#sivic-ad-unit">SIVIC Ad Unit</a><span>, in §9</span>
-   <li><a href="#sivic-creative">SIVIC Creative</a><span>, in §9</span>
-   <li><a href="#sivic-live-video-stream">SIVIC Live Video Stream</a><span>, in §9</span>
-   <li><a href="#sivic-secondary-video">SIVIC Secondary Video</a><span>, in §9</span>
-   <li><a href="#sivic-vast">SIVIC VAST</a><span>, in §9</span>
-   <li><a href="#sivic-video">SIVIC Video</a><span>, in §9</span>
-   <li><a href="#sivic-video-stream">SIVIC Video Stream</a><span>, in §9</span>
-   <li><a href="#dom-environmentdata-skippablestate">skippableState</a><span>, in §5.3.4</span>
-   <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §5.3.4</span>
+   <li><a href="#simid-ad-unit">SIMID Ad Unit</a><span>, in §9</span>
+   <li><a href="#simid-creative">SIMID Creative</a><span>, in §9</span>
+   <li><a href="#simid-live-video-stream">SIMID Live Video Stream</a><span>, in §9</span>
+   <li><a href="#simid-secondary-video">SIMID Secondary Video</a><span>, in §9</span>
+   <li><a href="#simid-vast">SIMID VAST</a><span>, in §9</span>
+   <li><a href="#simid-video">SIMID Video</a><span>, in §9</span>
+   <li><a href="#simid-video-stream">SIMID Video Stream</a><span>, in §9</span>
+   <li><a href="#dom-environmentdata-siteurl">siteUrl</a><span>, in §5.3.6</span>
+   <li><a href="#dom-environmentdata-skippablestate">skippableState</a><span>, in §5.3.6</span>
+   <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §5.3.6</span>
    <li><a href="#dom-message-timestamp">timestamp</a><span>, in §4.3</span>
    <li><a href="#message-transport">transport</a><span>, in §4.1</span>
    <li><a href="#dom-message-type">type</a><span>, in §4.3</span>
-   <li><a href="#dom-environmentdata-useragent">useragent</a><span>, in §5.3.4</span>
+   <li><a href="#dom-environmentdata-useragent">useragent</a><span>, in §5.3.6</span>
    <li><a href="#dom-resolvemessageargs-value">value</a><span>, in §4.3.1</span>
-   <li><a href="#dom-environmentdata-variabledurationallowed">variableDurationAllowed</a><span>, in §5.3.4</span>
-   <li><a href="#dom-environmentdata-version">version</a><span>, in §5.3.4</span>
-   <li><a href="#dictdef-videodimensions">VideoDimensions</a><span>, in §5.3.6</span>
+   <li><a href="#dom-environmentdata-variabledurationallowed">variableDurationAllowed</a><span>, in §5.3.6</span>
+   <li><a href="#dom-environmentdata-version">version</a><span>, in §5.3.6</span>
+   <li><a href="#dictdef-videodimensions">VideoDimensions</a><span>, in §5.3.8</span>
    <li>
     videoDimensions
     <ul>
-     <li><a href="#dom-environmentdata-videodimensions">dict-member for EnvironmentData</a><span>, in §5.3.4</span>
-     <li><a href="#dom-resizeparameters-videodimensions">dict-member for ResizeParameters</a><span>, in §5.3.6</span>
+     <li><a href="#dom-environmentdata-videodimensions">dict-member for EnvironmentData</a><span>, in §5.3.6</span>
+     <li><a href="#dom-resizeparameters-videodimensions">dict-member for ResizeParameters</a><span>, in §5.3.8</span>
     </ul>
-   <li><a href="#dom-environmentdata-volume">volume</a><span>, in §5.3.4</span>
+   <li><a href="#dom-environmentdata-volume">volume</a><span>, in §5.3.6</span>
    <li>
     width
     <ul>
-     <li><a href="#dom-creativedimensions-width">dict-member for CreativeDimensions</a><span>, in §5.3.6</span>
-     <li><a href="#dom-videodimensions-width">dict-member for VideoDimensions</a><span>, in §5.3.6</span>
+     <li><a href="#dom-creativedimensions-width">dict-member for CreativeDimensions</a><span>, in §5.3.8</span>
+     <li><a href="#dom-videodimensions-width">dict-member for VideoDimensions</a><span>, in §5.3.8</span>
     </ul>
    <li>
     x
     <ul>
-     <li><a href="#dom-creativedimensions-x">dict-member for CreativeDimensions</a><span>, in §5.3.6</span>
-     <li><a href="#dom-videodimensions-x">dict-member for VideoDimensions</a><span>, in §5.3.6</span>
+     <li><a href="#dom-creativedimensions-x">dict-member for CreativeDimensions</a><span>, in §5.3.8</span>
+     <li><a href="#dom-videodimensions-x">dict-member for VideoDimensions</a><span>, in §5.3.8</span>
     </ul>
    <li>
     y
     <ul>
-     <li><a href="#dom-creativedimensions-y">dict-member for CreativeDimensions</a><span>, in §5.3.6</span>
-     <li><a href="#dom-videodimensions-y">dict-member for VideoDimensions</a><span>, in §5.3.6</span>
+     <li><a href="#dom-creativedimensions-y">dict-member for CreativeDimensions</a><span>, in §5.3.8</span>
+     <li><a href="#dom-videodimensions-y">dict-member for VideoDimensions</a><span>, in §5.3.8</span>
     </ul>
   </ul>
   <aside class="dfn-panel" data-for="term-for-the-iframe-element">
@@ -3315,7 +3336,7 @@ primary video.</p>
     <li><a href="#ref-for-idl-DOMString">4.1.2. Message Serialization</a>
     <li><a href="#ref-for-idl-DOMString①">4.3. Message Data Structure</a> <a href="#ref-for-idl-DOMString②">(2)</a>
     <li><a href="#ref-for-idl-DOMString③">4.3.2. reject messages</a>
-    <li><a href="#ref-for-idl-DOMString④">5.3.4. SIVIC:Player:init</a> <a href="#ref-for-idl-DOMString⑤">(2)</a> <a href="#ref-for-idl-DOMString⑥">(3)</a> <a href="#ref-for-idl-DOMString⑦">(4)</a> <a href="#ref-for-idl-DOMString⑧">(5)</a> <a href="#ref-for-idl-DOMString⑨">(6)</a> <a href="#ref-for-idl-DOMString①⓪">(7)</a> <a href="#ref-for-idl-DOMString①①">(8)</a> <a href="#ref-for-idl-DOMString①②">(9)</a> <a href="#ref-for-idl-DOMString①③">(10)</a>
+    <li><a href="#ref-for-idl-DOMString④">5.3.6. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString⑤">(2)</a> <a href="#ref-for-idl-DOMString⑥">(3)</a> <a href="#ref-for-idl-DOMString⑦">(4)</a> <a href="#ref-for-idl-DOMString⑧">(5)</a> <a href="#ref-for-idl-DOMString⑨">(6)</a> <a href="#ref-for-idl-DOMString①⓪">(7)</a> <a href="#ref-for-idl-DOMString①①">(8)</a> <a href="#ref-for-idl-DOMString①②">(9)</a> <a href="#ref-for-idl-DOMString①③">(10)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-promise">
@@ -3328,20 +3349,20 @@ primary video.</p>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
    <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-boolean">5.3.4. SIVIC:Player:init</a> <a href="#ref-for-idl-boolean①">(2)</a> <a href="#ref-for-idl-boolean②">(3)</a> <a href="#ref-for-idl-boolean③">(4)</a>
-    <li><a href="#ref-for-idl-boolean④">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-idl-boolean">5.3.6. SIMID:Player:init</a> <a href="#ref-for-idl-boolean①">(2)</a> <a href="#ref-for-idl-boolean②">(3)</a> <a href="#ref-for-idl-boolean③">(4)</a>
+    <li><a href="#ref-for-idl-boolean④">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-float">
    <a href="https://heycam.github.io/webidl/#idl-float">https://heycam.github.io/webidl/#idl-float</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-float">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-idl-float">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-long">
    <a href="https://heycam.github.io/webidl/#idl-long">https://heycam.github.io/webidl/#idl-long</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-long">5.3.6. SIVIC:Player:resize</a> <a href="#ref-for-idl-long①">(2)</a> <a href="#ref-for-idl-long②">(3)</a> <a href="#ref-for-idl-long③">(4)</a> <a href="#ref-for-idl-long④">(5)</a> <a href="#ref-for-idl-long⑤">(6)</a> <a href="#ref-for-idl-long⑥">(7)</a> <a href="#ref-for-idl-long⑦">(8)</a>
+    <li><a href="#ref-for-idl-long">5.3.8. SIMID:Player:resize</a> <a href="#ref-for-idl-long①">(2)</a> <a href="#ref-for-idl-long②">(3)</a> <a href="#ref-for-idl-long③">(4)</a> <a href="#ref-for-idl-long④">(5)</a> <a href="#ref-for-idl-long⑤">(6)</a> <a href="#ref-for-idl-long⑥">(7)</a> <a href="#ref-for-idl-long⑦">(8)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -3606,74 +3627,74 @@ does not seem to make much sense<a href="#issue-75380958"> ↵ </a></div>
   <aside class="dfn-panel" data-for="dictdef-creativedata">
    <b><a href="#dictdef-creativedata">#dictdef-creativedata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-creativedata">5.3.4. SIVIC:Player:init</a> <a href="#ref-for-dictdef-creativedata①">(2)</a>
+    <li><a href="#ref-for-dictdef-creativedata">5.3.6. SIMID:Player:init</a> <a href="#ref-for-dictdef-creativedata①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedata-adparameters">
    <b><a href="#dom-creativedata-adparameters">#dom-creativedata-adparameters</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedata-adparameters">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-creativedata-adparameters">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedata-adid">
    <b><a href="#dom-creativedata-adid">#dom-creativedata-adid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedata-adid">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-creativedata-adid">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedata-creativeid">
    <b><a href="#dom-creativedata-creativeid">#dom-creativedata-creativeid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedata-creativeid">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-creativedata-creativeid">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedata-adservingid">
    <b><a href="#dom-creativedata-adservingid">#dom-creativedata-adservingid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedata-adservingid">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-creativedata-adservingid">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedata-clickthruurl">
    <b><a href="#dom-creativedata-clickthruurl">#dom-creativedata-clickthruurl</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedata-clickthruurl">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-creativedata-clickthruurl">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-environmentdata">
    <b><a href="#dictdef-environmentdata">#dictdef-environmentdata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-environmentdata">5.3.4. SIVIC:Player:init</a> <a href="#ref-for-dictdef-environmentdata①">(2)</a>
+    <li><a href="#ref-for-dictdef-environmentdata">5.3.6. SIMID:Player:init</a> <a href="#ref-for-dictdef-environmentdata①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-videodimensions">
    <b><a href="#dom-environmentdata-videodimensions">#dom-environmentdata-videodimensions</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-videodimensions">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-videodimensions">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-creativedimensions">
    <b><a href="#dom-environmentdata-creativedimensions">#dom-environmentdata-creativedimensions</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-creativedimensions">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-creativedimensions">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-fullscreen">
    <b><a href="#dom-environmentdata-fullscreen">#dom-environmentdata-fullscreen</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-fullscreen">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-fullscreen">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-fullscreenallowed">
    <b><a href="#dom-environmentdata-fullscreenallowed">#dom-environmentdata-fullscreenallowed</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-fullscreenallowed">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-fullscreenallowed">5.3.6. SIMID:Player:init</a>
     <li><a href="#ref-for-dom-environmentdata-fullscreenallowed①">7.2.2. Ad Resizing and Fullscreen</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-variabledurationallowed">
    <b><a href="#dom-environmentdata-variabledurationallowed">#dom-environmentdata-variabledurationallowed</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed">5.3.4. SIVIC:Player:init</a> <a href="#ref-for-dom-environmentdata-variabledurationallowed①">(2)</a>
+    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed">5.3.6. SIMID:Player:init</a> <a href="#ref-for-dom-environmentdata-variabledurationallowed①">(2)</a>
     <li><a href="#ref-for-dom-environmentdata-variabledurationallowed②">7.2.1. Ad Pause</a>
     <li><a href="#ref-for-dom-environmentdata-variabledurationallowed③">7.3.3. Ad Extends Beyond Video Completion</a>
    </ul>
@@ -3681,80 +3702,80 @@ does not seem to make much sense<a href="#issue-75380958"> ↵ </a></div>
   <aside class="dfn-panel" data-for="dom-environmentdata-skippablestate">
    <b><a href="#dom-environmentdata-skippablestate">#dom-environmentdata-skippablestate</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-skippablestate">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-skippablestate">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-version">
    <b><a href="#dom-environmentdata-version">#dom-environmentdata-version</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-version">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-version">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-siteurl">
    <b><a href="#dom-environmentdata-siteurl">#dom-environmentdata-siteurl</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-siteurl">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-siteurl">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-appid">
    <b><a href="#dom-environmentdata-appid">#dom-environmentdata-appid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-appid">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-appid">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-useragent">
    <b><a href="#dom-environmentdata-useragent">#dom-environmentdata-useragent</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-useragent">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-useragent">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-deviceid">
    <b><a href="#dom-environmentdata-deviceid">#dom-environmentdata-deviceid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-deviceid">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-deviceid">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-muted">
    <b><a href="#dom-environmentdata-muted">#dom-environmentdata-muted</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-muted">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-muted">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-volume">
    <b><a href="#dom-environmentdata-volume">#dom-environmentdata-volume</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-volume">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-environmentdata-volume">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumdef-skippablestate">
    <b><a href="#enumdef-skippablestate">#enumdef-skippablestate</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-enumdef-skippablestate">5.3.4. SIVIC:Player:init</a> <a href="#ref-for-enumdef-skippablestate①">(2)</a>
+    <li><a href="#ref-for-enumdef-skippablestate">5.3.6. SIMID:Player:init</a> <a href="#ref-for-enumdef-skippablestate①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-skippablestate-playerhandles">
    <b><a href="#dom-skippablestate-playerhandles">#dom-skippablestate-playerhandles</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-skippablestate-playerhandles">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-skippablestate-playerhandles">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-skippablestate-adhandles">
    <b><a href="#dom-skippablestate-adhandles">#dom-skippablestate-adhandles</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-skippablestate-adhandles">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-skippablestate-adhandles">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-skippablestate-notskippable">
    <b><a href="#dom-skippablestate-notskippable">#dom-skippablestate-notskippable</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-skippablestate-notskippable">5.3.4. SIVIC:Player:init</a>
+    <li><a href="#ref-for-dom-skippablestate-notskippable">5.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-resizeparameters">
    <b><a href="#dictdef-resizeparameters">#dictdef-resizeparameters</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-resizeparameters">5.3.6. SIVIC:Player:resize</a>
-    <li><a href="#ref-for-dictdef-resizeparameters①">5.4.11. SIVIC:Creative:requestResize</a>
+    <li><a href="#ref-for-dictdef-resizeparameters">5.3.8. SIMID:Player:resize</a>
+    <li><a href="#ref-for-dictdef-resizeparameters①">5.4.11. SIMID:Creative:requestResize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-resizeparameters-videodimensions">
@@ -3772,70 +3793,70 @@ does not seem to make much sense<a href="#issue-75380958"> ↵ </a></div>
   <aside class="dfn-panel" data-for="dom-resizeparameters-fullscreen">
    <b><a href="#dom-resizeparameters-fullscreen">#dom-resizeparameters-fullscreen</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-resizeparameters-fullscreen">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-resizeparameters-fullscreen">5.3.8. SIMID:Player:resize</a>
     <li><a href="#ref-for-dom-resizeparameters-fullscreen①">7.2.2. Ad Resizing and Fullscreen</a> <a href="#ref-for-dom-resizeparameters-fullscreen②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-videodimensions">
    <b><a href="#dictdef-videodimensions">#dictdef-videodimensions</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-videodimensions">5.3.4. SIVIC:Player:init</a>
-    <li><a href="#ref-for-dictdef-videodimensions①">5.3.6. SIVIC:Player:resize</a> <a href="#ref-for-dictdef-videodimensions②">(2)</a> <a href="#ref-for-dictdef-videodimensions③">(3)</a>
+    <li><a href="#ref-for-dictdef-videodimensions">5.3.6. SIMID:Player:init</a>
+    <li><a href="#ref-for-dictdef-videodimensions①">5.3.8. SIMID:Player:resize</a> <a href="#ref-for-dictdef-videodimensions②">(2)</a> <a href="#ref-for-dictdef-videodimensions③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-videodimensions-x">
    <b><a href="#dom-videodimensions-x">#dom-videodimensions-x</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-videodimensions-x">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-videodimensions-x">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-videodimensions-y">
    <b><a href="#dom-videodimensions-y">#dom-videodimensions-y</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-videodimensions-y">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-videodimensions-y">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-videodimensions-width">
    <b><a href="#dom-videodimensions-width">#dom-videodimensions-width</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-videodimensions-width">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-videodimensions-width">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-videodimensions-height">
    <b><a href="#dom-videodimensions-height">#dom-videodimensions-height</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-videodimensions-height">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-videodimensions-height">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-creativedimensions">
    <b><a href="#dictdef-creativedimensions">#dictdef-creativedimensions</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-creativedimensions">5.3.4. SIVIC:Player:init</a>
-    <li><a href="#ref-for-dictdef-creativedimensions①">5.3.6. SIVIC:Player:resize</a> <a href="#ref-for-dictdef-creativedimensions②">(2)</a> <a href="#ref-for-dictdef-creativedimensions③">(3)</a>
+    <li><a href="#ref-for-dictdef-creativedimensions">5.3.6. SIMID:Player:init</a>
+    <li><a href="#ref-for-dictdef-creativedimensions①">5.3.8. SIMID:Player:resize</a> <a href="#ref-for-dictdef-creativedimensions②">(2)</a> <a href="#ref-for-dictdef-creativedimensions③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedimensions-x">
    <b><a href="#dom-creativedimensions-x">#dom-creativedimensions-x</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedimensions-x">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-creativedimensions-x">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedimensions-y">
    <b><a href="#dom-creativedimensions-y">#dom-creativedimensions-y</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedimensions-y">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-creativedimensions-y">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedimensions-width">
    <b><a href="#dom-creativedimensions-width">#dom-creativedimensions-width</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedimensions-width">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-creativedimensions-width">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-creativedimensions-height">
    <b><a href="#dom-creativedimensions-height">#dom-creativedimensions-height</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-creativedimensions-height">5.3.6. SIVIC:Player:resize</a>
+    <li><a href="#ref-for-dom-creativedimensions-height">5.3.8. SIMID:Player:resize</a>
    </ul>
   </aside>
 <script>/* script-var-click-highlighting */
