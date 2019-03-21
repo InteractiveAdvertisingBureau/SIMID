@@ -573,6 +573,16 @@ dictionary ResolveMessageArgsValue {
       <td>n/a</td>
     </tr>
     <tr>
+      <td>[[#sivic-player-app-backgrounding]]</td>
+      <td>[[#sivic-player-app-backgrounding-resolve]]</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>[[#sivic-player-app-foregrounding]]</td>
+      <td>n/a</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
       <td>[[#sivic-player-fatalError]]</td>
       <td>[[#sivic-player-fatalError-resolve]]</td>
       <td>n/a</td>
@@ -765,6 +775,16 @@ The player should use the following table to determine which code to send.
 
 #### resolve #### {#sivic-player-adStopped-resolve}
 After resolve is called, the iframe will be removed.
+
+### SIVIC:Player:appBackgrounding ### {#sivic-player-app-backgrounding}
+The ad is in app and the app is going to move to the background.
+
+#### resolve #### {#sivic-player-app-backgrounding-resolve}
+The player should try wait for a resolve message from the creative before the backgrounding hook
+is complete. Any creative that does nothing should resolve this message immediately.
+
+### SIVIC:Player:appForegrounding ### {#sivic-player-app-foregrounding}
+The ad is in app and the app has moved from the background to the foreground.
 
 ### SIVIC:Player:fatalError ### {#sivic-player-fatalError}
 The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
