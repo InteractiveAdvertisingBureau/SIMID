@@ -1477,10 +1477,10 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-24">24 March 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-25">25 March 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
        
-         <dl>
+                <dl>
         <p><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" ></p>
         <dt>License</dt>
         <dl>
@@ -1494,9 +1494,7 @@ The IAB Technology Laboratory (Tech Lab) is a non-profit research and developmen
 <p>
 Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com</a></p>
 </dd>
-             
-       
-       
+
        
     <dl>
      <dt>This version:
@@ -1507,19 +1505,14 @@ Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:video@iabtechlab.com">IAB Tech Lab's Digital Video Technical Working Group</a>
     </dl>
-   </div>
-   <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
-and related or neighboring rights to this work.
-In addition, as of 24 March 2019,
-the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
-which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
-Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
+   
+       
+
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>Establishes a common communication protocol between video players and executable ad units, providing rich ad experiences for viewers.</p>
+   <p>Establishes a common and secure communication protocol between video players and executable ad units, providing rich ad experiences for viewers.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
@@ -1738,8 +1731,8 @@ Parts of this work may be from another specification document.  If so, those par
     0.1 (public comment) 
    <p><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></p>
    <h2 class="heading settled" data-level="2" id="exec-summary"><span class="secno">2. </span><span class="content">Executive Summary</span><a class="self-link" href="#exec-summary"></a></h2>
-   <p>SIMID is a standard for providing rich interactivity in the context of
-streaming audio and video ads. While the VAST standard addresses how publishers
+   <p>Secure Interactive Media Interface Definition (SIMID) is a standard for providing rich interactivity in the context of
+streaming audio and video ads. While the Video Ad Serving Template (VAST) standard addresses how publishers
 discover various metadata assets related to an ad campaign, SIMID addresses
 how the publisher’s video player should communicate and interface with a rich
 interactive layer and vice versa. As such, one can think of the SIMID creative
@@ -1755,7 +1748,7 @@ controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
    <p><img alt="A diagram showing SIMID ads sandboxed from the publisher player environment." src="images/simid_diagram_1_overlay.png" width="100%"> A diagram showing SIMID ads sandboxed from the publisher player environment</p>
    <p>SIMID is part of a broader effort to replace the older VPAID standard. While
-OMID replaces the use case of verification and measurement, SIMID replaces
+Open Measurement replaces the use case of verification and measurement, SIMID replaces
 the use case of interactive streaming media ads, the original intended purpose
 of the VPAID standard. SIMID provides a path for VPAID deprecation and allows
 the industry to move to more secure and transparent standards. SIMID aims to
@@ -1829,11 +1822,10 @@ from reading the introductory sections. The API and implementation details
 sections are predominantly targeted to engineers developing ad creation
 or serving products with SIMID interactivity.</p>
    <h2 class="heading settled" data-level="3" id="intro"><span class="secno">3. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
-   <p>Throughout this document, the SIMID interactive component is referred
+   <p>Throughout this document, the SIMID interactive component is referred to
 as a “SIMID creative” or “creative”.</p>
-   <p>Unless otherwise noted, all features that are discussed in this standard are
-required unless otherwise noted. Standard RFC language will be used.
-See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a> for RFC 2119 for enforcement terminology used in this standard.</p>
+   <p>Compliance with SIMID requires support for all features discussed in this document, unless a feature is noted as optional.
+Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a> for RFC 2119 for enforcement terminology used in this standard.</p>
    <h3 class="heading settled" data-level="3.1" id="sivic-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIMID Interactive Creative Nature</span><a class="self-link" href="#sivic-interactive-creative-nature"></a></h3>
    <p><img alt="A diagram showing SIMID where and how sivic video and html assets load." src="images/simid_diagram_3_assets.png" width="100%"></p>
    <p>
@@ -1849,7 +1841,7 @@ See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rf
 &lt;/MediaFiles>
 </pre>
    <p>Because the creative is an HTML resource that originates in the advertiser’s
-domain, interactive component loading entails creating a cross-origin iframe.
+domain, interactive component loading involves creating a cross-origin iframe.
 This means bi-directional communication between the player and creative
 requires using the postMessage API. This, in turn, means that all
 communication between player and creative is asynchronous.</p>
@@ -1875,11 +1867,10 @@ external assets, have limited HTML rendering capabilities or are unable to
 overlay video and HTML. These devices are unable to support SIMID.</p>
    <p>SIMID cannot be used to decide which media to show on the client
 pre-impression. This is because the media file must be present alongside
-the SIMID creative and delivered via the VAST4 media file node. SIMID should
-not be set up to measure viewability.</p>
+the SIMID creative and delivered via the VAST4 media file node.</p>
+   <p>SIMID should not be set up to measure viewability.</p>
    <p>Any use of the SIMID spec to support something other than interactive or
-dynamic content within the ad unit should be by default considered as counter
-to the intentions of the spec.</p>
+dynamic content within the ad unit is counter to the intentions of this spec.</p>
    <h2 class="heading settled" data-level="4" id="msg-proto"><span class="secno">4. </span><span class="content">Messaging Protocol</span><a class="self-link" href="#msg-proto"></a></h2>
    <p>To facilitate asynchronous communication between the video player and the interactive creative, SIMID employs a messaging protocol.</p>
    <p>The protocol defines both the data structure of messages exchanged by both

@@ -8,7 +8,7 @@ Copyright: Test Copyright...
 URL: https://interactiveadvertisingbureau.github.io/SIMID/
 Repository: InteractiveAdvertisingBureau/SIMID
 Editor: IAB Tech Lab's Digital Video Technical Working Group, video@iabtechlab.com
-Abstract: Establishes a common communication protocol between video players and executable ad units, providing rich ad experiences for viewers.
+Abstract: Establishes a common and secure communication protocol between video players and executable ad units, providing rich ad experiences for viewers.
 Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
 Inline Github Issues: title
 </pre>
@@ -22,8 +22,8 @@ Inline Github Issues: title
 
 # Executive Summary # {#exec-summary}
 
-SIMID is a standard for providing rich interactivity in the context of
-streaming audio and video ads. While the VAST standard addresses how publishers
+Secure Interactive Media Interface Definition (SIMID) is a standard for providing rich interactivity in the context of
+streaming audio and video ads. While the Video Ad Serving Template (VAST) standard addresses how publishers
 discover various metadata assets related to an ad campaign, SIMID addresses
 how the publisher’s video player should communicate and interface with a rich
 interactive layer and vice versa. As such, one can think of the SIMID creative
@@ -44,7 +44,7 @@ degrading gracefully if certain features are not supported.
 A diagram showing SIMID ads sandboxed from the publisher player environment
 
 SIMID is part of a broader effort to replace the older VPAID standard. While
-OMID replaces the use case of verification and measurement, SIMID replaces
+Open Measurement replaces the use case of verification and measurement, SIMID replaces
 the use case of interactive streaming media ads, the original intended purpose
 of the VPAID standard. SIMID provides a path for VPAID deprecation and allows
 the industry to move to more secure and transparent standards. SIMID aims to
@@ -146,12 +146,11 @@ or serving products with SIMID interactivity.
 
 # Introduction # {#intro}
 
-Throughout this document, the SIMID interactive component is referred
+Throughout this document, the SIMID interactive component is referred to
 as a “SIMID creative” or “creative”.
 
-Unless otherwise noted, all features that are discussed in this standard are
-required unless otherwise noted. Standard RFC language will be used.
-See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+Compliance with SIMID requires support for all features discussed in this document, unless a feature is noted as optional. 
+Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
 for RFC 2119 for enforcement terminology used in this standard.
 
 ## SIMID Interactive Creative Nature ## {#sivic-interactive-creative-nature}
@@ -172,7 +171,7 @@ Example:
 ```
 
 Because the creative is an HTML resource that originates in the advertiser’s
-domain, interactive component loading entails creating a cross-origin iframe.
+domain, interactive component loading involves creating a cross-origin iframe.
 This means bi-directional communication between the player and creative
 requires using the postMessage API. This, in turn, means that all
 communication between player and creative is asynchronous.
@@ -210,12 +209,12 @@ overlay video and HTML. These devices are unable to support SIMID.
 
 SIMID cannot be used to decide which media to show on the client
 pre-impression. This is because the media file must be present alongside
-the SIMID creative and delivered via the VAST4 media file node. SIMID should
-not be set up to measure viewability.
+the SIMID creative and delivered via the VAST4 media file node. 
+
+SIMID should not be set up to measure viewability.
 
 Any use of the SIMID spec to support something other than interactive or
-dynamic content within the ad unit should be by default considered as counter
-to the intentions of the spec.
+dynamic content within the ad unit is counter to the intentions of this spec.
 
 
 # Messaging Protocol # {#msg-proto}
