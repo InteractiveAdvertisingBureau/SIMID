@@ -1477,8 +1477,27 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-21">21 March 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-24">24 March 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
+       
+         <dl>
+        <p><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" ></p>
+        <dt>License</dt>
+        <dl>
+        <p class="copyright" data-fill-with="copyright">
+             The SIMID Specification from the IAB Tech Lab is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit <a href="creativecommons.org/licenses/by/3.0/">creativecommons.org/licenses/by/3.0/</a> or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.
+      </p>
+            </dl>
+        <dt>About the IAB Technology Lab</dt>
+        <dd>
+The IAB Technology Laboratory (Tech Lab) is a non-profit research and development consortium that produces and provides standards, software, and services to drive growth of an effective and sustainable global digital media ecosystem. Comprised of digital publishers and ad technology firms, as well as marketers, agencies, and other companies with interests in the interactive marketing arena, IAB Tech Lab aims to enable brand and media growth via a transparent, safe, effective supply chain, simpler and more consistent measurement, and better advertising experiences for consumers, with a focus on mobile and TV/digital video channel enablement. The IAB Tech Lab portfolio includes the DigiTrust real-time standardized identity service designed to improve the digital experience for consumers, publishers, advertisers, and third-party platforms. Board members include AppNexus, ExtremeReach, Google, GroupM, Hearst Digital Media, Integral Ad Science, Index Exchange, LinkedIn, MediaMath, Microsoft, Moat, Pandora, PubMatic, Quantcast, Telaria, The Trade Desk, and Yahoo! Japan. Established in 2014, the IAB Tech Lab is headquartered in New York City with an office in San Francisco and representation in Seattle and London.
+<p>
+Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com</a></p>
+</dd>
+             
+       
+       
+       
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://interactiveadvertisingbureau.github.io/SIMID/">https://interactiveadvertisingbureau.github.io/SIMID/</a>
@@ -1486,13 +1505,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dd><a href="https://github.com/InteractiveAdvertisingBureau/SIMID/issues/">GitHub</a>
      <dd><a href="#issues-index">Inline In Spec</a>
      <dt class="editor">Editor:
-     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:pieter.mees@zentrick.com">Pieter Mees</a> (<span class="p-org org">Zentrick</span>)
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:video@iabtechlab.com">IAB Tech Lab's Digital Video Technical Working Group</a>
     </dl>
    </div>
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 21 March 2019,
+In addition, as of 24 March 2019,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1716,7 +1735,8 @@ Parts of this work may be from another specification document.  If so, those par
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="version-number"><span class="secno">1. </span><span class="content">Version</span><a class="self-link" href="#version-number"></a></h2>
-    0.1 
+    0.1 (public comment) 
+   <p><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></p>
    <h2 class="heading settled" data-level="2" id="exec-summary"><span class="secno">2. </span><span class="content">Executive Summary</span><a class="self-link" href="#exec-summary"></a></h2>
    <p>SIMID is a standard for providing rich interactivity in the context of
 streaming audio and video ads. While the VAST standard addresses how publishers
@@ -1733,7 +1753,7 @@ sandboxed from the media player, providing peace of mind to publishers when
 serving ads from third party services. SIMID aims to provide the tools and
 controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
-   <p><img alt="A diagram showing SIMID ads sandboxed from the publisher player environment." src="images/sivic_figure_1_overlay.png" width="100%"> A diagram showing SIMID ads sandboxed from the publisher player environment</p>
+   <p><img alt="A diagram showing SIMID ads sandboxed from the publisher player environment." src="images/simid_diagram_1_overlay.png" width="100%"> A diagram showing SIMID ads sandboxed from the publisher player environment</p>
    <p>SIMID is part of a broader effort to replace the older VPAID standard. While
 OMID replaces the use case of verification and measurement, SIMID replaces
 the use case of interactive streaming media ads, the original intended purpose
@@ -1742,7 +1762,7 @@ the industry to move to more secure and transparent standards. SIMID aims to
 gain broad industry adoption by ensuring that the standard is focused on the
 primary use case of interactivity.</p>
    <h3 class="heading settled" data-level="2.1" id="sivic-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIMID vs. VPAID Comparison</span><a class="self-link" href="#sivic-vs-vpaid"></a></h3>
-   <p><img alt="A diagram showing the difference between SIMID and VPAID security." src="images/sivic_figure_2_api_models.png" width="100%"></p>
+   <p><img alt="A diagram showing the difference between SIMID and VPAID security." src="images/simid_diagram_2_api_models.png" width="100%"></p>
    <table class="alternatecolor">
     <tbody>
      <tr style="background:black;color:white">
@@ -1815,7 +1835,7 @@ as a “SIMID creative” or “creative”.</p>
 required unless otherwise noted. Standard RFC language will be used.
 See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a> for RFC 2119 for enforcement terminology used in this standard.</p>
    <h3 class="heading settled" data-level="3.1" id="sivic-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIMID Interactive Creative Nature</span><a class="self-link" href="#sivic-interactive-creative-nature"></a></h3>
-   <p><img alt="A diagram showing SIMID where and how sivic video and html assets load." src="images/sivic_figure_3_assets.png" width="100%"></p>
+   <p><img alt="A diagram showing SIMID where and how sivic video and html assets load." src="images/simid_diagram_3_assets.png" width="100%"></p>
    <p>
     The SIMID creative portion is described in the VAST 
     <interactivecreativefile> node as a URL to an HTML resource with MIME type text/html.</interactivecreativefile>
@@ -1838,7 +1858,7 @@ communication between player and creative is asynchronous.</p>
 the streaming media and the interactive creative. The player obtains
 both media and creative data from VAST 4.x, loads the resources, assembles
 the ad, and ensures a cohesive ad experience.</p>
-   <p>Diagram below illustrates resources loading and ad compilation. <img alt="Diagram illustrates resources loading and ad compilation." src="images/sivic_resource_loading.png" width="100%"></p>
+   <p>Diagram below illustrates resources loading and ad compilation. <img alt="Diagram illustrates resources loading and ad compilation." src="images/simid_diagram_4_loading.png" width="100%"></p>
    <h3 class="heading settled" data-level="3.3" id="player-creative-communication"><span class="secno">3.3. </span><span class="content">Player and Creative Communication</span><a class="self-link" href="#player-creative-communication"></a></h3>
    <p>Player and SIMID creative communicate by sending bidirectional messages over
 the standard postMessage API. SIMID API requirements govern message construction
