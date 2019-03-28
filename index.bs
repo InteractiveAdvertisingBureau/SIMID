@@ -838,6 +838,7 @@ dictionary EnvironmentData {
 	required boolean variableDurationAllowed;
 	required SkippableState skippableState;
 	required DOMString version;
+	required DOMString transactionId;
 	DOMString siteUrl;
 	DOMString appId;
 	DOMString useragent;
@@ -897,6 +898,9 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 					SIMID creative should not render a skip button. This may be common in
 					DAI for live streams.
 		- {{EnvironmentData/version}}: The version of sivic that this player uses.
+		- {{EnvironmentData/transactionId}} The player generated transactionId
+			from the initial ad request. If VAST has been used, this must be the same
+			transactionId as present in the VAST macros.
 		- {{EnvironmentData/siteUrl}} Indicating the website the ad will play on,
 			for example if the site was `www.xyz.com/videoId`, this information would
 			include at least `www.xyz.com`. The player may give more information.
