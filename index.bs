@@ -10,7 +10,6 @@ Repository: InteractiveAdvertisingBureau/SIMID
 Editor: IAB Tech Lab's Digital Video Technical Working Group, video@iabtechlab.com
 Abstract: Establishes a common and secure communication protocol between video players and executable ad units, providing rich ad experiences for viewers.
 Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
-Inline Github Issues: title
 </pre>
 
 # Version # {#version-number}
@@ -200,11 +199,11 @@ The use of HTML is only required for the SIMID creative, not the publisher
 property hosting that creative. As long as the publisher can load HTML and
 communicate with it over the standard postMessage interface, it can support
 SIMID. In practice, this means that SIMID can be hosted in web page iframes,
-mobile app web views, and other platforms. 
+mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases since SIMID can be used with the native player.
 
 Note that certain devices, including TV sets and OTT boxes, limit loading of
 external assets, have limited HTML rendering capabilities or are unable to
-overlay video and HTML. These devices are unable to support SIMID.
+overlay video and HTML. These devices are unable to support SIMID. Devices that support HTML/Javascript can support SIMID - in both client side as well as server side ad insertion scenarios.
 
 
 SIMID cannot be used to decide which media to show on the client
@@ -229,7 +228,7 @@ The protocol is designed to be easily implemented on top of the
 {{Window/postMessage}} interface, available across <{iframe}> elements which are
 used to isolate the SIMID ad from the video player.
 
-Issue: add link to final location of reference implementation
+
 
 
 ## Transport Layer
@@ -908,7 +907,7 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 		- {{EnvironmentData/muted}} (boolean): True if the audio is muted.
 		- {{EnvironmentData/volume}} (number): The volume which should be between 0 and 1.0.
 
-Issue: useragent needs some definition or a link to where how this should be populated.
+
 
 #### resolve #### {#sivic-player-init-resolve}
 The creative acknowledges the initialization parameters.
@@ -1019,7 +1018,7 @@ Expects a response with information about the video state.
 - volume(number): corresponds exactly to video element volume attribute
 - fullscreen(boolean): true if the video element is full screen, false otherwise
 
-Issue: should we also include video element location and size here?
+
 
 ### SIMID:Creative:log ### {#sivic-creative-log}
 The creative is sending a log message to the player.
@@ -1195,8 +1194,6 @@ respond to SIMID:Creative:requestPlay message with resolve and play the video.
 
 ### Ad Resizing and Fullscreen ### {#api-resizing}
 
-Issue: can width / height coordination not be done through the iframe width
-height, which would not require any API?
 
 The player may resize the ad slot. The player must call [[#sivic-player-resize]] any time the ad slot size is changed.
 
@@ -1211,7 +1208,7 @@ If player goes fullscreen on its own. Then the player must call [[#sivic-player-
 with {{ResizeParameters/fullScreen}} set to `true` and {{ResizeParameters/videoDimensions}} and
 {{ResizeParameters/creativeDimensions}} set to the full screen dimensions.
 
-Issue: should the player not also resize the video slot?
+
 
 ## How to Handle Ad End and Unload ## {#api-end}
 
@@ -1258,8 +1255,6 @@ duration must only be extended in response to user interaction.
 3. The ad enters its extended phase.
 4. The creative dispatches [[#sivic-creative-requestStop]] when extended phase is finished.
 
-Issue: clarify the value of the `duration` property as the current text
-does not seem to make much sense
 
 ### Ad Completes at Video Completion ### {#api-complete}
 

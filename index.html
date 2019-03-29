@@ -1495,6 +1495,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
         Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com</a></p>
         </dd>
 </dl>
+              
        
        
     <dl>
@@ -1502,13 +1503,12 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dd><a class="u-url" href="https://interactiveadvertisingbureau.github.io/SIMID/">https://interactiveadvertisingbureau.github.io/SIMID/</a>
      <dt>Issue Tracking:
      <dd><a href="https://github.com/InteractiveAdvertisingBureau/SIMID/issues/">GitHub</a>
-     <dd><a href="#issues-index">Inline In Spec</a>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:video@iabtechlab.com">IAB Tech Lab's Digital Video Technical Working Group</a>
     </dl>
    </div>
-   
-   
+      
+
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -1724,7 +1724,6 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
      </ol>
     <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
-    <li><a href="#issues-index"><span class="secno"></span> <span class="content">Issues Index</span></a>
    </ol>
   </nav>
   <main>
@@ -1862,10 +1861,10 @@ conventions as well as the message data structure.</p>
 property hosting that creative. As long as the publisher can load HTML and
 communicate with it over the standard postMessage interface, it can support
 SIMID. In practice, this means that SIMID can be hosted in web page iframes,
-mobile app web views, and other platforms.</p>
+mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases since SIMID can be used with the native player.</p>
    <p>Note that certain devices, including TV sets and OTT boxes, limit loading of
 external assets, have limited HTML rendering capabilities or are unable to
-overlay video and HTML. These devices are unable to support SIMID.</p>
+overlay video and HTML. These devices are unable to support SIMID. Devices that support HTML/Javascript can support SIMID - in both client side as well as server side ad insertion scenarios.</p>
    <p>SIMID cannot be used to decide which media to show on the client
 pre-impression. This is because the media file must be present alongside
 the SIMID creative and delivered via the VAST4 media file node.</p>
@@ -1879,7 +1878,6 @@ parties and the algorithms needed to reliably handle the exchange of these
 messages.</p>
    <p>The protocol is designed to be easily implemented on top of the <code class="idl"><a data-link-type="idl">postMessage</a></code> interface, available across <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element">iframe</a></code> elements which are
 used to isolate the SIMID ad from the video player.</p>
-   <p class="issue" id="issue-a2fd907b"><a class="self-link" href="#issue-a2fd907b"></a> add link to final location of reference implementation</p>
    <h3 class="heading settled" data-level="4.1" id="transport-layer"><span class="secno">4.1. </span><span class="content">Transport Layer</span><a class="self-link" href="#transport-layer"></a></h3>
    <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-transport">transport</dfn> is a communication mechanism that can send <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message">serialized messages</a> between two parties. In SIMID’s case, those are the video
 player and the creative.</p>
@@ -2497,7 +2495,6 @@ party tracking of custom events</p>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-volume" id="ref-for-dom-environmentdata-volume">volume</a></code> (number): The volume which should be between 0 and 1.0.</p>
      </ul>
    </ul>
-   <p class="issue" id="issue-ba704354"><a class="self-link" href="#issue-ba704354"></a> useragent needs some definition or a link to where how this should be populated.</p>
    <h5 class="heading settled" data-level="5.3.6.1" id="sivic-player-init-resolve"><span class="secno">5.3.6.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-init-resolve"></a></h5>
     The creative acknowledges the initialization parameters. 
    <h5 class="heading settled" data-level="5.3.6.2" id="sivic-player-init-reject"><span class="secno">5.3.6.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-init-reject"></a></h5>
@@ -2631,7 +2628,6 @@ playback 10 seconds ago (in DAI), this should be 10 seconds.</p>
     <li data-md>
      <p>fullscreen(boolean): true if the video element is full screen, false otherwise</p>
    </ul>
-   <p class="issue" id="issue-a3715b66"><a class="self-link" href="#issue-a3715b66"></a> should we also include video element location and size here?</p>
    <h4 class="heading settled" data-level="5.4.4" id="sivic-creative-log"><span class="secno">5.4.4. </span><span class="content">SIMID:Creative:log</span><a class="self-link" href="#sivic-creative-log"></a></h4>
     The creative is sending a log message to the player. 
    <p class="note" role="note"><span>Note:</span> If the player is doing something out of spec and the creative
@@ -2789,8 +2785,6 @@ SIMID:Creative:requestPause with the <code>AdPaused</code> event.</p>
 SIMID:Creative:requestPlay message. The player must
 respond to SIMID:Creative:requestPlay message with resolve and play the video.</p>
    <h4 class="heading settled" data-level="7.2.2" id="api-resizing"><span class="secno">7.2.2. </span><span class="content">Ad Resizing and Fullscreen</span><a class="self-link" href="#api-resizing"></a></h4>
-   <p class="issue" id="issue-6ed90d5c"><a class="self-link" href="#issue-6ed90d5c"></a> can width / height coordination not be done through the iframe width
-height, which would not require any API?</p>
    <p>The player may resize the ad slot. The player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> any time the ad slot size is changed.</p>
    <p>If <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreenallowed" id="ref-for-dom-environmentdata-fullscreenallowed①">fullscreenAllowed</a></code> is <code>true</code>, the SIMID creative may
 call the <a href="#sivic-creative-requestFullScreen">§5.4.8 SIMID:Creative:requestFullScreen</a> method. The player must resize only the ad
@@ -2799,7 +2793,6 @@ video as it sees fit. The player must call <a href="#sivic-player-resize">§5.3.
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen①">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions">creativeDimensions</a></code> set to the full screen dimensions.</p>
    <p>If player goes fullscreen on its own. Then the player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> on the SIMID creative
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen②">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions①">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions①">creativeDimensions</a></code> set to the full screen dimensions.</p>
-   <p class="issue" id="issue-eea3696d"><a class="self-link" href="#issue-eea3696d"></a> should the player not also resize the video slot?</p>
    <h3 class="heading settled" data-level="7.3" id="api-end"><span class="secno">7.3. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#api-end"></a></h3>
    <p>Following are cases where ad can end:</p>
    <ol>
@@ -2864,8 +2857,6 @@ ad portion.</p>
     <li data-md>
      <p>The creative dispatches <a href="#sivic-creative-requestStop">§5.4.13 SIMID:Creative:requestStop</a> when extended phase is finished.</p>
    </ol>
-   <p class="issue" id="issue-75380958"><a class="self-link" href="#issue-75380958"></a> clarify the value of the <code>duration</code> property as the current text
-does not seem to make much sense</p>
    <h4 class="heading settled" data-level="7.3.4" id="api-complete"><span class="secno">7.3.4. </span><span class="content">Ad Completes at Video Completion</span><a class="self-link" href="#api-complete"></a></h4>
    <p>When an ad finishes at the same time as its video.</p>
    <ol>
@@ -3484,17 +3475,6 @@ primary video.</p>
 };
 
 </pre>
-  <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
-  <div style="counter-reset:issue">
-   <div class="issue"> add link to final location of reference implementation<a href="#issue-a2fd907b"> ↵ </a></div>
-   <div class="issue"> useragent needs some definition or a link to where how this should be populated.<a href="#issue-ba704354"> ↵ </a></div>
-   <div class="issue"> should we also include video element location and size here?<a href="#issue-a3715b66"> ↵ </a></div>
-   <div class="issue"> can width / height coordination not be done through the iframe width
-height, which would not require any API?<a href="#issue-6ed90d5c"> ↵ </a></div>
-   <div class="issue"> should the player not also resize the video slot?<a href="#issue-eea3696d"> ↵ </a></div>
-   <div class="issue"> clarify the value of the <code>duration</code> property as the current text
-does not seem to make much sense<a href="#issue-75380958"> ↵ </a></div>
-  </div>
   <aside class="dfn-panel" data-for="message-transport">
    <b><a href="#message-transport">#message-transport</a></b><b>Referenced in:</b>
    <ul>
