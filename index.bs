@@ -43,7 +43,7 @@ degrading gracefully if certain features are not supported.
 <img width="100%" src="images/simid_diagram_1_overlay.png" alt="A diagram showing SIMID ads sandboxed from the publisher player environment.">
 A diagram showing SIMID ads sandboxed from the publisher player environment
 
-SIMID is part of a broader effort to replace the older VPAID standard. While
+SIMID is part of a broader effort to replace the older VPAID standard (more details in <a href="http://bit.ly/videoAdVision">this blog post</a> by the IAB Tech Lab). While
 Open Measurement replaces the use case of verification and measurement, SIMID replaces
 the use case of interactive streaming media ads, the original intended purpose
 of the VPAID standard. SIMID provides a path for VPAID deprecation and allows
@@ -63,74 +63,74 @@ primary use case of interactivity.
 <table class="alternatecolor">
   <tbody>
     <tr style="background:black;color:white">
-      <td width="20%">Feature</td>
-      <td width="40%" colspan="1" rowspan="1">VPAID</td>
-      <td width="40%">SIMID</td>
+      <td valign="top" width="20%">Feature</td>
+      <td valign="top" width="40%" colspan="1" rowspan="1">VPAID</td>
+      <td valign="top" width="40%">SIMID</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Resource nature</td>
-      <td colspan="1" rowspan="1">JavaScript file with MIME type application/javascript.</td>
-      <td colspan="1" rowspan="1">HTML file with MIME typetext/html.</td>
-    </tr>
-    <tr>
-      <td colspan="1" rowspan="1">Security</td>
-      <td colspan="1" rowspan="1">Creative directly accesses player DOM.</td>
-      <td colspan="1" rowspan="1">Strictly sandboxed into a cross-origin iframe.</td>
+      <td valign="top" colspan="1" rowspan="1">Security</td>
+      <td valign="top" colspan="1" rowspan="1">Creative directly accesses player DOM.</td>
+      <td valign="top" colspan="1" rowspan="1">Strictly sandboxed into a cross-origin iframe.</td>
     </tr>
     <tr class="c13">
-      <td colspan="1" rowspan="1">Video asset management</td>
-      <td colspan="1" rowspan="1">Creative manages media playback.</td>
-      <td colspan="1" rowspan="1">Player manages media playback.</td>
+      <td valign="top" colspan="1" rowspan="1">Video asset management</td>
+      <td valign="top" colspan="1" rowspan="1">Creative manages media playback.</td>
+      <td valign="top" colspan="1" rowspan="1">Player manages media playback.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Pre-caching</td>
-      <td colspan="1" rowspan="1">Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.</td>
-      <td colspan="1" rowspan="1">Video and interactive overlay can be pre-cached.</td>
+      <td valign="top" colspan="1" rowspan="1">Pre-caching</td>
+      <td valign="top" colspan="1" rowspan="1">Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.</td>
+      <td valign="top" colspan="1" rowspan="1">Video and interactive overlay can be pre-cached.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Errors influence on performance</td>
-      <td colspan="1" rowspan="1">Possible site-wide fatal errors can result in significant publisher site performance deterioration.</td>
-      <td colspan="1" rowspan="1">Internal creative errors do not affect player DOM, directly. Risks are limited to interactive component performance only.</td>
+      <td valign="top" colspan="1" rowspan="1">Errors influence on performance</td>
+      <td valign="top" colspan="1" rowspan="1">Possible site-wide fatal errors can result in significant publisher site performance deterioration.</td>
+      <td valign="top" colspan="1" rowspan="1">Internal creative errors do not affect player DOM, directly. Risks are limited to interactive component performance only.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">SSAI feasibility</td>
-      <td colspan="1" rowspan="1">SSAI is not possible.</td>
-      <td rowspan="1">Interactive creatives can be rendered in SSAI context.</td>
+      <td valign="top" colspan="1" rowspan="1">SSAI feasibility</td>
+      <td valign="top" colspan="1" rowspan="1">SSAI is not possible.</td>
+      <td valign="top" rowspan="1">Interactive creatives can be rendered in SSAI context.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Latencies</td>
-      <td colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and background processes (verification, trading, wrapping, etc.) Each of these characteristics imposes great latencies.</td>
-      <td colspan="1" rowspan="1">Players can pre-load video and creative assets due to having full control over decisioning and displaying the creative. Ad decisioning latency is removed.</td>
+      <td valign="top" colspan="1" rowspan="1">Latencies</td>
+      <td valign="top" colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and background processes (verification, trading, wrapping, etc.) Each of these characteristics imposes great latencies.</td>
+      <td valign="top" colspan="1" rowspan="1">Players can pre-load video and creative assets due to having full control over decisioning and displaying the creative. Ad decisioning latency is removed.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">API</td>
-      <td colspan="1" rowspan="1">Both player and creative must support specific javascript functions.</td>
-      <td colspan="1" rowspan="1">Utilizes native to browsers postMessage API. No custom functions participate in player vs. creative relationships. Player and creative communicate via exchanging of messages based on special protocol.</td>
+      <td valign="top" colspan="1" rowspan="1">API</td>
+      <td valign="top" colspan="1" rowspan="1">Both player and creative must support specific javascript functions.</td>
+      <td valign="top" colspan="1" rowspan="1">Utilizes native to browsers postMessage API. No custom functions participate in player vs. creative relationships. Player and creative communicate via exchanging of messages based on special protocol.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Ad blocking</td>
-      <td colspan="1" rowspan="1">VPAID can prevent an ad from rendering.</td>
-      <td colspan="1" rowspan="1">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. </td>
+      <td valign="top" colspan="1" rowspan="1">Ad blocking</td>
+      <td valign="top" colspan="1" rowspan="1">VPAID can prevent an ad from rendering.</td>
+      <td valign="top" colspan="1" rowspan="1">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. </td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Verification services</td>
-      <td colspan="1" rowspan="1">Verification features can be fully engaged by VPAID scripts.</td>
-      <td colspan="1" rowspan="1">SIMID cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.</td>
+      <td valign="top" colspan="1" rowspan="1">Verification services</td>
+      <td valign="top" colspan="1" rowspan="1">Verification features can be fully engaged by VPAID scripts.</td>
+      <td valign="top" colspan="1" rowspan="1">SIMID cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Creative wrapping</td>
-      <td colspan="1" rowspan="1">VPAID ads can load other ads (including other VPAID ads).</td>
-      <td colspan="1" rowspan="1">Cannot be executed.</td>
+      <td valign="top" colspan="1" rowspan="1">Creative wrapping</td>
+      <td valign="top" colspan="1" rowspan="1">VPAID ads can load other ads (including other VPAID ads).</td>
+      <td valign="top" colspan="1" rowspan="1">Cannot be executed.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Audio advertising</td>
-      <td colspan="1" rowspan="1">Out of standard scope.</td>
-      <td colspan="1" rowspan="1">Enables interactive components serving with audio ads.</td>
+      <td valign="top" colspan="1" rowspan="1">Audio advertising</td>
+      <td valign="top" colspan="1" rowspan="1">Out of standard scope.</td>
+      <td valign="top" colspan="1" rowspan="1">Enables interactive components serving with audio ads.</td>
     </tr>
     <tr>
-      <td colspan="1" rowspan="1">Environment constraints</td>
-      <td colspan="1" rowspan="1">Player must be an HTML video element.</td>
-      <td colspan="1" rowspan="1">Player can be native or web so long as the SIMID creative has sandboxed DOM access like in a web view.</td>
+      <td valign="top" colspan="1" rowspan="1">Environment constraints</td>
+      <td valign="top" colspan="1" rowspan="1">Player must be an HTML video element.</td>
+      <td valign="top" colspan="1" rowspan="1">Player can be native or web so long as the SIMID creative has sandboxed DOM access like in a web view.</td>
+    </tr>
+    <tr>
+      <td valign="top" colspan="1" rowspan="1">Resource MIME type</td>
+      <td valign="top" colspan="1" rowspan="1">application/javascript</td>
+      <td valign="top" colspan="1" rowspan="1">text/html</td>
     </tr>
   </tbody>
 </table>

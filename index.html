@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 8ac92da89bb2253e0da87e20a9b9caa745f5f5b6" name="generator">
+  <meta content="Bikeshed version 90d8208675530570e2845a328f5a44d1ddd26fec" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
   table.alternatecolor tr:nth-child(odd) {
@@ -1477,24 +1477,25 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-25">25 March 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-28">28 March 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
        
-                <dl>
+<dl>
         <p><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" ></p>
         <dt>License</dt>
-        <dl>
+        <dd>
         <p class="copyright" data-fill-with="copyright">
              The SIMID Specification from the IAB Tech Lab is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit <a href="creativecommons.org/licenses/by/3.0/">creativecommons.org/licenses/by/3.0/</a> or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.
       </p>
-            </dl>
+            </dd>
         <dt>About the IAB Technology Lab</dt>
         <dd>
-The IAB Technology Laboratory (Tech Lab) is a non-profit research and development consortium that produces and provides standards, software, and services to drive growth of an effective and sustainable global digital media ecosystem. Comprised of digital publishers and ad technology firms, as well as marketers, agencies, and other companies with interests in the interactive marketing arena, IAB Tech Lab aims to enable brand and media growth via a transparent, safe, effective supply chain, simpler and more consistent measurement, and better advertising experiences for consumers, with a focus on mobile and TV/digital video channel enablement. The IAB Tech Lab portfolio includes the DigiTrust real-time standardized identity service designed to improve the digital experience for consumers, publishers, advertisers, and third-party platforms. Board members include AppNexus, ExtremeReach, Google, GroupM, Hearst Digital Media, Integral Ad Science, Index Exchange, LinkedIn, MediaMath, Microsoft, Moat, Pandora, PubMatic, Quantcast, Telaria, The Trade Desk, and Yahoo! Japan. Established in 2014, the IAB Tech Lab is headquartered in New York City with an office in San Francisco and representation in Seattle and London.
-<p>
-Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com</a></p>
-</dd>
-
+        The IAB Technology Laboratory (Tech Lab) is a non-profit research and development consortium that produces and provides standards, software, and services to drive growth of an effective and sustainable global digital media ecosystem. Comprised of digital publishers and ad technology firms, as well as marketers, agencies, and other companies with interests in the interactive marketing arena, IAB Tech Lab aims to enable brand and media growth via a transparent, safe, effective supply chain, simpler and more consistent measurement, and better advertising experiences for consumers, with a focus on mobile and TV/digital video channel enablement. The IAB Tech Lab portfolio includes the DigiTrust real-time standardized identity service designed to improve the digital experience for consumers, publishers, advertisers, and third-party platforms. Board members include AppNexus, ExtremeReach, Google, GroupM, Hearst Digital Media, Integral Ad Science, Index Exchange, LinkedIn, MediaMath, Microsoft, Moat, Pandora, PubMatic, Quantcast, Telaria, The Trade Desk, and Yahoo! Japan. Established in 2014, the IAB Tech Lab is headquartered in New York City with an office in San Francisco and representation in Seattle and London.
+        <p>
+        Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com</a></p>
+        </dd>
+</dl>
+       
        
     <dl>
      <dt>This version:
@@ -1505,9 +1506,9 @@ Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:video@iabtechlab.com">IAB Tech Lab's Digital Video Technical Working Group</a>
     </dl>
+   </div>
    
-       
-
+   
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -1747,7 +1748,7 @@ serving ads from third party services. SIMID aims to provide the tools and
 controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
    <p><img alt="A diagram showing SIMID ads sandboxed from the publisher player environment." src="images/simid_diagram_1_overlay.png" width="100%"> A diagram showing SIMID ads sandboxed from the publisher player environment</p>
-   <p>SIMID is part of a broader effort to replace the older VPAID standard. While
+   <p>SIMID is part of a broader effort to replace the older VPAID standard (more details in <a href="http://bit.ly/videoAdVision">this blog post</a> by the IAB Tech Lab). While
 Open Measurement replaces the use case of verification and measurement, SIMID replaces
 the use case of interactive streaming media ads, the original intended purpose
 of the VPAID standard. SIMID provides a path for VPAID deprecation and allows
@@ -1759,61 +1760,61 @@ primary use case of interactivity.</p>
    <table class="alternatecolor">
     <tbody>
      <tr style="background:black;color:white">
-      <td width="20%">Feature
-      <td colspan="1" rowspan="1" width="40%">VPAID
-      <td width="40%">SIMID
+      <td valign="top" width="20%">Feature
+      <td colspan="1" rowspan="1" valign="top" width="40%">VPAID
+      <td valign="top" width="40%">SIMID
      <tr>
-      <td colspan="1" rowspan="1">Resource nature
-      <td colspan="1" rowspan="1">JavaScript file with MIME type application/javascript.
-      <td colspan="1" rowspan="1">HTML file with MIME typetext/html.
-     <tr>
-      <td colspan="1" rowspan="1">Security
-      <td colspan="1" rowspan="1">Creative directly accesses player DOM.
-      <td colspan="1" rowspan="1">Strictly sandboxed into a cross-origin iframe.
+      <td colspan="1" rowspan="1" valign="top">Security
+      <td colspan="1" rowspan="1" valign="top">Creative directly accesses player DOM.
+      <td colspan="1" rowspan="1" valign="top">Strictly sandboxed into a cross-origin iframe.
      <tr class="c13">
-      <td colspan="1" rowspan="1">Video asset management
-      <td colspan="1" rowspan="1">Creative manages media playback.
-      <td colspan="1" rowspan="1">Player manages media playback.
+      <td colspan="1" rowspan="1" valign="top">Video asset management
+      <td colspan="1" rowspan="1" valign="top">Creative manages media playback.
+      <td colspan="1" rowspan="1" valign="top">Player manages media playback.
      <tr>
-      <td colspan="1" rowspan="1">Pre-caching
-      <td colspan="1" rowspan="1">Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.
-      <td colspan="1" rowspan="1">Video and interactive overlay can be pre-cached.
+      <td colspan="1" rowspan="1" valign="top">Pre-caching
+      <td colspan="1" rowspan="1" valign="top">Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.
+      <td colspan="1" rowspan="1" valign="top">Video and interactive overlay can be pre-cached.
      <tr>
-      <td colspan="1" rowspan="1">Errors influence on performance
-      <td colspan="1" rowspan="1">Possible site-wide fatal errors can result in significant publisher site performance deterioration.
-      <td colspan="1" rowspan="1">Internal creative errors do not affect player DOM, directly. Risks are limited to interactive component performance only.
+      <td colspan="1" rowspan="1" valign="top">Errors influence on performance
+      <td colspan="1" rowspan="1" valign="top">Possible site-wide fatal errors can result in significant publisher site performance deterioration.
+      <td colspan="1" rowspan="1" valign="top">Internal creative errors do not affect player DOM, directly. Risks are limited to interactive component performance only.
      <tr>
-      <td colspan="1" rowspan="1">SSAI feasibility
-      <td colspan="1" rowspan="1">SSAI is not possible.
-      <td rowspan="1">Interactive creatives can be rendered in SSAI context.
+      <td colspan="1" rowspan="1" valign="top">SSAI feasibility
+      <td colspan="1" rowspan="1" valign="top">SSAI is not possible.
+      <td rowspan="1" valign="top">Interactive creatives can be rendered in SSAI context.
      <tr>
-      <td colspan="1" rowspan="1">Latencies
-      <td colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and background processes (verification, trading, wrapping, etc.) Each of these characteristics imposes great latencies.
-      <td colspan="1" rowspan="1">Players can pre-load video and creative assets due to having full control over decisioning and displaying the creative. Ad decisioning latency is removed.
+      <td colspan="1" rowspan="1" valign="top">Latencies
+      <td colspan="1" rowspan="1" valign="top">Publishers are at the mercy of VPAID creative implementation efficiency and background processes (verification, trading, wrapping, etc.) Each of these characteristics imposes great latencies.
+      <td colspan="1" rowspan="1" valign="top">Players can pre-load video and creative assets due to having full control over decisioning and displaying the creative. Ad decisioning latency is removed.
      <tr>
-      <td colspan="1" rowspan="1">API
-      <td colspan="1" rowspan="1">Both player and creative must support specific javascript functions.
-      <td colspan="1" rowspan="1">Utilizes native to browsers postMessage API. No custom functions participate in player vs. creative relationships. Player and creative communicate via exchanging of messages based on special protocol.
+      <td colspan="1" rowspan="1" valign="top">API
+      <td colspan="1" rowspan="1" valign="top">Both player and creative must support specific javascript functions.
+      <td colspan="1" rowspan="1" valign="top">Utilizes native to browsers postMessage API. No custom functions participate in player vs. creative relationships. Player and creative communicate via exchanging of messages based on special protocol.
      <tr>
-      <td colspan="1" rowspan="1">Ad blocking
-      <td colspan="1" rowspan="1">VPAID can prevent an ad from rendering.
-      <td colspan="1" rowspan="1">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. 
+      <td colspan="1" rowspan="1" valign="top">Ad blocking
+      <td colspan="1" rowspan="1" valign="top">VPAID can prevent an ad from rendering.
+      <td colspan="1" rowspan="1" valign="top">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. 
      <tr>
-      <td colspan="1" rowspan="1">Verification services
-      <td colspan="1" rowspan="1">Verification features can be fully engaged by VPAID scripts.
-      <td colspan="1" rowspan="1">SIMID cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.
+      <td colspan="1" rowspan="1" valign="top">Verification services
+      <td colspan="1" rowspan="1" valign="top">Verification features can be fully engaged by VPAID scripts.
+      <td colspan="1" rowspan="1" valign="top">SIMID cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.
      <tr>
-      <td colspan="1" rowspan="1">Creative wrapping
-      <td colspan="1" rowspan="1">VPAID ads can load other ads (including other VPAID ads).
-      <td colspan="1" rowspan="1">Cannot be executed.
+      <td colspan="1" rowspan="1" valign="top">Creative wrapping
+      <td colspan="1" rowspan="1" valign="top">VPAID ads can load other ads (including other VPAID ads).
+      <td colspan="1" rowspan="1" valign="top">Cannot be executed.
      <tr>
-      <td colspan="1" rowspan="1">Audio advertising
-      <td colspan="1" rowspan="1">Out of standard scope.
-      <td colspan="1" rowspan="1">Enables interactive components serving with audio ads.
+      <td colspan="1" rowspan="1" valign="top">Audio advertising
+      <td colspan="1" rowspan="1" valign="top">Out of standard scope.
+      <td colspan="1" rowspan="1" valign="top">Enables interactive components serving with audio ads.
      <tr>
-      <td colspan="1" rowspan="1">Environment constraints
-      <td colspan="1" rowspan="1">Player must be an HTML video element.
-      <td colspan="1" rowspan="1">Player can be native or web so long as the SIMID creative has sandboxed DOM access like in a web view.
+      <td colspan="1" rowspan="1" valign="top">Environment constraints
+      <td colspan="1" rowspan="1" valign="top">Player must be an HTML video element.
+      <td colspan="1" rowspan="1" valign="top">Player can be native or web so long as the SIMID creative has sandboxed DOM access like in a web view.
+     <tr>
+      <td colspan="1" rowspan="1" valign="top">Resource MIME type
+      <td colspan="1" rowspan="1" valign="top">application/javascript
+      <td colspan="1" rowspan="1" valign="top">text/html
    </table>
    <h3 class="heading settled" data-level="2.2" id="intended-audience"><span class="secno">2.2. </span><span class="content">Intended Audience</span><a class="self-link" href="#intended-audience"></a></h3>
    <p>The SIMID standard specification is geared toward the digital media
