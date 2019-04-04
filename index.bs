@@ -1,10 +1,11 @@
 <pre class='metadata'>
-Title: Secure Interactive Media Interface Definition (SIMID)
+Title: Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" >
 Shortname: SIMID
 Level: 1
 Status: LS
 Group: IAB Tech Lab
-Copyright: Test Copyright...
+!License: <p style="fontsize:small">The SIMID Specification from the IAB Tech Lab is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit <a href="creativecommons.org/licenses/by/3.0/">creativecommons.org/licenses/by/3.0/</a> or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.</p>
+!About the IAB Technology Lab: The IAB Technology Laboratory (Tech Lab) is a non-profit research and development consortium that produces and provides standards, software, and services to drive growth of an effective and sustainable global digital media ecosystem. Comprised of digital publishers and ad technology firms, as well as marketers, agencies, and other companies with interests in the interactive marketing arena, IAB Tech Lab aims to enable brand and media growth via a transparent, safe, effective supply chain, simpler and more consistent measurement, and better advertising experiences for consumers, with a focus on mobile and TV/digital video channel enablement. The IAB Tech Lab portfolio includes the DigiTrust real-time standardized identity service designed to improve the digital experience for consumers, publishers, advertisers, and third-party platforms. Board members include AppNexus, ExtremeReach, Google, GroupM, Hearst Digital Media, Integral Ad Science, Index Exchange, LinkedIn, MediaMath, Microsoft, Moat, Pandora, PubMatic, Quantcast, Telaria, The Trade Desk, and Yahoo! Japan. Established in 2014, the IAB Tech Lab is headquartered in New York City with an office in San Francisco and representation in Seattle and London.
 URL: https://interactiveadvertisingbureau.github.io/SIMID/
 Repository: InteractiveAdvertisingBureau/SIMID
 Editor: IAB Tech Lab's Digital Video Technical Working Group, video@iabtechlab.com
