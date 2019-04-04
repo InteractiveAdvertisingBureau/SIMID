@@ -1,10 +1,10 @@
 <html>
 <head>
   <title> A very simple SIMID player</title>
-  <script src="../sivic_protocol.js"></script>
-  <script src="sivic_player.js"></script>
+  <script src="../simid_protocol.js"></script>
+  <script src="simid_player.js"></script>
   <style>
-    .sivic_creative {
+    .simid_creative {
       position: absolute;
       top: 0;
       border-width: 0px;
@@ -19,23 +19,23 @@
     }
   </style>
   <script>
-    let sivicPlayer;
+    let simidPlayer;
     function initAd() {
       // clean old ad if it exists
-      if (sivicPlayer) {
-        sivicPlayer.stopAd();
+      if (simidPlayer) {
+        simidPlayer.stopAd();
       }
 
       // Init ad should be called before playad.
-      sivicPlayer = new SivicPlayer(() => {sivicPlayer = null;});
-      sivicPlayer.initializeAd();
+      simidPlayer = new SimidPlayer(() => {simidPlayer = null;});
+      simidPlayer.initializeAd();
     }
 
     function playAd() {
-      if (!sivicPlayer) {
+      if (!simidPlayer) {
         initAd();
       }
-      sivicPlayer.playAd();
+      simidPlayer.playAd();
     }
 
     function switchCreative(value) {
@@ -43,7 +43,7 @@
       // populate ad parameters with some hard coded values
       let adParams = '';
       switch (value) {
-        case 'sivic_overlay.html':
+        case 'simid_overlay.html':
           break;
         case 'survey.html':
           let adParamsObj = [
@@ -70,8 +70,8 @@
       <tr>
         <td>InteractiveCreativeFile</td>
         <td><input type="text" id="creative_url" size = 30 
-           value="../creatives/sivic_overlay.html">
-        <button onclick="switchCreative('sivic_overlay.html')">overlay</button>
+           value="../creatives/simid_overlay.html">
+        <button onclick="switchCreative('simid_overlay.html')">overlay</button>
         <button onclick="switchCreative('survey.html')">survey</button>
         </td>
       </tr>
@@ -95,7 +95,7 @@
     <div id="ad_video_div" class="overlayed" style="display:none;">
       <video id="ad_video_player" class="overlayed" style="display:none;" src="">
     </div>
-    <!-- SIVIC creative will be here. -->
+    <!-- SIMID creative will be here. -->
   </div>
 
 <script>

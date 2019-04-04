@@ -1,7 +1,7 @@
 /**
- * A sample SIVIC ad that shows how to impliment a survey.
+ * A sample SIMID ad that shows how to impliment a survey.
  */
-class SivicSurvey extends BaseSivicCreative {
+class SimidSurvey extends BaseSimidCreative {
   constructor() {
     super();
 
@@ -57,7 +57,7 @@ class SivicSurvey extends BaseSivicCreative {
     this.currentQuestion_ ++;
     if (this.currentQuestion_ >= this.surveyQuestions_.length) {
       // If the user answers all the questions skip the rest of the ad.
-      this.sivicProtocol.sendMessage(CreativeMessage.REQUEST_SKIP);
+      this.simidProtocol.sendMessage(CreativeMessage.REQUEST_SKIP);
       return;
     }
     setTimeout(() => this.showQuestion(), 1000);
