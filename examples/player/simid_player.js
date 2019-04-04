@@ -1,7 +1,7 @@
 /**
- * All the logic for a simple SIVIC player
+ * All the logic for a simple SIMID player
  */
-class SivicPlayer {
+class SimidPlayer {
 
   /**
    * Sets up the creative iframe and starts listening for messages
@@ -11,9 +11,9 @@ class SivicPlayer {
   constructor(adComplete) {
     /**
      * The protocol for sending and receiving messages.
-     * @protected {!SivicProtocol}
+     * @protected {!SimidProtocol}
      */
-    this.sivicProtocol = new SivicProtocol();
+    this.simidProtocol = new SimidProtocol();
 
     this.addListeners_();
 
@@ -30,10 +30,10 @@ class SivicPlayer {
     this.adVideoElement_ = document.getElementById('ad_video_player');
 
     /**
-     * A reference to the iframe holding the SIVIC creative.
+     * A reference to the iframe holding the SIMID creative.
      * @private {?Element}
      */
-    this.sivicIframe_ = null;
+    this.simidIframe_ = null;
 
     /**
      * A reference to the promise returned when initialization was called.
@@ -78,11 +78,11 @@ class SivicPlayer {
     // After the iframe is created the player will wait until the ad
     // initializes the communication channel. Then it will call
     // sendInitMessage.
-    this.sivicIframe_ = this.createSivicIframe_();
+    this.simidIframe_ = this.createSimidIframe_();
   }
 
   /**
-   * Plays a SIVIC  creative once it has responded to the initialize ad message.
+   * Plays a SIMID  creative once it has responded to the initialize ad message.
    */
   playAd() {
     this.contentVideoElement_.pause();
@@ -95,48 +95,48 @@ class SivicPlayer {
   }
 
   /**
-   * Sets up an iframe for holding the sivic element.
+   * Sets up an iframe for holding the simid element.
    *
-   * @return {!Element} The iframe where the sivic element lives.
+   * @return {!Element} The iframe where the simid element lives.
    * @private
    */
-  createSivicIframe_() {
+  createSimidIframe_() {
     const playerDiv = document.getElementById('player_div');
-    const sivicIframe = document.createElement('iframe');
-    sivicIframe.style.display = 'none';
+    const simidIframe = document.createElement('iframe');
+    simidIframe.style.display = 'none';
     // The target of the player to send messages to is the newly
     // created iframe.
-    playerDiv.appendChild(sivicIframe);
-    // Set up css to overlay the SIVIC iframe over the video creative.
-    sivicIframe.classList.add('sivic_creative');
+    playerDiv.appendChild(simidIframe);
+    // Set up css to overlay the SIMID iframe over the video creative.
+    simidIframe.classList.add('simid_creative');
     // Set the iframe creative, this should be an html creative.
     // TODO: This sample does not show what to do when loading fails.
-    sivicIframe.src = document.getElementById('creative_url').value;
+    simidIframe.src = document.getElementById('creative_url').value;
 
-    this.sivicProtocol.setMessageTarget(sivicIframe.contentWindow);
-    sivicIframe.setAttribute('allowFullScreen', '')
-    return sivicIframe;
+    this.simidProtocol.setMessageTarget(simidIframe.contentWindow);
+    simidIframe.setAttribute('allowFullScreen', '')
+    return simidIframe;
   }
 
   /**
-   * Listens to all relevant messages from the SIVIC add.
+   * Listens to all relevant messages from the SIMID add.
    * @private
    */
   addListeners_() {
-    this.sivicProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));
-    this.sivicProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
-    this.sivicProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
-    this.sivicProtocol.addListener(CreativeMessage.REQUEST_PAUSE, this.onRequestPause.bind(this));
-    this.sivicProtocol.addListener(CreativeMessage.FATAL_ERROR, this.onCreativeFatalError.bind(this));
-    this.sivicProtocol.addListener(CreativeMessage.REQUEST_SKIP, this.onRequestSkip.bind(this));
-    this.sivicProtocol.addListener(CreativeMessage.REQUEST_STOP, this.onRequestStop.bind(this));
+    this.simidProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_PAUSE, this.onRequestPause.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.FATAL_ERROR, this.onCreativeFatalError.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_SKIP, this.onRequestSkip.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_STOP, this.onRequestStop.bind(this));
   }
 
-  destroySivicIframe() {
-    if (this.sivicIframe_) {
-      this.sivicIframe_.remove();
-      this.sivicIframe_ = null;
-      this.sivicProtocol.reset();
+  destroySimidIframe() {
+    if (this.simidIframe_) {
+      this.simidIframe_.remove();
+      this.simidIframe_ = null;
+      this.simidProtocol.reset();
     }
     this.videoTrackingEvents_.clear();
     for(let [key, func] of this.videoTrackingEvents_) {
@@ -165,7 +165,7 @@ class SivicPlayer {
   }
 
   /**
-   * Initializes the SIVIC creative with all data it needs.
+   * Initializes the SIMID creative with all data it needs.
    */
   sendInitMessage() {
     const videoDimensions = this.getDimensions(this.contentVideoElement_);
@@ -201,7 +201,7 @@ class SivicPlayer {
       'environmentData' : environmentData,
       'creativeData': creativeData
     }
-    this.initializationPromise_ = this.sivicProtocol.sendMessage(
+    this.initializationPromise_ = this.simidProtocol.sendMessage(
         PlayerMessage.INIT, initMessage);
     // It is possible that start is called before this initializationm message is sent.
     this.sessionCreatedResolve_();
@@ -215,11 +215,11 @@ class SivicPlayer {
   startCreativePlayback_(data) {
     // Once the ad is successfully initialized it can start.
     // If the ad is not visible it must be made visible here.
-    this.showSivicIFrame_();
+    this.showSimidIFrame_();
     this.showAdPlayer_();
     this.adVideoElement_.src = document.getElementById('video_url').value;
     this.adVideoElement_.play();
-    this.sivicProtocol.sendMessage(PlayerMessage.START_CREATIVE);
+    this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
 
   /**
@@ -235,19 +235,19 @@ class SivicPlayer {
     }
     // Instead of destroying the iframe immediately tell hide it until
     // it acknowledges its fatal error.
-    this.hideSivicIFrame_();
-    this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
+    this.hideSimidIFrame_();
+    this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
       .then(this.stopAd.bind(this));
   }
 
   /** @private */
-  hideSivicIFrame_() {
-    this.sivicIframe_.style.display = 'none';
+  hideSimidIFrame_() {
+    this.simidIframe_.style.display = 'none';
   }
 
   /** @private */
-  showSivicIFrame_() {
-    this.sivicIframe_.style.display = '';
+  showSimidIFrame_() {
+    this.simidIframe_.style.display = '';
   }
 
   /** @private */
@@ -265,42 +265,42 @@ class SivicPlayer {
   }
 
   /**
-   * Tracks the events on the video element specified by the sivic spec
+   * Tracks the events on the video element specified by the simid spec
    * @private
    */
   trackEventsOnVideoElement_() {
     this.videoTrackingEvents_.set("durationchange", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
+      this.simidProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
     });
     this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
     this.videoTrackingEvents_.set("error", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.ERROR,
+      this.simidProtocol.sendMessage(VideoMessage.ERROR,
         {
           'error': '',  // TODO fill in these values correctly
           'message': ''
         });
     });
     this.videoTrackingEvents_.set("pause", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.PAUSE);
+      this.simidProtocol.sendMessage(VideoMessage.PAUSE);
     });
     this.videoTrackingEvents_.set("play", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.PLAY);
+      this.simidProtocol.sendMessage(VideoMessage.PLAY);
     });
     this.videoTrackingEvents_.set("playing", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.PLAYING);
+      this.simidProtocol.sendMessage(VideoMessage.PLAYING);
     });
     this.videoTrackingEvents_.set("seeked", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.SEEKED);
+      this.simidProtocol.sendMessage(VideoMessage.SEEKED);
     });
     this.videoTrackingEvents_.set("seeking", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.SEEKING);
+      this.simidProtocol.sendMessage(VideoMessage.SEEKING);
     });
     this.videoTrackingEvents_.set("timeupdate", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.TIME_UPDATE,
+      this.simidProtocol.sendMessage(VideoMessage.TIME_UPDATE,
         {'currentTime': this.adVideoElement_.currentTime});
     });
     this.videoTrackingEvents_.set("volumechange", () => {
-      this.sivicProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
+      this.simidProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
         {'volume': this.adVideoElement_.volume});
     });
 
@@ -314,16 +314,16 @@ class SivicPlayer {
    * @private
    */
   videoComplete() {
-      this.sivicProtocol.sendMessage(VideoMessage.ENDED);
+      this.simidProtocol.sendMessage(VideoMessage.ENDED);
       // once an ad is complete an the iframe should be hidden
-      this.hideSivicIFrame_();
+      this.hideSimidIFrame_();
       const closeMessage = {
         'code': StopCode.MEDIA_PLAYBACK_COMPLETE,
       }
-      // Wait for the SIVIC creative to acknowledge stop and then clean
+      // Wait for the SIMID creative to acknowledge stop and then clean
       // up the iframe.
-      this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED)
-        .then(this.destroySivicIframe());
+      this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED)
+        .then(this.destroySimidIframe());
   }
 
   /**
@@ -333,7 +333,7 @@ class SivicPlayer {
     this.adVideoElement_.src = '';
     this.hideAdPlayer_();
     this.contentVideoElement_.play();
-    this.destroySivicIframe();
+    this.destroySimidIframe();
     // TODO: Let the ad know it is being stopped.
   }
 
@@ -341,23 +341,23 @@ class SivicPlayer {
   onRequestFullScreen(incomingMessage) {
     // The spec currently says to only request fullscreen for the iframe.
     let promise = null;
-    if (this.sivicIframe_.requestFullscreen) {
-      promise = this.sivicIframe_.requestFullscreen();
-    } else if (this.sivicIframe_.mozRequestFullScreen) {
+    if (this.simidIframe_.requestFullscreen) {
+      promise = this.simidIframe_.requestFullscreen();
+    } else if (this.simidIframe_.mozRequestFullScreen) {
       // Our tests indicate firefox will probably not respect the request.
-      promise = this.sivicIframe_.mozRequestFullScreen();
-    } else if (this.sivicIframe_.webkitRequestFullscreen) {
-      promise = this.sivicIframe_.webkitRequestFullscreen();
-    } else if (this.sivicIframe_.msRequestFullscreen) {
+      promise = this.simidIframe_.mozRequestFullScreen();
+    } else if (this.simidIframe_.webkitRequestFullscreen) {
+      promise = this.simidIframe_.webkitRequestFullscreen();
+    } else if (this.simidIframe_.msRequestFullscreen) {
       // Our tests indicate IE will probably not respect the request.
-      promise = this.sivicIframe_.msRequestFullscreen();
+      promise = this.simidIframe_.msRequestFullscreen();
     }
     if (promise) {
-      promise.then(() => this.sivicProtocol.resolve(incomingMessage));
+      promise.then(() => this.simidProtocol.resolve(incomingMessage));
     } else {
       // TODO: Many browsers are not returning promises but are still
       // going full screen. Assuming resolve (bad).
-      this.sivicProtocol.resolve(incomingMessage)
+      this.simidProtocol.resolve(incomingMessage)
     }
   }
   
@@ -365,42 +365,42 @@ class SivicPlayer {
   onRequestPlay(incomingMessage) {
     this.adVideoElement_.play().then(
       // The play function returns a promise.
-      this.sivicProtocol.resolve(incomingMessage),
-      this.sivicProtocol.reject(incomingMessage)
+      this.simidProtocol.resolve(incomingMessage),
+      this.simidProtocol.reject(incomingMessage)
     );
   }
   
   /** The creative wants to pause video. */
   onRequestPause(incomingMessage) {
     this.adVideoElement_.pause();
-    this.sivicProtocol.resolve(incomingMessage);
+    this.simidProtocol.resolve(incomingMessage);
   }
   
   /** The creative wants to stop with a fatal error. */
   onCreativeFatalError(incomingMessage) {
-    this.sivicProtocol.resolve(incomingMessage);
+    this.simidProtocol.resolve(incomingMessage);
     const closeMessage = {
       'code': StopCode.CREATIVE_INITIATED,
     }
-    this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
+    this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
       .then(this.stopAd());
   }
 
   /** The creative wants to skip this ad. */
   onRequestSkip(incomingMessage) {
-    this.sivicProtocol.resolve(incomingMessage);
-    this.sivicProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
+    this.simidProtocol.resolve(incomingMessage);
+    this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
         .then(this.stopAd());
   }
   
   /** The creative wants to stop the ad early. */
   onRequestStop(incomingMessage) {
-    this.sivicProtocol.resolve(incomingMessage);
+    this.simidProtocol.resolve(incomingMessage);
     const stopReason = {
       'code': StopCode.CREATIVE_INITIATED,
     }
     // After the creative resolves then the iframe should be destroyed.
-    this.sivicProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
+    this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
         .then(this.stopAd());
   }
 

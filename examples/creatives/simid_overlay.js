@@ -1,7 +1,7 @@
 /**
- * A sample sivic ad that shows an overlay
+ * A sample SIMID ad that shows an overlay
  */
-class SivicOverlay extends BaseSivicCreative {
+class SimidOverlay extends BaseSimidCreative {
   constructor() {
     super();
 
@@ -35,7 +35,7 @@ class SivicOverlay extends BaseSivicCreative {
    * @private
    */
   sendMessageOnButtonClick_(elementName, message) {
-    const sendMessageFunction = () => {this.sivicProtocol.sendMessage(message);}
+    const sendMessageFunction = () => {this.simidProtocol.sendMessage(message);}
     document.getElementById(elementName).addEventListener(
         'click', sendMessageFunction.bind(this));
   }

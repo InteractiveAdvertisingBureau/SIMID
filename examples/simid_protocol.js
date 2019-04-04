@@ -1,9 +1,9 @@
 /**
- * Contains logic for sending mesages between the SIVIC creative and the player.
+ * Contains logic for sending mesages between the SIMID creative and the player.
  * Note: Some browsers do not support promises and a more complete implementation
  *       should consider using a polyfill.
  */
-class SivicProtocol {
+class SimidProtocol {
 
   constructor() {
     /*
@@ -56,13 +56,13 @@ class SivicProtocol {
     // Incrementing between messages keeps each message id unique.
     const messageId = this.nextMessageId_ ++;
 
-    // Only create session does not need to be in the SIVIC name space
+    // Only create session does not need to be in the SIMID name space
     // because it is part of the protocol.
     const nameSpacedMessage = 
         messageType == ProtocolMessage.CREATE_SESSION ?
-            messageType : 'SIVIC:' + messageType;
+            messageType : 'SIMID:' + messageType;
 
-    // The message object as defined by the SIVIC spec.
+    // The message object as defined by the SIMID spec.
     const message = {
       'sessionId': this.sessionId_,
       'messageId': messageId,
@@ -125,7 +125,7 @@ class SivicProtocol {
     }
     const data = JSON.parse(event.data);
     if (!data) {
-      // If there is no data in the event this is not a SIVIC message.
+      // If there is no data in the event this is not a SIMID message.
       return;
     }
     const sessionId = data['sessionId'];
@@ -145,12 +145,12 @@ class SivicProtocol {
 
     // There are 2 types of messages to handle:
     // 1. Protocol messages (like resolve, reject and createSession)
-    // 2. Messages starting with SIVIC:
+    // 2. Messages starting with SIMID:
     // All other messages are ignored.
     if (Object.values(ProtocolMessage).includes(type)) {
       this.handleProtocolMessage_(data);
-    } else if (type.startsWith('SIVIC:')) {
-      // Remove SIVIC: from the front of the message so we can compare them with the map.
+    } else if (type.startsWith('SIMID:')) {
+      // Remove SIMID: from the front of the message so we can compare them with the map.
       const specificType = type.substr(6);
       const listeners = this.listeners_[specificType];
       if (listeners) {
@@ -280,7 +280,7 @@ ProtocolMessage = {
   REJECT: 'reject'
 }
 
-/** Contains all constants common across SIVIC */
+/** Contains all constants common across SIMID */
 
 VideoMessage = {
   DURATION_CHANGE: 'Video:durationchange',
@@ -318,38 +318,6 @@ CreativeMessage = {
   REQUEST_VOLUME: 'Creative:requestVolume',
   REQUEST_TRACKING: 'Creative:reportTracking',
   REQUEST_CHANGE_AD_DURATION: 'Creative:requestChangeAdDuration',
-};
-
-/* Tracking messages supported by the vast spec. Sent from the
- * player to the creative.
- */
-TrackingMessages = {
-  CLICK_THROUGH: 'Tracking:clickThrough',
-  CLICK_TRACKING: 'Tracking:clickTracking',
-  CLOSE_LINEAR: 'Tracking:closeLinear',
-  COLLAPSE: 'Tracking:collapse',
-  COMPLETE: 'Tracking:complete',
-  CREATIVE_VIEW: 'Tracking:creativeView',
-  CUSTOM_CLICK: 'Tracking:customClick',
-  EXIT_FULL_SCREEN: 'Tracking:exitFullscreen',
-  EXPAND: 'Tracking:expand',
-  FIRST_QUARTILE: 'Tracking:firstQuartile',
-  FULL_SCREEN: 'Tracking:fullscreen',
-  IMPRESSION: 'Tracking:impression',
-  LOADED: 'Tracking:loaded',
-  MIDPOINT: 'Tracking:midpoint',
-  MUTE: 'Tracking:mute',
-  OTHER_AD_INTERACTION: 'Tracking:otherAdInteraction',
-  PAUSE: 'Tracking:pause',
-  PLAYER_COLLAPSE: 'Tracking:playerCollapse',
-  PLAYER_EXPAND: 'Tracking:playerExpand',
-  PROGRESS: 'Tracking:progress',
-  RESUME: 'Tracking:resume',
-  REWIND: 'Tracking:rewind',
-  SKIP: 'Tracking:skip',
-  START: 'Tracking:start',
-  THIRD_QUARTILE: 'Tracking:thirdQuartile',
-  UNMUTE: 'Tracking:unmute',
 };
 
 /**

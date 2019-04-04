@@ -1,8 +1,8 @@
 <html>
   <head>
-    <script src="../sivic_protocol.js"> </script>
-    <script src="base_sivic_creative.js"> </script>
-    <script src="sivic_overlay.js"> </script>
+    <script src="../simid_protocol.js"> </script>
+    <script src="base_simid_creative.js"> </script>
+    <script src="simid_overlay.js"> </script>
   </head>
   <body>
 	<button id="request_play">Request Play</button><br>
@@ -11,13 +11,13 @@
 	<button id="fatal_error">Fatal Error</button><br>
 	<button id="request_skip">Request Skip</button><br>
 	<button id="request_stop">Request Stop</button><br>
-  <div id="information" style="color:green">Sample Sivic Ad</div>
+  <div id="information" style="color:green">Sample Simid Ad</div>
   <script>
     // The creative should first call ready
-    const sivicOverlay = new SivicOverlay();
+    const simidOverlay = new SimidOverlay();
     // This implementation is immediately ready but other creatives
     // may wish to wait for assets to load before calling ready.
-    sivicOverlay.ready();
+    simidOverlay.ready();
   </script>
   </body>
 </html>
