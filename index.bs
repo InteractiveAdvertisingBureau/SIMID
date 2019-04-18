@@ -778,7 +778,7 @@ The player should use the following table to determine which code to send.
  - 4: Creative initiated close
 
 #### resolve #### {#sivic-player-adStopped-resolve}
-After resolve is sent, the iframe will be removed.
+After resolve is received, the iframe will be removed.
 
 ### SIMID:Player:appBackgrounding ### {#sivic-player-app-backgrounding}
 The ad is in app and the app is going to move to the background.
