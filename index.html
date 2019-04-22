@@ -1,7 +1,7 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>Secure Interactive Media Interface Definition (SIMID)</title>
+  <title>Secure Interactive Media Interface Definition (SIMID) &lt;br>&lt;img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" ></title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 90d8208675530570e2845a328f5a44d1ddd26fec" name="generator">
+  <meta content="Bikeshed version 4d208866a95a1121fceca549a36bfb09c5bf1705" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
   table.alternatecolor tr:nth-child(odd) {
@@ -1476,28 +1476,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID)</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-03-28">28 March 2019</time></span></h2>
+   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-04-22">22 April 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
-       
-<dl>
-        <p><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" ></p>
-        <dt>License</dt>
-        <dd>
-        <p class="copyright" data-fill-with="copyright">
-             The SIMID Specification from the IAB Tech Lab is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit <a href="creativecommons.org/licenses/by/3.0/">creativecommons.org/licenses/by/3.0/</a> or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.
-      </p>
-            </dd>
-        <dt>About the IAB Technology Lab</dt>
-        <dd>
-        The IAB Technology Laboratory (Tech Lab) is a non-profit research and development consortium that produces and provides standards, software, and services to drive growth of an effective and sustainable global digital media ecosystem. Comprised of digital publishers and ad technology firms, as well as marketers, agencies, and other companies with interests in the interactive marketing arena, IAB Tech Lab aims to enable brand and media growth via a transparent, safe, effective supply chain, simpler and more consistent measurement, and better advertising experiences for consumers, with a focus on mobile and TV/digital video channel enablement. The IAB Tech Lab portfolio includes the DigiTrust real-time standardized identity service designed to improve the digital experience for consumers, publishers, advertisers, and third-party platforms. Board members include AppNexus, ExtremeReach, Google, GroupM, Hearst Digital Media, Integral Ad Science, Index Exchange, LinkedIn, MediaMath, Microsoft, Moat, Pandora, PubMatic, Quantcast, Telaria, The Trade Desk, and Yahoo! Japan. Established in 2014, the IAB Tech Lab is headquartered in New York City with an office in San Francisco and representation in Seattle and London.
-        <p>
-        Learn more about IAB Tech Lab at <a href="www.iabtechlab.com">www.iabtechlab.com</a></p>
-        </dd>
-</dl>
-              
-       
-       
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://interactiveadvertisingbureau.github.io/SIMID/">https://interactiveadvertisingbureau.github.io/SIMID/</a>
@@ -1505,10 +1486,14 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dd><a href="https://github.com/InteractiveAdvertisingBureau/SIMID/issues/">GitHub</a>
      <dt class="editor">Editor:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:video@iabtechlab.com">IAB Tech Lab's Digital Video Technical Working Group</a>
+     <dt>License:
+     <dd>
+      <p style="fontsize:small">The SIMID Specification from the IAB Tech Lab is licensed a Creative Commons Attribution, Non Commercial, No Derivatives License. To view a copy of this license, visit <a href="creativecommons.org/licenses/by-nc-nd/4.0/legalcode">creativecommons.org/licenses/by-nc-nd/4.0/legalcode</a> or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.</p>
+     <dt>About the IAB Technology Lab:
+     <dd>The IAB Technology Laboratory (Tech Lab) is a non-profit consortium that engages a member community globally to develop foundational technology and standards that enable growth and trust in the digital media ecosystem.. Comprised of digital publishers, ad technology firms, agencies, marketers, and other member companies, IAB Tech Lab focuses on improving the digital advertising supply chain, measurement, and consumer experiences, while promoting responsible use of data. Its work includes the OpenRTB real-time bidding protocol, ads.txt anti- fraud specification, Open Measurement SDK for viewability and verification, VAST video specification, and DigiTrust identity service. Board members include ExtremeReach, Facebook, Google, GroupM, Hearst Digital Media, Index Exchange, Integral Ad Science, LinkedIn, LiveRamp, MediaMath, Microsoft, Oracle Data Cloud, Pandora, PubMatic, Quantcast, Rakuten Marketing, Telaria, The Trade Desk, Verizon Media Group, Xandr, and Yahoo! Japan. Established in 2014, the IAB Tech Lab is headquartered in New York City with staff in San Francisco, Seattle, and London. Learn more at https://www.iabtechlab.com.
     </dl>
    </div>
-      
-
+   
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -2271,7 +2256,7 @@ of the message that is being resolved.</p>
    <p>Video messages should be reported immediately after player receives related event.</p>
    <p><code>Message.timestamp</code> property value is set to the time media element dispatches event.</p>
    <h4 class="heading settled" data-level="5.2.1" id="sivic-video-durationchange"><span class="secno">5.2.1. </span><span class="content">SIMID:Video:durationchange</span><a class="self-link" href="#sivic-video-durationchange"></a></h4>
-    Should be called after the durationchange event is triggered on the video element. 
+    Should be sent after the durationchange event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
     <li data-md>
@@ -2279,9 +2264,9 @@ of the message that is being resolved.</p>
 to be the total duration of the ad.</p>
    </ul>
    <h4 class="heading settled" data-level="5.2.2" id="sivic-video-ended"><span class="secno">5.2.2. </span><span class="content">SIMID:Video:ended</span><a class="self-link" href="#sivic-video-ended"></a></h4>
-    Should be called after the ended event is triggered on the video element. 
+    Should be sent after the ended event is triggered on the video element. 
    <h4 class="heading settled" data-level="5.2.3" id="sivic-video-error"><span class="secno">5.2.3. </span><span class="content">SIMID:Video:error</span><a class="self-link" href="#sivic-video-error"></a></h4>
-    Should be called after the error event is triggered on the video element. 
+    Should be sent after the error event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
     <li data-md>
@@ -2290,19 +2275,19 @@ to be the total duration of the ad.</p>
      <p>message(DOMString): corresponds to videoElement.error.message.</p>
    </ul>
    <h4 class="heading settled" data-level="5.2.4" id="sivic-video-pause"><span class="secno">5.2.4. </span><span class="content">SIMID:Video:pause</span><a class="self-link" href="#sivic-video-pause"></a></h4>
-    Should be called after the pause event is triggered on the video element. 
+    Should be sent after the pause event is triggered on the video element. 
    <h4 class="heading settled" data-level="5.2.5" id="sivic-video-play"><span class="secno">5.2.5. </span><span class="content">SIMID:Video:play</span><a class="self-link" href="#sivic-video-play"></a></h4>
-    Should be called after the play event is triggered on the video element. 
+    Should be sent after the play event is triggered on the video element. 
    <h4 class="heading settled" data-level="5.2.6" id="sivic-video-playing"><span class="secno">5.2.6. </span><span class="content">SIMID:Video:playing</span><a class="self-link" href="#sivic-video-playing"></a></h4>
-    Should be called after the playing event is triggered on the video element. 
+    Should be sent after the playing event is triggered on the video element. 
    <h4 class="heading settled" data-level="5.2.7" id="sivic-video-seeked"><span class="secno">5.2.7. </span><span class="content">SIMID:Video:seeked</span><a class="self-link" href="#sivic-video-seeked"></a></h4>
-    Should be called after the seeked event is triggered on the video element. 
+    Should be sent after the seeked event is triggered on the video element. 
    <h4 class="heading settled" data-level="5.2.8" id="sivic-video-seeking"><span class="secno">5.2.8. </span><span class="content">SIMID:Video:seeking</span><a class="self-link" href="#sivic-video-seeking"></a></h4>
-    Should be called after the seeking event is triggered on the video element. 
+    Should be sent after the seeking event is triggered on the video element. 
    <h4 class="heading settled" data-level="5.2.9" id="sivic-video-stalled"><span class="secno">5.2.9. </span><span class="content">SIMID:Video:stalled</span><a class="self-link" href="#sivic-video-stalled"></a></h4>
-    Should be called after the stalled event is triggered on the video element. 
+    Should be sent after the stalled event is triggered on the video element. 
    <h4 class="heading settled" data-level="5.2.10" id="sivic-video-timeupdate"><span class="secno">5.2.10. </span><span class="content">SIMID:Video:timeupdate</span><a class="self-link" href="#sivic-video-timeupdate"></a></h4>
-    Should be called after the timeupdate event is triggered on the video element. 
+    Should be sent after the timeupdate event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
     <li data-md>
@@ -2311,7 +2296,7 @@ this must be calculated to be the total time the video ad has played. For exampl
 time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.</p>
    </ul>
    <h4 class="heading settled" data-level="5.2.11" id="sivic-video-volumechange"><span class="secno">5.2.11. </span><span class="content">SIMID:Video:volumechange</span><a class="self-link" href="#sivic-video-volumechange"></a></h4>
-    Should be called after the volumechange event is triggered on the video element. 
+    Should be sent after the volumechange event is triggered on the video element. 
    <p>parameters:</p>
    <ul>
     <li data-md>
@@ -2331,7 +2316,7 @@ time is 500 seconds but the ad started playback 10 seconds ago (in DAI), current
     This indicates the player will skip the ad. The player should hide the creative and stop video playback in this case.
 The player should wait for a response before unloading the creative iframe. 
    <h5 class="heading settled" data-level="5.3.1.1" id="sivic-player-adSkipped-resolve"><span class="secno">5.3.1.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-adSkipped-resolve"></a></h5>
-    After resolve is called, the iframe will be removed. 
+    After resolve is received, the iframe will be removed. 
    <h4 class="heading settled" data-level="5.3.2" id="sivic-player-adStopped"><span class="secno">5.3.2. </span><span class="content">SIMID:Player:adStopped</span><a class="self-link" href="#sivic-player-adStopped"></a></h4>
     This indicates the player will stop the ad. The player should hide the creative and stop video playback in this case.
 The player should wait for a response before unloading the creative iframe. 
@@ -2354,7 +2339,7 @@ The player should wait for a response before unloading the creative iframe.
      <p>4: Creative initiated close</p>
    </ul>
    <h5 class="heading settled" data-level="5.3.2.1" id="sivic-player-adStopped-resolve"><span class="secno">5.3.2.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-adStopped-resolve"></a></h5>
-    After resolve is called, the iframe will be removed. 
+    After resolve is received, the iframe will be removed. 
    <h4 class="heading settled" data-level="5.3.3" id="sivic-player-app-backgrounding"><span class="secno">5.3.3. </span><span class="content">SIMID:Player:appBackgrounding</span><a class="self-link" href="#sivic-player-app-backgrounding"></a></h4>
     The ad is in app and the app is going to move to the background. 
    <h5 class="heading settled" data-level="5.3.3.1" id="sivic-player-app-backgrounding-resolve"><span class="secno">5.3.3.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-app-backgrounding-resolve"></a></h5>
@@ -2373,7 +2358,7 @@ before unloading the creative iframe.
      <p>errorMessage(DOMString): Any additional information.</p>
    </ul>
    <h5 class="heading settled" data-level="5.3.5.1" id="sivic-player-fatalError-resolve"><span class="secno">5.3.5.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-fatalError-resolve"></a></h5>
-    After resolve is called, the iframe will be removed. 
+    After resolve is received, the iframe will be removed. 
    <h4 class="heading settled" data-level="5.3.6" id="sivic-player-init"><span class="secno">5.3.6. </span><span class="content">SIMID:Player:init</span><a class="self-link" href="#sivic-player-init"></a></h4>
    <p>To assist in preloading assets the player must send the SIMID:Player:init message
 before SIMID:Player:startCreative.  The player should send this message early
@@ -2457,7 +2442,7 @@ to display or not display a fullscreen option</p>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed">variableDurationAllowed</a></code>: If set to true the player
 must allow the SIMID creative to pause player-controlled video playback
 during the ad. If <code>false</code> it will not (live streaming is a use case). An
-example use case here is a clickthru overlays, where <code>variableDuration</code> (ad requirement) is <code>false</code>, but <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed①">variableDurationAllowed</a></code> (publisher capability) can be <code>true</code> or <code>false</code>. It should not be used in any case where disallowing
+example use case here is a clickthru overlay, where <code>variableDuration</code> (ad requirement) is <code>false</code>, but <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed①">variableDurationAllowed</a></code> (publisher capability) can be <code>true</code> or <code>false</code>. It should not be used in any case where disallowing
 the pause interferes with the ad KPIs (for example if it can interfere
 with completions, time spent in an interactive component, etc).</p>
       <li data-md>
@@ -2476,7 +2461,7 @@ SIMID creative should not render a skip button. This may be common in
 DAI for live streams.</p>
        </ul>
       <li data-md>
-       <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-version" id="ref-for-dom-environmentdata-version">version</a></code>: The version of sivic that this player uses.</p>
+       <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-version" id="ref-for-dom-environmentdata-version">version</a></code>: The version of SIMID that this player uses.</p>
       <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-siteurl" id="ref-for-dom-environmentdata-siteurl">siteUrl</a></code> Indicating the website the ad will play on,
 for example if the site was <code>www.xyz.com/videoId</code>, this information would
@@ -2492,7 +2477,7 @@ party tracking of custom events</p>
       <li data-md>
        <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-muted" id="ref-for-dom-environmentdata-muted">muted</a></code> (boolean): True if the audio is muted.</p>
       <li data-md>
-       <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-volume" id="ref-for-dom-environmentdata-volume">volume</a></code> (number): The volume which should be between 0 and 1.0.</p>
+       <p><code class="idl"><a data-link-type="idl" href="#dom-environmentdata-volume" id="ref-for-dom-environmentdata-volume">volume</a></code> (number): The volume, which should be between 0 and 1.0.</p>
      </ul>
    </ul>
    <h5 class="heading settled" data-level="5.3.6.1" id="sivic-player-init-resolve"><span class="secno">5.3.6.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-init-resolve"></a></h5>
@@ -2572,7 +2557,7 @@ not yet visible (like during initialization) these dimensions will be the expect
      </ul>
    </ul>
    <h4 class="heading settled" data-level="5.3.9" id="sivic-player-startCreative"><span class="secno">5.3.9. </span><span class="content">SIMID:Player:startCreative</span><a class="self-link" href="#sivic-player-startCreative"></a></h4>
-   <p>SIMID:Player:startCreative must be called after the iframe is made visible.</p>
+   <p>SIMID:Player:startCreative must be sent after the iframe is made visible.</p>
    <h5 class="heading settled" data-level="5.3.9.1" id="sivic-player-startCreative-resolve"><span class="secno">5.3.9.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-player-startCreative-resolve"></a></h5>
     The creative acknowledges that it has started playback. The player must make the creative visible to the user. 
    <h5 class="heading settled" data-level="5.3.9.2" id="sivic-player-startCreative-reject"><span class="secno">5.3.9.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-player-startCreative-reject"></a></h5>
@@ -2644,7 +2629,7 @@ start with "WARNING:". Player developers should monitor for this message.</p>
     <li data-md>
      <p>
       trackingUrls(Array
-      <string>): an array or tracking pixels that the publisher should fire</string>
+      <string>): An array of tracking pixels that the publisher should fire.</string>
      </p>
    </ul>
    <p>The creative is not required to use SIMID:Creative:reportTracking. However, the player
@@ -2711,13 +2696,13 @@ should not block waiting for a response from the site.
     The player has resized exactly as it has been requested. 
    <h5 class="heading settled" data-level="5.4.11.2" id="sivic-creative-requestResize-reject"><span class="secno">5.4.11.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestResize-reject"></a></h5>
     The player did not resize to the exact request. If the player was only able to partially comply, it should still
-reject the message. Then the player should call the message <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> to let the creative know
+reject the message. Then the player should send a <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> message to let the creative know
 what resize happened. 
    <h4 class="heading settled" data-level="5.4.12" id="sivic-creative-requestSkip"><span class="secno">5.4.12. </span><span class="content">SIMID:Creative:requestSkip</span><a class="self-link" href="#sivic-creative-requestSkip"></a></h4>
     The player should stop video playback if possible. 
    <p>If the player cannot stop video playback, the player still does not unload the iframe.</p>
    <h5 class="heading settled" data-level="5.4.12.1" id="sivic-creative-requestSkip-resolve"><span class="secno">5.4.12.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestSkip-resolve"></a></h5>
-    Upon resolving this request, the player must call <a href="#sivic-player-adSkipped">§5.3.1 SIMID:Player:adSkipped</a>. 
+    Upon resolving this request, the player must send a <a href="#sivic-player-adSkipped">§5.3.1 SIMID:Player:adSkipped</a> message. 
    <h5 class="heading settled" data-level="5.4.12.2" id="sivic-creative-requestSkip-reject"><span class="secno">5.4.12.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestSkip-reject"></a></h5>
     The creative should continue to playback as though it could not be skipped. 
    <h4 class="heading settled" data-level="5.4.13" id="sivic-creative-requestStop"><span class="secno">5.4.13. </span><span class="content">SIMID:Creative:requestStop</span><a class="self-link" href="#sivic-creative-requestStop"></a></h4>
@@ -2725,7 +2710,7 @@ what resize happened.
    <p>If the player cannot stop video playback, the player still unloads the iframe. The creative may hide all elements
 in this case if it doesn’t wish to be seen.</p>
    <h5 class="heading settled" data-level="5.4.13.1" id="sivic-creative-requestStop-resolve"><span class="secno">5.4.13.1. </span><span class="content">resolve</span><a class="self-link" href="#sivic-creative-requestStop-resolve"></a></h5>
-    Upon resolving this request, the player must call <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a>. 
+    Upon resolving this request, the player must send a <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> message. 
    <h5 class="heading settled" data-level="5.4.13.2" id="sivic-creative-requestStop-reject"><span class="secno">5.4.13.2. </span><span class="content">reject</span><a class="self-link" href="#sivic-creative-requestStop-reject"></a></h5>
     For some reason the player could not stop playback. The creative may continue
 to render as though it was not stopped. 
@@ -2743,21 +2728,21 @@ the <code>adStopped</code> event after <code>adVideoComplete</code>.</p>
    <ol>
     <li data-md>
      <p>The player must create an iframe element for the SIMID creative. The player
-iframe should start out hidden. The iframe should be capable executing
+iframe should start out hidden. The iframe should be capable of executing
 javascript and loading resources.</p>
     <li data-md>
      <p>The player starts listening on the window that is the parent of the iframe
 for messages from the creative.</p>
     <li data-md>
      <p>The player sets the src element of the iframe to the url provided by
-the creatives VAST InteractiveCreativeFile element. The player should
+the creative’s VAST InteractiveCreativeFile element. The player should
 assume this will be a cross domain iframe.</p>
     <li data-md>
      <p>The player waits until the creative inializes a session. <a href="#establish-session">§4.2.1 Establishing a new session</a> The player responds with a resolve message.
 The resolve message includes the correlator that must be present in
 all messages going forward.</p>
     <li data-md>
-     <p>The player then calls <a href="#sivic-player-init">§5.3.6 SIMID:Player:init</a> with all relevant parameters.
+     <p>The player then sends a <a href="#sivic-player-init">§5.3.6 SIMID:Player:init</a> message with all relevant parameters.
 The player waits until the creative responds with resolve.  If the
 creative responds with reject, the player should immediately unload
 the creative’s iframe.</p>
@@ -2766,7 +2751,7 @@ the creative’s iframe.</p>
 to the <a href="#sivic-player-init">§5.3.6 SIMID:Player:init</a> and the video is ready to start playing. Ready
 to start playing means the first frame will show and playback will continue.</p>
     <li data-md>
-     <p>When the video is started the player calls <a href="#sivic-player-startCreative">§5.3.9 SIMID:Player:startCreative</a>.
+     <p>When the video is started the player sends a <a href="#sivic-player-startCreative">§5.3.9 SIMID:Player:startCreative</a> message.
 The player must overlay the creative iframe over the video element exactly.
 The player must make the creative visible. The creative should respond to
 this message immediately with <a href="#sivic-player-startCreative-resolve">§5.3.9.1 resolve</a>.</p>
@@ -2781,17 +2766,17 @@ playback of interactive content and internal tracking related to interactivity
 the player should enable video pause by the SIMID creative via the
 SIMID:Creative:requestPause message. The player must respond to
 SIMID:Creative:requestPause with the <code>AdPaused</code> event.</p>
-   <p>When the SIMID creative would like to resume video playback, it should call the
+   <p>When the SIMID creative would like to resume video playback, it should send a
 SIMID:Creative:requestPlay message. The player must
 respond to SIMID:Creative:requestPlay message with resolve and play the video.</p>
    <h4 class="heading settled" data-level="7.2.2" id="api-resizing"><span class="secno">7.2.2. </span><span class="content">Ad Resizing and Fullscreen</span><a class="self-link" href="#api-resizing"></a></h4>
-   <p>The player may resize the ad slot. The player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> any time the ad slot size is changed.</p>
+   <p>The player may resize the ad slot. The player must send a <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> message any time the ad slot size is changed.</p>
    <p>If <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreenallowed" id="ref-for-dom-environmentdata-fullscreenallowed①">fullscreenAllowed</a></code> is <code>true</code>, the SIMID creative may
-call the <a href="#sivic-creative-requestFullScreen">§5.4.8 SIMID:Creative:requestFullScreen</a> method. The player must resize only the ad
+send a <a href="#sivic-creative-requestFullScreen">§5.4.8 SIMID:Creative:requestFullScreen</a> message. The player must resize only the ad
 slot to fullscreen (not the video). The SIMID creative then will resize the
-video as it sees fit. The player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> on the SIMID creative
+video as it sees fit. The player must send a <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> message to the SIMID creative
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen①">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions">creativeDimensions</a></code> set to the full screen dimensions.</p>
-   <p>If player goes fullscreen on its own. Then the player must call <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> on the SIMID creative
+   <p>If player goes fullscreen on its own. Then the player must send a <a href="#sivic-player-resize">§5.3.8 SIMID:Player:resize</a> message to the SIMID creative
 with <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-fullscreen" id="ref-for-dom-resizeparameters-fullscreen②">fullScreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-videodimensions" id="ref-for-dom-resizeparameters-videodimensions①">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-resizeparameters-creativedimensions" id="ref-for-dom-resizeparameters-creativedimensions①">creativeDimensions</a></code> set to the full screen dimensions.</p>
    <h3 class="heading settled" data-level="7.3" id="api-end"><span class="secno">7.3. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#api-end"></a></h3>
    <p>Following are cases where ad can end:</p>
@@ -2810,13 +2795,13 @@ the skip button). See <a href="#api-skip">§7.3.1 Ad Skips</a>.</p>
    <p><strong>Skip Ad Handled by Player</strong></p>
    <ol>
     <li data-md>
-     <p>The player calls <a href="#sivic-player-adSkipped">§5.3.1 SIMID:Player:adSkipped</a> on the ad.</p>
+     <p>The player sends a <a href="#sivic-player-adSkipped">§5.3.1 SIMID:Player:adSkipped</a> message to the ad.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
      <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIMID:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> from the reportTracking call.</p>
+     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> from the reportTracking message.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-adSkipped-resolve">§5.3.1.1 resolve</a>.</p>
     <li data-md>
@@ -2861,13 +2846,13 @@ ad portion.</p>
    <p>When an ad finishes at the same time as its video.</p>
    <ol>
     <li data-md>
-     <p>The player calls <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> on the ad.</p>
+     <p>The player sends a <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> message to the ad.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
      <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIMID:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> from the reportTracking call.</p>
+     <p>The creative may wait for a <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> response message from the reportTracking message.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-adStopped-resolve">§5.3.2.1 resolve</a>.</p>
     <li data-md>
@@ -2881,13 +2866,13 @@ unit playback. This might not be possible in server side stitched ads.</p>
    <p>When an player errors out it must follow these steps.</p>
    <ol>
     <li data-md>
-     <p>The player calls <a href="#sivic-player-fatalError">§5.3.5 SIMID:Player:fatalError</a> on the ad.</p>
+     <p>The player sends a <a href="#sivic-player-fatalError">§5.3.5 SIMID:Player:fatalError</a> message to the ad.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
      <p>The creative may dispatch any tracking pixels via <a href="#sivic-creative-reportTracking">§5.4.5 SIMID:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> from the reportTracking call.</p>
+     <p>The creative may wait for a <a href="#sivic-creative-reportTracking-resolve">§5.4.5.1 resolve</a> response from the reportTracking message.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#sivic-player-fatalError-resolve">§5.3.5.1 resolve</a>.</p>
     <li data-md>
@@ -2900,13 +2885,13 @@ full control over its user experience and can present its controls (or hide them
 The publisher media player may dismiss the ad creative at any point in time. The
 ad creative can also request to be dismissed at any point in time. Some
 implementations may have a publisher provided close control, as well as various other controls, and others may not.
-Ad creatives may opt to show its own controls, including a close control. Ad creatives and
+An ad creative may opt to show its own controls, including a close control. Both ad creatives and
 media players should ensure that consumers are presented with a good ad experience.</p>
    <h4 class="heading settled" data-level="7.3.7" id="api-notes"><span class="secno">7.3.7. </span><span class="content">Additional Notes</span><a class="self-link" href="#api-notes"></a></h4>
-   <p>The player may call <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> at any time. The creative should respond with <code>resolved</code> after finishing its ad end logic. The player should allow 1 second
-between calling <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> and receiving <code>resolved</code>. The implementer of the
+   <p>The player may send a <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> message at any time. The creative should respond with <code>resolved</code> after finishing its ad end logic. The player should allow 1 second
+between sending the <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> message and receiving <code>resolved</code>. The implementer of the
 player should take into consideration that dropping a SIMID ad unit before it has
-dispatched <code>resolved</code> may result in tracking discrepancies, and that calling <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> before the ad experience has ended (which is AFTER the optional
+dispatched <code>resolved</code> may result in tracking discrepancies, and that sending the <a href="#sivic-player-adStopped">§5.3.2 SIMID:Player:adStopped</a> message before the ad experience has ended (which is AFTER the optional
 lean-in phase) could harm the overall ad experience.</p>
    <p>The SIMID creative may also dispatch <a href="#sivic-creative-requestStop">§5.4.13 SIMID:Creative:requestStop</a> at any time, signaling to the
 player that the ad has finished and unloaded. Any further interaction with the
