@@ -9,15 +9,13 @@ Group: IAB Tech Lab
 URL: https://interactiveadvertisingbureau.github.io/SIMID/
 Repository: InteractiveAdvertisingBureau/SIMID
 Editor: IAB Tech Lab's Digital Video Technical Working Group, video@iabtechlab.com
-Abstract: Establishes a common and secure communication protocol between video players and executable ad units, providing rich ad experiences for viewers.
+Abstract: Establishes a common and secure communication protocol between video players and executable ad units, providing rich ad experiences for viewers. Available for public comment until May 24th 2019.
 Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
 </pre>
 
 # Version # {#version-number}
 0.1 (public comment)
 
-
-<img src="images/IABTechLabLogo.jpg" alt="IAB Tech Lab">
 
 
 # Executive Summary # {#exec-summary}

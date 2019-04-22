@@ -4,6 +4,8 @@ The latest human-readable version is available at https://interactiveadvertising
 
 The sample implementation is available at https://interactiveadvertisingbureau.github.io/SIMID/examples/player/simid_player.html
 
+Home page on iabtechlab.com - https://iabtechlab.com/SIMID
+
 ## Contributing
 
 1. Check out this repository to your local machine.
