@@ -747,7 +747,7 @@ For example:
 
 <xmp>
 {
- id: "SIMID:Player:adStopped",
+ type: "SIMID:Player:adStopped",
  args: {
 	 code: 0
  }
@@ -972,7 +972,7 @@ not yet visible (like during initialization) these dimensions will be the expect
 
 ### SIMID:Player:startCreative ### {#sivic-player-startCreative}
 
-SIMID:Player:startCreative must be sent after the iframe is made visible.
+SIMID:Player:startCreative must be sent when the player is ready to make the iframe visible.
 
 #### resolve #### {#sivic-player-startCreative-resolve}
 The creative acknowledges that it has started playback. The player must make the creative visible to the user.
@@ -1109,7 +1109,7 @@ what resize happened.
 ### SIMID:Creative:requestSkip ### {#sivic-creative-requestSkip}
 The player should stop video playback if possible.
 
-If the player cannot stop video playback, the player still does not unload the iframe.
+If the player cannot stop video playback, the player must not unload the iframe in response to this request.
 
 #### resolve #### {#sivic-creative-requestSkip-resolve}
 Upon resolving this request, the player must send a [[#sivic-player-adSkipped]] message.
