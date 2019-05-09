@@ -1138,10 +1138,11 @@ When a SIMID creative is referenced from a VAST document, the value for the
 Version negotiation should be handled by the [[#api-ad-loading]] algorithm
 (rather than identified in the VAST file).
 
-Another attribute of the `InteractiveCreativeFile` is `variableDuration` which
-identifies whether the ad always drops when the duration is reached, or if it
-can potentially extend the duration by pausing the underlying video or delaying
-the `adStopped` event after `adVideoComplete`.
+Another attribute of the `InteractiveCreativeFile` is `variableDuration`.
+If `variableDuration` is true this means that the ad is only playable if
+the player allows the ad to pause and extend duration. If the player does
+not support this capability, then it must not render the video or creative.
+The player should error out instead.
 
 # Common Workflows # {#common-workflows}
 
