@@ -747,7 +747,7 @@ For example:
 
 <xmp>
 {
- id: "SIMID:Player:adStopped",
+ type: "SIMID:Player:adStopped",
  args: {
 	 code: 0
  }
@@ -972,7 +972,7 @@ not yet visible (like during initialization) these dimensions will be the expect
 
 ### SIMID:Player:startCreative ### {#sivic-player-startCreative}
 
-SIMID:Player:startCreative must be sent after the iframe is made visible.
+SIMID:Player:startCreative must be sent when the player is ready to make the iframe visible.
 
 #### resolve #### {#sivic-player-startCreative-resolve}
 The creative acknowledges that it has started playback. The player must make the creative visible to the user.
@@ -1109,7 +1109,7 @@ what resize happened.
 ### SIMID:Creative:requestSkip ### {#sivic-creative-requestSkip}
 The player should stop video playback if possible.
 
-If the player cannot stop video playback, the player still does not unload the iframe.
+If the player cannot stop video playback, the player must not unload the iframe in response to this request.
 
 #### resolve #### {#sivic-creative-requestSkip-resolve}
 Upon resolving this request, the player must send a [[#sivic-player-adSkipped]] message.
@@ -1138,10 +1138,11 @@ When a SIMID creative is referenced from a VAST document, the value for the
 Version negotiation should be handled by the [[#api-ad-loading]] algorithm
 (rather than identified in the VAST file).
 
-Another attribute of the `InteractiveCreativeFile` is `variableDuration` which
-identifies whether the ad always drops when the duration is reached, or if it
-can potentially extend the duration by pausing the underlying video or delaying
-the `adStopped` event after `adVideoComplete`.
+Another attribute of the `InteractiveCreativeFile` is `variableDuration`.
+If `variableDuration` is true this means that the ad is only playable if
+the player allows the ad to pause and extend duration. If the player does
+not support this capability, then it must not render the video or creative.
+The player should error out instead.
 
 # Common Workflows # {#common-workflows}
 
