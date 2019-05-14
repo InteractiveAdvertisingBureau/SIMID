@@ -1030,7 +1030,7 @@ parameters:
 - message(DOMString): Logging information sent from the creative to the player.
 
 ### SIMID:Creative:reportTracking ### {#sivic-creative-reportTracking}
-paramaters:
+parameters:
 - trackingUrls(Array<String>): An array of tracking pixels that the publisher should fire.
 
 The creative is not required to use SIMID:Creative:reportTracking. However, the player
