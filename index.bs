@@ -285,7 +285,7 @@ that it cannot correctly [=message/deserialize=].
 
 ## Session Layer
 
-Multiple <dfn for="message">sessions</dfn> maybe active over a single
+Multiple <dfn for="message">sessions</dfn> may be active over a single
 [=message/transport=] at any given time.
 
 A [=message/session=] is uniquely identified by a <dfn for="message">session
