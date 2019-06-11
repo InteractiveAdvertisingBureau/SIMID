@@ -762,8 +762,9 @@ The player should wait for a response before unloading the creative iframe.
 After resolve is received, the iframe will be removed.
 
 ### SIMID:Player:adStopped ### {#sivic-player-adStopped}
-This indicates the player will stop the ad. The player should hide the creative and stop video playback in this case.
-The player should wait for a response before unloading the creative iframe.
+This message indicates that the player has stopped the ad. The player hides the creative and stops video playback before posting `Player.adStopped`.
+
+The player should wait for the `resolve` response before unloading the creative iframe. The player should implement a reasonable timeout to allow for creative to conclude ad end logic.
 
 parameters:
 - code(int): reason for ad stopping
@@ -774,9 +775,11 @@ The player should use the following table to determine which code to send.
  - 2: Ad media playback complete
  - 3: Player initiating close before media playback complete
  - 4: Creative initiated close
+ 
+In response to `SIMID:Player:adStopped`, creative finalizes the ad end logic and responds with `resolve` message.
 
 #### resolve #### {#sivic-player-adStopped-resolve}
-After resolve is received, the iframe will be removed.
+After resolve is received, the player removes the creative iframe.
 
 ### SIMID:Player:appBackgrounding ### {#sivic-player-app-backgrounding}
 The ad is in app and the app is going to move to the background.
