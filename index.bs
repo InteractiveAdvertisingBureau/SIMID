@@ -510,7 +510,7 @@ dictionary ResolveMessageArgsValue {
       <td width="30%">reject</td>
     </tr>
     <tr>
-      <td>[[#sivicmedia elementdurationchange]]</td>
+      <td>[[#sivic-media-durationchange]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
@@ -684,7 +684,7 @@ messages to the SIMID creative. Media element related messages include original 
 names. `Message.type` values are prepended with SIMID:Media namespace.
 
 Example:
-1. media element dispatches event `play`.
+1. Media element dispatches event `play`.
 1. Player sends message to SIMID creative with `Message.type = SIMID:Media:play`.
 
 Video messages should be reported immediately after player receives related event.
