@@ -677,13 +677,15 @@ dictionary ResolveMessageArgsValue {
   </tbody>
 </table>
 
-## Messages triggered by video element events ## {#video-messages}
+## Messages triggered by media element events ## {#media-messages}
 
-When video element that renders ad media dispatches events, player posts corresponding messages to SIMID creative. Video element related messages include original media event type names. `Message.type` values are prepended with SIMID:Video namespace.
+When the media element that renders ad media dispatches events, the player posts corresponding
+messages to the SIMID creative. Media element related messages include original media event type 
+names. `Message.type` values are prepended with SIMID:Media namespace.
 
 Example:
-1. Video element dispatches event `play`.
-1. Player sends message to SIMID creative with `Message.type = SIMID:Video:play`.
+1. media element dispatches event `play`.
+1. Player sends message to SIMID creative with `Message.type = SIMID:Media:play`.
 
 Video messages should be reported immediately after player receives related event.
 
@@ -691,51 +693,51 @@ Video messages should be reported immediately after player receives related even
 
 
 
-### SIMID:Video:durationchange ### {#sivic-video-durationchange}
-Should be sent after the durationchange event is triggered on the video element.
+### SIMID:Media:durationchange ### {#sivic-video-durationchange}
+Should be sent after the durationchange event is triggered on the media element.
 
 parameters:
 - duration(float): The number in seconds of the video duration. For server side ad insertion this must be calculated
 	to be the total duration of the ad.
 
-### SIMID:Video:ended ### {#sivic-video-ended}
-Should be sent after the ended event is triggered on the video element.
+### SIMID:Media:ended ### {#sivic-video-ended}
+Should be sent after the ended event is triggered on the media element.
 
-### SIMID:Video:error ### {#sivic-video-error}
-Should be sent after the error event is triggered on the video element.
+### SIMID:Media:error ### {#sivic-video-error}
+Should be sent after the error event is triggered on the media element.
 
 parameters:
 - error(DOMString): corresponds to videoElement.error.code.
 - message(DOMString): corresponds to videoElement.error.message.
 
-### SIMID:Video:pause ### {#sivic-video-pause}
-Should be sent after the pause event is triggered on the video element.
+### SIMID:Media:pause ### {#sivic-video-pause}
+Should be sent after the pause event is triggered on the media element.
 
-### SIMID:Video:play ### {#sivic-video-play}
-Should be sent after the play event is triggered on the video element.
+### SIMID:Media:play ### {#sivic-video-play}
+Should be sent after the play event is triggered on the media element.
 
-### SIMID:Video:playing ### {#sivic-video-playing}
-Should be sent after the playing event is triggered on the video element.
+### SIMID:Media:playing ### {#sivic-video-playing}
+Should be sent after the playing event is triggered on the media element.
 
-### SIMID:Video:seeked ### {#sivic-video-seeked}
-Should be sent after the seeked event is triggered on the video element.
+### SIMID:Media:seeked ### {#sivic-video-seeked}
+Should be sent after the seeked event is triggered on the media element.
 
-### SIMID:Video:seeking ### {#sivic-video-seeking}
-Should be sent after the seeking event is triggered on the video element.
+### SIMID:Media:seeking ### {#sivic-video-seeking}
+Should be sent after the seeking event is triggered on the media element.
 
-### SIMID:Video:stalled ### {#sivic-video-stalled}
-Should be sent after the stalled event is triggered on the video element.
+### SIMID:Media:stalled ### {#sivic-video-stalled}
+Should be sent after the stalled event is triggered on the media element.
 
-### SIMID:Video:timeupdate ### {#sivic-video-timeupdate}
-Should be sent after the timeupdate event is triggered on the video element.
+### SIMID:Media:timeupdate ### {#sivic-video-timeupdate}
+Should be sent after the timeupdate event is triggered on the media element.
 
 parameters:
 - currentTime(number): corresponds to videoElement.currentTime attribute. For server side ad insertion
-	this must be calculated to be the total time the video ad has played. For example: if the video element
+	this must be calculated to be the total time the video ad has played. For example: if the media element
 	time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.
 
-### SIMID:Video:volumechange ### {#sivic-video-volumechange}
-Should be sent after the volumechange event is triggered on the video element.
+### SIMID:Media:volumechange ### {#sivic-video-volumechange}
+Should be sent after the volumechange event is triggered on the media element.
 
 parameters:
 - volume(number): corresponds to videoElement.volume attribute.
@@ -1080,7 +1082,7 @@ The player has gone full screen.
 The player did not go full screen.
 
 ### SIMID:Creative:requestPause ### {#sivic-creative-requestPause}
-The creative wants the video element to pause media playback.
+The creative wants the media element to pause media playback.
 
 #### resolve #### {#sivic-creative-requestPause-resolve}
 The player paused the video.
@@ -1088,7 +1090,7 @@ The player paused the video.
 The player did not pause the video.
 
 ### SIMID:Creative:requestPlay ### {#sivic-creative-requestPlay}
-The creative wants the video element to resume media playback.
+The creative wants the media element to resume media playback.
 
 #### resolve #### {#sivic-creative-requestPlay-resolve}
 The player is playing the video.
