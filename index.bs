@@ -650,6 +650,11 @@ dictionary ResolveMessageArgsValue {
       <td>[[#sivic-creative-requestFullScreen-reject]]</td>
     </tr>
     <tr>
+      <td>[[#sivic-creative-requestExitFullScreen]]</td>
+      <td>[[#sivic-creative-requestExitFullScreen-resolve]]</td>
+      <td>[[#sivic-creative-requestExitFullScreen-reject]]</td>
+    </tr>
+    <tr>
       <td>[[#sivic-creative-requestPause]]</td>
       <td>[[#sivic-creative-requestPause-resolve]]</td>
       <td>[[#sivic-creative-requestPause-reject]]</td>
@@ -1078,6 +1083,14 @@ The creative is requesting to go full screen. Not all browsers support this.
 The player has gone full screen.
 #### reject #### {#sivic-creative-requestFullScreen-reject}
 The player did not go full screen.
+
+### SIMID:Creative:requestExitFullScreen ### {#sivic-creative-requestExitFullScreen}
+The creative is requesting to go exit full screen.
+
+#### resolve #### {#sivic-creative-requestExitFullScreen-resolve}
+The player has exited full screen.
+#### reject #### {#sivic-creative-requestExitFullScreen-reject}
+The player did not exit full screen.
 
 ### SIMID:Creative:requestPause ### {#sivic-creative-requestPause}
 The creative wants the video element to pause media playback.
