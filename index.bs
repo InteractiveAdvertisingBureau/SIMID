@@ -1085,7 +1085,7 @@ The player has gone full screen.
 The player did not go full screen.
 
 ### SIMID:Creative:requestExitFullScreen ### {#sivic-creative-requestExitFullScreen}
-The creative is requesting to go exit full screen.
+The creative is requesting to exit full screen.
 
 #### resolve #### {#sivic-creative-requestExitFullScreen-resolve}
 The player has exited full screen.
