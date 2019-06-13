@@ -510,57 +510,57 @@ dictionary ResolveMessageArgsValue {
       <td width="30%">reject</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-durationchange]]</td>
+      <td>[[#sivicmedia elementdurationchange]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-ended]]</td>
+      <td>[[#sivic-media-ended]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-error]]</td>
+      <td>[[#sivic-media-error]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-pause]]</td>
+      <td>[[#sivic-media-pause]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-play]]</td>
+      <td>[[#sivic-media-play]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-playing]]</td>
+      <td>[[#sivic-media-playing]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-seeked]]</td>
+      <td>[[#sivic-media-seeked]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-seeking]]</td>
+      <td>[[#sivic-media-seeking]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-stalled]]</td>
+      <td>[[#sivic-media-stalled]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-timeupdate]]</td>
+      <td>[[#sivic-media-timeupdate]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-video-volumechange]]</td>
+      <td>[[#sivic-media-volumechange]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
@@ -693,42 +693,42 @@ Video messages should be reported immediately after player receives related even
 
 
 
-### SIMID:Media:durationchange ### {#sivic-video-durationchange}
+### SIMID:Media:durationchange ### {#sivic-media-durationchange}
 Should be sent after the durationchange event is triggered on the media element.
 
 parameters:
 - duration(float): The number in seconds of the video duration. For server side ad insertion this must be calculated
 	to be the total duration of the ad.
 
-### SIMID:Media:ended ### {#sivic-video-ended}
+### SIMID:Media:ended ### {#sivic-media-ended}
 Should be sent after the ended event is triggered on the media element.
 
-### SIMID:Media:error ### {#sivic-video-error}
+### SIMID:Media:error ### {#sivic-media-error}
 Should be sent after the error event is triggered on the media element.
 
 parameters:
 - error(DOMString): corresponds to videoElement.error.code.
 - message(DOMString): corresponds to videoElement.error.message.
 
-### SIMID:Media:pause ### {#sivic-video-pause}
+### SIMID:Media:pause ### {#sivic-media-pause}
 Should be sent after the pause event is triggered on the media element.
 
-### SIMID:Media:play ### {#sivic-video-play}
+### SIMID:Media:play ### {#sivic-media-play}
 Should be sent after the play event is triggered on the media element.
 
-### SIMID:Media:playing ### {#sivic-video-playing}
+### SIMID:Media:playing ### {#sivic-media-playing}
 Should be sent after the playing event is triggered on the media element.
 
-### SIMID:Media:seeked ### {#sivic-video-seeked}
+### SIMID:Media:seeked ### {#sivic-media-seeked}
 Should be sent after the seeked event is triggered on the media element.
 
-### SIMID:Media:seeking ### {#sivic-video-seeking}
+### SIMID:Media:seeking ### {#sivic-media-seeking}
 Should be sent after the seeking event is triggered on the media element.
 
-### SIMID:Media:stalled ### {#sivic-video-stalled}
+### SIMID:Media:stalled ### {#sivic-media-stalled}
 Should be sent after the stalled event is triggered on the media element.
 
-### SIMID:Media:timeupdate ### {#sivic-video-timeupdate}
+### SIMID:Media:timeupdate ### {#sivic-media-timeupdate}
 Should be sent after the timeupdate event is triggered on the media element.
 
 parameters:
@@ -736,7 +736,7 @@ parameters:
 	this must be calculated to be the total time the video ad has played. For example: if the media element
 	time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.
 
-### SIMID:Media:volumechange ### {#sivic-video-volumechange}
+### SIMID:Media:volumechange ### {#sivic-media-volumechange}
 Should be sent after the volumechange event is triggered on the media element.
 
 parameters:
