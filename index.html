@@ -1781,7 +1781,7 @@ primary use case of interactivity.</p>
      <tr>
       <td colspan="1" rowspan="1" valign="top">Latencies
       <td colspan="1" rowspan="1" valign="top">Publishers are at the mercy of VPAID creative implementation efficiency and uncontrollable internal processes (verification, trading, wrapping, etc.). Each of these behaviors can impose significant latencies.
-      <td colspan="1" rowspan="1" valign="top">Players can pre-load media and creative assets due to maintaining full control over decisioning, loading and displaying of the ad unit. Ad decisioning latency is removed, risks of internal processes are significantly diminished due to separate security sandboxes.
+      <td colspan="1" rowspan="1" valign="top">Players can pre-load media and creative assets due to maintaining full control over decisioning, loading and displaying of the ad unit. Ad decisioning latency is removed, risks of internal processes are minimized due to separate security sandboxes.
      <tr>
       <td colspan="1" rowspan="1" valign="top">API
       <td colspan="1" rowspan="1" valign="top">Both the player and creative must support specific javascript functions. Each component calls functions directly on the other in a shared security sandbox (insecure).
@@ -1871,7 +1871,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 parties and the algorithms needed to reliably handle the exchange of these
 messages.</p>
    <p>The protocol is designed to be easily implemented on top of the <code class="idl"><a data-link-type="idl">postMessage</a></code> interface, available across the cross-domain <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element">iframe</a></code> elements which are
-used to isolate the SIMID ad from the media player.</p>
+used to isolate the SIMID creative from the media player.</p>
    <h3 class="heading settled" data-level="4.1" id="transport-layer"><span class="secno">4.1. </span><span class="content">Transport Layer</span><a class="self-link" href="#transport-layer"></a></h3>
    <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-transport">transport</dfn> is a communication mechanism that can send <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message">serialized messages</a> between two parties. In SIMID’s case, those are the video
 player and the creative.</p>

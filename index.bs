@@ -93,7 +93,7 @@ primary use case of interactivity.
     <tr>
       <td valign="top" colspan="1" rowspan="1">Latencies</td>
       <td valign="top" colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and uncontrollable internal processes (verification, trading, wrapping, etc.). Each of these behaviors can impose significant latencies.</td>
-      <td valign="top" colspan="1" rowspan="1">Players can pre-load media and creative assets due to maintaining full control over decisioning, loading and displaying of the ad unit. Ad decisioning latency is removed, risks of internal processes are significantly diminished due to separate security sandboxes.</td>
+      <td valign="top" colspan="1" rowspan="1">Players can pre-load media and creative assets due to maintaining full control over decisioning, loading and displaying of the ad unit. Ad decisioning latency is removed, risks of internal processes are minimized due to separate security sandboxes.</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">API</td>
@@ -227,7 +227,7 @@ messages.
 
 The protocol is designed to be easily implemented on top of the
 {{Window/postMessage}} interface, available across the cross-domain <{iframe}> elements which are
-used to isolate the SIMID ad from the media player.
+used to isolate the SIMID creative from the media player.
 
 
 
