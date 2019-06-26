@@ -83,7 +83,7 @@ primary use case of interactivity.
     <tr>
       <td valign="top" colspan="1" rowspan="1">Errors influence on performance or UX</td>
       <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration.</td>
-      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to creative performance and user experience only.</td>
+      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to performance and user experience of the creative, only.</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">SSAI feasibility</td>
