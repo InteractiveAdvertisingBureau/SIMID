@@ -68,7 +68,7 @@ primary use case of interactivity.
     <tr>
       <td valign="top" colspan="1" rowspan="1">Security</td>
       <td valign="top" colspan="1" rowspan="1">Creative directly accesses player DOM and shared global JavaScript context.</td>
-      <td valign="top" colspan="1" rowspan="1">Creative is strictly sandboxed into a cross-origin iframe. No player DOM access or shared JavaScript context.</td>
+      <td valign="top" colspan="1" rowspan="1">Creative is sandboxed into a cross-origin iframe. No player DOM access or shared JavaScript context.</td>
     </tr>
     <tr class="c13">
       <td valign="top" colspan="1" rowspan="1">Ad media asset management</td>
@@ -82,7 +82,7 @@ primary use case of interactivity.
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Errors influence on performance or UX</td>
-      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration.</td>
+      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration (due to shared security sandbox).</td>
       <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to performance and user experience of the creative, only.</td>
     </tr>
     <tr>
@@ -200,7 +200,8 @@ The use of HTML is only required for the SIMID creative, not the publisher
 property hosting that creative. As long as the publisher can load HTML and
 communicate with it over the standard postMessage API, it can support
 SIMID. In practice, this means that SIMID can be hosted in web page iframes,
-mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases than VPAID because SIMID has the ability to communicate with the native player via postMessage.
+mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases than VPAID because a native app or media player directly controls loading and playback of a SIMID ad unit's
+media asset (whereas a VPAID ad unit offers no direct access or control of its internal media asset).
 
 Note that certain devices, including TV sets and OTT boxes, limit loading of
 external assets, have limited HTML rendering capabilities or are unable to

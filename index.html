@@ -1477,7 +1477,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-06-20">20 June 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-06-25">25 June 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1496,7 +1496,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 20 June 2019,
+In addition, as of 25 June 2019,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1761,7 +1761,7 @@ primary use case of interactivity.</p>
      <tr>
       <td colspan="1" rowspan="1" valign="top">Security
       <td colspan="1" rowspan="1" valign="top">Creative directly accesses player DOM and shared global JavaScript context.
-      <td colspan="1" rowspan="1" valign="top">Creative is strictly sandboxed into a cross-origin iframe. No player DOM access or shared JavaScript context.
+      <td colspan="1" rowspan="1" valign="top">Creative is sandboxed into a cross-origin iframe. No player DOM access or shared JavaScript context.
      <tr class="c13">
       <td colspan="1" rowspan="1" valign="top">Ad media asset management
       <td colspan="1" rowspan="1" valign="top">Creative manages ad media loading and playback (video).
@@ -1772,8 +1772,8 @@ primary use case of interactivity.</p>
       <td colspan="1" rowspan="1" valign="top">Audio or video asset and SIMID creative can both be pre-cached.
      <tr>
       <td colspan="1" rowspan="1" valign="top">Errors influence on performance or UX
-      <td colspan="1" rowspan="1" valign="top">Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration.
-      <td colspan="1" rowspan="1" valign="top">Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to creative performance and user experience only.
+      <td colspan="1" rowspan="1" valign="top">Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration (due to shared security sandbox).
+      <td colspan="1" rowspan="1" valign="top">Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to performance and user experience of the creative, only.
      <tr>
       <td colspan="1" rowspan="1" valign="top">SSAI feasibility
       <td colspan="1" rowspan="1" valign="top">SSAI is not possible.
@@ -1855,7 +1855,8 @@ Due to browser sandbox security restrictions, javascript communication across th
 property hosting that creative. As long as the publisher can load HTML and
 communicate with it over the standard postMessage API, it can support
 SIMID. In practice, this means that SIMID can be hosted in web page iframes,
-mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases than VPAID because SIMID has the ability to communicate with the native player via postMessage.</p>
+mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases than VPAID because a native app or media player directly controls loading and playback of a SIMID ad unit’s
+media asset (whereas a VPAID ad unit offers no direct access or control of its internal media asset).</p>
    <p>Note that certain devices, including TV sets and OTT boxes, limit loading of
 external assets, have limited HTML rendering capabilities or are unable to
 display html along with audio or video. These devices are unable to support SIMID. Devices that support HTML and Javascript can support SIMID - in both client side as well as server side ad insertion scenarios.</p>
