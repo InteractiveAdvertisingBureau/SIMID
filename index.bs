@@ -762,11 +762,12 @@ For example:
 </xmp>
 
 ### SIMID:Player:adSkipped ### {#sivic-player-adSkipped}
-This indicates the player will skip the ad. The player should hide the creative and stop video playback in this case.
-The player should wait for a response before unloading the creative iframe.
+This message indicates that the player has skipped the ad. The player hides the creative and stops video playback before posting `adSkipped` message.
+
+The player waits for a ‘resolve` response before unloading the creative iframe. The player should establish a reasonable timeout to allow for creative ad end logic completion.
 
 #### resolve #### {#sivic-player-adSkipped-resolve}
-After resolve is received, the iframe will be removed.
+Creative finalizes internal ad end logic and responds with `resolve` message. The player removes the creative iframe upon `resolve` arrival.
 
 ### SIMID:Player:adStopped ### {#sivic-player-adStopped}
 This message indicates that the player has stopped the ad. The player hides the creative and stops video playback before posting `Player.adStopped`.
