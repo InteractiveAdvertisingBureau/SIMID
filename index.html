@@ -2416,6 +2416,7 @@ should not block waiting for a response from the site.
      <p>errorCode(int): The code for why the player did not attempt to send a tracking pixel. See <a href="#error-codes">§ 8.4 Error Codes</a></p>
    </ul>
    <h4 class="heading settled" data-level="4.4.6" id="simid-creative-requestChangeAdDuration"><span class="secno">4.4.6. </span><span class="content">SIMID:Creative:requestChangeAdDuration</span><a class="self-link" href="#simid-creative-requestChangeAdDuration"></a></h4>
+
     Extension in duration should only be in response to user interaction. 
    <p>paramaters:</p>
    <ul>
@@ -2519,6 +2520,7 @@ The resolve message includes the correlator that must be present in
 all messages going forward.</p>
     <li data-md>
      <p>The player then sends a <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message with all relevant parameters.
+
 The player waits until the creative responds with resolve.  If the
 creative responds with reject, the player should immediately unload
 the creative’s iframe.</p>
@@ -3283,6 +3285,7 @@ primary video.</p>
    <li><a href="#dom-message-sessionid">sessionId</a><span>, in §8.3</span>
    <li><a href="#message-session-identifier">session identifier</a><span>, in §8.2</span>
    <li><a href="#message-sessions">sessions</a><span>, in §8.2</span>
+
    <li><a href="#simid-ad-unit">SIMID Ad Unit</a><span>, in §9</span>
    <li><a href="#simid-creative">SIMID Creative</a><span>, in §9</span>
    <li><a href="#simid-live-video-stream">SIMID Live Video Stream</a><span>, in §9</span>
@@ -3313,6 +3316,7 @@ primary video.</p>
     <ul>
      <li><a href="#dom-creativedimensions-width">dict-member for CreativeDimensions</a><span>, in §4.3.8</span>
      <li><a href="#dom-videodimensions-width">dict-member for VideoDimensions</a><span>, in §4.3.8</span>
+
     </ul>
    <li>
     x
@@ -3355,6 +3359,7 @@ primary video.</p>
    <ul>
     <li><a href="#ref-for-idl-boolean">4.3.6. SIMID:Player:init</a> <a href="#ref-for-idl-boolean①">(2)</a> <a href="#ref-for-idl-boolean②">(3)</a> <a href="#ref-for-idl-boolean③">(4)</a>
     <li><a href="#ref-for-idl-boolean④">4.3.8. SIMID:Player:resize</a>
+
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-float">
