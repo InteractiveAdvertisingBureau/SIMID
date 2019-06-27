@@ -53,14 +53,25 @@ primary use case of interactivity.
 
 <img width="100%" src="images/simid_diagram_2_api_models.png" alt="A diagram showing the difference between SIMID and VPAID security.">
 <style>
+  table.alternatecolor {
+  	border-collapse: collapse;
+  }
+  table.alternatecolor td {
+    	border: 1px solid #CCCCCC;
+  		padding: 5px;
+    }
   table.alternatecolor tr:nth-child(odd) {
-    background: #CCCCCC;
+    background: #EFEFEF;
     vertical-align: top;
   }
+  table.alternatecolor tr:nth-child(1) {
+      background: #444444;
+      color:#FFFFFF;
+    }
 </style>
 <table class="alternatecolor">
   <tbody>
-    <tr style="background:black;color:white">
+    <tr>
       <td valign="top" width="20%">Feature</td>
       <td valign="top" width="40%" colspan="1" rowspan="1">VPAID</td>
       <td valign="top" width="40%">SIMID</td>
@@ -509,7 +520,7 @@ dictionary ResolveMessageArgsValue {
 
 <table class="alternatecolor">
   <tbody>
-    <tr style="background:black;color:white">
+    <tr>
       <td width="40%">API</td>
       <td width="30%">resolve</td>
       <td width="30%">reject</td>
@@ -1343,7 +1354,7 @@ This table indicates defined SIMID error codes the creative may fire.
 
 <table class="alternatecolor">
   <tbody>
-    <tr style="background:black;color:white">
+    <tr>
       <td>Error Code</td>
       <td>Error Type</td>
       <td>Description</td>
@@ -1418,7 +1429,7 @@ This table indicates defined SIMID error codes the player may fire.
 
 <table class="alternatecolor">
   <tbody>
-    <tr style="background:black;color:white">
+    <tr>
       <td>Error Code</td>
       <td>Error Type</td>
       <td>Description</td>
