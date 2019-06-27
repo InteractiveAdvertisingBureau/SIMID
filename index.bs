@@ -862,8 +862,7 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 		- {{CreativeData/adParameters}} ad parameters from VAST, or an empty string
 			if unknown.
 		- {{CreativeData/clickThruUrl}} The click through url, provided from VAST.
-			If there is no click through url this should be an empty string 
-			or not set at all.
+			If there is no click through url, do not set this variable.
 
 
 - {{EnvironmentData}} is used to pass information associated with the
