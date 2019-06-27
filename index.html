@@ -1477,6 +1477,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
+
    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-06-25">25 June 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -1496,6 +1497,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
+
 In addition, as of 25 June 2019,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
@@ -1844,6 +1846,7 @@ urls for both files from a VAST document, loads the files, assembles
 them together into a single ad unit, and ensures a cohesive ad experience.</p>
    <p>This diagram illustrates the SIMID creative loading and presentation process. <img alt="Diagram illustrates resources loading and ad compilation." src="images/simid_diagram_4_loading.png" width="100%"></p>
    <h3 class="heading settled" data-level="3.3" id="player-creative-communication"><span class="secno">3.3. </span><span class="content">Player and Creative Communication</span><a class="self-link" href="#player-creative-communication"></a></h3>
+
    <p>A media player and a SIMID creative communicate by sending serialized messages back and forth to each other.</p>
    <p>Because a SIMID creative is an HTML document that is served from an advertiser’s
 web domain, and it is loaded by a media player into an iframe within a web page hosted on a different domain,
@@ -2260,6 +2263,7 @@ of the message that is being resolved.</p>
    </table>
    <h3 class="heading settled" data-level="5.2" id="media-messages"><span class="secno">5.2. </span><span class="content">Messages triggered by media element events</span><a class="self-link" href="#media-messages"></a></h3>
    <p>When the media element that renders ad media dispatches events, the player posts corresponding
+
 messages to the SIMID creative. Media element related messages include original media event type
 names. <code>Message.type</code> values are prepended with SIMID:Media namespace.</p>
    <p>Example:</p>
@@ -2738,6 +2742,7 @@ in this case if it doesn’t wish to be seen.</p>
     For some reason the player could not stop playback. The creative may continue
 to render as though it was not stopped. 
    <h2 class="heading settled" data-level="6" id="api-vast"><span class="secno">6. </span><span class="content">Referencing a SIMID creative from VAST</span><a class="self-link" href="#api-vast"></a></h2>
+
    <p>When a SIMID creative is referenced within a VAST document, the <code>&lt;InteractiveCreativeFile></code> element must include
 the following required attributes on the element: <code>type="text/html"</code> and <code>apiFramework="SIMID"</code>.</p>
    <p>The value of the <code>apiFramework</code> attribute identifies SIMID as the required API for the creative. Players that do not support the SIMID API may load

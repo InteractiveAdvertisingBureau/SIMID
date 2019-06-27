@@ -48,16 +48,16 @@ class BaseSimidCreative {
     this.simidProtocol.addListener(PlayerMessage.AD_STOPPED, this.onAdStopped.bind(this));
     this.simidProtocol.addListener(PlayerMessage.AD_SKIPPED, this.onAdSkipped.bind(this));
     // Handlers with different video events.
-    this.simidProtocol.addListener(VideoMessage.DURATION_CHANGE, this.onDurationChange.bind(this));
-    this.simidProtocol.addListener(VideoMessage.ENDED, this.onVideoEnded.bind(this));
-    this.simidProtocol.addListener(VideoMessage.ERROR, this.onVideoError.bind(this));
-    this.simidProtocol.addListener(VideoMessage.PAUSE, this.onPause.bind(this));
-    this.simidProtocol.addListener(VideoMessage.PLAY, this.onPlay.bind(this));
-    this.simidProtocol.addListener(VideoMessage.PLAYING, this.onPlaying.bind(this));
-    this.simidProtocol.addListener(VideoMessage.SEEKED, this.onSeeked.bind(this));
-    this.simidProtocol.addListener(VideoMessage.SEEKING, this.onSeeking.bind(this));
-    this.simidProtocol.addListener(VideoMessage.TIME_UPDATE, this.onTimeUpdate.bind(this));
-    this.simidProtocol.addListener(VideoMessage.VOLUME_CHANGE, this.onVolumeChange.bind(this));
+    this.simidProtocol.addListener(MediaMessage.DURATION_CHANGE, this.onDurationChange.bind(this));
+    this.simidProtocol.addListener(MediaMessage.ENDED, this.onVideoEnded.bind(this));
+    this.simidProtocol.addListener(MediaMessage.ERROR, this.onVideoError.bind(this));
+    this.simidProtocol.addListener(MediaMessage.PAUSE, this.onPause.bind(this));
+    this.simidProtocol.addListener(MediaMessage.PLAY, this.onPlay.bind(this));
+    this.simidProtocol.addListener(MediaMessage.PLAYING, this.onPlaying.bind(this));
+    this.simidProtocol.addListener(MediaMessage.SEEKED, this.onSeeked.bind(this));
+    this.simidProtocol.addListener(MediaMessage.SEEKING, this.onSeeking.bind(this));
+    this.simidProtocol.addListener(MediaMessage.TIME_UPDATE, this.onTimeUpdate.bind(this));
+    this.simidProtocol.addListener(MediaMessage.VOLUME_CHANGE, this.onVolumeChange.bind(this));
   }
 
   ready() {

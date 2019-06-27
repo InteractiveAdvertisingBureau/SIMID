@@ -270,37 +270,37 @@ class SimidPlayer {
    */
   trackEventsOnVideoElement_() {
     this.videoTrackingEvents_.set("durationchange", () => {
-      this.simidProtocol.sendMessage(VideoMessage.DURATION_CHANGED);
+      this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
     });
     this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
     this.videoTrackingEvents_.set("error", () => {
-      this.simidProtocol.sendMessage(VideoMessage.ERROR,
+      this.simidProtocol.sendMessage(MediaMessage.ERROR,
         {
           'error': '',  // TODO fill in these values correctly
           'message': ''
         });
     });
     this.videoTrackingEvents_.set("pause", () => {
-      this.simidProtocol.sendMessage(VideoMessage.PAUSE);
+      this.simidProtocol.sendMessage(MediaMessage.PAUSE);
     });
     this.videoTrackingEvents_.set("play", () => {
-      this.simidProtocol.sendMessage(VideoMessage.PLAY);
+      this.simidProtocol.sendMessage(MediaMessage.PLAY);
     });
     this.videoTrackingEvents_.set("playing", () => {
-      this.simidProtocol.sendMessage(VideoMessage.PLAYING);
+      this.simidProtocol.sendMessage(MediaMessage.PLAYING);
     });
     this.videoTrackingEvents_.set("seeked", () => {
-      this.simidProtocol.sendMessage(VideoMessage.SEEKED);
+      this.simidProtocol.sendMessage(MediaMessage.SEEKED);
     });
     this.videoTrackingEvents_.set("seeking", () => {
-      this.simidProtocol.sendMessage(VideoMessage.SEEKING);
+      this.simidProtocol.sendMessage(MediaMessage.SEEKING);
     });
     this.videoTrackingEvents_.set("timeupdate", () => {
-      this.simidProtocol.sendMessage(VideoMessage.TIME_UPDATE,
+      this.simidProtocol.sendMessage(MediaMessage.TIME_UPDATE,
         {'currentTime': this.adVideoElement_.currentTime});
     });
     this.videoTrackingEvents_.set("volumechange", () => {
-      this.simidProtocol.sendMessage(VideoMessage.VOLUME_CHANGE,
+      this.simidProtocol.sendMessage(MediaMessage.VOLUME_CHANGE,
         {'volume': this.adVideoElement_.volume});
     });
 
@@ -314,7 +314,7 @@ class SimidPlayer {
    * @private
    */
   videoComplete() {
-      this.simidProtocol.sendMessage(VideoMessage.ENDED);
+      this.simidProtocol.sendMessage(MediaMessage.ENDED);
       // once an ad is complete an the iframe should be hidden
       this.hideSimidIFrame_();
       const closeMessage = {
