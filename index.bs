@@ -67,23 +67,23 @@ primary use case of interactivity.
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Security</td>
-      <td valign="top" colspan="1" rowspan="1">Creative directly accesses player DOM.</td>
-      <td valign="top" colspan="1" rowspan="1">Strictly sandboxed into a cross-origin iframe.</td>
+      <td valign="top" colspan="1" rowspan="1">Creative directly accesses player DOM and shared global JavaScript context.</td>
+      <td valign="top" colspan="1" rowspan="1">Creative is sandboxed into a cross-origin iframe. No player DOM access or shared JavaScript context.</td>
     </tr>
     <tr class="c13">
-      <td valign="top" colspan="1" rowspan="1">Video asset management</td>
-      <td valign="top" colspan="1" rowspan="1">Creative manages media playback.</td>
-      <td valign="top" colspan="1" rowspan="1">Player manages media playback.</td>
+      <td valign="top" colspan="1" rowspan="1">Ad media asset management</td>
+      <td valign="top" colspan="1" rowspan="1">Creative manages ad media loading and playback (video).</td>
+      <td valign="top" colspan="1" rowspan="1">Player manages ad media loading and playback (audio or video).</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Pre-caching</td>
       <td valign="top" colspan="1" rowspan="1">Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.</td>
-      <td valign="top" colspan="1" rowspan="1">Video and interactive overlay can be pre-cached.</td>
+      <td valign="top" colspan="1" rowspan="1">Audio or video asset and SIMID creative can both be pre-cached.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Errors influence on performance</td>
-      <td valign="top" colspan="1" rowspan="1">Possible site-wide fatal errors can result in significant publisher site performance deterioration.</td>
-      <td valign="top" colspan="1" rowspan="1">Internal creative errors do not affect player DOM, directly. Risks are limited to interactive component performance only.</td>
+      <td valign="top" colspan="1" rowspan="1">Errors influence on performance or UX</td>
+      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration (due to shared security sandbox).</td>
+      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to performance and user experience of the creative, only.</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">SSAI feasibility</td>
@@ -92,23 +92,23 @@ primary use case of interactivity.
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Latencies</td>
-      <td valign="top" colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and background processes (verification, trading, wrapping, etc.) Each of these characteristics imposes great latencies.</td>
-      <td valign="top" colspan="1" rowspan="1">Players can pre-load video and creative assets due to having full control over decisioning and displaying the creative. Ad decisioning latency is removed.</td>
+      <td valign="top" colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and uncontrollable internal processes (verification, trading, wrapping, etc.). Each of these behaviors can impose significant latencies.</td>
+      <td valign="top" colspan="1" rowspan="1">Players can pre-load media and creative assets due to maintaining full control over decisioning, loading and displaying of the ad unit. Ad decisioning latency is removed, risks of internal processes are minimized due to separate security sandboxes.</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">API</td>
-      <td valign="top" colspan="1" rowspan="1">Both player and creative must support specific javascript functions.</td>
-      <td valign="top" colspan="1" rowspan="1">Utilizes native to browsers postMessage API. No custom functions participate in player vs. creative relationships. Player and creative communicate via exchanging of messages based on special protocol.</td>
+      <td valign="top" colspan="1" rowspan="1">Both the player and creative must support specific javascript functions. Each component calls functions directly on the other in a shared security sandbox (insecure).</td>
+      <td valign="top" colspan="1" rowspan="1">No functions are directly called on either component by the other. All communication is achieved using standard postMessage API and SIMID messaging protocol across separate security sandboxes.</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Ad blocking</td>
       <td valign="top" colspan="1" rowspan="1">VPAID can prevent an ad from rendering.</td>
-      <td valign="top" colspan="1" rowspan="1">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK has plans to support this capability in the future. </td>
+      <td valign="top" colspan="1" rowspan="1">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK (OMID) is expected to support this capability in the future.</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Verification services</td>
-      <td valign="top" colspan="1" rowspan="1">Verification features can be fully engaged by VPAID scripts.</td>
-      <td valign="top" colspan="1" rowspan="1">SIMID cannot access elements outside of the secure environment and is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.</td>
+      <td valign="top" colspan="1" rowspan="1">Verification features can be fully implemented and executed in shared DOM and global Javascript context.</td>
+      <td valign="top" colspan="1" rowspan="1">SIMID creative cannot access any DOM, elements, or JS context outside of its own security sandbox so is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Creative wrapping</td>
@@ -123,7 +123,7 @@ primary use case of interactivity.
     <tr>
       <td valign="top" colspan="1" rowspan="1">Environment constraints</td>
       <td valign="top" colspan="1" rowspan="1">Player must be an HTML video element.</td>
-      <td valign="top" colspan="1" rowspan="1">Player can be native or web so long as the SIMID creative has sandboxed DOM access like in a web view.</td>
+      <td valign="top" colspan="1" rowspan="1">Player can be native or web so long as the SIMID creative has sandboxed DOM access (such as a web view).</td>
     </tr>
     <tr>
       <td valign="top" colspan="1" rowspan="1">Resource MIME type</td>
@@ -136,10 +136,10 @@ primary use case of interactivity.
 ## Intended Audience ## {#intended-audience}
 
 The SIMID standard specification is geared toward the digital media
-(video/audio) advertising community. Anyone who is involved can benefit
-from reading the introductory sections. The API and implementation details
-sections are predominantly targeted to engineers developing ad creation
-or serving products with SIMID interactivity.
+advertising community. Anyone who works with products or services related to digital media advertising can benefit
+from reading the Introduction sections of this spec. The Messaging Protocol, API Reference, and later sections are
+predominantly targeted at software engineers developing products
+or services which leverage the technical capabilities provided by SIMID.
 
 
 # Introduction # {#intro}
@@ -147,7 +147,7 @@ or serving products with SIMID interactivity.
 Throughout this document, the SIMID interactive component is referred to
 as a “SIMID creative” or “creative”.
 
-Compliance with SIMID requires support for all features discussed in this document, unless a feature is noted as optional. 
+Compliance with SIMID requires support for all features and behaviors specificied in this document, unless a given feature or behavior is explicitly designated as optional.
 Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
 for RFC 2119 for enforcement terminology used in this standard.
 
@@ -155,8 +155,13 @@ for RFC 2119 for enforcement terminology used in this standard.
 
 <img width="100%" src="images/simid_diagram_3_assets.png" alt="A diagram showing SIMID where and how sivic video and html assets load.">
 
-The SIMID creative portion is described in the VAST <InteractiveCreativeFile/>
-node as a URL to an HTML resource with MIME type text/html. 
+A SIMID creative can be included in a VAST document by way of an `<InteractiveCreativeFile>`
+element. The text within this element must be a url which returns an HTML document.
+When loaded into an iframe by a media player, this HTML document will define the SIMID creative's content, and will direct the web browser or host application to load any additional assets
+required by that creative (images, CSS, scripts, etc.).
+
+The `<InteractiveCreativeFile>` element is defined as a child of the `<MediaFiles>` element in VAST 4.0.
+For more technical details, see the [[#api-vast]] section.
 
 Example:
 ```
@@ -168,46 +173,46 @@ Example:
 </MediaFiles>
 ```
 
-Because the creative is an HTML resource that originates in the advertiser’s
-domain, interactive component loading involves creating a cross-origin iframe.
-This means bi-directional communication between the player and creative
-requires using the postMessage API. This, in turn, means that all
-communication between player and creative is asynchronous.
-
 ## SIMID Ad Serving Flow ## {#video-ad-flow}
 
-The SIMID ad experience is delivered by concurrently rendering
-the streaming media and the interactive creative. The player obtains
-both media and creative data from VAST 4.x, loads the resources, assembles
-the ad, and ensures a cohesive ad experience.
+The SIMID ad experience is delivered by a web browser or application concurrently rendering
+an ad's streaming audio or video file and its interactive creative file. The media player obtains
+urls for both files from a VAST document, loads the files, assembles
+them together into a single ad unit, and ensures a cohesive ad experience.
 
-The diagram below illustrates the media and asset loading and compilation process for a SIMID ad unit.
+
+This diagram illustrates the SIMID creative loading and presentation process.
+
 <img width="100%" src="images/simid_diagram_4_loading.png" alt="Diagram illustrates resources loading and ad compilation.">
 
 ## Player and Creative Communication ## {#player-creative-communication}
 
-Player and SIMID creative communicate by sending bidirectional messages over
-the standard postMessage API. SIMID API requirements govern message construction
-conventions as well as the message data structure.
+A media player and a SIMID creative communicate by sending serialized messages back and forth to each other.
 
-See sections [[#msg-proto]], [[#api]].
+Because a SIMID creative is an HTML document that is served from an advertiser’s
+web domain, and it is loaded by a media player into an iframe within a web page hosted on a different domain,
+loading the creative requires the creation of a cross-origin iframe (also known as an "unfriendly iframe").
+Due to browser sandbox security restrictions, javascript communication across this type of iframe can only be achieved via the standard postMessage API.
+
+SIMID API requirements govern message construction conventions as well as the message data structure. See sections [[#msg-proto]], [[#api]] for more information.
 
 ## Scope and Limitation ## {#scope}
 
 The use of HTML is only required for the SIMID creative, not the publisher
 property hosting that creative. As long as the publisher can load HTML and
-communicate with it over the standard postMessage interface, it can support
+communicate with it over the standard postMessage API, it can support
 SIMID. In practice, this means that SIMID can be hosted in web page iframes,
-mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases since SIMID can be used with the native player.
+mobile app web views, and other platforms. In fact, SIMID can better support mobile use cases than VPAID because a native app or media player directly controls loading and playback of a SIMID ad unit's
+media asset (whereas a VPAID ad unit offers no direct access or control of its internal media asset).
 
 Note that certain devices, including TV sets and OTT boxes, limit loading of
 external assets, have limited HTML rendering capabilities or are unable to
-overlay video and HTML. These devices are unable to support SIMID. Devices that support HTML/Javascript can support SIMID - in both client side as well as server side ad insertion scenarios.
+display html along with audio or video. These devices are unable to support SIMID. Devices that support HTML and Javascript can support SIMID - in both client side as well as server side ad insertion scenarios.
 
 
 SIMID cannot be used to decide which media to show on the client
 pre-impression. This is because the media file must be present alongside
-the SIMID creative and delivered via the VAST4 media file node. 
+the SIMID creative and delivered via the VAST `MediaFile` node.
 
 SIMID should not be set up to measure viewability.
 
@@ -217,15 +222,15 @@ dynamic content within the ad unit is counter to the intentions of this spec.
 
 # Messaging Protocol # {#msg-proto}
 
-To facilitate asynchronous communication between the video player and the interactive creative, SIMID employs a messaging protocol.
+Messages sent using the standard postMessage API are processed asychronously. To facilitate asynchronous communication between the media player and the creative, SIMID employs a custom messaging protocol.
 
 The protocol defines both the data structure of messages exchanged by both
 parties and the algorithms needed to reliably handle the exchange of these
 messages.
 
 The protocol is designed to be easily implemented on top of the
-{{Window/postMessage}} interface, available across <{iframe}> elements which are
-used to isolate the SIMID ad from the video player.
+{{Window/postMessage}} interface, available across the cross-domain <{iframe}> elements which are
+used to isolate the SIMID creative from the media player.
 
 
 
@@ -685,7 +690,7 @@ dictionary ResolveMessageArgsValue {
 ## Messages triggered by media element events ## {#media-messages}
 
 When the media element that renders ad media dispatches events, the player posts corresponding
-messages to the SIMID creative. Media element related messages include original media event type 
+messages to the SIMID creative. Media element related messages include original media event type
 names. `Message.type` values are prepended with SIMID:Media namespace.
 
 Example:
@@ -1140,17 +1145,21 @@ to render as though it was not stopped.
 
 # Referencing a SIMID creative from VAST # {#api-vast}
 
-When a SIMID creative is referenced from a VAST document, the value for the
-`apiFramework` attribute in the `InteractiveCreativeFile` element must be
-`SIMID` (all caps). This attribute identifies the SIMID API for the creative.
-Version negotiation should be handled by the [[#api-ad-loading]] algorithm
-(rather than identified in the VAST file).
+When a SIMID creative is referenced within a VAST document, the `<InteractiveCreativeFile>` element must include
+the following required attributes on the element: `type="text/html"` and `apiFramework="SIMID"`.
 
-Another attribute of the `InteractiveCreativeFile` is `variableDuration`.
-If `variableDuration` is true this means that the ad is only playable if
-the player allows the ad to pause and extend duration. If the player does
-not support this capability, then it must not render the video or creative.
-The player should error out instead.
+The value of the `apiFramework` attribute identifies SIMID as the required API for the creative. Players that do not support the SIMID API may load
+an audio or video file included with the ad, but they will not load or play the SIMID creative.
+
+Media players that do support the SIMID API should handle version negotiation between the creative and the media player via the
+[[#api-ad-loading]] algorithm. The SIMID API version is not identified by any element or attribute in the VAST file.
+
+A third, optional attribute which may be included on the InteractiveCreativeFile element is `variableDuration="true"`.
+If present, this attribute indicates that the ad unit is only playable if
+the media player allows the creative to pause playback of the ad's audio or video and extend the duration of the ad break (for example, with
+interactive content such as a game or survey). If the player does not support or allow this capability, then it **must not** render
+the current ad's audio/video or SIMID creative. The player should error out the ad instead (and either resume its primary content or continue
+on to the next ad in the current ad pod).
 
 # Common Workflows # {#common-workflows}
 
