@@ -49,7 +49,7 @@ the industry to move to more secure and transparent standards. SIMID aims to
 gain broad industry adoption by ensuring that the standard is focused on the
 primary use case of interactivity.
 
-## SIMID vs. VPAID Comparison ## {#sivic-vs-vpaid}
+## SIMID vs. VPAID Comparison ## {#simid-vs-vpaid}
 
 <img width="100%" src="images/simid_diagram_2_api_models.png" alt="A diagram showing the difference between SIMID and VPAID security.">
 <style>
@@ -162,7 +162,7 @@ Compliance with SIMID requires support for all features and behaviors specificie
 Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
 for RFC 2119 for enforcement terminology used in this standard.
 
-## SIMID Interactive Creative Nature ## {#sivic-interactive-creative-nature}
+## SIMID Interactive Creative Nature ## {#simid-interactive-creative-nature}
 
 <img width="100%" src="images/simid_diagram_3_assets.png" alt="A diagram showing SIMID where and how sivic video and html assets load.">
 
@@ -526,174 +526,174 @@ dictionary ResolveMessageArgsValue {
       <td width="30%">reject</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-durationchange]]</td>
+      <td>[[#simid-media-durationchange]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-ended]]</td>
+      <td>[[#simid-media-ended]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-error]]</td>
+      <td>[[#simid-media-error]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-pause]]</td>
+      <td>[[#simid-media-pause]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-play]]</td>
+      <td>[[#simid-media-play]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-playing]]</td>
+      <td>[[#simid-media-playing]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-seeked]]</td>
+      <td>[[#simid-media-seeked]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-seeking]]</td>
+      <td>[[#simid-media-seeking]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-stalled]]</td>
+      <td>[[#simid-media-stalled]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-timeupdate]]</td>
+      <td>[[#simid-media-timeupdate]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-media-volumechange]]</td>
+      <td>[[#simid-media-volumechange]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-player-adSkipped]]</td>
-      <td>[[#sivic-player-adSkipped-resolve]]</td>
+      <td>[[#simid-player-adSkipped]]</td>
+      <td>[[#simid-player-adSkipped-resolve]]</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-player-adStopped]]</td>
-      <td>[[#sivic-player-adStopped-resolve]]</td>
+      <td>[[#simid-player-adStopped]]</td>
+      <td>[[#simid-player-adStopped-resolve]]</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-player-app-backgrounding]]</td>
-      <td>[[#sivic-player-app-backgrounding-resolve]]</td>
+      <td>[[#simid-player-app-backgrounding]]</td>
+      <td>[[#simid-player-app-backgrounding-resolve]]</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-player-app-foregrounding]]</td>
-      <td>n/a</td>
-      <td>n/a</td>
-    </tr>
-    <tr>
-      <td>[[#sivic-player-fatalError]]</td>
-      <td>[[#sivic-player-fatalError-resolve]]</td>
-      <td>n/a</td>
-    </tr>
-    <tr>
-      <td>[[#sivic-player-init]]</td>
-      <td>[[#sivic-player-init-resolve]]</td>
-      <td>[[#sivic-player-init-reject]]</td>
-    </tr>
-    <tr>
-      <td>[[#sivic-player-log]]</td>
+      <td>[[#simid-player-app-foregrounding]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-player-resize]]</td>
+      <td>[[#simid-player-fatalError]]</td>
+      <td>[[#simid-player-fatalError-resolve]]</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>[[#simid-player-init]]</td>
+      <td>[[#simid-player-init-resolve]]</td>
+      <td>[[#simid-player-init-reject]]</td>
+    </tr>
+    <tr>
+      <td>[[#simid-player-log]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-player-startCreative]]</td>
-      <td>[[#sivic-player-startCreative-resolve]]</td>
-      <td>[[#sivic-player-startCreative-reject]]</td>
-    </tr>
-    <tr>
-      <td>[[#sivic-creative-clickThru]]</td>
+      <td>[[#simid-player-resize]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-fatalError]]</td>
+      <td>[[#simid-player-startCreative]]</td>
+      <td>[[#simid-player-startCreative-resolve]]</td>
+      <td>[[#simid-player-startCreative-reject]]</td>
+    </tr>
+    <tr>
+      <td>[[#simid-creative-clickThru]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-getVideoState]]</td>
-      <td>[[#sivic-creative-getVideoState-resolve]]</td>
-      <td>n/a</td>
-    </tr>
-    <tr>
-      <td>[[#sivic-creative-log]]</td>
+      <td>[[#simid-creative-fatalError]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-reportTracking]]</td>
-      <td>[[#sivic-creative-reportTracking-resolve]]</td>
-      <td>[[#sivic-creative-reportTracking-reject]]</td>
+      <td>[[#simid-creative-getVideoState]]</td>
+      <td>[[#simid-creative-getVideoState-resolve]]</td>
+      <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestChangeAdDuration]]</td>
-      <td>[[#sivic-creative-requestChangeAdDuration-resolve]]</td>
-      <td>[[#sivic-creative-requestChangeAdDuration-reject]]</td>
+      <td>[[#simid-creative-log]]</td>
+      <td>n/a</td>
+      <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestChangeVolume]]</td>
-      <td>[[#sivic-creative-requestChangeVolume-resolve]]</td>
-      <td>[[#sivic-creative-requestChangeVolume-reject]]</td>
+      <td>[[#simid-creative-reportTracking]]</td>
+      <td>[[#simid-creative-reportTracking-resolve]]</td>
+      <td>[[#simid-creative-reportTracking-reject]]</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestFullScreen]]</td>
-      <td>[[#sivic-creative-requestFullScreen-resolve]]</td>
-      <td>[[#sivic-creative-requestFullScreen-reject]]</td>
+      <td>[[#simid-creative-requestChangeAdDuration]]</td>
+      <td>[[#simid-creative-requestChangeAdDuration-resolve]]</td>
+      <td>[[#simid-creative-requestChangeAdDuration-reject]]</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestExitFullScreen]]</td>
-      <td>[[#sivic-creative-requestExitFullScreen-resolve]]</td>
-      <td>[[#sivic-creative-requestExitFullScreen-reject]]</td>
+      <td>[[#simid-creative-requestChangeVolume]]</td>
+      <td>[[#simid-creative-requestChangeVolume-resolve]]</td>
+      <td>[[#simid-creative-requestChangeVolume-reject]]</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestPause]]</td>
-      <td>[[#sivic-creative-requestPause-resolve]]</td>
-      <td>[[#sivic-creative-requestPause-reject]]</td>
+      <td>[[#simid-creative-requestFullScreen]]</td>
+      <td>[[#simid-creative-requestFullScreen-resolve]]</td>
+      <td>[[#simid-creative-requestFullScreen-reject]]</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestPlay]]</td>
-      <td>[[#sivic-creative-requestPlay-resolve]]</td>
-      <td>[[#sivic-creative-requestPlay-reject]]</td>
+      <td>[[#simid-creative-requestExitFullScreen]]</td>
+      <td>[[#simid-creative-requestExitFullScreen-resolve]]</td>
+      <td>[[#simid-creative-requestExitFullScreen-reject]]</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestResize]]</td>
-      <td>[[#sivic-creative-requestResize-resolve]]</td>
-      <td>[[#sivic-creative-requestResize-reject]]</td>
+      <td>[[#simid-creative-requestPause]]</td>
+      <td>[[#simid-creative-requestPause-resolve]]</td>
+      <td>[[#simid-creative-requestPause-reject]]</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestSkip]]</td>
-      <td>[[#sivic-creative-requestSkip-resolve]]</td>
-      <td>[[#sivic-creative-requestSkip-reject]]</td>
+      <td>[[#simid-creative-requestPlay]]</td>
+      <td>[[#simid-creative-requestPlay-resolve]]</td>
+      <td>[[#simid-creative-requestPlay-reject]]</td>
     </tr>
     <tr>
-      <td>[[#sivic-creative-requestStop]]</td>
-      <td>[[#sivic-creative-requestStop-resolve]]</td>
-      <td>[[#sivic-creative-requestStop-reject]]</td>
+      <td>[[#simid-creative-requestResize]]</td>
+      <td>[[#simid-creative-requestResize-resolve]]</td>
+      <td>[[#simid-creative-requestResize-reject]]</td>
+    </tr>
+    <tr>
+      <td>[[#simid-creative-requestSkip]]</td>
+      <td>[[#simid-creative-requestSkip-resolve]]</td>
+      <td>[[#simid-creative-requestSkip-reject]]</td>
+    </tr>
+    <tr>
+      <td>[[#simid-creative-requestStop]]</td>
+      <td>[[#simid-creative-requestStop-resolve]]</td>
+      <td>[[#simid-creative-requestStop-reject]]</td>
     </tr>
   </tbody>
 </table>
@@ -714,42 +714,42 @@ Video messages should be reported immediately after player receives related even
 
 
 
-### SIMID:Media:durationchange ### {#sivic-media-durationchange}
+### SIMID:Media:durationchange ### {#simid-media-durationchange}
 Should be sent after the durationchange event is triggered on the media element.
 
 parameters:
 - duration(float): The number in seconds of the video duration. For server side ad insertion this must be calculated
 	to be the total duration of the ad.
 
-### SIMID:Media:ended ### {#sivic-media-ended}
+### SIMID:Media:ended ### {#simid-media-ended}
 Should be sent after the ended event is triggered on the media element.
 
-### SIMID:Media:error ### {#sivic-media-error}
+### SIMID:Media:error ### {#simid-media-error}
 Should be sent after the error event is triggered on the media element.
 
 parameters:
 - error(DOMString): corresponds to videoElement.error.code.
 - message(DOMString): corresponds to videoElement.error.message.
 
-### SIMID:Media:pause ### {#sivic-media-pause}
+### SIMID:Media:pause ### {#simid-media-pause}
 Should be sent after the pause event is triggered on the media element.
 
-### SIMID:Media:play ### {#sivic-media-play}
+### SIMID:Media:play ### {#simid-media-play}
 Should be sent after the play event is triggered on the media element.
 
-### SIMID:Media:playing ### {#sivic-media-playing}
+### SIMID:Media:playing ### {#simid-media-playing}
 Should be sent after the playing event is triggered on the media element.
 
-### SIMID:Media:seeked ### {#sivic-media-seeked}
+### SIMID:Media:seeked ### {#simid-media-seeked}
 Should be sent after the seeked event is triggered on the media element.
 
-### SIMID:Media:seeking ### {#sivic-media-seeking}
+### SIMID:Media:seeking ### {#simid-media-seeking}
 Should be sent after the seeking event is triggered on the media element.
 
-### SIMID:Media:stalled ### {#sivic-media-stalled}
+### SIMID:Media:stalled ### {#simid-media-stalled}
 Should be sent after the stalled event is triggered on the media element.
 
-### SIMID:Media:timeupdate ### {#sivic-media-timeupdate}
+### SIMID:Media:timeupdate ### {#simid-media-timeupdate}
 Should be sent after the timeupdate event is triggered on the media element.
 
 parameters:
@@ -757,7 +757,7 @@ parameters:
 	this must be calculated to be the total time the video ad has played. For example: if the media element
 	time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.
 
-### SIMID:Media:volumechange ### {#sivic-media-volumechange}
+### SIMID:Media:volumechange ### {#simid-media-volumechange}
 Should be sent after the volumechange event is triggered on the media element.
 
 parameters:
@@ -777,15 +777,15 @@ For example:
 }
 </xmp>
 
-### SIMID:Player:adSkipped ### {#sivic-player-adSkipped}
-This message indicates that the player has skipped the ad. The player hides the creative and stops video playback before posting `adSkipped` message.
 
-The player waits for a ‘resolve` response before unloading the creative iframe. The player should establish a reasonable timeout to allow for creative ad end logic completion.
+### SIMID:Player:adSkipped ### {#simid-player-adSkipped}
+This indicates the player will skip the ad. The player should hide the creative and stop video playback in this case.
+The player should wait for a response before unloading the creative iframe.
 
-#### resolve #### {#sivic-player-adSkipped-resolve}
-Creative finalizes internal ad end logic and responds with `resolve` message. The player removes the creative iframe upon `resolve` arrival.
+#### resolve #### {#simid-player-adSkipped-resolve}
+After resolve is received, the iframe will be removed.
 
-### SIMID:Player:adStopped ### {#sivic-player-adStopped}
+### SIMID:Player:adStopped ### {#simid-player-adStopped}
 This message indicates that the player has stopped the ad. The player hides the creative and stops video playback before posting `Player.adStopped`.
 
 The player should wait for the `resolve` response before unloading the creative iframe. The player should implement a reasonable timeout to allow for creative to conclude ad end logic.
@@ -802,20 +802,20 @@ The player should use the following table to determine which code to send.
  
 In response to `SIMID:Player:adStopped`, creative finalizes the ad end logic and responds with `resolve` message.
 
-#### resolve #### {#sivic-player-adStopped-resolve}
+#### resolve #### {#simid-player-adStopped-resolve}
 After resolve is received, the player removes the creative iframe.
 
-### SIMID:Player:appBackgrounding ### {#sivic-player-app-backgrounding}
+### SIMID:Player:appBackgrounding ### {#simid-player-app-backgrounding}
 The ad is in app and the app is going to move to the background.
 
-#### resolve #### {#sivic-player-app-backgrounding-resolve}
+#### resolve #### {#simid-player-app-backgrounding-resolve}
 The player should try wait for a resolve message from the creative before the backgrounding hook
 is complete. Any creative that does nothing should resolve this message immediately.
 
-### SIMID:Player:appForegrounding ### {#sivic-player-app-foregrounding}
+### SIMID:Player:appForegrounding ### {#simid-player-app-foregrounding}
 The ad is in app and the app has moved from the background to the foreground.
 
-### SIMID:Player:fatalError ### {#sivic-player-fatalError}
+### SIMID:Player:fatalError ### {#simid-player-fatalError}
 The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
 possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
 before unloading the creative iframe.
@@ -823,10 +823,10 @@ before unloading the creative iframe.
 - errorCode(int): reason for error. See [[#error-codes]]
 - errorMessage(DOMString): Any additional information.
 
-#### resolve #### {#sivic-player-fatalError-resolve}
+#### resolve #### {#simid-player-fatalError-resolve}
 After resolve is received, the iframe will be removed.
 
-### SIMID:Player:init ### {#sivic-player-init}
+### SIMID:Player:init ### {#simid-player-init}
 
 To assist in preloading assets the player must send the SIMID:Player:init message
 before SIMID:Player:startCreative.  The player should send this message early
@@ -885,9 +885,9 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 - {{EnvironmentData}} is used to pass information associated with the
 	publisher playback environment.
 	The object should have the following fields.
-		- {{EnvironmentData/videoDimensions}} indicates the video display area, see [[#sivic-player-resize]]
+		- {{EnvironmentData/videoDimensions}} indicates the video display area, see [[#simid-player-resize]]
 		- {{EnvironmentData/creativeDimensions}} indicates the creative display
-			area, see [[#sivic-player-resize]]
+			area, see [[#simid-player-resize]]
 		- {{EnvironmentData/fullScreen}} True if fullscreen.
 		- {{EnvironmentData/fullscreenAllowed}}: True if the creative may choose
 			to display or not display a fullscreen option
@@ -924,13 +924,13 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 
 
 
-#### resolve #### {#sivic-player-init-resolve}
+#### resolve #### {#simid-player-init-resolve}
 The creative acknowledges the initialization parameters.
-#### reject #### {#sivic-player-init-reject}
+#### reject #### {#simid-player-init-reject}
 - reason(DOMString): An optional string error message
 - errorCode(int): The code for what went wrong in initialization. See [[#error-codes]]
 
-### SIMID:Player:log ### {#sivic-player-log}
+### SIMID:Player:log ### {#simid-player-log}
 The player is sending a log message to the creative.
 
 Note: If the creative is doing something out of spec and the player
@@ -940,7 +940,7 @@ start with "WARNING:". Creative developers should monitor for this message.
 parameters:
 - message(DOMString): Logging information from the player to the creative.
 
-### SIMID:Player:resize ### {#sivic-player-resize}
+### SIMID:Player:resize ### {#simid-player-resize}
 
 parameters:
 <xmp class="idl">
@@ -986,20 +986,20 @@ not yet visible (like during initialization) these dimensions will be the expect
 - {{ResizeParameters}}
 		- {{ResizeParameters/fullScreen}} `true` if fullscreen.
 
-### SIMID:Player:startCreative ### {#sivic-player-startCreative}
+### SIMID:Player:startCreative ### {#simid-player-startCreative}
 
 SIMID:Player:startCreative must be sent when the player is ready to make the iframe visible.
 
-#### resolve #### {#sivic-player-startCreative-resolve}
+#### resolve #### {#simid-player-startCreative-resolve}
 The creative acknowledges that it has started playback. The player must make the creative visible to the user.
-#### reject #### {#sivic-player-startCreative-reject}
+#### reject #### {#simid-player-startCreative-reject}
 - reason(DOMString): An optional string error message
 - errorCode(int): The code for what went wrong in initialization. See [[#error-codes]]
 
 ## Messages from the Creative to the Player ## {#creative-messages}
 All functions should be prepended with SIMID:Creative
 
-### SIMID:Creative:clickThru ### {#sivic-creative-clickThru}
+### SIMID:Creative:clickThru ### {#simid-creative-clickThru}
 
 The creative must handle click-thru due to the nature of cross-origin iframes. This message must only be sent in response to a user-initiated click that is considered a click-thru by the creative.
 
@@ -1009,7 +1009,7 @@ Parameters:
 - x (int): the x coordinate of the click relative to the left of the creative.
 - y (int): the y coordinate of the click relative to the top of the creative.
 
-### SIMID:Creative:fatalError ### {#sivic-creative-fatalError}
+### SIMID:Creative:fatalError ### {#simid-creative-fatalError}
 After this message is received, the iframe should be unloaded and the video ad should stop playback if possible.
 If the video ad continues to play the iframe should still be unloaded.
 
@@ -1017,10 +1017,10 @@ parameters:
 - errorCode(int): reason for error. See [[#error-codes]]
 - errorMessage(DOMString): Any optional additional information about the fatal error.
 
-### SIMID:Creative:getVideoState ### {#sivic-creative-getVideoState}
+### SIMID:Creative:getVideoState ### {#simid-creative-getVideoState}
 Expects a response with information about the video state.
 
-#### resolve #### {#sivic-creative-getVideoState-resolve}
+#### resolve #### {#simid-creative-getVideoState-resolve}
 - currentSrc(DOMString): The src of which ad has been chosen. This may need correction for server side ad insertion as
 	it should indicate the video media selected and not the url to the media playing.
 - currentTime(number): This should be the current time from the first frame of the video ad. In the case of DAI,
@@ -1035,7 +1035,7 @@ Expects a response with information about the video state.
 
 
 
-### SIMID:Creative:log ### {#sivic-creative-log}
+### SIMID:Creative:log ### {#simid-creative-log}
 The creative is sending a log message to the player.
 
 Note: If the player is doing something out of spec and the creative
@@ -1045,7 +1045,7 @@ start with "WARNING:". Player developers should monitor for this message.
 parameters:
 - message(DOMString): Logging information sent from the creative to the player.
 
-### SIMID:Creative:reportTracking ### {#sivic-creative-reportTracking}
+### SIMID:Creative:reportTracking ### {#simid-creative-reportTracking}
 parameters:
 - trackingUrls(Array<String>): An array of tracking pixels that the publisher should fire.
 
@@ -1056,101 +1056,102 @@ All tracking urls sent through SIMID:Creative:reportTracking must have their
 macros replaced as though they were tracking pixels specified in VAST. Then they must
 be reported by the player as though they were tracking pixels.
 
-#### resolve #### {#sivic-creative-reportTracking-resolve}
+#### resolve #### {#simid-creative-reportTracking-resolve}
 The player sends resolve if tracking has been sent out. Returning resolve on this message
 should not block waiting for a response from the site.
-#### reject #### {#sivic-creative-reportTracking-reject}
+#### reject #### {#simid-creative-reportTracking-reject}
 The player did not send the tracking pixel.
 
 parameters:
 - reason(DOMString): An optional string error message
 - errorCode(int): The code for why the player did not attempt to send a tracking pixel. See [[#error-codes]]
 
-### SIMID:Creative:requestChangeAdDuration ### {#sivic-creative-requestChangeAdDuration}
+### SIMID:Creative:requestChangeAdDuration ### {#simid-creative-requestChangeAdDuration}
 Extension in duration should only be in response to user interaction.
 
 paramaters:
 - duration(int): The new duration of the creative. -2 indicates unknown ad duration.
 
-#### resolve #### {#sivic-creative-requestChangeAdDuration-resolve}
+#### resolve #### {#simid-creative-requestChangeAdDuration-resolve}
 The player changed the ad duration.
-#### reject #### {#sivic-creative-requestChangeAdDuration-reject}
+#### reject #### {#simid-creative-requestChangeAdDuration-reject}
 The player did not change the ad duration.
 
-### SIMID:Creative:requestChangeVolume ### {#sivic-creative-requestChangeVolume}
+### SIMID:Creative:requestChangeVolume ### {#simid-creative-requestChangeVolume}
 paramaters:
 - volume(float): a number between 0 and 1 indicating what volume the creative wants.
 - muted(boolean): True indicates the creative wants the volume muted.
 
-#### resolve #### {#sivic-creative-requestChangeVolume-resolve}
+#### resolve #### {#simid-creative-requestChangeVolume-resolve}
 The player has changed the volume as requested.
-#### reject #### {#sivic-creative-requestChangeVolume-reject}
+#### reject #### {#simid-creative-requestChangeVolume-reject}
 The player did not change to the requested volume.
 
-### SIMID:Creative:requestFullScreen ### {#sivic-creative-requestFullScreen}
-The creative is requesting the ad - both video and interactive overlay - to go full screen. 
 
-#### resolve #### {#sivic-creative-requestFullScreen-resolve}
-The player went full screen.
-#### reject #### {#sivic-creative-requestFullScreen-reject}
+### SIMID:Creative:requestFullScreen ### {#simid-creative-requestFullScreen}
+The creative is requesting to go full screen. Not all browsers support this.
+
+#### resolve #### {#simid-creative-requestFullScreen-resolve}
+The player has gone full screen.
+#### reject #### {#simid-creative-requestFullScreen-reject}
 The player did not go full screen.
 
-### SIMID:Creative:requestExitFullScreen ### {#sivic-creative-requestExitFullScreen}
+### SIMID:Creative:requestExitFullScreen ### {#simid-creative-requestExitFullScreen}
 The creative is requesting to exit full screen.
 
-#### resolve #### {#sivic-creative-requestExitFullScreen-resolve}
+#### resolve #### {#simid-creative-requestExitFullScreen-resolve}
 The player has exited full screen.
-#### reject #### {#sivic-creative-requestExitFullScreen-reject}
+#### reject #### {#simid-creative-requestExitFullScreen-reject}
 The player did not exit full screen.
 
-### SIMID:Creative:requestPause ### {#sivic-creative-requestPause}
+### SIMID:Creative:requestPause ### {#simid-creative-requestPause}
 The creative wants the media element to pause media playback.
 
-#### resolve #### {#sivic-creative-requestPause-resolve}
+#### resolve #### {#simid-creative-requestPause-resolve}
 The player paused the video.
-#### reject #### {#sivic-creative-requestPause-reject}
+#### reject #### {#simid-creative-requestPause-reject}
 The player did not pause the video.
 
-### SIMID:Creative:requestPlay ### {#sivic-creative-requestPlay}
+### SIMID:Creative:requestPlay ### {#simid-creative-requestPlay}
 The creative wants the media element to resume media playback.
 
-#### resolve #### {#sivic-creative-requestPlay-resolve}
+#### resolve #### {#simid-creative-requestPlay-resolve}
 The player is playing the video.
-#### reject #### {#sivic-creative-requestPlay-reject}
+#### reject #### {#simid-creative-requestPlay-reject}
 The player did not play the video.
 
-### SIMID:Creative:requestResize ### {#sivic-creative-requestResize}
+### SIMID:Creative:requestResize ### {#simid-creative-requestResize}
 
-Request resize should use the {{ResizeParameters}} which are explained in [[#sivic-player-resize]]
+Request resize should use the {{ResizeParameters}} which are explained in [[#simid-player-resize]]
 
-#### resolve #### {#sivic-creative-requestResize-resolve}
+#### resolve #### {#simid-creative-requestResize-resolve}
 The player has resized exactly as it has been requested.
-#### reject #### {#sivic-creative-requestResize-reject}
+#### reject #### {#simid-creative-requestResize-reject}
 The player did not resize to the exact request. If the player was only able to partially comply, it should still
-reject the message. Then the player should send a [[#sivic-player-resize]] message to let the creative know
+reject the message. Then the player should send a [[#simid-player-resize]] message to let the creative know
 what resize happened.
 
-### SIMID:Creative:requestSkip ### {#sivic-creative-requestSkip}
+### SIMID:Creative:requestSkip ### {#simid-creative-requestSkip}
 The player should stop video playback if possible.
 
 If the player cannot stop video playback, the player must not unload the iframe in response to this request.
 
-#### resolve #### {#sivic-creative-requestSkip-resolve}
-Upon resolving this request, the player must send a [[#sivic-player-adSkipped]] message.
+#### resolve #### {#simid-creative-requestSkip-resolve}
+Upon resolving this request, the player must send a [[#simid-player-adSkipped]] message.
 
-#### reject #### {#sivic-creative-requestSkip-reject}
+#### reject #### {#simid-creative-requestSkip-reject}
 The creative should continue to playback as though it could not be skipped.
 
-### SIMID:Creative:requestStop ### {#sivic-creative-requestStop}
+### SIMID:Creative:requestStop ### {#simid-creative-requestStop}
 The player should stop video playback if possible.
 
 If the player cannot stop video playback, the player still unloads the iframe. The creative may hide all elements
 in this case if it doesn't wish to be seen.
 
-#### resolve #### {#sivic-creative-requestStop-resolve}
-Upon resolving this request, the player must send a [[#sivic-player-adStopped]] message.
+#### resolve #### {#simid-creative-requestStop-resolve}
+Upon resolving this request, the player must send a [[#simid-player-adStopped]] message.
 
-#### reject #### {#sivic-creative-requestStop-reject}
+#### reject #### {#simid-creative-requestStop-reject}
 For some reason the player could not stop playback. The creative may continue
 to render as though it was not stopped.
 
@@ -1190,17 +1191,17 @@ The player must follow this workflow for loading an ad.
 	[[#establish-session]] The player responds with a resolve message.
 	The resolve message includes the correlator that must be present in
 	all messages going forward.
-5. The player then sends a [[#sivic-player-init]] message with all relevant parameters.
+5. The player then sends a [[#simid-player-init]] message with all relevant parameters.
 	The player waits until the creative responds with resolve.  If the
 	creative responds with reject, the player should immediately unload
 	the creative's iframe.
 6. Where possible the player should wait until both the creative has responded
-	to the [[#sivic-player-init]] and the video is ready to start playing. Ready
+	to the [[#simid-player-init]] and the video is ready to start playing. Ready
 	to start playing means the first frame will show and playback will continue.
-7. When the video is started the player sends a [[#sivic-player-startCreative]] message.
+7. When the video is started the player sends a [[#simid-player-startCreative]] message.
 	The player must overlay the creative iframe over the video element exactly.
 	The player must make the creative visible. The creative should respond to
-	this message immediately with [[#sivic-player-startCreative-resolve]].
+	this message immediately with [[#simid-player-startCreative-resolve]].
 
 ## How to Handle Ad Playback ## {#api-ad-playback}
 
@@ -1223,16 +1224,16 @@ respond to SIMID:Creative:requestPlay message with resolve and play the video.
 ### Ad Resizing and Fullscreen ### {#api-resizing}
 
 
-The player may resize the ad slot. The player must send a [[#sivic-player-resize]] message any time the ad slot size is changed.
+The player may resize the ad slot. The player must send a [[#simid-player-resize]] message any time the ad slot size is changed.
 
 If {{EnvironmentData/fullscreenAllowed}} is `true`, the SIMID creative may
-send a [[#sivic-creative-requestFullScreen]] message. The player must resize only the ad
+send a [[#simid-creative-requestFullScreen]] message. The player must resize only the ad
 slot to fullscreen (not the video). The SIMID creative then will resize the
-video as it sees fit. The player must send a [[#sivic-player-resize]] message to the SIMID creative
+video as it sees fit. The player must send a [[#simid-player-resize]] message to the SIMID creative
 with {{ResizeParameters/fullScreen}} set to `true` and {{ResizeParameters/videoDimensions}} and
 {{ResizeParameters/creativeDimensions}} set to the full screen dimensions.
 
-If player goes fullscreen on its own. Then the player must send a [[#sivic-player-resize]] message to the SIMID creative
+If player goes fullscreen on its own. Then the player must send a [[#simid-player-resize]] message to the SIMID creative
 with {{ResizeParameters/fullScreen}} set to `true` and {{ResizeParameters/videoDimensions}} and
 {{ResizeParameters/creativeDimensions}} set to the full screen dimensions.
 
@@ -1243,24 +1244,24 @@ with {{ResizeParameters/fullScreen}} set to `true` and {{ResizeParameters/videoD
 Following are cases where ad can end:
 1. Ad was skipped, either by player or creative (if the ad contains
 	the skip button). See [[#api-skip]].
-2. The creative has fired [[#sivic-creative-requestStop]] message and the player has allowed the ad to stop.
-3. The player has fired [[#sivic-player-adStopped]] message and the creative resolved.
+2. The creative has fired [[#simid-creative-requestStop]] message and the player has allowed the ad to stop.
+3. The player has fired [[#simid-player-adStopped]] message and the creative resolved.
 4. Ad errors out. See [[#api-error]].
 
 ### Ad Skips ### {#api-skip}
 
 **Skip Ad Handled by Player**
-1. The player sends a [[#sivic-player-adSkipped]] message to the ad.
+1. The player sends a [[#simid-player-adSkipped]] message to the ad.
 2. The player hides the creative.
-3. The creative may dispatch any tracking pixels via [[#sivic-creative-reportTracking]]
-3. The creative may wait for [[#sivic-creative-reportTracking-resolve]]
+3. The creative may dispatch any tracking pixels via [[#simid-creative-reportTracking]]
+3. The creative may wait for [[#simid-creative-reportTracking-resolve]]
 	from the reportTracking message.
-4. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-adSkipped-resolve]].
+4. The creative dispatches `resolve` on the `adSkipped` message [[#simid-player-adSkipped-resolve]].
 5. The player fires any skip tracking pixels.
 6. The player unloads the ad.
 
 **Skip Ad Handled by Ad**
-1. The creative dispatches [[#sivic-creative-requestSkip]].
+1. The creative dispatches [[#simid-creative-requestSkip]].
 2. The player dispatches resolves the to the `requestSkip` message.
 3. The player follows all the steps in `Skip Ad Handled by Player`.
 
@@ -1269,7 +1270,7 @@ Following are cases where ad can end:
 This scenario applies when the ad chooses to signal the player to kill it,
 typically at the prompting of the viewer. A good example would be a survey that
 allows the viewer to skip immediately to content when completed.
-1. The ad cleans up and dispatches [[#sivic-creative-requestStop]].
+1. The ad cleans up and dispatches [[#simid-creative-requestStop]].
 2. The player unloads the ad.
 
 ### Ad Extends Beyond Video Completion ### {#api-extend}
@@ -1279,20 +1280,20 @@ This scenario is only possible when the
 duration must only be extended in response to user interaction.
 1. User interacts at any point during playback of the video, triggering extended
 	ad portion.
-2. The Creative dispatches [[#sivic-creative-requestChangeAdDuration]] message with the new duration.
+2. The Creative dispatches [[#simid-creative-requestChangeAdDuration]] message with the new duration.
 3. The ad enters its extended phase.
-4. The creative dispatches [[#sivic-creative-requestStop]] when extended phase is finished.
+4. The creative dispatches [[#simid-creative-requestStop]] when extended phase is finished.
 
 ### Ad Completes at Video Completion ### {#api-complete}
 
 When an ad finishes at the same time as its video.
-1. The player sends a [[#sivic-player-adStopped]] message to the ad.
+1. The player sends a [[#simid-player-adStopped]] message to the ad.
 2. The player hides the creative.
 3. The creative may dispatch any tracking pixels via
-	[[#sivic-creative-reportTracking]]
-4. The creative may wait for a [[#sivic-creative-reportTracking-resolve]]
+	[[#simid-creative-reportTracking]]
+4. The creative may wait for a [[#simid-creative-reportTracking-resolve]]
 	response message from the reportTracking message.
-5. The creative dispatches `resolve` on the `adSkipped` message [[#sivic-player-adStopped-resolve]].
+5. The creative dispatches `resolve` on the `adSkipped` message [[#simid-player-adStopped-resolve]].
 6. The player unloads the ad.
 
 ### Ad Errors Out ### {#api-error}
@@ -1302,17 +1303,17 @@ time. If the SIMID creative indicates an error, the player should try to stop ad
 unit playback. This might not be possible in server side stitched ads.
 
 The player may error out if the ad does not respond with
-[[#sivic-player-init-resolve]] in a reasonable amount of time.
+[[#simid-player-init-resolve]] in a reasonable amount of time.
 
 When an player errors out it must follow these steps.
-1. The player sends a [[#sivic-player-fatalError]] message to the ad.
+1. The player sends a [[#simid-player-fatalError]] message to the ad.
 2. The player hides the creative.
 3. The creative may dispatch any tracking pixels via
-	[[#sivic-creative-reportTracking]]
-4. The creative may wait for a [[#sivic-creative-reportTracking-resolve]]
+	[[#simid-creative-reportTracking]]
+4. The creative may wait for a [[#simid-creative-reportTracking-resolve]]
 	response from the reportTracking message.
 5. The creative dispatches `resolve` on the `adSkipped` message
-	[[#sivic-player-fatalError-resolve]].
+	[[#simid-player-fatalError-resolve]].
 6. The player unloads the ad.
 
 ### User Experience ### {#user-experience}
@@ -1328,15 +1329,15 @@ media players should ensure that consumers are presented with a good ad experien
 
 ### Additional Notes ### {#api-notes}
 
-The player may send a [[#sivic-player-adStopped]] message at any time. The creative should respond with
+The player may send a [[#simid-player-adStopped]] message at any time. The creative should respond with
 `resolved` after finishing its ad end logic. The player should allow 1 second
-between sending the [[#sivic-player-adStopped]] message and receiving `resolved`. The implementer of the
+between sending the [[#simid-player-adStopped]] message and receiving `resolved`. The implementer of the
 player should take into consideration that dropping a SIMID ad unit before it has
 dispatched `resolved` may result in tracking discrepancies, and that sending the
-[[#sivic-player-adStopped]] message before the ad experience has ended (which is AFTER the optional
+[[#simid-player-adStopped]] message before the ad experience has ended (which is AFTER the optional
 lean-in phase) could harm the overall ad experience.
 
-The SIMID creative may also dispatch [[#sivic-creative-requestStop]] at any time, signaling to the
+The SIMID creative may also dispatch [[#simid-creative-requestStop]] at any time, signaling to the
 player that the ad has finished and unloaded. Any further interaction with the
 SIMID creative after `requestStop` may not result in the desired outcome. The same
 is true for `fatalError`.
