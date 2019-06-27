@@ -1083,7 +1083,7 @@ The player did not go full screen.
 The creative is requesting to exit full screen.
 
 #### resolve #### {#sivic-creative-requestExitFullScreen-resolve}
-The player exited full screen.
+The player has exited full screen.
 #### reject #### {#sivic-creative-requestExitFullScreen-reject}
 The player did not exit full screen.
 
