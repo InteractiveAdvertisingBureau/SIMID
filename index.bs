@@ -1072,7 +1072,7 @@ The player has changed the volume as requested.
 The player did not change to the requested volume.
 
 ### SIMID:Creative:requestFullScreen ### {#sivic-creative-requestFullScreen}
-The creative is requesting ad - both video and interactive overlay - to go full screen. 
+The creative is requesting the ad - both video and interactive overlay - to go full screen. 
 
 #### resolve #### {#sivic-creative-requestFullScreen-resolve}
 The player went full screen.
