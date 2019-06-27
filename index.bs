@@ -181,7 +181,7 @@ the streaming media and the interactive creative. The player obtains
 both media and creative data from VAST 4.x, loads the resources, assembles
 the ad, and ensures a cohesive ad experience.
 
-Diagram below illustrates resources loading and ad compilation.
+The diagram below illustrates the media and asset loading and compilation process for a SIMID ad unit.
 <img width="100%" src="images/simid_diagram_4_loading.png" alt="Diagram illustrates resources loading and ad compilation.">
 
 ## Player and Creative Communication ## {#player-creative-communication}
