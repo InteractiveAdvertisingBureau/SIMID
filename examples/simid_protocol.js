@@ -52,7 +52,7 @@ class SimidProtocol {
    * @param {?Object} messageArgs The arguments for the message, may be null.
    * @return {!Promise} Promise that will be fulfilled when client resolves or rejects.
    */
-  async sendMessage(messageType, messageArgs) {
+  sendMessage(messageType, messageArgs) {
     // Incrementing between messages keeps each message id unique.
     const messageId = this.nextMessageId_ ++;
 
@@ -282,17 +282,17 @@ ProtocolMessage = {
 
 /** Contains all constants common across SIMID */
 
-VideoMessage = {
-  DURATION_CHANGE: 'Video:durationchange',
-  ENDED: 'Video:ended',
-  ERROR: 'Video:error',
-  PAUSE: 'Video:pause',
-  PLAY: 'Video:play',
-  PLAYING: 'Video:playing',
-  SEEKED: 'Video:seeked',
-  SEEKING: 'Video:seeking',
-  TIME_UPDATE: 'Video:timeupdate',
-  VOLUME_CHANGE: 'Video:volumechange',
+MediaMessage = {
+  DURATION_CHANGE: 'Media:durationchange',
+  ENDED: 'Media:ended',
+  ERROR: 'Media:error',
+  PAUSE: 'Media:pause',
+  PLAY: 'Media:play',
+  PLAYING: 'Media:playing',
+  SEEKED: 'Media:seeked',
+  SEEKING: 'Media:seeking',
+  TIME_UPDATE: 'Media:timeupdate',
+  VOLUME_CHANGE: 'Media:volumechange',
 };
 
 PlayerMessage = {
@@ -344,7 +344,7 @@ EventsThatRequireResponse = [
   PlayerMessage.AD_STOPPED,
   PlayerMessage.FATAL_ERROR,
   ProtocolMessage.CREATE_SESSION,
-  VideoMessage.GET_VIDEO_STATE,
+  MediaMessage.GET_VIDEO_STATE,
 ];
 
 // A list of errors the creative might send to the player.
