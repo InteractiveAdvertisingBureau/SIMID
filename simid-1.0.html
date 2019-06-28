@@ -1,7 +1,7 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>Secure Interactive Media Interface Definition (SIMID) &lt;br>&lt;img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" ></title>
+  <title>Secure Interactive Media Interface Definition (SIMID) &lt;br>&lt;img alt="IAB Tech Lab" src="simid-1.0.images/IABTechLabLogo.jpg" ></title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
@@ -1487,7 +1487,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
+   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="simid-1.0.images/IABTechLabLogo.jpg"></h1>
    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-06-27">27 June 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -1750,7 +1750,7 @@ sandboxed from the media player, providing peace of mind to publishers when
 serving ads from third party services. SIMID aims to provide the tools and
 controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
-   <p><img alt="A diagram showing SIMID ads sandboxed from the publisher player environment." src="images/simid_diagram_1_overlay.png" width="100%"> A diagram showing SIMID ads sandboxed from the publisher player environment</p>
+   <p><img alt="A diagram showing SIMID ads sandboxed from the publisher player environment." src="simid-1.0.images/simid_diagram_1_overlay.png" width="100%"> A diagram showing SIMID ads sandboxed from the publisher player environment</p>
    <p>SIMID is part of a broader effort to replace the older VPAID standard (more details in <a href="http://bit.ly/videoAdVision">this blog post</a> by the IAB Tech Lab). While
 Open Measurement replaces the use case of verification and measurement, SIMID replaces
 the use case of interactive streaming media ads, the original intended purpose
@@ -1759,7 +1759,7 @@ the industry to move to more secure and transparent standards. SIMID aims to
 gain broad industry adoption by ensuring that the standard is focused on the
 primary use case of interactivity.</p>
    <h3 class="heading settled" data-level="2.1" id="simid-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIMID vs. VPAID Comparison</span><a class="self-link" href="#simid-vs-vpaid"></a></h3>
-   <p><img alt="A diagram showing the difference between SIMID and VPAID security." src="images/simid_diagram_2_api_models.png" width="100%"></p>
+   <p><img alt="A diagram showing the difference between SIMID and VPAID security." src="simid-1.0.images/simid_diagram_2_api_models.png" width="100%"></p>
    <table class="alternatecolor">
     <tbody>
      <tr>
@@ -1831,7 +1831,7 @@ as a “SIMID creative” or “creative”.</p>
    <p>Compliance with SIMID requires support for all features and behaviors specificied in this document, unless a given feature or behavior is explicitly designated as optional.
 Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a> for RFC 2119 for enforcement terminology used in this standard.</p>
    <h3 class="heading settled" data-level="3.1" id="simid-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIMID Interactive Creative Nature</span><a class="self-link" href="#simid-interactive-creative-nature"></a></h3>
-   <p><img alt="A diagram showing SIMID where and how sivic video and html assets load." src="images/simid_diagram_3_assets.png" width="100%"></p>
+   <p><img alt="A diagram showing SIMID where and how sivic video and html assets load." src="simid-1.0.images/simid_diagram_3_assets.png" width="100%"></p>
    <p>A SIMID creative can be included in a VAST document by way of an <code>&lt;InteractiveCreativeFile></code> element. The text within this element must be a url which returns an HTML document.
 When loaded into an iframe by a media player, this HTML document will define the SIMID creative’s content, and will direct the web browser or host application to load any additional assets
 required by that creative (images, CSS, scripts, etc.).</p>
@@ -1851,7 +1851,7 @@ an ad’s streaming audio or video file and its interactive creative file. The m
 urls for both files from a VAST document, loads the files, assembles
 them together into a single ad unit, and ensures a cohesive ad experience.</p>
    <p>This diagram illustrates the SIMID creative loading and presentation process.</p>
-   <p><img alt="Diagram illustrates resources loading and ad compilation." src="images/simid_diagram_4_loading.png" width="100%"></p>
+   <p><img alt="Diagram illustrates resources loading and ad compilation." src="simid-1.0.images/simid_diagram_4_loading.png" width="100%"></p>
    <h3 class="heading settled" data-level="3.3" id="player-creative-communication"><span class="secno">3.3. </span><span class="content">Player and Creative Communication</span><a class="self-link" href="#player-creative-communication"></a></h3>
    <p>A media player and a SIMID creative communicate by sending serialized messages back and forth to each other.</p>
    <p>Because a SIMID creative is an HTML document that is served from an advertiser’s
