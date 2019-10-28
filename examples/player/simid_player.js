@@ -247,14 +247,14 @@ class SimidPlayer {
 
   /** @private */
   showSimidIFrame_() {
-    this.simidIframe_.style.display = '';
+    this.simidIframe_.style.display = 'block';
   }
 
   /** @private */
   showAdPlayer_() {
       // show the ad video element
-    this.adVideoElement_.style.display = '';
-    document.getElementById('ad_video_div').style.display = '';
+    this.adVideoElement_.style.display = 'block';
+    document.getElementById('ad_video_div').style.display = 'block';
   }
 
   /** @private */
