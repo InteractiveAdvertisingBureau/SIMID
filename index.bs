@@ -16,7 +16,271 @@ Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
 # Version # {#version-number}
 1.0
 
+<style>
 
+	body {
+		counter-reset: diagram;
+		counter-reset: table-num;
+	}
+
+	table.alternatecolor {
+		border-collapse: collapse;
+		width: 100%;
+	}
+	
+	table.alternatecolor th, td {
+		border: solid #CCCCCC;
+  		padding: 5px;
+		vertical-align: top;
+		border-width: 0 1px 0 1px;
+    }
+
+	table.alternatecolor th{
+		border-color: #000;
+		background-color: #000;
+		color:#FFFFFF;
+	}
+	
+	table.alternatecolor tr:nth-child(odd) td {
+		background-color: #EFEFEF; 
+	}
+	
+	table.alternatecolor tr:nth-child(even) td {
+		background-color: #FFF;
+	}
+	
+	table.alternatecolor tr:last-child td, td.last-row {
+		border-bottom-width: 1px;
+	}
+	
+	table.two-col-split td:nth-child(3n+0){
+		background: #FFF !important;
+		border: 0;
+	}
+	table.two-col-split th:nth-child(3n+0){
+		background: #FFF !important;
+		border: 0;
+	}
+	table.two-col-split td:nth-child(3n+2){
+		text-align: center;
+	}
+	table.two-col-split th:nth-child(3n+2){
+		text-align: center;
+	}
+	
+	table.two-col-split td:nth-child(3n+2):before{
+		content: "\2716";
+		color: #008000;
+		
+	}
+	
+	table.alternatecolor td.empty {
+		display:none;
+	}
+	
+	td[req]:before {
+		content: "\2714" !important;
+		color: #D20000 !important;
+	}
+
+	p[table-header]{
+		counter-increment: table-num;
+		font-weight: 700;
+
+	}
+
+	p[table-header]:before{
+		content: "Table " counter(table-num) ". ";
+		font-style: italic;
+	}
+
+	ul.footnote {
+		list-style-type: none;  
+		font-size: 0.9em;
+		margin: 0;
+	}
+
+	ul.footnote li:before{
+		width: 1em !important;
+		margin-left: -1em;
+		display: inline-block;
+	}
+
+	ul.footnote li:nth-child(1):before {
+		content:'*';
+	}
+	ul.footnote li:nth-child(2):before {
+		content:'†';
+	}
+	ul.footnote li:nth-child(3):before {
+		content:'‡';
+	}
+	ul.footnote li:nth-child(4):before {
+		content:'§';
+	}
+	ul.footnote li:nth-child(5):before {
+		content:'◊';
+	}
+	ul.footnote li:nth-child(6):before {
+		content:'¶';
+	}
+	
+	ul.values-list{
+		margin: 0;
+		list-style-type: none;
+	}
+	
+	ul.values-list > li:nth-child(odd){
+		background: #FFF;
+	}
+	
+	ul.values-list code{
+		margin: 0 1em 0 1em;
+	}
+	
+	ul.values-list li{
+		margin: 0;
+	}
+	
+	table.messages-summary td code:before{
+		content: "\2023" !important;
+		margin-right: 0.5em;
+	}
+	
+	table.messages-summary td:nth-child(1) code:before{
+		content: "" !important;
+		margin-right: 0;
+	}
+
+	table.messages-summary td a{
+		font-family: Menlo, Consolas, "DejaVu Sans Mono", Monaco, monospace;
+		font-size: 0.9em;
+	}
+	
+	pre.idl{
+		margin-bottom: 0 !important;
+		border-width: 8px !important;
+	}
+	
+	dl.idl{
+		margin-top: 0 !important;
+		border-width: 8px !important;
+	}
+	ul[collapse], ol[collapse]{
+		margin: 0;
+	}
+
+	p[warning]{
+		border-color: rgb(243, 87, 87);
+    	background-color: rgb(245, 230, 230);
+	}
+	
+	ul[collapse] li {
+		margin-top: 0;
+		line-height: 1.5em;
+	}
+	ol[collapse] li {
+		margin-top: 0;
+		line-height: 1.5em;
+	}
+	
+	ol[alpha]{
+		list-style-type: lower-alpha;
+	}
+
+	
+
+	div[diagram]{
+		counter-increment: diagram;
+		position: relative;
+		border: 1px solid silver;
+		border-radius: 7px;
+		padding: 10px;
+		margin: 10px 0 10px 0;
+		overflow: hidden;
+	}
+
+	div[diagram] p:first-child::before{
+		content: "Diagram " counter(diagram) ". ";
+		margin-left: 10px;
+	}
+
+	div[diagram] > p:first-child{
+		font-weight: 600;
+		font-style:italic;
+		
+		padding-left: 28px;
+		margin: 0 0 20px 0;
+		background-repeat: no-repeat;
+		background-size: 1.5em;
+		background-position-y: 2px;
+		background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMzYgMjYiPg0KCTxwYXRoIGZpbGw9IiM1ODU5NWIiIGQ9Ik0yNCwxMGMwLDAuNTUyLTAuNDQ4LDEtMSwxSDEzYy0wLjU1MiwwLTEtMC40NDgtMS0xVjRjMC0wLjU1MiwwLjQ0OC0xLDEtMWgxMGMwLjU1MiwwLDEsMC40NDgsMSwxVjEweiIvPg0KCTxwYXRoIGZpbGw9IiM1ODU5NWIiIGQ9Ik0xMSwyMmMwLDAuNTUyLTAuNDQ4LDEtMSwxSDRjLTAuNTUyLDAtMS0wLjQ0OC0xLTF2LTRjMC0wLjU1MiwwLjQ0OC0xLDEtMWg2YzAuNTUyLDAsMSwwLjQ0OCwxLDFWMjJ6Ii8+DQoJPHBhdGggZmlsbD0iIzU4NTk1YiIgZD0iTTIyLDIyYzAsMC41NTItMC40NDgsMS0xLDFoLTZjLTAuNTUyLDAtMS0wLjQ0OC0xLTF2LTRjMC0wLjU1MiwwLjQ0OC0xLDEtMWg2YzAuNTUyLDAsMSwwLjQ0OCwxLDFWMjJ6Ii8+DQoJPHBhdGggZmlsbD0iIzU4NTk1YiIgZD0iTTMzLDIyYzAsMC41NTItMC40NDgsMS0xLDFoLTZjLTAuNTUyLDAtMS0wLjQ0OC0xLTF2LTRjMC0wLjU1MiwwLjQ0OC0xLDEtMWg2YzAuNTUyLDAsMSwwLjQ0OCwxLDFWMjJ6Ii8+DQoJPHBhdGggZmlsbD0iIzU4NTk1YiIgZD0iTTI5LDEzSDE5VjloLTJ2NEg3Yy0wLjU1MiwwLTEsMC40NDgtMSwxdjZoMnYtNWg5djRoMnYtNGg5djVoMnYtNkMzMCwxMy40NDgsMjkuNTUyLDEzLDI5LDEzeiIvPg0KCTxwYXRoIGZpbGw9IiM1ODU5NWIiIGQ9Ik0zNiwyYzAtMS4xMDQtMC44OTYtMi0yLTJIMkMwLjg5NiwwLDAsMC44OTYsMCwydjIyYzAsMS4xMDQsMC44OTYsMiwyLDJoMzJjMS4xMDQsMCwyLTAuODk2LDItMlYyeiBNMzUsMjQNCgkJYzAsMC41NTItMC40NDgsMS0xLDFIMmMtMC41NTIsMC0xLTAuNDQ4LTEtMVYyYzAtMC41NTIsMC40NDgtMSwxLTFoMzJjMC41NTIsMCwxLDAuNDQ4LDEsMVYyNHoiLz4NCjwvc3ZnPg0K');
+	}
+
+  ol[dgrm-details]{
+    counter-reset: dgrm-sequence;
+    list-style: none;
+    border: 0px dotted silver;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    background-size: 1.5em;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    background-image-x: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMzYgMzYiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iIzU4NTk1YiIgZD0iTTM2LDMzYzAsMS42NTctMS4zNDMsMy0zLDNIM2MtMS42NTcsMC0zLTEuMzQzLTMtM1YzYzAtMS42NTcsMS4zNDMtMywzLTNoMzBjMS42NTcsMCwzLDEuMzQzLDMsM1YzM3oiLz4NCjxjaXJjbGUgZmlsbD0iI0ZGRkZGRiIgY3g9IjE4IiBjeT0iMTgiIHI9IjE1Ii8+DQo8Y2lyY2xlIGZpbGw9IiM1ODU5NWIiIGN4PSIxOCIgY3k9IjE4IiByPSIxMSIvPg0KPHJlY3QgeD0iMTIiIHk9IjEyIiBmaWxsPSIjRkZGRkZGIiB3aWR0aD0iMyIgaGVpZ2h0PSIzIi8+DQo8cmVjdCB4PSIxNi41IiB5PSIxMiIgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9IjMiIGhlaWdodD0iMyIvPg0KPHJlY3QgeD0iMjEiIHk9IjEyIiBmaWxsPSIjRkZGRkZGIiB3aWR0aD0iMyIgaGVpZ2h0PSIzIi8+DQo8cmVjdCB4PSIxMiIgeT0iMTYuNSIgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9IjMiIGhlaWdodD0iMyIvPg0KPHJlY3QgeD0iMTYuNSIgeT0iMTYuNSIgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9IjMiIGhlaWdodD0iMyIvPg0KPHJlY3QgeD0iMjEiIHk9IjE2LjUiIGZpbGw9IiNGRkZGRkYiIHdpZHRoPSIzIiBoZWlnaHQ9IjMiLz4NCjxyZWN0IHg9IjEyIiB5PSIyMSIgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9IjMiIGhlaWdodD0iMyIvPg0KPHJlY3QgeD0iMTYuNSIgeT0iMjEiIGZpbGw9IiNGRkZGRkYiIHdpZHRoPSIzIiBoZWlnaHQ9IjMiLz4NCjxyZWN0IHg9IjIxIiB5PSIyMSIgZmlsbD0iI0ZGRkZGRiIgd2lkdGg9IjMiIGhlaWdodD0iMyIvPg0KPC9zdmc+DQo=')
+  }
+
+ ol[dgrm-details] li::before{
+    vertical-align: super;
+    font-size: 0.75em;
+    margin-right: 0.5em;
+    background-color: #5b5b5b;
+    color: #FFF;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+
+  ol[dgrm-details] > li::before{
+    counter-increment: dgrm-sequence;
+    content: "" counter(dgrm-sequence) "";
+  }
+  
+  ol[dgrm-details] > li > ol{
+    list-style: none;
+    counter-reset: dgrm-sequence-level-2;
+  }
+
+  ol[dgrm-details] > li > ol > li::before{
+    counter-increment: dgrm-sequence-level-2;
+    content: "" counter(dgrm-sequence) "." counter(dgrm-sequence-level-2) "";
+  }
+	span[steps]:before{
+		content:"steps ";
+	}
+	span[steps] b{
+		font-size: 0.75em;
+		margin-right: 0.5em;
+		background-color: #5b5b5b;
+		color: #FFF;
+		padding: 2px 6px;
+		border-radius: 3px;
+	}
+
+	[skip-ad]{
+		background-color: #5b5b5b;
+		color: #FFFFFF;
+		border: 1px solid #5b5b5b;
+		border-radius: 2px;
+		outline: none;
+		padding: 4px 6px;
+	}
+
+	[skip-ad]::after{
+		content: "\25BA""|";
+		font-weight: 700;
+		letter-spacing: -3px;
+		margin-left: 4px;
+	}
+</style>
 
 # Executive Summary # {#exec-summary}
 
@@ -38,7 +302,12 @@ serving ads from third party services. SIMID aims to provide the tools and
 controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.
 
-<img width="100%" src="images/simid_diagram_1_overlay.png" alt="A diagram showing SIMID ads sandboxed from the publisher player environment.">
+
+<div diagram id="diagram-simid-overlay">
+	<p>SIMID ads sandboxing from the publisher player environment</p>
+	<img src="images/simid_diagram_1_overlay.png" alt="Normal Creative Initilaizatioin Sequence"/>
+</div>
+
 A diagram showing SIMID ads sandboxed from the publisher player environment
 
 SIMID is part of a broader effort to replace the older VPAID standard (more details in <a href="http://bit.ly/videoAdVision">this blog post</a> by the IAB Tech Lab). While
@@ -51,106 +320,91 @@ primary use case of interactivity.
 
 ## SIMID vs. VPAID Comparison ## {#simid-vs-vpaid}
 
-<img width="100%" src="images/simid_diagram_2_api_models.png" alt="A diagram showing the difference between SIMID and VPAID security.">
-<style>
-  table.alternatecolor {
-  	border-collapse: collapse;
-  }
-  table.alternatecolor td {
-    	border: 1px solid #CCCCCC;
-  		padding: 5px;
-    }
-  table.alternatecolor tr:nth-child(odd) {
-    background: #EFEFEF;
-    vertical-align: top;
-  }
-  table.alternatecolor tr:nth-child(1) {
-      background: #444444;
-      color:#FFFFFF;
-    }
-</style>
+<div diagram id="diagram-simid-api-models">
+	<p>VPAID vs. SIMID APIs</p>
+	<img src="images/simid_diagram_2_api_models.png" alt="Normal Creative Initilaizatioin Sequence" style="margin-left: -10px;"/>
+</div>
+
+<p table-header id="simid-vs-vapid">SIMID vs. VPAID Comparison.</p>
 <table class="alternatecolor">
   <tbody>
-    <tr>
-      <td valign="top" width="20%">Feature</td>
-      <td valign="top" width="40%" colspan="1" rowspan="1">VPAID</td>
-      <td valign="top" width="40%">SIMID</td>
+	<tr>
+      <th width="20%">Feature</th>
+      <th width="40%">VPAID</th>
+      <th width="40%">SIMID</th>
     </tr>
+   
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Security</td>
-      <td valign="top" colspan="1" rowspan="1">Creative directly accesses player DOM and shared global JavaScript context.</td>
-      <td valign="top" colspan="1" rowspan="1">Creative is sandboxed into a cross-origin iframe. No player DOM access or shared JavaScript context.</td>
+      <td>Security</td>
+      <td>Creative directly accesses player DOM and shared global JavaScript context.</td>
+      <td>Creative is sandboxed into a cross-origin iframe. No player DOM access or shared JavaScript context.</td>
     </tr>
     <tr class="c13">
-      <td valign="top" colspan="1" rowspan="1">Ad media asset management</td>
-      <td valign="top" colspan="1" rowspan="1">Creative manages ad media loading and playback (video).</td>
-      <td valign="top" colspan="1" rowspan="1">Player manages ad media loading and playback (audio or video).</td>
+      <td>Ad media asset management</td>
+      <td>Creative manages ad media loading and playback (video).</td>
+      <td>Player manages ad media loading and playback (audio or video).</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Pre-caching</td>
-      <td valign="top" colspan="1" rowspan="1">Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.</td>
-      <td valign="top" colspan="1" rowspan="1">Audio or video asset and SIMID creative can both be pre-cached.</td>
+      <td>Pre-caching</td>
+      <td>Only the VPAID script can be reliably pre-cached. Video asset cannot be pre-cached.</td>
+      <td>Audio or video asset and SIMID creative can both be pre-cached.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Errors influence on performance or UX</td>
-      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration (due to shared security sandbox).</td>
-      <td valign="top" colspan="1" rowspan="1">Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to performance and user experience of the creative, only.</td>
+      <td>Errors influence on performance or UX</td>
+      <td>Fatal script errors from ad creative can result in significant player or publisher site performance and user experience deterioration (due to shared security sandbox).</td>
+      <td>Fatal script errors from ad creative do not affect player or publisher site directly. Impact is limited to performance and user experience of the creative, only.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">SSAI feasibility</td>
-      <td valign="top" colspan="1" rowspan="1">SSAI is not possible.</td>
-      <td valign="top" rowspan="1">Interactive creatives can be rendered in SSAI context.</td>
+      <td>SSAI feasibility</td>
+      <td>SSAI is not possible.</td>
+      <td rowspan="1">Interactive creatives can be rendered in SSAI context.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Latencies</td>
-      <td valign="top" colspan="1" rowspan="1">Publishers are at the mercy of VPAID creative implementation efficiency and uncontrollable internal processes (verification, trading, wrapping, etc.). Each of these behaviors can impose significant latencies.</td>
-      <td valign="top" colspan="1" rowspan="1">Players can pre-load media and creative assets due to maintaining full control over decisioning, loading and displaying of the ad unit. Ad decisioning latency is removed, risks of internal processes are minimized due to separate security sandboxes.</td>
+      <td>Latencies</td>
+      <td>Publishers are at the mercy of VPAID creative implementation efficiency and uncontrollable internal processes (verification, trading, wrapping, etc.). Each of these behaviors can impose significant latencies.</td>
+      <td>Players can pre-load media and creative assets due to maintaining full control over decisioning, loading and displaying of the ad unit. Ad decisioning latency is removed, risks of internal processes are minimized due to separate security sandboxes.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">API</td>
-      <td valign="top" colspan="1" rowspan="1">Both the player and creative must support specific javascript functions. Each component calls functions directly on the other in a shared security sandbox (insecure).</td>
-      <td valign="top" colspan="1" rowspan="1">No functions are directly called on either component by the other. All communication is achieved using standard postMessage API and SIMID messaging protocol across separate security sandboxes.</td>
+      <td>API</td>
+      <td>Both the player and creative must support specific javascript functions. Each component calls functions directly on the other in a shared security sandbox (insecure).</td>
+      <td>No functions are directly called on either component by the other. All communication is achieved using standard postMessage API and SIMID messaging protocol across separate security sandboxes.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Ad blocking</td>
-      <td valign="top" colspan="1" rowspan="1">VPAID can prevent an ad from rendering.</td>
-      <td valign="top" colspan="1" rowspan="1">SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK (OMID) is expected to support this capability in the future.</td>
+      <td>Ad blocking</td>
+      <td>VPAID can prevent an ad from rendering.</td>
+      <td>SIMID is built for interactivity and was not designed for ad blocking. The Open Measurement SDK (OMID) is expected to support this capability in the future.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Verification services</td>
-      <td valign="top" colspan="1" rowspan="1">Verification features can be fully implemented and executed in shared DOM and global Javascript context.</td>
-      <td valign="top" colspan="1" rowspan="1">SIMID creative cannot access any DOM, elements, or JS context outside of its own security sandbox so is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.</td>
+      <td>Verification services</td>
+      <td>Verification features can be fully implemented and executed in shared DOM and global Javascript context.</td>
+      <td>SIMID creative cannot access any DOM, elements, or JS context outside of its own security sandbox so is unable to handle any verification use cases. OMID handles the use case for verification allowing SIMID to be focused on interactivity only.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Creative wrapping</td>
-      <td valign="top" colspan="1" rowspan="1">VPAID ads can load other ads (including other VPAID ads).</td>
-      <td valign="top" colspan="1" rowspan="1">Cannot be executed.</td>
+      <td>Creative wrapping</td>
+      <td>VPAID ads can load other ads (including other VPAID ads).</td>
+      <td>Cannot be executed.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Audio advertising</td>
-      <td valign="top" colspan="1" rowspan="1">Out of standard scope.</td>
-      <td valign="top" colspan="1" rowspan="1">Enables interactive components serving with audio ads.</td>
+      <td>Audio advertising</td>
+      <td>Out of standard scope.</td>
+      <td>Enables interactive components serving with audio ads.</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Environment constraints</td>
-      <td valign="top" colspan="1" rowspan="1">Player must be an HTML video element.</td>
-      <td valign="top" colspan="1" rowspan="1">Player can be native or web so long as the SIMID creative has sandboxed DOM access (such as a web view).</td>
+      <td>Environment constraints</td>
+      <td>Player must be an HTML video element.</td>
+      <td>Player can be native or web so long as the SIMID creative has sandboxed DOM access (such as a web view).</td>
     </tr>
     <tr>
-      <td valign="top" colspan="1" rowspan="1">Resource MIME type</td>
-      <td valign="top" colspan="1" rowspan="1">application/javascript</td>
-      <td valign="top" colspan="1" rowspan="1">text/html</td>
+      <td>Resource MIME type</td>
+      <td>application/javascript</td>
+      <td>text/html</td>
     </tr>
   </tbody>
 </table>
 
 ## Intended Audience ## {#intended-audience}
 
-The SIMID standard specification is geared toward the digital media
-advertising community. Anyone who works with products or services related to digital media advertising can benefit
-from reading the Introduction sections of this spec. The Messaging Protocol, API Reference, and later sections are
-predominantly targeted at software engineers developing products
-or services which leverage the technical capabilities provided by SIMID.
+The SIMID standard is geared toward the digital media advertising community. Anyone who works with digital media advertising products or services can benefit from reading the Introduction sections of this document. The Messaging Protocol, API Reference, and later sections predominantly target software engineers.
 
 
 # Introduction # {#intro}
@@ -163,8 +417,10 @@ Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc
 for RFC 2119 for enforcement terminology used in this standard.
 
 ## SIMID Interactive Creative Nature ## {#simid-interactive-creative-nature}
-
-<img width="100%" src="images/simid_diagram_3_assets.png" alt="A diagram showing SIMID where and how sivic video and html assets load.">
+<div diagram id="diagram-simid-api-models">
+	<p>SIMID Assets loading</p>
+	<img src="images/simid_diagram_3_assets.png" alt="SIMID Interactive Creative Nature" style="margin-left: -10px;"/>
+</div>
 
 A SIMID creative can be included in a VAST document by way of an `<InteractiveCreativeFile>`
 element. The text within this element must be a url which returns an HTML document.
@@ -177,10 +433,10 @@ For more technical details, see the [[#api-vast]] section.
 Example:
 ```
 <MediaFiles>
-<MediaFile …>https://example.com/mediafile.mp4</MediaFile>
-<InteractiveCreativeFile type="text/html" apiFramework="SIMID" variableDuration="true">
-   	<![CDATA[https://adserver.com/ads/creative.html]]>
-</InteractiveCreativeFile>
+    <MediaFile>https://example.com/mediafile.mp4</MediaFile>
+    <InteractiveCreativeFile type="text/html" apiFramework="SIMID" variableDuration="true">
+        <![CDATA[https://adserver.com/ads/creative.html]]>
+    </InteractiveCreativeFile>
 </MediaFiles>
 ```
 
@@ -191,10 +447,11 @@ an ad's streaming audio or video file and its interactive creative file. The med
 urls for both files from a VAST document, loads the files, assembles
 them together into a single ad unit, and ensures a cohesive ad experience.
 
+<div diagram id="diagram-simid-api-models">
+	<p>SIMID creative loading and presentation process.</p>
+	<img src="images/simid_diagram_4_loading.png" alt="SIMID creative loading and presentation process." style="margin-left: -10px;"/>
+</div>
 
-This diagram illustrates the SIMID creative loading and presentation process.
-
-<img width="100%" src="images/simid_diagram_4_loading.png" alt="Diagram illustrates resources loading and ad compilation.">
 
 ## Player and Creative Communication ## {#player-creative-communication}
 
@@ -207,7 +464,7 @@ Due to browser sandbox security restrictions, javascript communication across th
 
 SIMID API requirements govern message construction conventions as well as the message data structure. See sections [[#msg-proto]], [[#api]] for more information.
 
-## Scope and Limitation ## {#scope}
+## Scope and Limitations ## {#scope}
 
 The use of HTML is only required for the SIMID creative, not the publisher
 property hosting that creative. As long as the publisher can load HTML and
@@ -230,8 +487,6 @@ SIMID should not be set up to measure viewability.
 Any use of the SIMID spec to support something other than interactive or
 dynamic content within the ad unit is counter to the intentions of this spec.
 
-
-
 # API Reference # {#api}
 
 All SIMID messages are sent via the [[#msg-proto]]
@@ -241,9 +496,9 @@ All SIMID messages are sent via the [[#msg-proto]]
 <table class="alternatecolor">
   <tbody>
     <tr>
-      <td width="40%">API</td>
-      <td width="30%">resolve</td>
-      <td width="30%">reject</td>
+      <th width="40%">API</th>
+      <th width="30%">resolve</th>
+      <th width="30%">reject</th>
     </tr>
     <tr>
       <td>[[#simid-media-durationchange]]</td>
@@ -418,163 +673,361 @@ All SIMID messages are sent via the [[#msg-proto]]
   </tbody>
 </table>
 
-## Messages triggered by media element events ## {#media-messages}
+## Messages Triggered by Media Element Events ## {#media-messages}
 
-When the media element that renders ad media dispatches events, the player posts corresponding
-messages to the SIMID creative. Media element related messages include original media event type
-names. `Message.type` values are prepended with SIMID:Media namespace.
+SIMID specifies a group of messages that describe ad media states. The player prepends such messages with the `SIMID:Media namespace`.
 
-Example:
-1. Media element dispatches event `play`.
-1. Player sends message to SIMID creative with `Message.type = SIMID:Media:play`.
+SIMID borrows media-related semantics and naming conventions from the standard `HTMLMediaElement` behavior. In player implementations, where an `HTMLMediaElement` is not used, the player must translate events and property values into the associated `SIMID:Media` message.
 
-Video messages should be reported immediately after player receives related event.
+In HTML environments, `SIMID:Media` messages contain the original media event type. Example:
+1. `HTMLMediaElement` dispatches event `play`.
+1. Player sets `Message.type = SIMID:Media:play`.
 
-`Message.timestamp` property value is set to the time media element dispatches event.
+The player must report `SIMID:Media` messages immediately after the associated event occurs.
 
+The player must not queue messages in cases where the creative iframe initialization happens in the middle of the ad media playback. The player posts only messages that communicate events that occur after the iframe initialization.
 
+`SIMID:Media` messages are information-only; they do not trigger `resolve/reject` responses from the creative.
 
+The player may elect to report all standard HTML media events to the creative. However, the creative should not expect to receive messages with optional types. (See <a href="#table-media-events">table</a> below.)
+
+Some `SIMID:Media` messages - `durationchange`, `error`, `timeupdate`, and `volumechange` - require additional data provided with `Message.args` parameters. 
+
+<p table-header id="table-media-events">Required and optional media event types.</p>
+
+<table class="alternatecolor two-col-split">
+  <tbody>
+    <tr>
+      <th>Event Name</th>
+      <th>Required</th>
+      <th width="2%" style="background:#FF0000"></th>
+	  <th>Event Name</th>
+      <th>Required</th>
+	  <th width="2%" style="background:#FF0000"></th>
+	  <th>Event Name</th>
+      <th>Required</th>
+    </tr>
+<tr><td>`abort`</td><td></td><td></td><td>`interruptend`</td><td></td><td></td><td>`seeked`</td><td req></td></tr>
+<tr><td>`canplay`</td><td></td><td></td><td>`loadeddata`</td><td></td><td></td><td>`seeking`</td><td req></td></tr>
+<tr><td>`canplaythrough`</td><td></td><td></td><td>`loadedmetadata`</td><td></td><td></td><td>`stalled`</td><td req></td></tr>
+<tr><td>`durationchange`</td><td req></td><td></td><td>`loadstart`</td><td></td><td></td><td>`suspend`</td><td></td></tr>
+<tr><td>`emptied`</td><td></td><td></td><td>`pause`</td><td req></td><td></td><td>`timeupdate`</td><td req></td></tr>
+<tr><td>`encrypted`</td><td></td><td></td><td>`play`</td><td req></td><td></td><td>`volumechange`</td><td req></td></tr>
+<tr><td>`ended`</td><td req></td><td></td><td>`playing`</td><td req></td><td></td><td class="last-row">`waiting`</td><td class="last-row"></td></tr>
+<tr><td>`error`</td><td req></td><td></td><td>`progress`</td><td></td><td></td><td class="empty"></td><td class="empty"></td></tr>
+<tr><td>`interruptbegin`</td><td></td><td></td><td>`ratechange`</td><td></td><td></td><td class="empty"></td><td class="empty"></td></tr>
+
+  </tbody>
+</table>
 ### SIMID:Media:durationchange ### {#simid-media-durationchange}
-Should be sent after the durationchange event is triggered on the media element.
 
-parameters:
-- duration(float): The number in seconds of the video duration. For server side ad insertion this must be calculated
-	to be the total duration of the ad.
-
-### SIMID:Media:ended ### {#simid-media-ended}
-Should be sent after the ended event is triggered on the media element.
-
-### SIMID:Media:error ### {#simid-media-error}
-Should be sent after the error event is triggered on the media element.
-
-parameters:
-- error(DOMString): corresponds to videoElement.error.code.
-- message(DOMString): corresponds to videoElement.error.message.
-
-### SIMID:Media:pause ### {#simid-media-pause}
-Should be sent after the pause event is triggered on the media element.
-
-### SIMID:Media:play ### {#simid-media-play}
-Should be sent after the play event is triggered on the media element.
-
-### SIMID:Media:playing ### {#simid-media-playing}
-Should be sent after the playing event is triggered on the media element.
-
-### SIMID:Media:seeked ### {#simid-media-seeked}
-Should be sent after the seeked event is triggered on the media element.
-
-### SIMID:Media:seeking ### {#simid-media-seeking}
-Should be sent after the seeking event is triggered on the media element.
-
-### SIMID:Media:stalled ### {#simid-media-stalled}
-Should be sent after the stalled event is triggered on the media element.
-
-### SIMID:Media:timeupdate ### {#simid-media-timeupdate}
-Should be sent after the timeupdate event is triggered on the media element.
-
-parameters:
-- currentTime(number): corresponds to videoElement.currentTime attribute. For server side ad insertion
-	this must be calculated to be the total time the video ad has played. For example: if the media element
-	time is 500 seconds but the ad started playback 10 seconds ago (in DAI), currentTime should be set to 10 seconds.
-
-### SIMID:Media:volumechange ### {#simid-media-volumechange}
-Should be sent after the volumechange event is triggered on the media element.
-
-parameters:
-- volume(number): corresponds to videoElement.volume attribute.
-
-## Messages from the player ## {#player-messages}
-All messages from the player should be prepended with SIMID:Player.
-
-For example:
-
-<xmp>
-{
- type: "SIMID:Player:adStopped",
- args: {
-	 code: 0
- }
-}
-</xmp>
-
-
-### SIMID:Player:adSkipped ### {#simid-player-adSkipped}
-This indicates the player will skip the ad. The player should hide the creative and stop video playback in this case.
-The player should wait for a response before unloading the creative iframe.
-
-#### resolve #### {#simid-player-adSkipped-resolve}
-After resolve is received, the iframe will be removed.
-
-### SIMID:Player:adStopped ### {#simid-player-adStopped}
-This message indicates that the player has stopped the ad. The player hides the creative and stops video playback before posting `Player.adStopped`.
-
-The player should wait for the `resolve` response before unloading the creative iframe. The player should implement a reasonable timeout to allow for creative to conclude ad end logic.
-
-parameters:
-- code(int): reason for ad stopping
-
-The player should use the following table to determine which code to send.
- - 0: Unspecified
- - 1: User initiated close
- - 2: Ad media playback complete
- - 3: Player initiating close before media playback complete
- - 4: Creative initiated close
- 
-In response to `SIMID:Player:adStopped`, creative finalizes the ad end logic and responds with `resolve` message.
-
-#### resolve #### {#simid-player-adStopped-resolve}
-After resolve is received, the player removes the creative iframe.
-
-### SIMID:Player:appBackgrounding ### {#simid-player-app-backgrounding}
-The ad is in app and the app is going to move to the background.
-
-#### resolve #### {#simid-player-app-backgrounding-resolve}
-The player should try wait for a resolve message from the creative before the backgrounding hook
-is complete. Any creative that does nothing should resolve this message immediately.
-
-### SIMID:Player:appForegrounding ### {#simid-player-app-foregrounding}
-The ad is in app and the app has moved from the background to the foreground.
-
-### SIMID:Player:fatalError ### {#simid-player-fatalError}
-The player has encountered a fatal error that will cause ad playback to stop. The player should stop video playback if
-possible. Regardless of if playback is stopped the player should hide the creative and try to wait for a response
-before unloading the creative iframe.
-
-- errorCode(int): reason for error. See [[#error-codes]]
-- errorMessage(DOMString): Any additional information.
-
-#### resolve #### {#simid-player-fatalError-resolve}
-After resolve is received, the iframe will be removed.
-
-### SIMID:Player:init ### {#simid-player-init}
-
-To assist in preloading assets the player must send the SIMID:Player:init message
-before SIMID:Player:startCreative.  The player should send this message early
-enough before playback so that assets can be displayed as soon as the ad starts.
-
-The ad, however, should not assume it is given any amount of time between the
-SIMID:Player:init message and the SIMID:Player:startCreative message.
-For example a preroll might send SIMID:Player:startCreative immediately
-after SIMID:Player:init.
-
-With SIMID:Player:init, the player shall provide the following parameters:
+When the duration of the media changes due to the player receiving the media resource metadata (in HTML, `HTMLMediaElement` dispatches the `durationchange` event), the player posts a `SIMID:Media:durationchange` message.
 
 <xmp class="idl">
-dictionary InitParameters {
+dictionary MessageArgs {
+	required float duration;
+};
+</xmp>
+
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+  <dt><dfn>duration</dfn>
+  <dd>The duration of the media in seconds. In HTML, HTMLMediaElement.duration value.*
+</dl>
+<ul class="footnote">
+<li>In SSAI, `HTMLMediaElement.duration` value does not express the actual ad media duration. In such cases, the player must compute the ad’s actual media length.</li>
+</ul>
+### SIMID:Media:ended ### {#simid-media-ended}
+When the media playback completes (in HTML, `HTMLMediaElement` dispatches `ended` event), the player posts a `SIMID:Media:ended` message. 
+
+### SIMID:Media:error ### {#simid-media-error}
+When playback throws an exception (in HTML, `HTMLMediaElement` dispatches `error` event), the player posts `SIMID:Media:error` message.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required unsigned short error;
+	required DOMString message;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>error</dfn>
+	<dd>In HTML, the value of `HTMLMediaElement.error.code`. Codes:
+	<ul class="values-list">
+		<li>`1` The media download was canceled</li>
+		<li>`2` Network error</li>
+		<li>`3` The player failed to decode the media</li>
+		<li>`4` Environment does not support media resource</li>
+	</ul>
+  <dt><dfn>message</dfn>
+  <dd>In HTML, the value of `HTMLMediaElement.error.message`.
+</dl>
+
+### SIMID:Media:pause ### {#simid-media-pause}
+When the media pauses (in HTML, `HTMLMediaElement` dispatches `pause` event), the player posts a `SIMID:Media:pause` message.
+
+### SIMID:Media:play ### {#simid-media-play}
+When media playback starts as a result of autoplay or its state is no longer paused (in HTML, `HTMLMediaElement` dispatches `play` event),  the player posts a `SIMID:Media:play` message.
+
+
+### SIMID:Media:playing ### {#simid-media-playing}
+The player posts a `SIMID:Media:playing` message in one of the following cases:
+* the media has enough data to start playback;
+* the media recovered from `stalled` state;
+* playback restarts;
+* after seek operation completion. 
+
+In HTML, the player posts `Media:play` message when `HTMLMediaElement` dispatches `playing` event.
+
+
+### SIMID:Media:seeked ### {#simid-media-seeked}
+When user finished moving playhead into a new position (in HTML, `HTMLMediaElement` dispatches `seeked` event), the player posts a `SIMID:Media:seeked` message.
+
+
+### SIMID:Media:seeking ### {#simid-media-seeking}
+When user initiates seek operation (in HTML, `HTMLMediaElement` dispatches `seeking` event), the player posts a `SIMID:Media:seeking` message.
+
+
+### SIMID:Media:stalled ### {#simid-media-stalled}
+When media data is not available for rendering (in HTML, `HTMLMediaElement` dispatches `stalled` event), the player posts a `SIMID:Media:stalled` message.
+
+### SIMID:Media:timeupdate ### {#simid-media-timeupdate}
+The player communicates media playhead position by posting a `SIMID:Media:timeupdate` message. The message `Media:timeupdate` frequency should be not less than every 250ms.
+
+In HTML, the player sends `Media:timeupdate` message when` HTMLMediaElement` dispatches `timeupdate` event.
+<xmp class="idl">
+dictionary MessageArgs {
+	required float currentTime;
+};
+</xmp>
+
+<dl dfn-type=attribute dfn-for=MessageArgs class="idl highlight def">
+  <dt><dfn>currentTime</dfn>
+  <dd>The value in seconds. In HTML, `HTMLMediaElement.currentTime` property value.
+</dl>
+<p class="note">In Server-Side Ad Insertion, the client-side media playback is a continuous stream, which requires additional `currentTime` calculations. For the current ad, the player must compute `currentTime` value as a delta between the actual playhead position and the time the ad started.</p>
+
+
+### SIMID:Media:volumechange ### {#simid-media-volumechange}
+When the media audio state changes (in HTML, `HTMLMediaElement` dispatches `volumechange` event), the player posts a `SIMID:Media:volumechange` message.
+<xmp class="idl">
+dictionary MessageArgs {
+	required float volume;
+	required boolean muted;
+};
+</xmp>
+
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+  <dt><dfn>volume</dfn>
+  <dd>The number between `0` and `1`.*
+  <dt><dfn>muted</dfn>
+  <dd>`true` if audio is muted.*
+</dl>
+<ul class="footnote">
+<li>Properties `volume` and `muted` describe two independent audio states. While media is muted, its `volume` may be greater than zero; while `volume` is zero, media may be unmuted.</li>
+</ul>
+
+## Messages from the player ## {#player-messages}
+SIMID specifies a group of messages that enables the player to transmit data, instructions, or state changes to the creative. The player prepends such message types with the `SIMID:Player` namespace.
+
+`SIMID:Player` messages do not communicate ad media states; SIMID dedicates [[#media-messages]] to report media status.
+
+While some `SIMID:Player` messages expect `resolve` and/or `reject` creative responses, other messages do not require replies.
+
+<p table-header id="table-player-messages">`SIMID:Player` messages summary.</p>
+<table class="alternatecolor messages-summary">
+	<tbody>
+		<tr>
+			<th width="40%">Message type</th>
+			<th width="30%">`ars` parameters</th>
+			<th width="30%">Responses</th>
+		</tr>
+		<tr>
+			<td>[[#simid-player-adSkipped]]</td>
+			<td>n/a</td>
+			<td>[[#simid-player-adSkipped-resolve]]</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-adStopped]]</td>
+			<td>`code`</td>
+			<td>[[#simid-player-adStopped-resolve]]</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-app-backgrounding]]</td>
+			<td>n/a</td>
+			<td>[[#simid-player-app-backgrounding-resolve]]</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-app-foregrounding]]</td>
+			<td>n/a</td>
+			<td>n/a</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-fatalError]]</td>
+			<td>`errorCode`<br>`errorMessage`</td>
+			<td>[[#simid-player-fatalError-resolve]]</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-init]]</td>
+			<td>`environmentData`<br>`creativeData`</td>
+			<td>[[#simid-player-init-resolve]]<br>[[#simid-player-init-reject]]</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-log]]</td>
+			<td>`message`</td>
+			<td>n/a</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-resize]]</td>
+			<td>`mediaDimensions`<br>`creativeDimensions`<br>`fullScreen`</td>
+			<td>n/a</td>
+		</tr>
+		<tr>
+			<td>[[#simid-player-startCreative]]</td>
+			<td>n/a</td>
+			<td>[[#simid-player-startCreative-resolve]]<br>[[#simid-player-startCreative-reject]]</td>
+		</tr>
+		
+	</tbody>
+</table>
+
+### SIMID:Player:adSkipped ### {#simid-player-adSkipped}
+The player posts a `SIMID:Player:adSkipped` message immediately after the user ends ad experience. For example, by clicking on the player-owned <button skip-ad>Skip Ad</button> button. The player must stop the media and hide the creative iframe before sending the `Player:adSkipped` message.
+
+
+The player waits for the `resolve` creative response. The player may time out if the creative takes too long to respond and unload the iframe. The timeout should be reasonable to allow creative to conclude ad-end logic.  
+
+#### resolve #### {#simid-player-adSkipped-resolve}
+The creative must respond to `Player:adSkipped` with `resolve` once its internal ad-end processes finalize. When the player receives `resolve`, it unloads the creative iframe.
+
+### SIMID:Player:adStopped ### {#simid-player-adStopped}
+The player posts a `SIMID:Player:adStopped` message immediately after it terminates the ad for any reason other than a user generated skip.  See [[#simid-player-adSkipped]].
+
+The player must stop media playback and hide the creative iframe before reporting `Player:adStopped`. The player must wait for a `resolve` response from the creative allotting a reasonable timeout to accommodate creative’s needs to finalize the ad-end logic.
+<xmp class="idl">
+dictionary MessageArgs {
+	required unsigned short code;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>code</dfn>
+	<dd>Ad stop cause code. Values:
+	<ul class="values-list">
+		<li>`0` Unspecified</li>
+		<li>`1` User-initiated close</li>
+		<li>`2` Auto-close due to media playback completion</li>
+		<li>`3` Player-initiated close before media playback completion</li>
+		<li>`4` Creative-initiated close</li>
+	</ul>
+</dl>
+
+#### resolve #### {#simid-player-adStopped-resolve}
+The creative must respond to `Player:adStopped` with `resolve` once its internal ad-end processes finalize. When the player receives `resolve`, it unloads the creative iframe.
+
+### SIMID:Player:appBackgrounding ### {#simid-player-app-backgrounding}
+Within mobile in-app ads, when the app moves to the background, the player posts a `SIMID:Player:appBackgrounding` message.
+
+#### resolve #### {#simid-player-app-backgrounding-resolve}
+
+
+<p class="note" warning>Response to `appBackgrounding` with `resolve` has been deprecated.</p>
+
+### SIMID:Player:appForegrounding ### {#simid-player-app-foregrounding}
+Within mobile in-app ad executions, when the app moves from the background to the foreground, the player posts a `SIMID:Player:appForegrounding` message.
+
+### SIMID:Player:fatalError ### {#simid-player-fatalError}
+The player posts a `SIMID:Player:fatalError` message when it encounters exceptions that disqualify the ad from displaying any longer. If feasible, the player stops the ad media. Regardless of the player's ability to terminate playback, the player should hide creative iframe and wait for `resolve` response before unloading iframe.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required unsigned short errorCode;
+	DOMString errorMessage;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>errorCode</dfn>
+	<dd>See § 8.4 Error Codes.
+	<dt><dfn>errorMessage</dfn>
+	<dd>Additional information
+</dl>
+
+#### resolve #### {#simid-player-fatalError-resolve}
+The creative must respond to `Player:fatalError` with `resolve`. After `resolve arrives`, the player should remove the iframe. 
+
+### SIMID:Player:init ### {#simid-player-init}
+The purpose of the `SIMID:player:init` message is to transport data to assist with the interactive component initialization. See <a href="#diagram-player-init-normal">Diagram 5. Normal Creative Initilaizatioin Sequence</a>.
+
+The player should post `Player:init` as soon as the iframe dispatches a load event (<a href="#diagram-player-init-normal">diagram</a>, <span steps><b>3</b><b>4</b></span>). SIMID creative code must be ready to process `Player:init` message immediately (<a href="#diagram-player-init-normal">diagram</a>, <span steps><b>5</b></span>). 
+
+The creative must respond to `Player:init` with either [[#simid-player-init-resolve]] or [[#simid-player-init-reject]]. 
+
+**Typical flow**
+
+The cohesive linear ad experience implies the simultaneous start of media playback and display of the functional interactive overlay. Once the SIMID interactive module consumes information transmitted by the `init` message, its internal sub-loading sequences and dynamic data-driven logic may create delays in creative readiness. To accommodate these latencies, the player posts an `init` message before ad media playback begins and waits for the SIMID iframe to respond with resolve. After the player gets a resolve message (<a href="#diagram-player-init-normal">diagram 5</a>, <span steps><b>4</b></span>), it posts [[#simid-player-startCreative]] at its discretion (<a href="#diagram-player-init-normal">diagram 5</a>, <span steps><b>5</b></span>). 
+
+<div diagram id="diagram-player-init-normal">
+	<p>Normal Creative Initilaization Sequence</p>
+	<img src="images/dgrm-init-normal.png" alt="Normal Creative Initilaizatioin Sequence"/>
+	<ol dgrm-details>
+		<li>Creative initializes the session.</li>
+		<li>Player posts `Player:init` message immediately upon session creation.</li>
+		<li>Creative proccesses initialization data and finalizes assets loading. Sub-loading routines may cause latencies.</li>
+		<li>Creative responds with [[#simid-player-init-resolve]].</li>
+		<li>Player posts [[#simid-player-startCreative]] when it is ready to render interactive component.</li>
+	</ol>
+</div>
+
+
+**Special Cases**
+
+See <a href="#diagram-player-init-special">Diagram 6. Special Creative Initialization Cases</a>. 
+
+Certain publisher environments prohibit media playback interruptions; as a result, waiting for the interactive portion of the ad experience to be available is not possible. The media player renders the ad media immediately - before creative confirms its readiness. (<a href="#diagram-player-init-special">diagram 6</a>, <span steps><b>1</b></span>). Some examples include SSAI and live broadcasts. 
+
+In these situations, as with the typical flow, the player keeps iframe invisible and refrains from the further posting of messages to creative until `resolve` response comes.
+
+<div diagram id="diagram-player-init-special">
+	<p>Special Creative Initialization Cases</p>
+	<img src="images/dgrm-init-special.png" alt="Creative initialization slecial cases sequence">
+	<ol dgrm-details>
+		<li>Player initializes ad media playback.</li>
+		<li>Player posts `Player:init` message after ad media playback started.</li>
+		<li>Creative proccesses initialization data and finalizes assets loading. Sub-loading routines may cause latencies.</li>
+		<li>Creative responds with [[#simid-player-init-resolve]].</li>
+		<li>Player posts [[#simid-player-startCreative]] when it is ready to render interactive component.</li>
+	</ol>
+</div>
+
+
+<xmp class="idl">
+dictionary MessageArgs {
 	required EnvironmentData environmentData;
 	required CreativeData creativeData;
 };
 </xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>environmentData</dfn>
+	<dd>Information about publisher’s environment and media player capacities.
+	<dt><dfn>creativeData</dfn>
+	<dd>Information that pertains to the specific creative.
+</dl>
+
+
 <xmp class="idl">
 dictionary CreativeData {
 	required DOMString adParameters;
 	DOMString clickThruUrl;
 };
 </xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>adParameters</dfn>
+	<dd>Typically, the value of VAST `<AdParameters>` node.
+	<dt><dfn>clickThruUrl</dfn>
+	<dd>Value of VAST `<ClickThrough>` node.
+</dl>
+
 <xmp class="idl">
 dictionary EnvironmentData {
-	required VideoDimensions videoDimensions;
-	required CreativeDimensions creativeDimensions;
+	required Dimensions videoDimensions;
+	required Dimensions creativeDimensions;
 	required boolean fullScreen;
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
@@ -588,292 +1041,741 @@ dictionary EnvironmentData {
 	float volume;
 };
 
+dictionary Dimensions {
+	required long x;
+	required long y;
+	required long width;
+	required long height;
+};
+
 enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 </xmp>
 
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>videoDimensions</dfn>
+	<dd>Communicates media element coordinates and size.
+	<dt><dfn>creativeDimensions</dfn>
+	<dd>Communicates creative iframe coordinates and size the player will set when iframe becomes visible.
+	<dt><dfn>fullScreen</dfn>
+	<dd>The value `true` indicates that the player is currently in full-screen mode.
+	<dt><dfn>fullscreenAllowed</dfn>
+	<dd>Communicates the player’s capacity to toggle screen modes.
+	<ul collapse>
+		<li>The value `true` indicates that creative may request screen mode change.</li>
+		<li>The value `false` denotes that the player will reject calls to change screen mode.*</li>
+	</ul>
 
-- {{CreativeData}} is used to pass information associated
-	with the creative (sometimes taken from VAST). In a VAST context, the ad unit
-	should pass the value for either the `Linear` or `Nonlinear` `AdParameter`
-	element specified in the VAST document.
-		- {{CreativeData/adParameters}} ad parameters from VAST, or an empty string
-			if unknown.
-		- {{CreativeData/clickThruUrl}} The click through url, provided from VAST.
-			If there is no click through url, do not set this variable.
+	<dt><dfn>variableDurationAllowed</dfn>
+	<dd>Communicates player’s capacities† to:
+		<ol collapse alpha>
+			<li>interrupt ad playback progress – the ability to pause the media;</li>
+			<li>extend ad user experience length beyond ad media duration after ad playback completion;</li>
+			<li>accommodate creative’s ad stop request.</li>
+		</ol>
+		The value `true` asserts that the player can:
+		<ul collapse>
+			<li>pause media playback in response to creative’s requests;</li>
+			<li>extend ad experience after media playback completion (and abstaining from ad unloading) if the creative posts ad duration change instructions;</li>
+			<li>accommodate creative’s ad stop request.‡</li>
+		</ul>
+	<dt><dfn>skippableState</dfn>
+		<dd>Expresses:
+			<ol collapse alpha>
+				<li>player’s ability to skip the ad;†</li>
+				<li>VAST skippability-associated instructions logic management;</li>
+				<li><button skip-ad>Skip Ad</button> button handling delegation.</li>
+			</ol>
+			The value `playerHandles` indicates that all of the following applies:
+			<ul collapse>
+				<li>the publisher controls skippability logic (including handling of VAST `skipoffset` directives);</li>
+				<li>either VAST contains `skipoffset` or the skippability is the publisher-administered behavior;</li>
+				<li>the player implements the <button skip-ad>Skip Ad</button> button;</li>
+				<li>the player will ignore skip requests from the creative.</li>
+			</ul>
+			The value `adHandles` signals that the player:
+			<ul collapse>
+				<li>can skip the ad;</li>
+				<li>does not implement internal <button skip-ad>Skip Ad</button> button;</li>
+				<li>disregards VAST skippability directives;</li>
+				<li>will skip the ad in response to [[#simid-creative-requestSkip]] message.§</li>
+			</ul>
+			The value `notSkippable` declares that the player:
+			<ul collapse>
+				<li>cannot skip the ad;</li>
+				<li>ignores VAST skippability instructions;</li>
+				<li>will disregard skip request from the creative.</li>
+			</ul>
+			With both `playerHandles` and `notSkippable`, the creative avoids the <button skip-ad>Skip Ad</button> button drawing.
+	<dt><dfn>version</dfn>
+	<dd>The SIMID version the player implements.
+	<dt><dfn>muted</dfn>
+	<dd>`true` if the player § is muted.◊
+	<dt><dfn>volume</dfn>
+	<dd>player’s § volume – expressed as a number between `0` and `1.0`.
+	<dt><dfn>siteUrl</dfn>
+	<dd>The URI of the publisher’s site. May be full or partial URL.
+	<dt><dfn>appId</dfn>
+	<dd>The ID of the mobile app, if applicable.
+	<dt><dfn>useragent</dfn>
+	<dd>The information about SDKs as well as the player’s vendor and version. The value should comply with VAST-specified conventions.
+	<dt><dfn>deviceId</dfn>
+	<dd>IDFA or AAID
+	
+	
+</dl>
 
-
-- {{EnvironmentData}} is used to pass information associated with the
-	publisher playback environment.
-	The object should have the following fields.
-		- {{EnvironmentData/videoDimensions}} indicates the video display area, see [[#simid-player-resize]]
-		- {{EnvironmentData/creativeDimensions}} indicates the creative display
-			area, see [[#simid-player-resize]]
-		- {{EnvironmentData/fullScreen}} True if fullscreen.
-		- {{EnvironmentData/fullscreenAllowed}}: True if the creative may choose
-			to display or not display a fullscreen option
-		- {{EnvironmentData/variableDurationAllowed}}: If set to true the player
-			must allow the SIMID creative to pause player-controlled video playback
-			during the ad. If `false` it will not (live streaming is a use case). An
-			example use case here is a clickthru overlay, where `variableDuration`
-			(ad requirement) is `false`, but
-			{{EnvironmentData/variableDurationAllowed}} (publisher capability) can be
-			`true` or `false`. It should not be used in any case where disallowing
-			the pause interferes with the ad KPIs (for example if it can interfere
-			with completions, time spent in an interactive component, etc).
-		- {{EnvironmentData/skippableState}}: indicates whether the ad may be
-			skippable and which party controls the skippability, must be one of the
-			{{SkippableState}} enum values.
-				- {{SkippableState/playerHandles}}: The player will render a skip
-					button and might skip the ad.
-				- {{SkippableState/adHandles}}: The ad may or may not render a skip
-					button.
-				- {{SkippableState/notSkippable}}: The ad cannot be skipped and the
-					SIMID creative should not render a skip button. This may be common in
-					DAI for live streams.
-		- {{EnvironmentData/version}}: The version of SIMID that this player uses.
-		- {{EnvironmentData/siteUrl}} Indicating the website the ad will play on,
-			for example if the site was `www.xyz.com/videoId`, this information would
-			include at least `www.xyz.com`. The player may give more information.
-			Desired for reporting and troubleshooting.
-		- {{EnvironmentData/appId}} The id of the app if applicable
-		- {{EnvironmentData/useragent}} Data about sdks and players
-		- {{EnvironmentData/deviceId}} IDFA or AAID would be used primarily for 3rd
-			party tracking of custom events
-		- {{EnvironmentData/muted}} (boolean): True if the audio is muted.
-		- {{EnvironmentData/volume}} (number): The volume, which should be between 0 and 1.0.
-
-
+<ul class="footnote">
+	<li>see [[#simid-creative-requestFullScreen]] and [[#simid-creative-requestExitFullScreen]] messages.</li>
+	<li>In SSAI, live broadcast, and other time-constrained environments, the player must support uninterrupted media (both content and ads) playback progress. Specifically, the player may not be able to pause the media, shorten ad, or extend user ad experience.</li>
+	<li>see [[#simid-creative-requestPause]], [[#simid-creative-requestPlay]], [[#simid-creative-requestChangeAdDuration]], and [[#simid-creative-requestStop]].</li>
+	<li>SIMID does not expect device audio state information.</li>
+	<li>Values of `muted` and `volume` are independent. While the player is muted, `volume` can be greater than zero; the `volume` zero does not mean the player is muted.</li>
+</ul>
 
 #### resolve #### {#simid-player-init-resolve}
-The creative acknowledges the initialization parameters.
+
+See <a href="#diagram-player-init-resolve-timeout">Diagram 7. `Player:init resolve` Timeout Sequence</a>.
+
+The creative responding to `Player:init` with a `resolve` message is the critical step in SIMID ad serving flow (<a href="#diagram-player-init-special">diagram 6</a>,  <span steps><b>4</b></span> above). The player keeps SIMID iframe invisible and does not post either `SIMID:Player` or `SIMID:Media` messages until the iframe replies with a `resolve`.
+
+The player may elect to unload the iframe that fails to respond with a resolution within a reasonable time. If the creative fails to respond to a `Player:init`, to proceed with a usable impression, the player may continue with ad media rendering only (<a href="#diagram-player-init-resolve-timeout">diagram 7</a>,  <span steps><b>2</b></span>). In such cases, the player must report the VAST error tracker (if available) with the code XXX (<a href="#diagram-player-init-resolve-timeout">diagram 7</a>,  <span steps><b>5</b></span>).
+
+
+<div diagram id="diagram-player-init-resolve-timeout">
+	<p>`Player:init resolve` Timeout Sequence</p>
+	<img src="images/dgrm-init-resolve-timeout.png" alt="Player:init resolve timeout">
+	<ol dgrm-details>
+		<li>Player posts `Player:init` message and establishes a timeout.</li>
+		<li>Player starts ad media playback upon timeout expiration.</li>
+		<li>Player unloads the creative iframe.</li>
+		<li>Player reports impression tracker.</li>
+		<li>Player reports error tracker.</li>
+	</ol>
+</div>
+
+
+
 #### reject #### {#simid-player-init-reject}
-- reason(DOMString): An optional string error message
-- errorCode(int): The code for what went wrong in initialization. See [[#error-codes]]
+
+See <a href="#diagram-player-init-reject">Diagram 8. `Player:init reject` Sequence</a>.
+
+The creative may respond with a `reject` based on its internal logic. Under typical circumstances, in reaction to a `reject`, the player should abandon the ad.
+
+If the player cannot discard the ad (for example with a live stream), it unloads the iframe, plays the ad media, and reports impression, similar to the response timeout flow rules.
+
+<div diagram id="diagram-player-init-reject">
+	<p>`Player:init reject` Timeout Sequence</p>
+	<img src="images/dgrm-init-reject-timeout.png" alt="Player:init reject sequence.">
+	<ol dgrm-details>
+		<li>Player posts `Player:init` message.</li>
+		<li>Creative responds with a `reject`.</li>
+		<li>Player unloads the creative iframe.</li>
+		<li>Player abandons the ad.</li>
+	</ol>
+</div>
+
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required unsigned short errorCode;
+	DOMString reason;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>errorCode</dfn>
+	<dd>See [[#error-codes]].
+	<dt><dfn>reason</dfn>
+	<dd>Optional information about rejection cause.
+</dl>
 
 ### SIMID:Player:log ### {#simid-player-log}
-The player is sending a log message to the creative.
+The purpose of the Player:log message is to convey optional, primarily debugging, information to the creative.
 
-Note: If the creative is doing something out of spec and the player
-will not exit with a fatal error, the player's log message should
-start with "WARNING:". Creative developers should monitor for this message.
+Note: If the player posts log message to communicate creative’s performance inefficiencies or specifications deviations that do not impede ad experience progress, the player should prefix the message parameter value with “WARNING:” string. Warning messages are used to inform interested parties about non-fatal issues occurring. 
 
-parameters:
-- message(DOMString): Logging information from the player to the creative.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required DOMString message;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>message</dfn>
+	<dd>Logging information.
+</dl>
 
 ### SIMID:Player:resize ### {#simid-player-resize}
+When the player changes any of ad components’ size, it posts the `SIMID:Player:resize` message. The message describes the media and creative sizes, independently, even if the dimensions are identical.
 
-parameters:
 <xmp class="idl">
-dictionary ResizeParameters {
-	required VideoDimensions videoDimensions;
-	required CreativeDimensions creativeDimensions;
+dictionary MessageArgs {
+	required Dimensions videoDimensions;
+	required Dimensions creativeDimensions;
 	required boolean fullScreen;
 };
-</xmp>
-<xmp class="idl">
-dictionary VideoDimensions {
+
+dictionary Dimensions {
 	required long x;
 	required long y;
 	required long width;
 	required long height;
 };
 </xmp>
-<xmp class="idl">
-dictionary CreativeDimensions {
-	required long x;
-	required long y;
-	required long width;
-	required long height;
-};
-</xmp>
-
-The {{VideoDimensions}} communicate to the creative the dimensions of the video element.
-The {{CreativeDimensions}} tell the creative where the iframe is located as well as its dimensions. If the iframe is
-not yet visible (like during initialization) these dimensions will be the expected dimensions when it does become visible.
-
-- {{VideoDimensions}}
-		- {{VideoDimensions/x}} The x offset of the video. It should initialize at 0. 0 is defined as the top left corner of the player.
-		- {{VideoDimensions/y}} The y offset of the video. It should initialize at 0. 0 is defined as the top left corner of the player.
-		- {{VideoDimensions/width}} The width in pixels of the video.
-		- {{VideoDimensions/height}} The height in pixels of the video.
-
-- {{CreativeDimensions}}
-		- {{CreativeDimensions/x}} The x offset of the creative. It should initialize at 0. 0 is defined as the top left corner of the player.
-		- {{CreativeDimensions/y}} The y offset of the creative. It should initialize at 0. 0 is defined as the top left corner of the player.
-		- {{CreativeDimensions/width}} The width in pixels of the creative.
-		- {{CreativeDimensions/height}} The height in pixels of the creative.
-
-- {{ResizeParameters}}
-		- {{ResizeParameters/fullScreen}} `true` if fullscreen.
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>mediaDimensions</dfn>
+	<dd>Media element size and coordinates.
+	<dt><dfn>creativeDimensions</dfn>
+	<dd>SIMID iframe size and coordinates.*
+	<dt><dfn>fullScreen</dfn>
+	<dd>Value is `true` when the ad is in full-screen mode.
+</dl>
+<ul class="footnote">
+	<li>If the  iframe is invisible at the time the player posts `resize` message, the parameter `creativeDimensions` communicates forthcoming values: iframe's size, and coordinates once it is displayed.</li>
+</ul>
 
 ### SIMID:Player:startCreative ### {#simid-player-startCreative}
 
-SIMID:Player:startCreative must be sent when the player is ready to make the iframe visible.
+See <a href="#diagram-player-startcreative">Diagram 9. Normal `Player:startCreative` Sequence</a>.
+
+The player posts `SIMID:player:startCreative` when it is ready to make the iframe visible. Under a typical flow, the player waits for a [[#simid-player-startCreative-resolve]] to display the SIMID iframe and to start media playback.
+
+In the circumstances that require uninterrupted media playback, the player posts `Player:startCreative` in the middle of the ad experience. See [[#simid-player-init]], section "Special Cases". 
+
+<div diagram id="diagram-player-startcreative">
+	<p>Normal `Player:startCreative` Sequence</p>
+	<img src="images/dgrm-startCreative-normal.png" alt="startCreative normal sequence.">
+	<ol dgrm-details>
+		<li>Player posts `Player:startCreative`.</li>
+		<li>Creative responds with a `resolve`.</li>
+		<li>Player displays the creative iframe.</li>
+		<li>Player starts ad media playback.</li>
+	</ol>
+</div>
+
 
 #### resolve #### {#simid-player-startCreative-resolve}
-The creative acknowledges that it has started playback. The player must make the creative visible to the user.
+By posting `resolve`, the creative acknowledges that it is ready for display. The player makes the iframe visible immediately upon a `resolve` receipt (<a href="#diagram-player-startcreative">diagram 9</a>,  <span steps><b>2</b></span>).
+
+
 #### reject #### {#simid-player-startCreative-reject}
-- reason(DOMString): An optional string error message
-- errorCode(int): The code for what went wrong in initialization. See [[#error-codes]]
+
+See <a href="#diagram-player-startcreative-reject">Diagram 10. `Player:startCreative reject` Sequence</a>.
+
+By posting a `reject` message, the creative expresses a preference to stop ad execution. Normally, when the creative responds with a `reject`, the player unloads the iframe and abandons ad media. In certain cases (SSAI or live streaming), ad media playback may still happen at the discretion of the player (<a href="#diagram-player-startcreative-reject">diagram 10</a>,  <span steps><b>5</b></span>).
+
+If the player continues with the ad media playback despite the `reject` response to `Player:creativeStart`, it sends the VAST error tracker, if available, with the code provided by `reject` message `errorCode` argument (<a href="#diagram-player-startcreative-reject">diagram 10</a>,  <span steps><b>5.2</b></span>).  
+
+<div diagram id="diagram-player-startcreative-reject">
+	<p>`Player:startCreative reject` Sequence</p>
+	<img src="images/dgrm-startCreative-reject.png" alt="startCreative reject sequence.">
+	<ol dgrm-details>
+		<li>Player posts `Player:startCreative`.</li>
+		<li>Creative responds with a `reject`.</li>
+		<li>Player unloads the creative iframe.</li>
+		<li><b>Typical flow:</b> the  player abandons the ad.</li>
+		<li><b>Alternative flow:</b> the player starts ad media playback.
+		<ol>
+			<li>Player sends impression tracker.</li>
+			<li>Player reports error tracker.</li>
+		</ol>
+		</li>
+	</ol>
+</div>
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required unsigned short errorCode;
+	DOMString reason;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>errorCode</dfn>
+	<dd>See [[#error-codes]].
+	<dt><dfn>reason</dfn>
+	<dd>Additional information.
+	
+</dl>
 
 ## Messages from the Creative to the Player ## {#creative-messages}
-All functions should be prepended with SIMID:Creative
+The creative posts messages to the player to requests the ad’s state changes, obtain data, and to send notifications. The creative prefixes its messages with the namespace `SIMID:Creative`.
+
+`SIMID:Creative` messages may require the player to accept and process arguments. With some messages, the creative expects the player to respond with resolutions.
+
+<p table-header id="table-creative-messages">`SIMID:Creative` messages summary.</p>
+
+<table class="alternatecolor messages-summary">
+	<tbody>
+		<tr>
+			<th width="50%">Message type</th>
+			<th width="25%">`ars` parameters</th>
+			<th width="25%">Responses</th>
+		</tr>
+		<tr>
+			<td>[[#simid-creative-clickThru]]</td>
+			<td>`x`<br>`y`</td>
+			<td>n/a</td>
+		</tr>
+		<tr>
+			<td>[[#simid-creative-fatalError]]</td>
+			<td>`errorCode`<br>`errorMessage`</td>
+			<td>n/a</td>
+		</tr>
+		<tr>
+			<td>[[#simid-creative-getVideoState]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-getVideoState-resolve]]</td>
+		</tr>
+		<tr>
+			<td>[[#simid-creative-log]]</td>
+			<td>`message`</td>
+			<td>n/a</td>
+		</tr>
+			<td>[[#simid-creative-reportTracking]]</td>
+			<td>`trackingUrls`</td>
+			<td>[[#simid-creative-reportTracking-resolve]]<br>[[#simid-creative-reportTracking-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestChangeAdDuration]]</td>
+			<td>`duration`</td>
+			<td>[[#simid-creative-requestChangeAdDuration-resolve]]<br>[[#simid-creative-requestChangeAdDuration-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestChangeVolume]]</td>
+			<td>`volume`<br>`muted`</td>
+			<td>[[#simid-creative-requestChangeVolume-resolve]]<br>[[#simid-creative-requestChangeVolume-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestExitFullScreen]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-requestExitFullScreen-resolve]]<br>[[#simid-creative-requestExitFullScreen-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestFullScreen]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-requestFullScreen-resolve]]<br>[[#simid-creative-requestFullScreen-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestPause]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-requestPause-resolve]]<br>[[#simid-creative-requestPause-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestPlay]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-requestPlay-resolve]]<br>[[#simid-creative-requestPlay-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestResize]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-requestResize-resolve]]<br>[[#simid-creative-requestResize-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestSkip]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-requestSkip-resolve]]<br>[[#simid-creative-requestSkip-reject]]</td>
+		</tr>
+		</tr>
+			<td>[[#simid-creative-requestStop]]</td>
+			<td>n/a</td>
+			<td>[[#simid-creative-requestStop-resolve]]<br>[[#simid-creative-requestStop-reject]]</td>
+		</tr>
+		
+	</tbody>
+</table>
+
 
 ### SIMID:Creative:clickThru ### {#simid-creative-clickThru}
 
-The creative must handle click-thru due to the nature of cross-origin iframes. This message must only be sent in response to a user-initiated click that is considered a click-thru by the creative.
+The purpose of a `SIMID:Creative:clickThru` message is to assist the player with `clickthrough` tracking. SIMID delegates clickthrough execution to the creative, including redirecting the user to the landing page. The interactive component posts `clickThru` only when the creative classifies a user interaction as a clickthrough.
 
-The main purpose of this message is for the player to track click-thrus. Since not every navigation is a click-thru, it should not be used for adjusting media playback status (pause, mute). If the player wants to update media playback status as a result of navigation, it should detect it via some other environment-specific method (eg. [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) on web and in apps).
+The message `clickThru` is not an explicit media-pausing directive to the player. If the environment permits, the player should pause ad media in all cases when the user navigates away from the player hosting page or app, including clickthrough. See [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API).
 
-Parameters:
-- x (int): the x coordinate of the click relative to the left of the creative.
-- y (int): the y coordinate of the click relative to the top of the creative.
+<xmp class="idl">
+dictionary MessageArgs {
+	short x;
+	short y;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>x</dfn>
+	<dd>The click left offset in the creative’s coordinate system.
+	<dt><dfn>y</dfn>
+	<dd>The click top offset in the creative’s coordinate system.
+	
+</dl>
+
 
 ### SIMID:Creative:fatalError ### {#simid-creative-fatalError}
-After this message is received, the iframe should be unloaded and the video ad should stop playback if possible.
-If the video ad continues to play the iframe should still be unloaded.
+The creative posts `SIMID:Creative:fatalError` in cases when its internal exceptions prevent the interactive component from further execution. In response to the `fatalError` message, the player unloads the SIMID iframe and, if possible, ends ad media playback. 
 
-parameters:
-- errorCode(int): reason for error. See [[#error-codes]]
-- errorMessage(DOMString): Any optional additional information about the fatal error.
+<xmp class="idl">
+dictionary MessageArgs {
+	required insigned short errorCode;
+	DOMString errorMessage;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>errorCode</dfn>
+	<dd>See [[#error-codes]].
+	<dt><dfn>errorMessage</dfn>
+	<dd>Additional information.
+	
+</dl>
 
 ### SIMID:Creative:getVideoState ### {#simid-creative-getVideoState}
-Expects a response with information about the video state.
+The creative posts a `SIMID:Creative:getVideoState` message to request the current ad media states values.
+
 
 #### resolve #### {#simid-creative-getVideoState-resolve}
-- currentSrc(DOMString): The src of which ad has been chosen. This may need correction for server side ad insertion as
-	it should indicate the video media selected and not the url to the media playing.
-- currentTime(number): This should be the current time from the first frame of the video ad. In the case of DAI,
-	this number needs to be corrected. For example: if the video element time is 500 seconds but the ad started
-	playback 10 seconds ago (in DAI), this should be 10 seconds.
-- duration(number): This should be the duration of the ad. Server side ad insertion may need correction.
-- ended(boolean): corresponds exactly to video element ended attribute
-- muted(boolean): corresponds exactly to video element muted attribute
-- paused(boolean): corresponds exactly to video element paused attribute
-- volume(number): corresponds exactly to video element volume attribute
-- fullscreen(boolean): true if the video element is full screen, false otherwise
+The player should always respond  to `Creative:getVideoState` with a `resolve`, including situations when the player is unable to provide all expected values. 
 
-
+<xmp class="idl">
+dictionary MessageArgs {
+	DOMString currentSrc;
+	float currentTime;
+	float duration;
+	boolean ended;
+	boolean muted;
+	boolean paused;
+	float volume;
+	boolean fullscreen;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>currentSrc</dfn>
+	<dd>The URI to the media publisher chooses for the playback. This value is optional and may not be provided in the case of server side ad insertion.
+	<dt><dfn>currentTime</dfn>
+	<dd>The time elapsed since the first ad media frame.
+	<dt><dfn>duration</dfn>
+	<dd>Ad media duration.
+	<dt><dfn>ended</dfn>
+	<dd>In HTML, the value of `HTMLMediaElement.ended` attribute. 
+	<dt><dfn>muted</dfn>
+	<dd>In HTML, the value of `HTMLMediaElement.muted` attribute. 
+	<dt><dfn>paused</dfn>
+	<dd>In HTML, the value of `HTMLMediaElement.paused` attribute. 
+	<dt><dfn>volume</dfn>
+	<dd>In HTML, the value of `HTMLMediaElement.volume` attribute. 
+	<dt><dfn>fullscreen</dfn>
+	<dd>he value is `true` if the media element is in full screen.. 
+	
+	
+</dl>
 
 ### SIMID:Creative:log ### {#simid-creative-log}
-The creative is sending a log message to the player.
+The message `SIMID:Creative:log` enables the creative to communicate arbitrary information to the player.
 
-Note: If the player is doing something out of spec and the creative
-will not exit with a fatal error, the creatives log message should
-start with "WARNING:". Player developers should monitor for this message.
 
-parameters:
-- message(DOMString): Logging information sent from the creative to the player.
+Note: If the `log` message purpose is to notify the player about the player’s non-standard behavior, the creative prepends `Message.args.message` value with “WARNING:” `string`. Warning messages are used to inform interested parties about occuraeces of non-fatal issues. 
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required DOMString message;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>message</dfn>
+	<dd>Logging information.
+</dl>
 
 ### SIMID:Creative:reportTracking ### {#simid-creative-reportTracking}
-parameters:
-- trackingUrls(Array<String>): An array of tracking pixels that the publisher should fire.
 
-The creative is not required to use SIMID:Creative:reportTracking. However, the player
-must implement SIMID:Creative:reportTracking.
+The `SIMID:Creative:reportTracking` message enables a creative to delegate arbitrary metrics reporting to the player.
 
-All tracking urls sent through SIMID:Creative:reportTracking must have their
-macros replaced as though they were tracking pixels specified in VAST. Then they must
-be reported by the player as though they were tracking pixels.
+The creative may inject macros into trackers URIs.  
+
+In response to the `reportTracking` message, the player must:
+	<ul collapse>
+		<li>Send the trackers specified by the message as soon as possible.</li>
+		<li>Replace VAST-supported macros with the corresponding values.</li>
+		<li>Accept and send the trackers with custom macros – leave non-standard macros intact unless the publisher-ad integration involves custom macros processing.</li>
+	</ul>
+ 
+<xmp class="idl">
+dictionary MessageArgs {
+	required Array trackingUrls;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>trackingUrls</dfn>
+	<dd>`Array` of URIs.
+</dl>
 
 #### resolve #### {#simid-creative-reportTracking-resolve}
-The player sends resolve if tracking has been sent out. Returning resolve on this message
-should not block waiting for a response from the site.
-#### reject #### {#simid-creative-reportTracking-reject}
-The player did not send the tracking pixel.
+The player posts a `resolve` after it sends the trackers. 
 
-parameters:
-- reason(DOMString): An optional string error message
-- errorCode(int): The code for why the player did not attempt to send a tracking pixel. See [[#error-codes]]
+#### reject #### {#simid-creative-reportTracking-reject}
+The player posts a `reject` if it did not send the trackers.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required unsigned short errorCode;
+	DOMString reason;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>errorCode</dfn>
+	<dd>See [[#error-codes]].
+	<dt><dfn>reason</dfn>
+	<dd>Additional information.
+</dl>
 
 ### SIMID:Creative:requestChangeAdDuration ### {#simid-creative-requestChangeAdDuration}
-Extension in duration should only be in response to user interaction.
 
-paramaters:
-- duration(int): The new duration of the creative. -2 indicates unknown ad duration.
+See <a href="#diagram-durationchange-known">Diagram 11. Known Ad Duration Change Sequence</a> and <a href="#diagram-durationchange-unknown">Diagram 12. Unknown Ad Duration Change Sequence</a>.
+
+In SIMID, ad's media determines the initial ad duration. The ad span may change due to user interaction or other factors. When ad duration changes, the creative posts `Creative:requestChangeAdDuration` message that communicates an updated value. In response to the `requestChangeAdDuration` message, the player adjusts ad-end timing and updates its ad progress UI (eg., countdown).
+
+The creative expresses a known duration value in seconds. In cases the duration is unknown (typically due to user interaction), the value is `-2`. With a known duration, the player unloads the ad automatically once the countdown (ad remaining time) reaches zero (<a href="#diagram-durationchange-known">diagram 11</a>,  <span steps><b>4</b><b>5</b><b>6</b></span>). With the duration value `-2`, the player displays the ad indefinitely until the creative posts [[#simid-creative-requestStop]] (<a href="#diagram-durationchange-unknown">diagram 12</a>,  <span steps><b>4</b></span>). 
+
+Note: The player communicates its capacities to modify the ad duration with  [[#simid-player-init]] message args parameter `variableDurationAllowed`. If the value of `variableDurationAllowed` is `false`, the creative refrains from posting `requestChangeAdDuration` message.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required float duration;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>duration</dfn>
+	<dd>Value in seconds for a known duration.<br>
+	The value `-2` indicates an unknown duration. 
+</dl>
+
+<div diagram id="diagram-durationchange-known">
+	<p>Known Ad Duration Change Sequence</p>
+	<img src="images/dgrm-requestChangeAdDuration-known.png" alt="srequestChangeAdDuration known duration change handling.">
+	<ol dgrm-details>
+		<li>Player starts countdown. Countdown depends on the media progress.</li>
+		<li>Creative posts `requestChangeAdDuration` with the `duration` value greater than zero.</li>
+		<li>Player modifies countdown that now depends on the specified by the creative ad duration.</li>
+		<li>Countdown finishes.</li>
+		<li>Player receives countdown completion notification.</li>
+		<li>Player posts [[#simid-player-adStopped]] message.</li>
+	</ol>
+</div>
+
+<div diagram id="diagram-durationchange-unknown">
+	<p>Unkonw Ad Duration Change Sequence</p>
+	<img src="images/dgrm-requestChangeAdDuration-unknown.png" alt="srequestChangeAdDuration unknown duration change handling.">
+	<ol dgrm-details>
+		<li>Player starts countdown. Countdown depends on the media progress.</li>
+		<li>Creative posts `requestChangeAdDuration` with the `duration` value `-2`.</li>
+		<li>Player stops countdown.</li>
+		<li>Creative posts [[#simid-creative-requestStop]] message.</li>
+	</ol>
+</div>
+
+
 
 #### resolve #### {#simid-creative-requestChangeAdDuration-resolve}
-The player changed the ad duration.
+By posting `resolve` response to `requestChangeAdDuration` message, the player signals that it will respect requested duration by modifying the ad duration-dependent behaviors.
+
+Note: The player must accommodate an ad duration change directive if the value of the [[#simid-player-init]] message parameter `variableDurationAllowed` is `true`. 
+
+
 #### reject #### {#simid-creative-requestChangeAdDuration-reject}
-The player did not change the ad duration.
+By posting `reject` response to `requestChangeAdDuration` message, the player states that:
+	<ul collapse>
+		<li>It ignored the duration change request;</li>
+		<li>Ad media playback continues uninterrupted;</li>
+		<li>The player will stop and unload the ad once any of the prescribed player-side ad-end triggers arise.</li>
+	</ul>
+
+Note: The single SIMID-supported reason for a `reject` in response to `requestChangeAdDuration` is the player’s inability to alter media progress. 
+
 
 ### SIMID:Creative:requestChangeVolume ### {#simid-creative-requestChangeVolume}
-paramaters:
-- volume(float): a number between 0 and 1 indicating what volume the creative wants.
-- muted(boolean): True indicates the creative wants the volume muted.
+The creative requests ad volume change by posting a `SIMID:Creative:requestChangeVolume` message.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required float volume;
+	required boolean muted;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>volume</dfn>
+	<dd>The number between `0` and `1`.*
+	<dt><dfn>muted</dfn>
+	<dd>`true` if media audio should be muted.* 
+</dl>
+<ul class="footnote">
+<li>Properties `volume` and `muted` describe two independent audio states. While media is muted, its volume may be greater than zero; at the same time with zero volume, media may be unmuted.
+</li>
+</ul>
 
 #### resolve #### {#simid-creative-requestChangeVolume-resolve}
-The player has changed the volume as requested.
+By posting `resolve` message, the player signals it has changed the media audio states to the requested values.
 #### reject #### {#simid-creative-requestChangeVolume-reject}
-The player did not change to the requested volume.
-
+By posting `reject` message, the player signals that it did not change the audio state.
 
 ### SIMID:Creative:requestFullScreen ### {#simid-creative-requestFullScreen}
-The creative is requesting to go full screen. Not all browsers support this.
+The creative requests the player to transition the ad into full-screen mode by posting a `SIMID:Creative:requestFullScreen` message.
+
+Note: the player communicates its capacity to toggle screen modes with [[#simid-player-init]] message parameter `fullscreenAllowed`. When the value of `fullscreenAllowed` is `false`, the creative refrains from posting `Creative:requestFullScreen` message.
 
 #### resolve #### {#simid-creative-requestFullScreen-resolve}
-The player has gone full screen.
+By posting `resolve` response to `requestFullScreen` message, the player signals that it moved both the media element and the SIMID iframe into full-screen mode.
+
 #### reject #### {#simid-creative-requestFullScreen-reject}
-The player did not go full screen.
+By posting `reject` response to `requestFullScreen` message, the player signals that it did not change the screen mode because it is either:
+	<ul collapse>
+		<li>Incapable of toggling between screen modes.</li>
+		<li>Already in the full-screen mode.</li>
+		<li>Disallows full-screen mode.</li>
+	</ul>
 
 ### SIMID:Creative:requestExitFullScreen ### {#simid-creative-requestExitFullScreen}
-The creative is requesting to exit full screen.
+The creative requests the player to transition the ad into normal-screen mode by posting a `SIMID:Creative:requestExitFullScreen` message.
+
+Note: the player communicates its capacity to toggle screen modes with [[#simid-player-init]] message parameter `fullscreenAllowed`. When the value of `fullscreenAllowed` is false, the creative refrains from posting `Creative:requestExitFullScreen` message.
 
 #### resolve #### {#simid-creative-requestExitFullScreen-resolve}
-The player has exited full screen.
+By posting `resolve` response to `requestExitFullScree`n message, the player signals that it moved both the media element and the SIMID iframe into normal-screen mode.
+
 #### reject #### {#simid-creative-requestExitFullScreen-reject}
-The player did not exit full screen.
+The player responds to `requestExitFullScreen` message with a `reject` when it did not change the screen mode because it is either:
+	<ul collapse>
+		<li>Incapable of toggling between screen modes or</li>
+		<li>Already in the normal-screen mode.</li>
+	</ul>
+
 
 ### SIMID:Creative:requestPause ### {#simid-creative-requestPause}
-The creative wants the media element to pause media playback.
+The creative requests the player to pause media playback by posting a `SIMID:Creative:requestPause` message.
+
+Note: the player communicates its capacity to interrupt media playback with [[#simid-player-init]] message, parameter `variableDurationAllowed`. The creative must not post `requestPause` if the player sets `variableDurationAllowed` value to `false`. 
 
 #### resolve #### {#simid-creative-requestPause-resolve}
-The player paused the video.
+The player replies to `Creative:requestPause` with a `resolve` if it paused the media.
 #### reject #### {#simid-creative-requestPause-reject}
-The player did not pause the video.
+The player replies to `Creative:requestPause` with a `reject` if it did not pause the media or the playback is already paused.
 
 ### SIMID:Creative:requestPlay ### {#simid-creative-requestPlay}
-The creative wants the media element to resume media playback.
+The creative requests the player to resume media playback by posting a `SIMID:Creative:requestPlay` message.
+
+Note: the player communicates its capacity to interrupt media playback with [[#simid-player-init]] message, parameter `variableDurationAllowed`. The creative must not post `requestPlay` if the player sets `variableDurationAllowed` value to `false`.
+
 
 #### resolve #### {#simid-creative-requestPlay-resolve}
-The player is playing the video.
+The player replies to `Creative:requestPlay` with a `resolve` if it resumed media playback.
+
 #### reject #### {#simid-creative-requestPlay-reject}
-The player did not play the video.
+The player replies to `Creative:requestPlay` with a `reject` if it did not resume the media or the playback is already in progress.
 
 ### SIMID:Creative:requestResize ### {#simid-creative-requestResize}
 
-Request resize should use the {{ResizeParameters}} which are explained in [[#simid-player-resize]]
+The creative requests ad resize by posting a `SIMID:Creative:requestResize` message.
+
+The player must not resize the ad unless it can change the dimensions of both media element and SIMID iframe to the values specified by the `Creative:requestResize` message.
+
+Note: the message `requestResize` must not be used to change screen mode. See the [[#simid-creative-requestFullScreen]] and [[#simid-creative-requestExitFullScreen]] messages.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required Dimensions mediaDimensions;
+	required Dimensions creativeDimensions;
+};
+dictionary Dimensions {
+	required long x;
+	required long y;
+	required long width;
+	required long height;
+};
+
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>mediaDimensions</dfn>
+	<dd>Media element size and coordinates.
+	<dt><dfn>creativeDimensions</dfn>
+	<dd>SIMID iframe size and coordinates.
+</dl>
 
 #### resolve #### {#simid-creative-requestResize-resolve}
-The player has resized exactly as it has been requested.
+The player replies to `requestResize` with a `resolve` if it has resized the ad and set the dimensions to the values specified by the `requestResize` message.
+
 #### reject #### {#simid-creative-requestResize-reject}
-The player did not resize to the exact request. If the player was only able to partially comply, it should still
-reject the message. Then the player should send a [[#simid-player-resize]] message to let the creative know
-what resize happened.
+The player responds to `requestResize` with `reject` when it ignores the message or is unable to complete the resizing. 
+
 
 ### SIMID:Creative:requestSkip ### {#simid-creative-requestSkip}
-The player should stop video playback if possible.
 
-If the player cannot stop video playback, the player must not unload the iframe in response to this request.
+See <a href="#diagram-requestSkip">Diagram 13. `Creative:requestSkip` Sequence</a>.
+
+The creative requests ad skip by posting a `SIMID:Creative:requestSkip` message. If feasible, in response to `requestSkip`, the player terminates the ad and goes through the [[#simid-player-adSkipped]] message sequence. 
+ 
+Note: the SIMID interactive component implements skip related behavior and features (<button skip-ad>Skip Ad</button> button) only if the player delegates skippability to the creative - the value of [[#simid-player-init]] message `args.environmentData.skippableState` is `"adHandles"`. 
+
+
+<div diagram id="diagram-requestSkip">
+	<p>`Creative:requestSkip` Sequence</p>
+	<img src="images/dgrm-requestSkip.png" alt="Creative:requestSkip sequence.">
+	<ol dgrm-details>
+		<li>Creative posts `Creative:requestSkip` message.</li>
+		<li>Player hides the SIMID iframe.</li>
+		<li>Player stops the ad media playback.</li>
+		<li>Player responds with [[#simid-creative-requestSkip-resolve]].</li>
+		<li>Player posts [[#simid-player-adSkipped]] message.</li>
+		<li>Creative responds to `Player:adSkipped` with [[#simid-player-adSkipped-resolve]].</li>
+		<li>Player unloads the SIMID iframe.</li>
+	</ol>
+</div>
+
 
 #### resolve #### {#simid-creative-requestSkip-resolve}
-Upon resolving this request, the player must send a [[#simid-player-adSkipped]] message.
+If the player skips the ad, it responds with a `resolve`. The player then goes through its skip workflow (<a href="#diagram-requestSkip">diagram 13</a>, <span steps><b>5</b><b>6</b><b>7</b></span>). See [[#simid-player-adSkipped]].
 
 #### reject #### {#simid-creative-requestSkip-reject}
-The creative should continue to playback as though it could not be skipped.
+The player replies with a `reject` if it cannot skip the ad. With the skip rejection:
+	<ul collapse>
+		<li>The media playback continues.</li>
+		<li>The iframe remains visible.</li>
+		<li>The player continues posting `SIMID:Media` and `SIMID:Player` messages to the SIMID iframe.</li>
+		<li>The creative maintains two-way communication with the player; it waits for, and responds to, the player transmitting ad completion related messages.</li>
+	</ul>
 
 ### SIMID:Creative:requestStop ### {#simid-creative-requestStop}
-The player should stop video playback if possible.
 
-If the player cannot stop video playback, the player still unloads the iframe. The creative may hide all elements
-in this case if it doesn't wish to be seen.
+See <a href="#diagram-requestStop">Diagram 14. `Creative:requestStop` Sequence</a>.
+
+The creative stops the ad by posting a `SIMID:Creative:requestStop` message. Typically, in the cases of the extended ad experiences, the user controls the ad end by interacting with the "Close Ad" button. Normally, media playback is complete by the time `requestStop` arrives.
+If feasible, the player hides the iframe, stops media playback that is still in progress, and responds with a `resolve`.  
+
+If feasible, the player hides the iframe, stops media playback that is still in progress, and responds with a [[#simid-creative-requestStop-resolve]] (<a href="#diagram-requestStop">diagram 14</a>, <span steps><b>2</b><b>3</b><b>4</b></span>). Subsequently, the player proceeds with the [[#simid-player-adStopped]] sequence (<a href="#diagram-requestStop">diagram 14</a>, <span steps><b>5</b><b>6</b><b>7</b></span>).
+
+The SIMID interactive component engages ad stop functionality only if the player states its ability to vary ad duration. See [[#simid-player-init]], `Message.args.variableDurationAllowed` details. The interactive component logic must expect that the player will unload SIMID iframe immediately upon posting a `resolve` response under the SIMID-compliant circumstances.
+
+In the event the interactive component disregards or fails to accommodate player’s ability to resolve `requestStop`, the iframe remains visible and the player continues sending `SIMID:Media` and `SIMID:Player` messages. The creative should maintain communication with the player. See [[#simid-creative-requestStop-reject]].
+
+
+<div diagram id="diagram-requestStop">
+	<p>`Creative:requestStop` Sequence</p>
+	<img src="images/dgrm-requestStop.png" alt="Creative:requestStop sequence.">
+	<ol dgrm-details>
+		<li>Creative posts `Creative:requestStop` message.</li>
+		<li>Player hides the SIMID iframe.</li>
+		<li>Player stops the ad media playback.</li>
+		<li>Player responds with [[#simid-creative-requestStop-resolve]].</li>
+		<li>Player posts [[#simid-player-adStopped]] message.</li>
+		<li>Creative responds to `Player:adStopped` with [[#simid-player-adStopped-resolve]].</li>
+		<li>Player unloads the SIMID iframe.</li>
+	</ol>
+</div>
 
 #### resolve #### {#simid-creative-requestStop-resolve}
-Upon resolving this request, the player must send a [[#simid-player-adStopped]] message.
+If the player can stop the ad, it responds with a `resolve` (<a href="#diagram-requestStop">diagram 14</a>, <span steps><b>4</b></span>). The player then goes through [[#simid-player-adStopped]] workflow (<a href="#diagram-requestStop">diagram 14</a>, <span steps><b>5</b><b>6</b><b>7</b></span>).
+
 
 #### reject #### {#simid-creative-requestStop-reject}
-For some reason the player could not stop playback. The creative may continue
-to render as though it was not stopped.
+The player cannot stop the ad, it responds with a `reject`. With the requestStop rejection:
+<ul collapse>
+	<li>The media playback continues - if not previously ended;</li>
+	<li>The iframe remains visible;</li>
+	<li>The player continues posting messages to the iframe.</li>
+</ul>
+
+The creative keeps communication with the player open; it waits for, and responds to, the player transmitting ad completion related messages.
+
 
 # Referencing a SIMID creative from VAST # {#api-vast}
 
@@ -1097,15 +1999,10 @@ parties, the <dfn for="message">sender</dfn>, forwards to the other party, the
 
 The [=message/transport=] must guarantee the following <dfn
 for="message/transport">properties</dfn>:
-- It must guarantee that both parties of the channel are unambiguously defined
-  and that only those two parties observe any [=serialized messages=] sent by
-  either of them.
-- It must guarantee that all [=serialized messages=] eventually get delivered to
-  the other party.
-- It must guarantee that the [=serialized messages=] are delivered intact,
-  without any modifications.
-- It must guarantee that all [=serialized messages=] are delivered in the order
-  that they were sent by the sender.
+- It must guarantee that both parties of the channel are unambiguously defined and that only those two parties observe any [=serialized messages=] sent by either of them.
+- It must guarantee that all [=serialized messages=] eventually get delivered to the other party.
+- It must guarantee that the [=serialized messages=] are delivered intact, without any modifications.
+- It must guarantee that all [=serialized messages=] are delivered in the order that they were sent by the sender.
 
 The [=message/transport=] is not required to deliver [=serialized messages=]
 synchronously, but it must deliver them as soon as possible.
@@ -1355,14 +2252,14 @@ dictionary ResolveMessageArgsValue {
 
 
 ## Error Codes ## {#error-codes}
-This table indicates defined SIMID error codes the creative may fire.
-
+This table describes SIMID error codes the creative may fire.
+<p table-header id="table-error-codes">Error Codes.</p>
 <table class="alternatecolor">
   <tbody>
     <tr>
-      <td>Error Code</td>
-      <td>Error Type</td>
-      <td>Description</td>
+      <th>Error Code</th>
+      <th>Error Type</th>
+      <th>Description</th>
     </tr>
     <tr>
       <td>1100</td>
@@ -1426,18 +2323,6 @@ This table indicates defined SIMID error codes the creative may fire.
       <td>1111</td>
       <td>The player is not responding adequately to messages.</td>
       <td></td>
-    </tr>
-  </tbody>
-</table>
-
-This table indicates defined SIMID error codes the player may fire.
-
-<table class="alternatecolor">
-  <tbody>
-    <tr>
-      <td>Error Code</td>
-      <td>Error Type</td>
-      <td>Description</td>
     </tr>
     <tr>
       <td>1200</td>
