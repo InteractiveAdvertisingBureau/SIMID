@@ -280,6 +280,43 @@ Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
 		letter-spacing: -3px;
 		margin-left: 4px;
 	}
+
+	#xml-highlight{
+
+	}
+	.xml-highlight .hnode{
+		color: #008000; 
+		font-weight: bold;
+	}
+
+	.xml-highlight .hattr{
+		color: #7D9029; 
+	}
+
+	.xml-highlight .hattrval{
+		color: #BA2121;
+	}
+
+	.xml-highlight .hcdata{
+		color: #BC7A00; 
+	}
+
+	.js-highlight {
+
+	}
+
+	.js-highlight .hstr{
+		color: #BA2121;
+	}
+
+	.js-highlight .hnum{
+		color: #008c00;
+	}
+
+	.js-highlight .hbool{
+		color: #00ff00;
+	}
+
 </style>
 
 # Executive Summary # {#exec-summary}
@@ -430,15 +467,21 @@ required by that creative (images, CSS, scripts, etc.).
 The `<InteractiveCreativeFile>` element is defined as a child of the `<MediaFiles>` element in VAST 4.0.
 For more technical details, see the [[#api-vast]] section.
 
-Example:
-```
-<MediaFiles>
-    <MediaFile>https://example.com/mediafile.mp4</MediaFile>
-    <InteractiveCreativeFile type="text/html" apiFramework="SIMID" variableDuration="true">
-        <![CDATA[https://adserver.com/ads/creative.html]]>
-    </InteractiveCreativeFile>
-</MediaFiles>
-```
+<!--- code syntax formatters: 
+https://pygments.org/demo/#try 
+https://tohtml.com/jScript/
+--->
+<div class="example">
+<div class="xml-highlight"><pre style="line-height: 125%"><span></span><span class="hnode">&lt;MediaFiles&gt;</span>
+    <span class="hnode">&lt;MediaFile&gt;</span>https://example.com/mediafile.mp4<span class="hnode">&lt;/MediaFile&gt;</span>
+    <span class="hnode">&lt;InteractiveCreativeFile</span> <span class="hattr">type=</span><span class="hattrval">"text/html"</span> <span class="hattr">apiFramework=</span><span class="hattrval">"SIMID"</span> <span class="hattr">variableDuration=</span><span class="hattrval">"true"</span><span class="hnode">&gt;</span>
+        <span class="hcdata">&lt;![CDATA[https://adserver.com/ads/creative.html]]&gt;</span>
+    <span class="hnode">&lt;/InteractiveCreativeFile&gt;</span>
+<span class="hnode">&lt;/MediaFiles&gt;</span>
+</pre></div>
+
+</div>
+
 
 ## SIMID Ad Serving Flow ## {#video-ad-flow}
 
@@ -944,7 +987,7 @@ dictionary MessageArgs {
 </xmp>
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
 	<dt><dfn>errorCode</dfn>
-	<dd>See § 8.4 Error Codes.
+	<dd>See [[#error-codes]].
 	<dt><dfn>errorMessage</dfn>
 	<dd>Additional information
 </dl>
@@ -1301,6 +1344,8 @@ The creative posts messages to the player to requests the ad’s state changes, 
 
 `SIMID:Creative` messages may require the player to accept and process arguments. With some messages, the creative expects the player to respond with resolutions.
 
+Note: in SIMID, the interactive component initializes the session and posts the first message `createSession`. See [[#protocol-session-layer]].
+
 <p table-header id="table-creative-messages">`SIMID:Creative` messages summary.</p>
 
 <table class="alternatecolor messages-summary">
@@ -1555,7 +1600,7 @@ dictionary MessageArgs {
 </div>
 
 <div diagram id="diagram-durationchange-unknown">
-	<p>Unkonw Ad Duration Change Sequence</p>
+	<p>Unknown Ad Duration Change Sequence</p>
 	<img src="images/dgrm-requestChangeAdDuration-unknown.png" alt="srequestChangeAdDuration unknown duration change handling.">
 	<ol dgrm-details>
 		<li>Player starts countdown. Countdown depends on the media progress.</li>
@@ -1974,209 +2019,14 @@ The ad or player should pass a specific error code to indicate why it errored ou
 
 # Messaging Protocol # {#msg-proto}
 
-Messages sent using the standard postMessage API are processed asychronously. To facilitate asynchronous communication between the media player and the creative, SIMID employs a custom messaging protocol.
+In SIMID, the media player and the creative overlay communicate by exchanging asynchronous signals that maintain a custom messaging protocol. This protocol governs  [[#protocol-data-layer]], [[#protocol-transport-layer]], and [[#protocol-session-layer]].
 
-The protocol defines both the data structure of messages exchanged by both
-parties and the algorithms needed to reliably handle the exchange of these
-messages.
+## Data Layer ## {#protocol-data-layer}
+SIMID messages transport data. In HTML environments, the data is the `message` argument of the `Window.postMessage()` function.
 
-The protocol is designed to be easily implemented on top of the
-{{Window/postMessage}} interface, available across the cross-domain <{iframe}> elements which are
-used to isolate the SIMID creative from the media player.
+### Data Structure ### {#message-data-structure}
 
-
-
-
-## Transport Layer
-
-A <dfn for="message">transport</dfn> is a communication mechanism that can send
-[=serialized messages=] between two parties. In SIMID's case, those are the video
-player and the creative.
-
-A <dfn for="message">serialized message</dfn> is a text string that one of the
-parties, the <dfn for="message">sender</dfn>, forwards to the other party, the
-<dfn for="message">receiver</dfn>, through the [=message/transport=].
-
-The [=message/transport=] must guarantee the following <dfn
-for="message/transport">properties</dfn>:
-- It must guarantee that both parties of the channel are unambiguously defined and that only those two parties observe any [=serialized messages=] sent by either of them.
-- It must guarantee that all [=serialized messages=] eventually get delivered to the other party.
-- It must guarantee that the [=serialized messages=] are delivered intact, without any modifications.
-- It must guarantee that all [=serialized messages=] are delivered in the order that they were sent by the sender.
-
-The [=message/transport=] is not required to deliver [=serialized messages=]
-synchronously, but it must deliver them as soon as possible.
-
-Note: This means that a [=message/sender=] can not assume that a message is
-delivered to the [=message/receiver=] unless the [=message/receiver=] sends a
-message back that acknowledges receipt. It also means that exceptions on the
-[=message/receiver's=] side can't be caught by the [=message/sender=] unless
-the [=message/receiver=] explicitly sends a message back to the
-[=message/sender=] with the exception.
-
-### {{Window/postMessage}} Transport
-
-In SIMID the media player and creative use the standard postMessage API to communicate across the cross-origin <{iframe}> boundary.
-
-### Message Serialization ### {###msg-serialization}
-
-To <dfn for="message">serialize</dfn> a {{Message}} to a [=serialized message=],
-apply `JSON.stringify` to the {{Message}} data structure. The resulting
-{{DOMString}} represents the [=serialized message=].
-
-To <dfn for="message">deserialize</dfn> a [=serialized message=] to a
-{{Message}} data structure, apply `JSON.parse` to the [=serialized message=].
-The resulting object has the {{Message}} data structure.
-
-The [=message/sender=] should not transmit any [=serialized messages=] that
-cannot be correctly [=message/deserialized=] by the [=message/receiver=].
-
-The [=message/receiver=] should discard and ignore any [=serialized messages=]
-that it cannot correctly [=message/deserialize=].
-
-
-## Session Layer
-
-Multiple <dfn for="message">sessions</dfn> may be active over a single
-[=message/transport=] at any given time.
-
-A [=message/session=] is uniquely identified by a <dfn for="message">session
-identifier</dfn>. All messages belonging to a [=message/session=] *must*
-reference the same [=message/session identifier=].
-
-### Establishing a new session ### {#establish-session}
-
-A [=message/session=] is established by running the [=establish a new session=]
-algorithm.
-
-<section algorithm="to establish a new session">
-
-To <dfn for="message">establish a new session</dfn>, you *must* run the
-following steps:
-
-: Input
-:: none
-: Output
-:: |sessionIdPromise|, a {{Promise}} that will resolve to a
-   [=session identifier=]
-
-1. Let |sessionId| be a new [=session identifier=].
-
-Advisement: It is recommended to use a UUID for the [=message/session
-identifier=].
-
-2. Let |type| be `createSession`.
-3. Let |args| be `undefined`.
-4. Let |sessionIdPromise| be a new unresolved {{Promise}}.
-5. Start the [=send an acknowledgement message=] algorithm with |sessionId|, |type| and
-   |args|. Let |ackPromise| be the return value.
-6. Return |sessionIdPromise|.
-7. When |ackPromise| resolves:
-   - If it is fulfilled, then resolve |sessionIdPromise| with |sessionId|.
-   - If it is rejected with |error|, then reject |sessionIdPromise| with
-     |error|.
-
-</section>
-
-### Sending messages
-
-To send a message through a [=message/session=], run the [=send a message=]
-algorithm.
-
-<section algorithm="to send a message">
-
-To <dfn for="message">send a message</dfn>, you *must* run the following
-steps synchronously:
-
-: Input
-:: |sessionId|, a [=session identifier=]
-:: |type|, a [=message type=]
-:: |args|, an optional object to be submitted with the message
-: Output
-:: |messageId|, a [=message identifier=]
-
-1. Let |messageId| be
-   - `0`, if this is the first message in the [=message/session=] identified
-     by |sessionId|.
-   - |messageId| of the previous message sent on the [=message/session=]
-     identified by |sessionId| incremented by `1`, otherwise.
-2. Let |timestamp| be the current number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time).
-3. Let |message| be a new {{Message}} object with its attributes initialized
-   to |sessionId|, |messageId|, |type|, |timestamp| and |args|.
-4. Let |serializedMessage| be the result of running `JSON.stringify` on
-   |message|.
-5. Transmit |serializedMessage| to the other party through the
-   [=message/transport=].
-6. Return |messageId|.
-
-</section>
-
-While most messages can be sent "fire-and-forget", some require the sender to
-be informed that they were properly received and handled by the receiver. The
-protocol uses semantics similar to the {{Promise}} API for this.
-
-<section algorithm="to send an acknowledgement message">
-
-To <dfn for="message">send an acknowledgement message</dfn>, you *must* run the
-following steps:
-
-: Input
-:: |sessionId|, a [=session identifier=]
-:: |type|, a [=message type=]
-:: |args|, an optional object to be submitted with the message
-: Output
-:: |promise|, a {{Promise}} which will eventually resolve to the value sent
-   back by the other party
-
-1. Run the [=send a message=] algorithm with |sessionId|, |type| and |args|.
-   Let |messageId| be the return value.
-2. Let |promise| be a new unresolved {{Promise}}.
-3. Add |promise| to the [=resolve list=], annotated with |sessionId| and
-   |messageId|.
-4. Return |promise|.
-
-</section>
-
-### Receiving messages
-
-To be able to detect new incoming [=message/sessions=] and receive messages from
-existing sessions, every party should start running the [=handle incoming
-messages=] algorithm as soon as possible.
-
-<section algorithm="to handle an incoming message">
-
-To <dfn for="message">handle an incoming message</dfn>, you *must* run the
-following steps:
-
-: Input
-:: |serializedMessage|, a [=serialized message=] received from the
-   [=message/transport=]
-: Output
-:: none
-
-1. Let |message| be the result of running `JSON.parse` on
-   |serializedMessage|.
-   1. If `JSON.parse` threw an exception, ignore the exception and abort
-      execution of this algorithm.
-2. If |message|.{{Message/type}} is `resolve` or `reject`:
-   1. Let |sessionId| be |message|.{{Message/sessionId}}.
-   2. Let |messageId| be
-      |message|.{{Message/args}}.{{ResolveMessageArgs/messageId}}.
-   3. Let |promise| be the promise in the [=resolve list=] for |sessionId|
-      and |messageId|, if any.
-   4. If a |promise| was found:
-      1. If |message|.{{Message/type}} is `resolve`, then fulfill |promise|
-         with |message|.{{Message/args}}.{{ResolveMessageArgs/value}}.
-      2. If |message|.{{Message/type}} is `reject`, then reject |promise| with
-         |message|.{{Message/args}}.{{ResolveMessageArgs/value}}.
-3. Otherwise: pass |message| to the user of the protocol for handling.
-
-</section>
-
-## Message Data Structure ## {##msg-struct}
-
-A protocol message is represented by the {{Message}} data structure.
-
+The `message` data implements the following data structure:
 <xmp class="idl">
 dictionary Message {
   required DOMString sessionId;
@@ -2186,72 +2036,244 @@ dictionary Message {
   any args;
 };
 </xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>sessionId</dfn>
+	<dd>A string that uniquely identifies the session to which Message belongs. See [[#protocol-session-layer]].
+	<dt><dfn>messageId</dfn>
+	<dd>A message sequence number in the sender's system. Each participant establishes its own independent sequence counter for the session. The first message `messageId` value is `0`. The sender increments each subsequent messageId value by `1`. In practice, this means that the creative and the player `messageId` values will be different based on the number of sent messages.
+	<dt><dfn>timestamp</dfn>
+	<dd>A number of milliseconds since January 1, 1970, 00:00:00 UTC (Epoch time). The message sender must set `timestamp` value as close as possible to the moment the underlying process occurs. However, the receiver should not assume that the `timestamp` value reflects the exact instant the message-triggering event occurred.
+	<dt><dfn>type</dfn>
+	<dd>A string that describes the message-underlying event and informs the receiver how to interpret the `args` parameter.
+	<dt><dfn>args</dfn>
+	<dd>Additional information associated with the message `type`. 
+</dl>
 
-A {{Message}} has an associated {{Message/sessionId}}, a string that uniquely
-identifies the [=message/session=] to which the {{Message}} belongs.
-
-A {{Message}} has an associated {{Message/messageId}}, an integer that
-increments with each message sent by the sender over the [=message/session=]
-specified by {{Message/sessionId}}.
-
-Note: The combination of {{Message/sessionId}} and {{Message/messageId}}
-uniquely identifies a single message. The combination of the values of these two
-attributes may never occur twice.
-
-A {{Message}} has {{Message/timestamp}} property. {{Message/timestamp}} is expressed in
-a number of milliseconds since January 1, 1970, 00:00:00 UTC (`Epoch` time).
-{{Message}} sender must set `timestamp` value as close as possible
-to the moment the underlying process occurs. However, the `receiver` should not assume that `timestamp`
-value reflects the exact instant {{Message}} triggering event chain was accomplished.
-
-For example, if {{Message}} communicates ad video state change, media player sets {{Message/timestamp}} value to the moment the corresponding video event arrives from `HTMLVideoElement`.
-
-A {{Message}} has an associated {{Message/type}}, a string that defines the type
-of message that is being sent and informs the receiver how to interpret the
-{{Message/args}} parameter.
-
-A {{Message}} may have associated {{Message/args}}, which are
-{{Message/type}}-specific additional arguments. The data structure and meaning
-of {{Message/args}} is defined in the respective message type definitions.
+<div class="example">
+<b>Example of message data:</b>
+<div class="js-highlight">
+<pre style="line-height: 125%">
+{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">10</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"SIMID:Player:adStopped"</span>,
+    args: {
+        code: <span class="hnum">0</span>
+    }
+}
+</pre>
+</div>
+</div>
 
 
-### <dfn for="message">`resolve`</dfn> messages ### {###msg-proto-resolve}
 
-{{Message/type}} must be `resolve`
+## Messages Categories ## {#protocol-message-categories}
 
-{{Message/args}} must be a {{ResolveMessageArgs}} object:
+The protocol defines two message classes: 
+<ul>
+<li><strong><i>Primary</i></strong> messages - the signals triggered by the sender's internal logic.</li>
+<li><strong><i>Response</i></strong> messages - the signals the receiver transmits as acknowledgments of the primary message receipt and processing. There are two response Message types: [[#protocol-message-categories-resolve]] and [[#protocol-message-categories-reject]].</li>
+</ul>
+
+Both primary and response messages implement the same data structure (see [[#message-data-structure]]). 
+
+### `resolve` Messages ### {#protocol-message-categories-resolve}
+
+The receiver confirms successful message processing by replying with a resolution message.
+
+`Message.type` must be `resolve`.
+
+`Message.args` must be a `ResolveMessageArgs` object:
+<xmp class="idl">
+    dictionary ResolveMessageArgs {
+        required unsigned long messageId;
+        any value;
+    };
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>messageId</dfn>
+	<dd>The value of the messageId attribute of the message to which the receiver responds.
+	<dt><dfn>value</dfn>
+	<dd>Additional data associated with this `resolve` message.
+</dl>
+
+<div class="example">
+<b>Example of `resolve` message:</b>
+<div class="js-highlight">
+<pre style="line-height: 125%">
+{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">10</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"resolve"</span>,
+    args: {
+        messageId: <span class="hnum">5</span>,
+        value: {
+            id: <span class="hnum">45</span>
+        }
+    }
+}
+</pre>
+</div>
+</div>
+
+
+### `reject` Messages ### {#protocol-message-categories-reject}
+
+When the receiver is unable to process the message, it responds with rejection.
+
+`Message.type` must be `reject`.
+
+`Message.args.value` must be a `RejectMessageArgsValue` object:
 
 <xmp class="idl">
-dictionary ResolveMessageArgs {
-  required unsigned long messageId;
-  any value;
-};
+    dictionary RejectMessageArgsValue {
+        unsigned long errorCode;
+        DOMString message;
+    };
 </xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>errorCode</dfn>
+	<dd>The error code associated with the reason the receiver `rejects` the message.
+	<dt><dfn>message</dfn>
+	<dd>Additional information.
+</dl>
 
-{{ResolveMessageArgs/messageId}} refers to the {{Message/messageId}} attribute
-of the message that is being resolved.
+<div class="example">
+<b>Example of `reject` message:</b>
+<div class="js-highlight">
+<pre style="line-height: 125%">
+{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">10</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"resolve"</span>,
+    args: {
+        messageId: <span class="hnum">5</span>,
+        value: {
+            errorCode: <span class="hnum">902</span>,
+            message: <span class="hstr">"The feature is not available."</span>
+        }
+    }
+}
+</pre>
+</div>
+</div>
 
-{{ResolveMessageArgs/value}} may include a value associated with this `resolve`
-message.
-
-### <dfn for="message">`reject`</dfn> messages ### {###msg-proto-reject}
-
-{{Message/type}} must be `reject`
-
-{{Message/args}} must be a {{ResolveMessageArgs}} object.
-
-{{ResolveMessageArgs/value}} may include an error message associated with this
-`reject` message.
-
-<xmp class="idl">
-dictionary ResolveMessageArgsValue {
-  unsigned long errorCode;
-  DOMString message;
-};
-</xmp>
 
 
-## Error Codes ## {#error-codes}
+## Transport Layer ## {#protocol-transport-layer}
+
+Transport is a communication mechanism that can send serialized messages between two parties. 
+
+### `postMessage` Transport
+
+In HTML environments, where the player loads creative overlay in a cross-origin iframe, the parties utilize the standard `Window.postMessage()` API as the message transport mechanism.
+
+### Message Serialization
+
+The message sender serializes data into a `JSON` string. The deserialized `JSON` must result in a clone of the original Message data object. 
+
+In JavaScript, `JSON.stringify()` performs serialization; `JSON.parse()` - deserialization. 
+
+
+## Session Layer ## {#protocol-session-layer}
+
+The media player may manage several ads that are in different phases of their lifespans; multiple concurrent sessions may be active. For example, while the player is rendering ad-A, it preloads and engages ad-B. Simultaneous two-way communication between the player and both ads persists. 
+
+Each session has a unique identifier. All messages that belong to a specific session must reference the same session id. 
+
+### Establishing a New Session ### {#protocol-establish-session}
+
+SIMID delegates the session initialization to the creative overlay. The creative generates a unique session id and posts the first session message with the `Message.type createSession`. By posting the `createSession` message, the creative acknowledges its readiness to receive messages from the player. 
+
+Note: There is no expectation for the interactive component to be entirely able to participate in ad rendering at the time the creative signals `createSession` message. Full creative initialization may occur at later stages when the player provides complete data - see [[#simid-player-init]]. 
+
+<div class="example">
+<b>Example of `createSession` Message data:</b>
+<div class="js-highlight">
+<pre style="line-height: 125%">
+{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">0</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"createSession"</span>,
+    args: { }
+}
+</pre>
+</div>
+</div>
+
+Creative should initialize the session as soon as possible. The player should establish a reasonable timeout for the session initialization message receipt.
+
+The player responds to `createSession` with a `resolve` message.
+
+<div diagram id="diagram-durationchange-unknown">
+	<p>Typical Session Initialization Sequence</p>
+	<img src="images/dgrm-session-init-sequence.png" alt="Typical session initialization.">
+	<ol dgrm-details>
+		<li>The player starts a `createSession` message timeout.</li>
+		<li>The player loads creative.</li>
+		<li>Creative posts `createSession` message.</li>
+		<li>The player cancels the timeout.</li>
+		<li>The player responds with a `resolve` message.</li>
+		<li>The player initializes creative. See [[#simid-player-init]].</li>
+	</ol>
+</div>
+
+### Session Establishing Delays and Failures
+
+Typically, the player should wait for the creative to post a `createSession` message before the player proceeds with a simultaneous rendering of both ad media and the interactive component. 
+
+SIMID recognizes use cases when the creative fails to establish a session within the allotted timeout. Under common circumstances, to preserve ad integrity, the player should abandon the ad if the creative fails to establish a session. 
+
+<b>Recommended Sequence</b>
+<ol>
+<li>The timeout expires before the createSession message arrives.</li>
+<li>The player abandons ad:
+<ul>
+<li>The player unloads the interactive component.</li>
+<li>The player drops ad media playback.</li>
+</ul>
+</li>
+</ol>
+
+With SSAI and live broadcasts, the player may be unable to wait for the creative to initialize the session. Under such circumstances, the player proceeds with the ad media playback upon the timeout expiration or, in some cases, does not start timeout at all. In such cases, the media player should operate as follows:
+
+<b>Scenario A. Creative posts `createSession` message after the timeout lapse</b>
+<ol>
+<li>The timeout expires.</li>
+<li>The player retains the interactive component.</li>
+<li>The player initiates ad media playback.</li>
+<li>The player reports the impression.</li>
+<li>The player does not post messages to the creative.</li>
+<li>The creative posts `createSession` message.</li>
+<li>The player proceeds with the creative initialization.</li>
+<li>Once creative initialization completes - the player and the creative maintain bidirectional communication.</li>
+</ol>
+
+<b>Scenario B. Player starts media portion before creative loads</b>
+<ol>
+<li>The player renders ad media.</li>
+<li>The player does not establish timeout (in essence - the timeout is zero).</li>
+<li>The player loads the creative.</li>
+<li>The creative establishes session.</li>
+<li>The player initializes the interactive component.</li>
+<li>The player and the creative maintain bidirectional communication.</li>
+</ol>
+
+<b>Scenario C. Creative never establishes a session</b>
+<ol>
+<li>The timeout expires.</li>
+<li>The player retains the interactive component.</li>
+<li>The player initiates ad media playback.</li>
+<li>The player reports the impression.</li>
+<li>Ad media playback completes.</li>
+<li>The player unloads the interactive component. </li>
+</ol>
+
+# Error Codes # {#error-codes}
 This table describes SIMID error codes the creative may fire.
 <p table-header id="table-error-codes">Error Codes.</p>
 <table class="alternatecolor">
@@ -2420,3 +2442,4 @@ This table describes SIMID error codes the creative may fire.
 
 : <dfn>Content Video</dfn>
 :: Any reference to video that is NOT a component or asset of the ad unit.
+
