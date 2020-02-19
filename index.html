@@ -1167,6 +1167,18 @@ Possible extra rowspan handling
 		margin-left: auto;
 		margin-right: auto;
 	}
+	.overlarge {
+		/* Magic to create good table positioning:
+		   "content column" is 50ems wide at max; less on smaller screens.
+		   Extra space (after ToC + content) is empty on the right.
+
+		   1. When table < content column, centers table in column.
+		   2. When content < table < available, left-aligns.
+		   3. When table > available, fills available + scroll bar.
+		*/ 
+		display: grid;
+		grid-template-columns: minmax(0, 50em);
+	}
 	.overlarge > table {
 		/* limit preferred width of table */
 		max-width: 50em;
@@ -1176,7 +1188,6 @@ Possible extra rowspan handling
 
 	@media (min-width: 55em) {
 		.overlarge {
-			margin-left: calc(13px + 26.5rem - 50vw);
 			margin-right: calc(13px + 26.5rem - 50vw);
 			max-width: none;
 		}
@@ -1184,14 +1195,12 @@ Possible extra rowspan handling
 	@media screen and (min-width: 78em) {
 		body:not(.toc-inline) .overlarge {
 			/* 30.5em body padding 50em content area */
-			margin-left: calc(40em - 50vw) !important;
 			margin-right: calc(40em - 50vw) !important;
 		}
 	}
 	@media screen and (min-width: 90em) {
 		body:not(.toc-inline) .overlarge {
 			/* 4em html margin 30.5em body padding 50em content area */
-			margin-left: 0 !important;
 			margin-right: calc(84.5em - 100vw) !important;
 		}
 	}
@@ -1212,7 +1221,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 0dd2bba6dfda6c3168490a3a3044dd1d0b1ef8e0" name="generator">
+  <meta content="Bikeshed version ae6def1cbca03b321b2ad730ac2f51eeba21ed81" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
 
@@ -1478,6 +1487,43 @@ Possible extra rowspan handling
 		letter-spacing: -3px;
 		margin-left: 4px;
 	}
+
+	#xml-highlight{
+
+	}
+	.xml-highlight .hnode{
+		color: #008000; 
+		font-weight: bold;
+	}
+
+	.xml-highlight .hattr{
+		color: #7D9029; 
+	}
+
+	.xml-highlight .hattrval{
+		color: #BA2121;
+	}
+
+	.xml-highlight .hcdata{
+		color: #BC7A00; 
+	}
+
+	.js-highlight {
+
+	}
+
+	.js-highlight .hstr{
+		color: #BA2121;
+	}
+
+	.js-highlight .hnum{
+		color: #008c00;
+	}
+
+	.js-highlight .hbool{
+		color: #00ff00;
+	}
+
 </style>
 <style>/* style-md-lists */
 
@@ -1564,17 +1610,6 @@ figcaption {
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
 }</style>
-<style>/* style-var-click-highlighting */
-
-    var { cursor: pointer; }
-    var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
-    var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
-    var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
-    var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
-    var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
-    var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
-    var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
-    </style>
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1736,7 +1771,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-11-11">11 November 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-02-18">18 February 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1755,7 +1790,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 11 November 2019,
+In addition, as of 18 February 2020,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1943,27 +1978,31 @@ Parts of this work may be from another specification document.  If so, those par
      <a href="#msg-proto"><span class="secno">8</span> <span class="content">Messaging Protocol</span></a>
      <ol class="toc">
       <li>
-       <a href="#transport-layer"><span class="secno">8.1</span> <span class="content">Transport Layer</span></a>
+       <a href="#protocol-data-layer"><span class="secno">8.1</span> <span class="content">Data Layer</span></a>
        <ol class="toc">
-        <li><a href="#postmessage-transport"><span class="secno">8.1.1</span> <span class="content"><code class="idl"><span>postMessage</span></code> Transport</span></a>
-        <li><a href="###msg-serialization"><span class="secno">8.1.2</span> <span class="content">Message Serialization</span></a>
+        <li><a href="#message-data-structure"><span class="secno">8.1.1</span> <span class="content">Data Structure</span></a>
        </ol>
       <li>
-       <a href="#session-layer"><span class="secno">8.2</span> <span class="content">Session Layer</span></a>
+       <a href="#protocol-message-categories"><span class="secno">8.2</span> <span class="content">Messages Categories</span></a>
        <ol class="toc">
-        <li><a href="#establish-session"><span class="secno">8.2.1</span> <span class="content">Establishing a new session</span></a>
-        <li><a href="#sending-messages"><span class="secno">8.2.2</span> <span class="content">Sending messages</span></a>
-        <li><a href="#receiving-messages"><span class="secno">8.2.3</span> <span class="content">Receiving messages</span></a>
+        <li><a href="#protocol-message-categories-resolve"><span class="secno">8.2.1</span> <span class="content"><code>resolve</code> Messages</span></a>
+        <li><a href="#protocol-message-categories-reject"><span class="secno">8.2.2</span> <span class="content"><code>reject</code> Messages</span></a>
        </ol>
       <li>
-       <a href="##msg-struct"><span class="secno">8.3</span> <span class="content">Message Data Structure</span></a>
+       <a href="#protocol-transport-layer"><span class="secno">8.3</span> <span class="content">Transport Layer</span></a>
        <ol class="toc">
-        <li><a href="###msg-proto-resolve"><span class="secno">8.3.1</span> <span class="content"><span><code>resolve</code></span> messages</span></a>
-        <li><a href="###msg-proto-reject"><span class="secno">8.3.2</span> <span class="content"><span><code>reject</code></span> messages</span></a>
+        <li><a href="#postmessage-transport"><span class="secno">8.3.1</span> <span class="content"><code>postMessage</code> Transport</span></a>
+        <li><a href="#message-serialization"><span class="secno">8.3.2</span> <span class="content">Message Serialization</span></a>
        </ol>
-      <li><a href="#error-codes"><span class="secno">8.4</span> <span class="content">Error Codes</span></a>
+      <li>
+       <a href="#protocol-session-layer"><span class="secno">8.4</span> <span class="content">Session Layer</span></a>
+       <ol class="toc">
+        <li><a href="#protocol-establish-session"><span class="secno">8.4.1</span> <span class="content">Establishing a New Session</span></a>
+        <li><a href="#session-establishing-delays-and-failures"><span class="secno">8.4.2</span> <span class="content">Session Establishing Delays and Failures</span></a>
+       </ol>
      </ol>
-    <li><a href="#terminology"><span class="secno">9</span> <span class="content">Terminology</span></a>
+    <li><a href="#error-codes"><span class="secno">9</span> <span class="content">Error Codes</span></a>
+    <li><a href="#terminology"><span class="secno">10</span> <span class="content">Terminology</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -2092,14 +2131,18 @@ When loaded into an iframe by a media player, this HTML document will define the
 required by that creative (images, CSS, scripts, etc.).</p>
    <p>The <code>&lt;InteractiveCreativeFile></code> element is defined as a child of the <code>&lt;MediaFiles></code> element in VAST 4.0.
 For more technical details, see the <a href="#api-vast">§ 5 Referencing a SIMID creative from VAST</a> section.</p>
-   <p>Example:</p>
-<pre>&lt;MediaFiles>
-    &lt;MediaFile>https://example.com/mediafile.mp4&lt;/MediaFile>
-    &lt;InteractiveCreativeFile type="text/html" apiFramework="SIMID" variableDuration="true">
-        &lt;![CDATA[https://adserver.com/ads/creative.html]]>
-    &lt;/InteractiveCreativeFile>
-&lt;/MediaFiles>
+   <div class="example" id="example-3706aa19">
+    <a class="self-link" href="#example-3706aa19"></a> 
+    <div class="xml-highlight">
+<pre style="line-height: 125%"><span></span><span class="hnode">&lt;MediaFiles></span>
+    <span class="hnode">&lt;MediaFile></span>https://example.com/mediafile.mp4<span class="hnode">&lt;/MediaFile></span>
+    <span class="hnode">&lt;InteractiveCreativeFile</span> <span class="hattr">type=</span><span class="hattrval">"text/html"</span> <span class="hattr">apiFramework=</span><span class="hattrval">"SIMID"</span> <span class="hattr">variableDuration=</span><span class="hattrval">"true"</span><span class="hnode">></span>
+        <span class="hcdata">&lt;![CDATA[https://adserver.com/ads/creative.html]]></span>
+    <span class="hnode">&lt;/InteractiveCreativeFile></span>
+<span class="hnode">&lt;/MediaFiles></span>
 </pre>
+    </div>
+   </div>
    <h3 class="heading settled" data-level="3.2" id="video-ad-flow"><span class="secno">3.2. </span><span class="content">SIMID Ad Serving Flow</span><a class="self-link" href="#video-ad-flow"></a></h3>
    <p>The SIMID ad experience is delivered by a web browser or application concurrently rendering
 an ad’s streaming audio or video file and its interactive creative file. The media player obtains
@@ -2564,7 +2607,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errorcode"><code>errorCode</code><a class="self-link" href="#dom-foointerface-errorcode"></a></dfn>, <span></span>
-    <dd>See § 8.4 Error Codes. 
+    <dd>See <a href="#error-codes">§ 9 Error Codes</a>. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errormessage"><code>errorMessage</code><a class="self-link" href="#dom-foointerface-errormessage"></a></dfn>, <span></span>
     <dd>Additional information 
    </dl>
@@ -2774,7 +2817,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errorcode①"><code>errorCode</code><a class="self-link" href="#dom-foointerface-errorcode①"></a></dfn>, <span></span>
-    <dd>See <a href="#error-codes">§ 8.4 Error Codes</a>. 
+    <dd>See <a href="#error-codes">§ 9 Error Codes</a>. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-reason"><code>reason</code><a class="self-link" href="#dom-foointerface-reason"></a></dfn>, <span></span>
     <dd>Optional information about rejection cause. 
    </dl>
@@ -2858,13 +2901,14 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errorcode②"><code>errorCode</code><a class="self-link" href="#dom-foointerface-errorcode②"></a></dfn>, <span></span>
-    <dd>See <a href="#error-codes">§ 8.4 Error Codes</a>. 
+    <dd>See <a href="#error-codes">§ 9 Error Codes</a>. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-reason①"><code>reason</code><a class="self-link" href="#dom-foointerface-reason①"></a></dfn>, <span></span>
     <dd>Additional information. 
    </dl>
    <h3 class="heading settled" data-level="4.4" id="creative-messages"><span class="secno">4.4. </span><span class="content">Messages from the Creative to the Player</span><a class="self-link" href="#creative-messages"></a></h3>
     The creative posts messages to the player to requests the ad’s state changes, obtain data, and to send notifications. The creative prefixes its messages with the namespace <code>SIMID:Creative</code>. 
    <p><code>SIMID:Creative</code> messages may require the player to accept and process arguments. With some messages, the creative expects the player to respond with resolutions.</p>
+   <p class="note" role="note"><span>Note:</span> in SIMID, the interactive component initializes the session and posts the first message <code>createSession</code>. See <a href="#protocol-session-layer">§ 8.4 Session Layer</a>.</p>
    <p id="table-creative-messages" table-header><code>SIMID:Creative</code> messages summary.</p>
    <table class="alternatecolor messages-summary">
     <tbody>
@@ -2952,7 +2996,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errorcode③"><code>errorCode</code><a class="self-link" href="#dom-foointerface-errorcode③"></a></dfn>, <span></span>
-    <dd>See <a href="#error-codes">§ 8.4 Error Codes</a>. 
+    <dd>See <a href="#error-codes">§ 9 Error Codes</a>. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errormessage①"><code>errorMessage</code><a class="self-link" href="#dom-foointerface-errormessage①"></a></dfn>, <span></span>
     <dd>Additional information. 
    </dl>
@@ -3028,7 +3072,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errorcode④"><code>errorCode</code><a class="self-link" href="#dom-foointerface-errorcode④"></a></dfn>, <span></span>
-    <dd>See <a href="#error-codes">§ 8.4 Error Codes</a>. 
+    <dd>See <a href="#error-codes">§ 9 Error Codes</a>. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-reason②"><code>reason</code><a class="self-link" href="#dom-foointerface-reason②"></a></dfn>, <span></span>
     <dd>Additional information. 
    </dl>
@@ -3058,7 +3102,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     </ol>
    </div>
    <div diagram id="diagram-durationchange-unknown">
-    <p>Unkonw Ad Duration Change Sequence</p>
+    <p>Unknown Ad Duration Change Sequence</p>
      <img alt="srequestChangeAdDuration unknown duration change handling." src="images/dgrm-requestChangeAdDuration-unknown.png"> 
     <ol dgrm-details>
      <li>Player starts countdown. Countdown depends on the media progress.
@@ -3250,7 +3294,7 @@ for messages from the creative.</p>
 the creative’s VAST InteractiveCreativeFile element. The player should
 assume this will be a cross domain iframe.</p>
     <li data-md>
-     <p>The player waits until the creative inializes a session. <a href="#establish-session">§ 8.2.1 Establishing a new session</a> The player responds with a resolve message.
+     <p>The player waits until the creative inializes a session. <a href="#establish-session"></a> The player responds with a resolve message.
 The resolve message includes the correlator that must be present in
 all messages going forward.</p>
     <li data-md>
@@ -3414,244 +3458,204 @@ is true for <code>fatalError</code>.</p>
    <p>If either the interactive ad or player wants to terminate with an error the player should fire a 902 error. In cases where this is not possible like live server side ad insertion the player should remove the ad overlay and continue tracking quartiles and completion.</p>
    <p>The ad or player should pass a specific error code to indicate why it errored out. The ad can also hand back a string with extra details about the error.</p>
    <h2 class="heading settled" data-level="8" id="msg-proto"><span class="secno">8. </span><span class="content">Messaging Protocol</span><a class="self-link" href="#msg-proto"></a></h2>
-   <p>Messages sent using the standard postMessage API are processed asychronously. To facilitate asynchronous communication between the media player and the creative, SIMID employs a custom messaging protocol.</p>
-   <p>The protocol defines both the data structure of messages exchanged by both
-parties and the algorithms needed to reliably handle the exchange of these
-messages.</p>
-   <p>The protocol is designed to be easily implemented on top of the <code class="idl"><a data-link-type="idl">postMessage</a></code> interface, available across the cross-domain <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element">iframe</a></code> elements which are
-used to isolate the SIMID creative from the media player.</p>
-   <h3 class="heading settled" data-level="8.1" id="transport-layer"><span class="secno">8.1. </span><span class="content">Transport Layer</span><a class="self-link" href="#transport-layer"></a></h3>
-   <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-transport">transport</dfn> is a communication mechanism that can send <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message">serialized messages</a> between two parties. In SIMID’s case, those are the video
-player and the creative.</p>
-   <p>A <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-serialized-message">serialized message</dfn> is a text string that one of the
-parties, the <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-sender">sender</dfn>, forwards to the other party, the <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-receiver">receiver</dfn>, through the <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport">transport</a>.</p>
-   <p>The <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport①">transport</a> must guarantee the following <dfn data-dfn-for="message/transport" data-dfn-type="dfn" data-noexport id="message-transport-properties">properties<a class="self-link" href="#message-transport-properties"></a></dfn>:</p>
+   <p>In SIMID, the media player and the creative overlay communicate by exchanging asynchronous signals that maintain a custom messaging protocol. This protocol governs <a href="#protocol-data-layer">§ 8.1 Data Layer</a>, <a href="#protocol-transport-layer">§ 8.3 Transport Layer</a>, and <a href="#protocol-session-layer">§ 8.4 Session Layer</a>.</p>
+   <h3 class="heading settled" data-level="8.1" id="protocol-data-layer"><span class="secno">8.1. </span><span class="content">Data Layer</span><a class="self-link" href="#protocol-data-layer"></a></h3>
+    SIMID messages transport data. In HTML environments, the data is the <code>message</code> argument of the <code>Window.postMessage()</code> function. 
+   <h4 class="heading settled" data-level="8.1.1" id="message-data-structure"><span class="secno">8.1.1. </span><span class="content">Data Structure</span><a class="self-link" href="#message-data-structure"></a></h4>
+   <p>The <code>message</code> data implements the following data structure:</p>
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-message"><code><c- g>Message</c-></code><a class="self-link" href="#dictdef-message"></a></dfn> {
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-message-messageid"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-message-timestamp"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
+  <c- b>any</c-> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code><a class="self-link" href="#dom-message-args"></a></dfn>;
+};
+</pre>
+   <dl class="idl highlight def">
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-sessionid"><code>sessionId</code><a class="self-link" href="#dom-foointerface-sessionid"></a></dfn>, <span></span>
+    <dd>A string that uniquely identifies the session to which Message belongs. See <a href="#protocol-session-layer">§ 8.4 Session Layer</a>. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-messageid"><code>messageId</code><a class="self-link" href="#dom-foointerface-messageid"></a></dfn>, <span></span>
+    <dd>A message sequence number in the sender’s system. Each participant establishes its own independent sequence counter for the session. The first message <code>messageId</code> value is <code>0</code>. The sender increments each subsequent messageId value by <code>1</code>. In practice, this means that the creative and the player <code>messageId</code> values will be different based on the number of sent messages. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-timestamp"><code>timestamp</code><a class="self-link" href="#dom-foointerface-timestamp"></a></dfn>, <span></span>
+    <dd>A number of milliseconds since January 1, 1970, 00:00:00 UTC (Epoch time). The message sender must set <code>timestamp</code> value as close as possible to the moment the underlying process occurs. However, the receiver should not assume that the <code>timestamp</code> value reflects the exact instant the message-triggering event occurred. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-type"><code>type</code><a class="self-link" href="#dom-foointerface-type"></a></dfn>, <span></span>
+    <dd>A string that describes the message-underlying event and informs the receiver how to interpret the <code>args</code> parameter. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-args"><code>args</code><a class="self-link" href="#dom-foointerface-args"></a></dfn>, <span></span>
+    <dd>Additional information associated with the message <code>type</code>. 
+   </dl>
+   <div class="example" id="example-e0ecdf81">
+    <a class="self-link" href="#example-e0ecdf81"></a> <b>Example of message data:</b> 
+    <div class="js-highlight">
+<pre style="line-height: 125%">{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">10</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"SIMID:Player:adStopped"</span>,
+    args: {
+        code: <span class="hnum">0</span>
+    }
+}
+</pre>
+    </div>
+   </div>
+   <h3 class="heading settled" data-level="8.2" id="protocol-message-categories"><span class="secno">8.2. </span><span class="content">Messages Categories</span><a class="self-link" href="#protocol-message-categories"></a></h3>
+   <p>The protocol defines two message classes:</p>
    <ul>
-    <li data-md>
-     <p>It must guarantee that both parties of the channel are unambiguously defined and that only those two parties observe any <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message①">serialized messages</a> sent by either of them.</p>
-    <li data-md>
-     <p>It must guarantee that all <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message②">serialized messages</a> eventually get delivered to the other party.</p>
-    <li data-md>
-     <p>It must guarantee that the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message③">serialized messages</a> are delivered intact, without any modifications.</p>
-    <li data-md>
-     <p>It must guarantee that all <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message④">serialized messages</a> are delivered in the order that they were sent by the sender.</p>
+    <li><strong><i>Primary</i></strong> messages - the signals triggered by the sender’s internal logic.
+    <li><strong><i>Response</i></strong> messages - the signals the receiver transmits as acknowledgments of the primary message receipt and processing. There are two response Message types: <a href="#protocol-message-categories-resolve">§ 8.2.1 resolve Messages</a> and <a href="#protocol-message-categories-reject">§ 8.2.2 reject Messages</a>.
    </ul>
-   <p>The <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport②">transport</a> is not required to deliver <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑤">serialized messages</a> synchronously, but it must deliver them as soon as possible.</p>
-   <p class="note" role="note"><span>Note:</span> This means that a <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender">sender</a> can not assume that a message is
-delivered to the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver">receiver</a> unless the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver①">receiver</a> sends a
-message back that acknowledges receipt. It also means that exceptions on the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver②">receiver’s</a> side can’t be caught by the <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender①">sender</a> unless
-the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver③">receiver</a> explicitly sends a message back to the <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender②">sender</a> with the exception.</p>
-   <h4 class="heading settled" data-level="8.1.1" id="postmessage-transport"><span class="secno">8.1.1. </span><span class="content"><code class="idl"><a data-link-type="idl">postMessage</a></code> Transport</span><a class="self-link" href="#postmessage-transport"></a></h4>
-   <p>In SIMID the media player and creative use the standard postMessage API to communicate across the cross-origin <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-the-iframe-element①">iframe</a></code> boundary.</p>
-   <h4 class="heading settled" data-level="8.1.2" id="##msg-serialization"><span class="secno">8.1.2. </span><span class="content">Message Serialization</span><a class="self-link" href="#%23%23msg-serialization"></a></h4>
-   <p>To <dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-serialize">serialize<a class="self-link" href="#message-serialize"></a></dfn> a <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message">Message</a></code> to a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑥">serialized message</a>,
-apply <code>JSON.stringify</code> to the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①">Message</a></code> data structure. The resulting <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑥">DOMString</a></code> represents the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑦">serialized message</a>.</p>
-   <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-deserialize">deserialize</dfn> a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑧">serialized message</a> to a <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message②">Message</a></code> data structure, apply <code>JSON.parse</code> to the <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message⑨">serialized message</a>.
-The resulting object has the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message③">Message</a></code> data structure.</p>
-   <p>The <a data-link-type="dfn" href="#message-sender" id="ref-for-message-sender③">sender</a> should not transmit any <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message①⓪">serialized messages</a> that
-cannot be correctly <a data-link-type="dfn" href="#message-deserialize" id="ref-for-message-deserialize">deserialized</a> by the <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver④">receiver</a>.</p>
-   <p>The <a data-link-type="dfn" href="#message-receiver" id="ref-for-message-receiver⑤">receiver</a> should discard and ignore any <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message①①">serialized messages</a> that it cannot correctly <a data-link-type="dfn" href="#message-deserialize" id="ref-for-message-deserialize①">deserialize</a>.</p>
-   <h3 class="heading settled" data-level="8.2" id="session-layer"><span class="secno">8.2. </span><span class="content">Session Layer</span><a class="self-link" href="#session-layer"></a></h3>
-   <p>Multiple <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-sessions">sessions</dfn> may be active over a single <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport③">transport</a> at any given time.</p>
-   <p>A <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions">session</a> is uniquely identified by a <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-lt="session identifier" data-noexport id="message-session-identifier">session
-identifier</dfn>. All messages belonging to a <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions①">session</a> <em>must</em> reference the same <a data-link-type="dfn" href="#message-session-identifier" id="ref-for-message-session-identifier">session identifier</a>.</p>
-   <h4 class="heading settled" data-level="8.2.1" id="establish-session"><span class="secno">8.2.1. </span><span class="content">Establishing a new session</span><a class="self-link" href="#establish-session"></a></h4>
-   <p>A <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions②">session</a> is established by running the <a data-link-type="dfn" href="#message-establish-a-new-session" id="ref-for-message-establish-a-new-session">establish a new session</a> algorithm.</p>
-   <section class="algorithm" data-algorithm="to establish a new session">
-    <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-establish-a-new-session">establish a new session</dfn>, you <em>must</em> run the
-following steps:</p>
-    <dl>
-     <dt data-md>Input
-     <dd data-md>
-      <p>none</p>
-     <dt data-md>Output
-     <dd data-md>
-      <p><var>sessionIdPromise</var>, a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise">Promise</a></code> that will resolve to a <a data-link-type="dfn" href="#message-session-identifier" id="ref-for-message-session-identifier①">session identifier</a></p>
-    </dl>
-    <ol>
-     <li data-md>
-      <p>Let <var>sessionId</var> be a new <a data-link-type="dfn" href="#message-session-identifier" id="ref-for-message-session-identifier②">session identifier</a>.</p>
-    </ol>
-    <p><strong class="advisement"> It is recommended to use a UUID for the <a data-link-type="dfn" href="#message-session-identifier" id="ref-for-message-session-identifier③">session
-identifier</a>.</strong></p>
-    <ol start="2">
-     <li data-md>
-      <p>Let <var>type</var> be <code>createSession</code>.</p>
-     <li data-md>
-      <p>Let <var>args</var> be <code>undefined</code>.</p>
-     <li data-md>
-      <p>Let <var>sessionIdPromise</var> be a new unresolved <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise①">Promise</a></code>.</p>
-     <li data-md>
-      <p>Start the <a data-link-type="dfn" href="#message-send-an-acknowledgement-message" id="ref-for-message-send-an-acknowledgement-message">send an acknowledgement message</a> algorithm with <var>sessionId</var>, <var>type</var> and <var>args</var>. Let <var>ackPromise</var> be the return value.</p>
-     <li data-md>
-      <p>Return <var>sessionIdPromise</var>.</p>
-     <li data-md>
-      <p>When <var>ackPromise</var> resolves:</p>
-      <ul>
-       <li data-md>
-        <p>If it is fulfilled, then resolve <var>sessionIdPromise</var> with <var>sessionId</var>.</p>
-       <li data-md>
-        <p>If it is rejected with <var>error</var>, then reject <var>sessionIdPromise</var> with <var>error</var>.</p>
-      </ul>
-    </ol>
-   </section>
-   <h4 class="heading settled" data-level="8.2.2" id="sending-messages"><span class="secno">8.2.2. </span><span class="content">Sending messages</span><a class="self-link" href="#sending-messages"></a></h4>
-   <p>To send a message through a <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions③">session</a>, run the <a data-link-type="dfn" href="#message-send-a-message" id="ref-for-message-send-a-message">send a message</a> algorithm.</p>
-   <section class="algorithm" data-algorithm="to send a message">
-    <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-send-a-message">send a message</dfn>, you <em>must</em> run the following
-steps synchronously:</p>
-    <dl>
-     <dt data-md>Input
-     <dd data-md>
-      <p><var>sessionId</var>, a <a data-link-type="dfn" href="#message-session-identifier" id="ref-for-message-session-identifier④">session identifier</a></p>
-     <dd data-md>
-      <p><var>type</var>, a <a data-link-type="dfn">message type</a></p>
-     <dd data-md>
-      <p><var>args</var>, an optional object to be submitted with the message</p>
-     <dt data-md>Output
-     <dd data-md>
-      <p><var>messageId</var>, a <a data-link-type="dfn">message identifier</a></p>
-    </dl>
-    <ol>
-     <li data-md>
-      <p>Let <var>messageId</var> be</p>
-      <ul>
-       <li data-md>
-        <p><code>0</code>, if this is the first message in the <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions④">session</a> identified
- by <var>sessionId</var>.</p>
-       <li data-md>
-        <p><var>messageId</var> of the previous message sent on the <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions⑤">session</a> identified by <var>sessionId</var> incremented by <code>1</code>, otherwise.</p>
-      </ul>
-     <li data-md>
-      <p>Let <var>timestamp</var> be the current number of milliseconds since January 1, 1970, 00:00:00 UTC (<code>Epoch</code> time).</p>
-     <li data-md>
-      <p>Let <var>message</var> be a new <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message④">Message</a></code> object with its attributes initialized
-   to <var>sessionId</var>, <var>messageId</var>, <var>type</var>, <var>timestamp</var> and <var>args</var>.</p>
-     <li data-md>
-      <p>Let <var>serializedMessage</var> be the result of running <code>JSON.stringify</code> on <var>message</var>.</p>
-     <li data-md>
-      <p>Transmit <var>serializedMessage</var> to the other party through the <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport④">transport</a>.</p>
-     <li data-md>
-      <p>Return <var>messageId</var>.</p>
-    </ol>
-   </section>
-   <p>While most messages can be sent "fire-and-forget", some require the sender to
-be informed that they were properly received and handled by the receiver. The
-protocol uses semantics similar to the <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise②">Promise</a></code> API for this.</p>
-   <section class="algorithm" data-algorithm="to send an acknowledgement message">
-    <p>To <dfn class="dfn-paneled" data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-send-an-acknowledgement-message">send an acknowledgement message</dfn>, you <em>must</em> run the
-following steps:</p>
-    <dl>
-     <dt data-md>Input
-     <dd data-md>
-      <p><var>sessionId</var>, a <a data-link-type="dfn" href="#message-session-identifier" id="ref-for-message-session-identifier⑤">session identifier</a></p>
-     <dd data-md>
-      <p><var>type</var>, a <a data-link-type="dfn">message type</a></p>
-     <dd data-md>
-      <p><var>args</var>, an optional object to be submitted with the message</p>
-     <dt data-md>Output
-     <dd data-md>
-      <p><var>promise</var>, a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise③">Promise</a></code> which will eventually resolve to the value sent
-   back by the other party</p>
-    </dl>
-    <ol>
-     <li data-md>
-      <p>Run the <a data-link-type="dfn" href="#message-send-a-message" id="ref-for-message-send-a-message①">send a message</a> algorithm with <var>sessionId</var>, <var>type</var> and <var>args</var>.
-   Let <var>messageId</var> be the return value.</p>
-     <li data-md>
-      <p>Let <var>promise</var> be a new unresolved <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise④">Promise</a></code>.</p>
-     <li data-md>
-      <p>Add <var>promise</var> to the <a data-link-type="dfn">resolve list</a>, annotated with <var>sessionId</var> and <var>messageId</var>.</p>
-     <li data-md>
-      <p>Return <var>promise</var>.</p>
-    </ol>
-   </section>
-   <h4 class="heading settled" data-level="8.2.3" id="receiving-messages"><span class="secno">8.2.3. </span><span class="content">Receiving messages</span><a class="self-link" href="#receiving-messages"></a></h4>
-   <p>To be able to detect new incoming <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions⑥">sessions</a> and receive messages from
-existing sessions, every party should start running the <a data-link-type="dfn">handle incoming
-messages</a> algorithm as soon as possible.</p>
-   <section class="algorithm" data-algorithm="to handle an incoming message">
-    <p>To <dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-handle-an-incoming-message">handle an incoming message<a class="self-link" href="#message-handle-an-incoming-message"></a></dfn>, you <em>must</em> run the
-following steps:</p>
-    <dl>
-     <dt data-md>Input
-     <dd data-md>
-      <p><var>serializedMessage</var>, a <a data-link-type="dfn" href="#message-serialized-message" id="ref-for-message-serialized-message①②">serialized message</a> received from the <a data-link-type="dfn" href="#message-transport" id="ref-for-message-transport⑤">transport</a></p>
-     <dt data-md>Output
-     <dd data-md>
-      <p>none</p>
-    </dl>
-    <ol>
-     <li data-md>
-      <p>Let <var>message</var> be the result of running <code>JSON.parse</code> on <var>serializedMessage</var>.</p>
-     <li data-md>
-      <p>If <code>JSON.parse</code> threw an exception, ignore the exception and abort
-  execution of this algorithm.</p>
-     <li data-md>
-      <p>If <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type">type</a></code> is <code>resolve</code> or <code>reject</code>:</p>
-     <li data-md>
-      <p>Let <var>sessionId</var> be <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid">sessionId</a></code>.</p>
-     <li data-md>
-      <p>Let <var>messageId</var> be <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args">args</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-messageid" id="ref-for-dom-resolvemessageargs-messageid">messageId</a></code>.</p>
-     <li data-md>
-      <p>Let <var>promise</var> be the promise in the <a data-link-type="dfn">resolve list</a> for <var>sessionId</var> and <var>messageId</var>, if any.</p>
-     <li data-md>
-      <p>If a <var>promise</var> was found:</p>
-      <ol>
-       <li data-md>
-        <p>If <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type①">type</a></code> is <code>resolve</code>, then fulfill <var>promise</var> with <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args①">args</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value">value</a></code>.</p>
-       <li data-md>
-        <p>If <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type②">type</a></code> is <code>reject</code>, then reject <var>promise</var> with <var>message</var>.<code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args②">args</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value①">value</a></code>.</p>
-      </ol>
-     <li data-md>
-      <p>Otherwise: pass <var>message</var> to the user of the protocol for handling.</p>
-    </ol>
-   </section>
-   <h3 class="heading settled" data-level="8.3" id="#msg-struct"><span class="secno">8.3. </span><span class="content">Message Data Structure</span><a class="self-link" href="#%23msg-struct"></a></h3>
-   <p>A protocol message is represented by the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑤">Message</a></code> data structure.</p>
-<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-message"><code><c- g>Message</c-></code></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code></dfn>;
-  <c- b>any</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code></dfn>;
+   <p>Both primary and response messages implement the same data structure (see <a href="#message-data-structure">§ 8.1.1 Data Structure</a>).</p>
+   <h4 class="heading settled" data-level="8.2.1" id="protocol-message-categories-resolve"><span class="secno">8.2.1. </span><span class="content"><code>resolve</code> Messages</span><a class="self-link" href="#protocol-message-categories-resolve"></a></h4>
+   <p>The receiver confirms successful message processing by replying with a resolution message.</p>
+   <p><code>Message.type</code> must be <code>resolve</code>.</p>
+   <p><code>Message.args</code> must be a <code>ResolveMessageArgs</code> object:</p>
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code><a class="self-link" href="#dictdef-resolvemessageargs"></a></dfn> {
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-resolvemessageargs-messageid"></a></dfn>;
+    <c- b>any</c-> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-resolvemessageargs-value"></a></dfn>;
 };
 </pre>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑥">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid①">sessionId</a></code>, a string that uniquely
-identifies the <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions⑦">session</a> to which the <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑦">Message</a></code> belongs.</p>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑧">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid">messageId</a></code>, an integer that
-increments with each message sent by the sender over the <a data-link-type="dfn" href="#message-sessions" id="ref-for-message-sessions⑧">session</a> specified by <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid②">sessionId</a></code>.</p>
-   <p class="note" role="note"><span>Note:</span> The combination of <code class="idl"><a data-link-type="idl" href="#dom-message-sessionid" id="ref-for-dom-message-sessionid③">sessionId</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid①">messageId</a></code> uniquely identifies a single message. The combination of the values of these two
-attributes may never occur twice.</p>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message⑨">Message</a></code> has <code class="idl"><a data-link-type="idl" href="#dom-message-timestamp" id="ref-for-dom-message-timestamp">timestamp</a></code> property. <code class="idl"><a data-link-type="idl" href="#dom-message-timestamp" id="ref-for-dom-message-timestamp①">timestamp</a></code> is expressed in
-a number of milliseconds since January 1, 1970, 00:00:00 UTC (<code>Epoch</code> time). <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①⓪">Message</a></code> sender must set <code>timestamp</code> value as close as possible
-to the moment the underlying process occurs. However, the <code>receiver</code> should not assume that <code>timestamp</code> value reflects the exact instant <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①①">Message</a></code> triggering event chain was accomplished.</p>
-   <p>For example, if <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①②">Message</a></code> communicates ad video state change, media player sets <code class="idl"><a data-link-type="idl" href="#dom-message-timestamp" id="ref-for-dom-message-timestamp②">timestamp</a></code> value to the moment the corresponding video event arrives from <code>HTMLVideoElement</code>.</p>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①③">Message</a></code> has an associated <code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type③">type</a></code>, a string that defines the type
-of message that is being sent and informs the receiver how to interpret the <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args③">args</a></code> parameter.</p>
-   <p>A <code class="idl"><a data-link-type="idl" href="#dictdef-message" id="ref-for-dictdef-message①④">Message</a></code> may have associated <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args④">args</a></code>, which are <code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type④">type</a></code>-specific additional arguments. The data structure and meaning
-of <code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑤">args</a></code> is defined in the respective message type definitions.</p>
-   <h4 class="heading settled" data-level="8.3.1" id="##msg-proto-resolve"><span class="secno">8.3.1. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-resolve"><code>resolve</code><a class="self-link" href="#message-resolve"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-resolve"></a></h4>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type⑤">type</a></code> must be <code>resolve</code></p>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑥">args</a></code> must be a <code class="idl"><a data-link-type="idl" href="#dictdef-resolvemessageargs" id="ref-for-dictdef-resolvemessageargs">ResolveMessageArgs</a></code> object:</p>
-<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></dfn>;
-  <c- b>any</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code></dfn>;
+   <dl class="idl highlight def">
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-messageid①"><code>messageId</code><a class="self-link" href="#dom-foointerface-messageid①"></a></dfn>, <span></span>
+    <dd>The value of the messageId attribute of the message to which the receiver responds. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-value"><code>value</code><a class="self-link" href="#dom-foointerface-value"></a></dfn>, <span></span>
+    <dd>Additional data associated with this <code>resolve</code> message. 
+   </dl>
+   <div class="example" id="example-f12d610a">
+    <a class="self-link" href="#example-f12d610a"></a> <b>Example of <code>resolve</code> message:</b> 
+    <div class="js-highlight">
+<pre style="line-height: 125%">{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">10</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"resolve"</span>,
+    args: {
+        messageId: <span class="hnum">5</span>,
+        value: {
+            id: <span class="hnum">45</span>
+        }
+    }
+}
+</pre>
+    </div>
+   </div>
+   <h4 class="heading settled" data-level="8.2.2" id="protocol-message-categories-reject"><span class="secno">8.2.2. </span><span class="content"><code>reject</code> Messages</span><a class="self-link" href="#protocol-message-categories-reject"></a></h4>
+   <p>When the receiver is unable to process the message, it responds with rejection.</p>
+   <p><code>Message.type</code> must be <code>reject</code>.</p>
+   <p><code>Message.args.value</code> must be a <code>RejectMessageArgsValue</code> object:</p>
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code><a class="self-link" href="#dictdef-rejectmessageargsvalue"></a></dfn> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-errorcode"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
 };
 </pre>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-messageid" id="ref-for-dom-resolvemessageargs-messageid①">messageId</a></code> refers to the <code class="idl"><a data-link-type="idl" href="#dom-message-messageid" id="ref-for-dom-message-messageid②">messageId</a></code> attribute
-of the message that is being resolved.</p>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value②">value</a></code> may include a value associated with this <code>resolve</code> message.</p>
-   <h4 class="heading settled" data-level="8.3.2" id="##msg-proto-reject"><span class="secno">8.3.2. </span><span class="content"><dfn data-dfn-for="message" data-dfn-type="dfn" data-noexport id="message-reject"><code>reject</code><a class="self-link" href="#message-reject"></a></dfn> messages</span><a class="self-link" href="#%23%23msg-proto-reject"></a></h4>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-message-type" id="ref-for-dom-message-type⑥">type</a></code> must be <code>reject</code></p>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-message-args" id="ref-for-dom-message-args⑦">args</a></code> must be a <code class="idl"><a data-link-type="idl" href="#dictdef-resolvemessageargs" id="ref-for-dictdef-resolvemessageargs①">ResolveMessageArgs</a></code> object.</p>
-   <p><code class="idl"><a data-link-type="idl" href="#dom-resolvemessageargs-value" id="ref-for-dom-resolvemessageargs-value③">value</a></code> may include an error message associated with this <code>reject</code> message.</p>
-<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-resolvemessageargsvalue"><code><c- g>ResolveMessageArgsValue</c-></code><a class="self-link" href="#dictdef-resolvemessageargsvalue"></a></dfn> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-resolvemessageargsvalue-errorcode"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-resolvemessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-resolvemessageargsvalue-message"></a></dfn>;
-};
+   <dl class="idl highlight def">
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errorcode⑤"><code>errorCode</code><a class="self-link" href="#dom-foointerface-errorcode⑤"></a></dfn>, <span></span>
+    <dd>The error code associated with the reason the receiver <code>rejects</code> the message. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-message③"><code>message</code><a class="self-link" href="#dom-foointerface-message③"></a></dfn>, <span></span>
+    <dd>Additional information. 
+   </dl>
+   <div class="example" id="example-a5a7fcb2">
+    <a class="self-link" href="#example-a5a7fcb2"></a> <b>Example of <code>reject</code> message:</b> 
+    <div class="js-highlight">
+<pre style="line-height: 125%">{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">10</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"resolve"</span>,
+    args: {
+        messageId: <span class="hnum">5</span>,
+        value: {
+            errorCode: <span class="hnum">902</span>,
+            message: <span class="hstr">"The feature is not available."</span>
+        }
+    }
+}
 </pre>
-   <h3 class="heading settled" data-level="8.4" id="error-codes"><span class="secno">8.4. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h3>
+    </div>
+   </div>
+   <h3 class="heading settled" data-level="8.3" id="protocol-transport-layer"><span class="secno">8.3. </span><span class="content">Transport Layer</span><a class="self-link" href="#protocol-transport-layer"></a></h3>
+   <p>Transport is a communication mechanism that can send serialized messages between two parties.</p>
+   <h4 class="heading settled" data-level="8.3.1" id="postmessage-transport"><span class="secno">8.3.1. </span><span class="content"><code>postMessage</code> Transport</span><a class="self-link" href="#postmessage-transport"></a></h4>
+   <p>In HTML environments, where the player loads creative overlay in a cross-origin iframe, the parties utilize the standard <code>Window.postMessage()</code> API as the message transport mechanism.</p>
+   <h4 class="heading settled" data-level="8.3.2" id="message-serialization"><span class="secno">8.3.2. </span><span class="content">Message Serialization</span><a class="self-link" href="#message-serialization"></a></h4>
+   <p>The message sender serializes data into a <code>JSON</code> string. The deserialized <code>JSON</code> must result in a clone of the original Message data object.</p>
+   <p>In JavaScript, <code>JSON.stringify()</code> performs serialization; <code>JSON.parse()</code> - deserialization.</p>
+   <h3 class="heading settled" data-level="8.4" id="protocol-session-layer"><span class="secno">8.4. </span><span class="content">Session Layer</span><a class="self-link" href="#protocol-session-layer"></a></h3>
+   <p>The media player may manage several ads that are in different phases of their lifespans; multiple concurrent sessions may be active. For example, while the player is rendering ad-A, it preloads and engages ad-B. Simultaneous two-way communication between the player and both ads persists.</p>
+   <p>Each session has a unique identifier. All messages that belong to a specific session must reference the same session id.</p>
+   <h4 class="heading settled" data-level="8.4.1" id="protocol-establish-session"><span class="secno">8.4.1. </span><span class="content">Establishing a New Session</span><a class="self-link" href="#protocol-establish-session"></a></h4>
+   <p>SIMID delegates the session initialization to the creative overlay. The creative generates a unique session id and posts the first session message with the <code>Message.type createSession</code>. By posting the <code>createSession</code> message, the creative acknowledges its readiness to receive messages from the player.</p>
+   <p class="note" role="note"><span>Note:</span> There is no expectation for the interactive component to be entirely able to participate in ad rendering at the time the creative signals <code>createSession</code> message. Full creative initialization may occur at later stages when the player provides complete data - see <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a>.</p>
+   <div class="example" id="example-f62cc7db">
+    <a class="self-link" href="#example-f62cc7db"></a> <b>Example of <code>createSession</code> Message data:</b> 
+    <div class="js-highlight">
+<pre style="line-height: 125%">{
+    sessionId: <span class="hstr">"173378a4-b2e1-11e9-a2a3-2a2ae2dbcce4"</span>,
+    messageId: <span class="hnum">0</span>,
+    timestamp: <span class="hnum">1564501643047</span>,
+    type: <span class="hstr">"createSession"</span>,
+    args: { }
+}
+</pre>
+    </div>
+   </div>
+   <p>Creative should initialize the session as soon as possible. The player should establish a reasonable timeout for the session initialization message receipt.</p>
+   <p>The player responds to <code>createSession</code> with a <code>resolve</code> message.</p>
+   <div diagram id="diagram-durationchange-unknown①">
+    <p>Typical Session Initialization Sequence</p>
+     <img alt="Typical session initialization." src="images/dgrm-session-init-sequence.png"> 
+    <ol dgrm-details>
+     <li>The player starts a <code>createSession</code> message timeout.
+     <li>The player loads creative.
+     <li>Creative posts <code>createSession</code> message.
+     <li>The player cancels the timeout.
+     <li>The player responds with a <code>resolve</code> message.
+     <li>The player initializes creative. See <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a>.
+    </ol>
+   </div>
+   <h4 class="heading settled" data-level="8.4.2" id="session-establishing-delays-and-failures"><span class="secno">8.4.2. </span><span class="content">Session Establishing Delays and Failures</span><a class="self-link" href="#session-establishing-delays-and-failures"></a></h4>
+   <p>Typically, the player should wait for the creative to post a <code>createSession</code> message before the player proceeds with a simultaneous rendering of both ad media and the interactive component.</p>
+   <p>SIMID recognizes use cases when the creative fails to establish a session within the allotted timeout. Under common circumstances, to preserve ad integrity, the player should abandon the ad if the creative fails to establish a session.</p>
+   <p><b>Recommended Sequence</b></p>
+   <ol>
+    <li>The timeout expires before the createSession message arrives.
+    <li>
+     The player abandons ad: 
+     <ul>
+      <li>The player unloads the interactive component.
+      <li>The player drops ad media playback.
+     </ul>
+   </ol>
+   <p>With SSAI and live broadcasts, the player may be unable to wait for the creative to initialize the session. Under such circumstances, the player proceeds with the ad media playback upon the timeout expiration or, in some cases, does not start timeout at all. In such cases, the media player should operate as follows:</p>
+   <p><b>Scenario A. Creative posts <code>createSession</code> message after the timeout lapse</b></p>
+   <ol>
+    <li>The timeout expires.
+    <li>The player retains the interactive component.
+    <li>The player initiates ad media playback.
+    <li>The player reports the impression.
+    <li>The player does not post messages to the creative.
+    <li>The creative posts <code>createSession</code> message.
+    <li>The player proceeds with the creative initialization.
+    <li>Once creative initialization completes - the player and the creative maintain bidirectional communication.
+   </ol>
+   <p><b>Scenario B. Player starts media portion before creative loads</b></p>
+   <ol>
+    <li>The player renders ad media.
+    <li>The player does not establish timeout (in essence - the timeout is zero).
+    <li>The player loads the creative.
+    <li>The creative establishes session.
+    <li>The player initializes the interactive component.
+    <li>The player and the creative maintain bidirectional communication.
+   </ol>
+   <p><b>Scenario C. Creative never establishes a session</b></p>
+   <ol>
+    <li>The timeout expires.
+    <li>The player retains the interactive component.
+    <li>The player initiates ad media playback.
+    <li>The player reports the impression.
+    <li>Ad media playback completes.
+    <li>The player unloads the interactive component. 
+   </ol>
+   <h2 class="heading settled" data-level="9" id="error-codes"><span class="secno">9. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h2>
     This table describes SIMID error codes the creative may fire. 
    <p id="table-error-codes" table-header>Error Codes.</p>
    <table class="alternatecolor">
@@ -3766,7 +3770,7 @@ of the message that is being resolved.</p>
           sends messages.
       <td>
    </table>
-   <h2 class="heading settled" data-level="9" id="terminology"><span class="secno">9. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
+   <h2 class="heading settled" data-level="10" id="terminology"><span class="secno">10. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <dl>
     <dt data-md><dfn data-dfn-type="dfn" data-noexport id="simid-vast">SIMID VAST<a class="self-link" href="#simid-vast"></a></dfn>
     <dd data-md>
@@ -3958,7 +3962,12 @@ primary video.</p>
      <li><a href="#dom-foointerface-appid">attribute for FooInterface</a><span>, in §4.3.6</span>
      <li><a href="#dom-environmentdata-appid">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
     </ul>
-   <li><a href="#dom-message-args">args</a><span>, in §8.3</span>
+   <li>
+    args
+    <ul>
+     <li><a href="#dom-foointerface-args">attribute for FooInterface</a><span>, in §8.1.1</span>
+     <li><a href="#dom-message-args">dict-member for Message</a><span>, in §8.1.1</span>
+    </ul>
    <li>
     clickThruUrl
     <ul>
@@ -3971,7 +3980,7 @@ primary video.</p>
      <li><a href="#dom-foointerface-code">attribute for FooInterface</a><span>, in §4.3.2</span>
      <li><a href="#dom-messageargs-code">dict-member for MessageArgs</a><span>, in §4.3.2</span>
     </ul>
-   <li><a href="#content-video">Content Video</a><span>, in §9</span>
+   <li><a href="#content-video">Content Video</a><span>, in §10</span>
    <li>
     creativeData
     <ul>
@@ -4003,7 +4012,6 @@ primary video.</p>
      <li><a href="#dom-messageargs-currenttime">dict-member for MessageArgs</a><span>, in §4.2.10</span>
      <li><a href="#dom-messageargs-currenttime②">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
     </ul>
-   <li><a href="#message-deserialize">deserialize</a><span>, in §8.1.2</span>
    <li>
     deviceId
     <ul>
@@ -4054,11 +4062,12 @@ primary video.</p>
      <li><a href="#dom-foointerface-errorcode②">attribute for FooInterface</a><span>, in §4.3.9.2</span>
      <li><a href="#dom-foointerface-errorcode③">attribute for FooInterface</a><span>, in §4.4.2</span>
      <li><a href="#dom-foointerface-errorcode④">attribute for FooInterface</a><span>, in §4.4.5.2</span>
+     <li><a href="#dom-foointerface-errorcode⑤">attribute for FooInterface</a><span>, in §8.2.2</span>
      <li><a href="#dom-messageargs-errorcode">dict-member for MessageArgs</a><span>, in §4.3.5</span>
      <li><a href="#dom-messageargs-errorcode①">dict-member for MessageArgs</a><span>, in §4.3.6.2</span>
      <li><a href="#dom-messageargs-errorcode②">dict-member for MessageArgs</a><span>, in §4.3.9.2</span>
      <li><a href="#dom-messageargs-errorcode③">dict-member for MessageArgs</a><span>, in §4.4.5.2</span>
-     <li><a href="#dom-resolvemessageargsvalue-errorcode">dict-member for ResolveMessageArgsValue</a><span>, in §8.3.2</span>
+     <li><a href="#dom-rejectmessageargsvalue-errorcode">dict-member for RejectMessageArgsValue</a><span>, in §8.2.2</span>
     </ul>
    <li>
     errorMessage
@@ -4068,7 +4077,6 @@ primary video.</p>
      <li><a href="#dom-messageargs-errormessage">dict-member for MessageArgs</a><span>, in §4.3.5</span>
      <li><a href="#dom-messageargs-errormessage①">dict-member for MessageArgs</a><span>, in §4.4.2</span>
     </ul>
-   <li><a href="#message-establish-a-new-session">establish a new session</a><span>, in §8.2.1</span>
    <li>
     fullScreen
     <ul>
@@ -4089,7 +4097,6 @@ primary video.</p>
      <li><a href="#dom-foointerface-fullscreenallowed">attribute for FooInterface</a><span>, in §4.3.6</span>
      <li><a href="#dom-environmentdata-fullscreenallowed">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
     </ul>
-   <li><a href="#message-handle-an-incoming-message">handle an incoming message</a><span>, in §8.2.3</span>
    <li>
     height
     <ul>
@@ -4110,12 +4117,13 @@ primary video.</p>
      <li><a href="#dom-foointerface-message">attribute for FooInterface</a><span>, in §4.2.3</span>
      <li><a href="#dom-foointerface-message①">attribute for FooInterface</a><span>, in §4.3.7</span>
      <li><a href="#dom-foointerface-message②">attribute for FooInterface</a><span>, in §4.4.4</span>
+     <li><a href="#dom-foointerface-message③">attribute for FooInterface</a><span>, in §8.2.2</span>
      <li><a href="#dom-messageargs-message">dict-member for MessageArgs</a><span>, in §4.2.3</span>
      <li><a href="#dom-messageargs-message①">dict-member for MessageArgs</a><span>, in §4.3.7</span>
      <li><a href="#dom-messageargs-message②">dict-member for MessageArgs</a><span>, in §4.4.4</span>
-     <li><a href="#dom-resolvemessageargsvalue-message">dict-member for ResolveMessageArgsValue</a><span>, in §8.3.2</span>
+     <li><a href="#dom-rejectmessageargsvalue-message">dict-member for RejectMessageArgsValue</a><span>, in §8.2.2</span>
     </ul>
-   <li><a href="#dictdef-message">Message</a><span>, in §8.3</span>
+   <li><a href="#dictdef-message">Message</a><span>, in §8.1.1</span>
    <li>
     MessageArgs
     <ul>
@@ -4143,8 +4151,10 @@ primary video.</p>
    <li>
     messageId
     <ul>
-     <li><a href="#dom-message-messageid">dict-member for Message</a><span>, in §8.3</span>
-     <li><a href="#dom-resolvemessageargs-messageid">dict-member for ResolveMessageArgs</a><span>, in §8.3.1</span>
+     <li><a href="#dom-foointerface-messageid">attribute for FooInterface</a><span>, in §8.1.1</span>
+     <li><a href="#dom-foointerface-messageid①">attribute for FooInterface</a><span>, in §8.2.1</span>
+     <li><a href="#dom-message-messageid">dict-member for Message</a><span>, in §8.1.1</span>
+     <li><a href="#dom-resolvemessageargs-messageid">dict-member for ResolveMessageArgs</a><span>, in §8.2.1</span>
     </ul>
    <li>
     muted
@@ -4166,7 +4176,6 @@ primary video.</p>
      <li><a href="#dom-messageargs-paused">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
     </ul>
    <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §4.3.6</span>
-   <li><a href="#message-transport-properties">properties</a><span>, in §8.1</span>
    <li>
     reason
     <ul>
@@ -4177,26 +4186,21 @@ primary video.</p>
      <li><a href="#dom-messageargs-reason①">dict-member for MessageArgs</a><span>, in §4.3.9.2</span>
      <li><a href="#dom-messageargs-reason②">dict-member for MessageArgs</a><span>, in §4.4.5.2</span>
     </ul>
-   <li><a href="#message-receiver">receiver</a><span>, in §8.1</span>
-   <li><a href="#message-reject">reject</a><span>, in §8.3.2</span>
-   <li><a href="#message-resolve">resolve</a><span>, in §8.3.1</span>
-   <li><a href="#dictdef-resolvemessageargs">ResolveMessageArgs</a><span>, in §8.3.1</span>
-   <li><a href="#dictdef-resolvemessageargsvalue">ResolveMessageArgsValue</a><span>, in §8.3.2</span>
-   <li><a href="#message-send-a-message">send a message</a><span>, in §8.2.2</span>
-   <li><a href="#message-send-an-acknowledgement-message">send an acknowledgement message</a><span>, in §8.2.2</span>
-   <li><a href="#message-sender">sender</a><span>, in §8.1</span>
-   <li><a href="#message-serialize">serialize</a><span>, in §8.1.2</span>
-   <li><a href="#message-serialized-message">serialized message</a><span>, in §8.1</span>
-   <li><a href="#dom-message-sessionid">sessionId</a><span>, in §8.3</span>
-   <li><a href="#message-session-identifier">session identifier</a><span>, in §8.2</span>
-   <li><a href="#message-sessions">sessions</a><span>, in §8.2</span>
-   <li><a href="#simid-ad-unit">SIMID Ad Unit</a><span>, in §9</span>
-   <li><a href="#simid-creative">SIMID Creative</a><span>, in §9</span>
-   <li><a href="#simid-live-video-stream">SIMID Live Video Stream</a><span>, in §9</span>
-   <li><a href="#simid-secondary-video">SIMID Secondary Video</a><span>, in §9</span>
-   <li><a href="#simid-vast">SIMID VAST</a><span>, in §9</span>
-   <li><a href="#simid-video">SIMID Video</a><span>, in §9</span>
-   <li><a href="#simid-video-stream">SIMID Video Stream</a><span>, in §9</span>
+   <li><a href="#dictdef-rejectmessageargsvalue">RejectMessageArgsValue</a><span>, in §8.2.2</span>
+   <li><a href="#dictdef-resolvemessageargs">ResolveMessageArgs</a><span>, in §8.2.1</span>
+   <li>
+    sessionId
+    <ul>
+     <li><a href="#dom-foointerface-sessionid">attribute for FooInterface</a><span>, in §8.1.1</span>
+     <li><a href="#dom-message-sessionid">dict-member for Message</a><span>, in §8.1.1</span>
+    </ul>
+   <li><a href="#simid-ad-unit">SIMID Ad Unit</a><span>, in §10</span>
+   <li><a href="#simid-creative">SIMID Creative</a><span>, in §10</span>
+   <li><a href="#simid-live-video-stream">SIMID Live Video Stream</a><span>, in §10</span>
+   <li><a href="#simid-secondary-video">SIMID Secondary Video</a><span>, in §10</span>
+   <li><a href="#simid-vast">SIMID VAST</a><span>, in §10</span>
+   <li><a href="#simid-video">SIMID Video</a><span>, in §10</span>
+   <li><a href="#simid-video-stream">SIMID Video Stream</a><span>, in §10</span>
    <li>
     siteUrl
     <ul>
@@ -4210,22 +4214,36 @@ primary video.</p>
      <li><a href="#dom-environmentdata-skippablestate">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
     </ul>
    <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §4.3.6</span>
-   <li><a href="#dom-message-timestamp">timestamp</a><span>, in §8.3</span>
+   <li>
+    timestamp
+    <ul>
+     <li><a href="#dom-foointerface-timestamp">attribute for FooInterface</a><span>, in §8.1.1</span>
+     <li><a href="#dom-message-timestamp">dict-member for Message</a><span>, in §8.1.1</span>
+    </ul>
    <li>
     trackingUrls
     <ul>
      <li><a href="#dom-foointerface-trackingurls">attribute for FooInterface</a><span>, in §4.4.5</span>
      <li><a href="#dom-messageargs-trackingurls">dict-member for MessageArgs</a><span>, in §4.4.5</span>
     </ul>
-   <li><a href="#message-transport">transport</a><span>, in §8.1</span>
-   <li><a href="#dom-message-type">type</a><span>, in §8.3</span>
+   <li>
+    type
+    <ul>
+     <li><a href="#dom-foointerface-type">attribute for FooInterface</a><span>, in §8.1.1</span>
+     <li><a href="#dom-message-type">dict-member for Message</a><span>, in §8.1.1</span>
+    </ul>
    <li>
     useragent
     <ul>
      <li><a href="#dom-foointerface-useragent">attribute for FooInterface</a><span>, in §4.3.6</span>
      <li><a href="#dom-environmentdata-useragent">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
     </ul>
-   <li><a href="#dom-resolvemessageargs-value">value</a><span>, in §8.3.1</span>
+   <li>
+    value
+    <ul>
+     <li><a href="#dom-foointerface-value">attribute for FooInterface</a><span>, in §8.2.1</span>
+     <li><a href="#dom-resolvemessageargs-value">dict-member for ResolveMessageArgs</a><span>, in §8.2.1</span>
+    </ul>
    <li>
     variableDurationAllowed
     <ul>
@@ -4283,13 +4301,6 @@ primary video.</p>
      <li><a href="#dom-messageargs-y">dict-member for MessageArgs</a><span>, in §4.4.1</span>
     </ul>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-the-iframe-element">
-   <a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element">https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-the-iframe-element">8. Messaging Protocol</a>
-    <li><a href="#ref-for-the-iframe-element①">8.1.1. postMessage Transport</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
    <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
    <ul>
@@ -4303,16 +4314,8 @@ primary video.</p>
     <li><a href="#ref-for-idl-DOMString①③">4.4.3.1. resolve</a>
     <li><a href="#ref-for-idl-DOMString①④">4.4.4. SIMID:Creative:log</a>
     <li><a href="#ref-for-idl-DOMString①⑤">4.4.5.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⑥">8.1.2. Message Serialization</a>
-    <li><a href="#ref-for-idl-DOMString①⑦">8.3. Message Data Structure</a> <a href="#ref-for-idl-DOMString①⑧">(2)</a>
-    <li><a href="#ref-for-idl-DOMString①⑨">8.3.2. reject messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-promise">
-   <a href="https://heycam.github.io/webidl/#idl-promise">https://heycam.github.io/webidl/#idl-promise</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-promise">8.2.1. Establishing a new session</a> <a href="#ref-for-idl-promise①">(2)</a>
-    <li><a href="#ref-for-idl-promise②">8.2.2. Sending messages</a> <a href="#ref-for-idl-promise③">(2)</a> <a href="#ref-for-idl-promise④">(3)</a>
+    <li><a href="#ref-for-idl-DOMString①⑥">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString①⑦">(2)</a>
+    <li><a href="#ref-for-idl-DOMString①⑧">8.2.2. reject Messages</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
@@ -4354,9 +4357,9 @@ primary video.</p>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
    <a href="https://heycam.github.io/webidl/#idl-unsigned-long">https://heycam.github.io/webidl/#idl-unsigned-long</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-unsigned-long">8.3. Message Data Structure</a> <a href="#ref-for-idl-unsigned-long①">(2)</a>
-    <li><a href="#ref-for-idl-unsigned-long②">8.3.1. resolve messages</a>
-    <li><a href="#ref-for-idl-unsigned-long③">8.3.2. reject messages</a>
+    <li><a href="#ref-for-idl-unsigned-long">8.1.1. Data Structure</a> <a href="#ref-for-idl-unsigned-long①">(2)</a>
+    <li><a href="#ref-for-idl-unsigned-long②">8.2.1. resolve Messages</a>
+    <li><a href="#ref-for-idl-unsigned-long③">8.2.2. reject Messages</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
@@ -4373,15 +4376,9 @@ primary video.</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
-    <a data-link-type="biblio">[HTML]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="term-for-the-iframe-element" style="color:initial">iframe</span>
-    </ul>
-   <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
-     <li><span class="dfn-paneled" id="term-for-idl-promise" style="color:initial">Promise</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
      <li><span class="dfn-paneled" id="term-for-idl-float" style="color:initial">float</span>
      <li><span class="dfn-paneled" id="term-for-idl-long" style="color:initial">long</span>
@@ -4393,8 +4390,6 @@ primary video.</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
-   <dt id="biblio-html">[HTML]
-   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-webidl">[WebIDL]
@@ -4425,7 +4420,7 @@ primary video.</p>
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑤"><code><c- g>MessageArgs</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short②①"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①⓪"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-errormessage"><code><c- g>errorMessage</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-errormessage"><code><c- g>errorMessage</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑥"><code><c- g>MessageArgs</c-></code></a> {
@@ -4546,21 +4541,21 @@ primary video.</p>
 
 
 <c- b>dictionary</c-> <a href="#dictdef-message"><code><c- g>Message</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑦①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-sessionid"><code><c- g>sessionId</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑥①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-sessionid"><code><c- g>sessionId</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long④"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-messageid"><code><c- g>messageId</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-timestamp"><code><c- g>timestamp</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑧①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-type"><code><c- g>type</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑦①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-type"><code><c- g>type</c-></code></a>;
   <c- b>any</c-> <a data-type="any " href="#dom-message-args"><code><c- g>args</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></a>;
-  <c- b>any</c-> <a data-type="any " href="#dom-resolvemessageargs-value"><code><c- g>value</c-></code></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></a>;
+    <c- b>any</c-> <a data-type="any " href="#dom-resolvemessageargs-value"><code><c- g>value</c-></code></a>;
 };
 
-<c- b>dictionary</c-> <a href="#dictdef-resolvemessageargsvalue"><code><c- g>ResolveMessageArgsValue</c-></code></a> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargsvalue-errorcode"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑨①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-resolvemessageargsvalue-message"><code><c- g>message</c-></code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code></a> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑧①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code></a>;
 };
 
 </pre>
@@ -4603,231 +4598,6 @@ primary video.</p>
     <li><a href="#ref-for-enumdef-skippablestate">4.3.6. SIMID:Player:init</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="message-transport">
-   <b><a href="#message-transport">#message-transport</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-transport">8.1. Transport Layer</a> <a href="#ref-for-message-transport①">(2)</a> <a href="#ref-for-message-transport②">(3)</a>
-    <li><a href="#ref-for-message-transport③">8.2. Session Layer</a>
-    <li><a href="#ref-for-message-transport④">8.2.2. Sending messages</a>
-    <li><a href="#ref-for-message-transport⑤">8.2.3. Receiving messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-serialized-message">
-   <b><a href="#message-serialized-message">#message-serialized-message</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-serialized-message">8.1. Transport Layer</a> <a href="#ref-for-message-serialized-message①">(2)</a> <a href="#ref-for-message-serialized-message②">(3)</a> <a href="#ref-for-message-serialized-message③">(4)</a> <a href="#ref-for-message-serialized-message④">(5)</a> <a href="#ref-for-message-serialized-message⑤">(6)</a>
-    <li><a href="#ref-for-message-serialized-message⑥">8.1.2. Message Serialization</a> <a href="#ref-for-message-serialized-message⑦">(2)</a> <a href="#ref-for-message-serialized-message⑧">(3)</a> <a href="#ref-for-message-serialized-message⑨">(4)</a> <a href="#ref-for-message-serialized-message①⓪">(5)</a> <a href="#ref-for-message-serialized-message①①">(6)</a>
-    <li><a href="#ref-for-message-serialized-message①②">8.2.3. Receiving messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-sender">
-   <b><a href="#message-sender">#message-sender</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-sender">8.1. Transport Layer</a> <a href="#ref-for-message-sender①">(2)</a> <a href="#ref-for-message-sender②">(3)</a>
-    <li><a href="#ref-for-message-sender③">8.1.2. Message Serialization</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-receiver">
-   <b><a href="#message-receiver">#message-receiver</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-receiver">8.1. Transport Layer</a> <a href="#ref-for-message-receiver①">(2)</a> <a href="#ref-for-message-receiver②">(3)</a> <a href="#ref-for-message-receiver③">(4)</a>
-    <li><a href="#ref-for-message-receiver④">8.1.2. Message Serialization</a> <a href="#ref-for-message-receiver⑤">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-deserialize">
-   <b><a href="#message-deserialize">#message-deserialize</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-deserialize">8.1.2. Message Serialization</a> <a href="#ref-for-message-deserialize①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-sessions">
-   <b><a href="#message-sessions">#message-sessions</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-sessions">8.2. Session Layer</a> <a href="#ref-for-message-sessions①">(2)</a>
-    <li><a href="#ref-for-message-sessions②">8.2.1. Establishing a new session</a>
-    <li><a href="#ref-for-message-sessions③">8.2.2. Sending messages</a> <a href="#ref-for-message-sessions④">(2)</a> <a href="#ref-for-message-sessions⑤">(3)</a>
-    <li><a href="#ref-for-message-sessions⑥">8.2.3. Receiving messages</a>
-    <li><a href="#ref-for-message-sessions⑦">8.3. Message Data Structure</a> <a href="#ref-for-message-sessions⑧">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-session-identifier">
-   <b><a href="#message-session-identifier">#message-session-identifier</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-session-identifier">8.2. Session Layer</a>
-    <li><a href="#ref-for-message-session-identifier①">8.2.1. Establishing a new session</a> <a href="#ref-for-message-session-identifier②">(2)</a> <a href="#ref-for-message-session-identifier③">(3)</a>
-    <li><a href="#ref-for-message-session-identifier④">8.2.2. Sending messages</a> <a href="#ref-for-message-session-identifier⑤">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-establish-a-new-session">
-   <b><a href="#message-establish-a-new-session">#message-establish-a-new-session</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-establish-a-new-session">8.2.1. Establishing a new session</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-send-a-message">
-   <b><a href="#message-send-a-message">#message-send-a-message</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-send-a-message">8.2.2. Sending messages</a> <a href="#ref-for-message-send-a-message①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="message-send-an-acknowledgement-message">
-   <b><a href="#message-send-an-acknowledgement-message">#message-send-an-acknowledgement-message</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-message-send-an-acknowledgement-message">8.2.1. Establishing a new session</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-message">
-   <b><a href="#dictdef-message">#dictdef-message</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-message">8.1.2. Message Serialization</a> <a href="#ref-for-dictdef-message①">(2)</a> <a href="#ref-for-dictdef-message②">(3)</a> <a href="#ref-for-dictdef-message③">(4)</a>
-    <li><a href="#ref-for-dictdef-message④">8.2.2. Sending messages</a>
-    <li><a href="#ref-for-dictdef-message⑤">8.3. Message Data Structure</a> <a href="#ref-for-dictdef-message⑥">(2)</a> <a href="#ref-for-dictdef-message⑦">(3)</a> <a href="#ref-for-dictdef-message⑧">(4)</a> <a href="#ref-for-dictdef-message⑨">(5)</a> <a href="#ref-for-dictdef-message①⓪">(6)</a> <a href="#ref-for-dictdef-message①①">(7)</a> <a href="#ref-for-dictdef-message①②">(8)</a> <a href="#ref-for-dictdef-message①③">(9)</a> <a href="#ref-for-dictdef-message①④">(10)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-message-sessionid">
-   <b><a href="#dom-message-sessionid">#dom-message-sessionid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-message-sessionid">8.2.3. Receiving messages</a>
-    <li><a href="#ref-for-dom-message-sessionid①">8.3. Message Data Structure</a> <a href="#ref-for-dom-message-sessionid②">(2)</a> <a href="#ref-for-dom-message-sessionid③">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-message-messageid">
-   <b><a href="#dom-message-messageid">#dom-message-messageid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-message-messageid">8.3. Message Data Structure</a> <a href="#ref-for-dom-message-messageid①">(2)</a>
-    <li><a href="#ref-for-dom-message-messageid②">8.3.1. resolve messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-message-timestamp">
-   <b><a href="#dom-message-timestamp">#dom-message-timestamp</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-message-timestamp">8.3. Message Data Structure</a> <a href="#ref-for-dom-message-timestamp①">(2)</a> <a href="#ref-for-dom-message-timestamp②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-message-type">
-   <b><a href="#dom-message-type">#dom-message-type</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-message-type">8.2.3. Receiving messages</a> <a href="#ref-for-dom-message-type①">(2)</a> <a href="#ref-for-dom-message-type②">(3)</a>
-    <li><a href="#ref-for-dom-message-type③">8.3. Message Data Structure</a> <a href="#ref-for-dom-message-type④">(2)</a>
-    <li><a href="#ref-for-dom-message-type⑤">8.3.1. resolve messages</a>
-    <li><a href="#ref-for-dom-message-type⑥">8.3.2. reject messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-message-args">
-   <b><a href="#dom-message-args">#dom-message-args</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-message-args">8.2.3. Receiving messages</a> <a href="#ref-for-dom-message-args①">(2)</a> <a href="#ref-for-dom-message-args②">(3)</a>
-    <li><a href="#ref-for-dom-message-args③">8.3. Message Data Structure</a> <a href="#ref-for-dom-message-args④">(2)</a> <a href="#ref-for-dom-message-args⑤">(3)</a>
-    <li><a href="#ref-for-dom-message-args⑥">8.3.1. resolve messages</a>
-    <li><a href="#ref-for-dom-message-args⑦">8.3.2. reject messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-resolvemessageargs">
-   <b><a href="#dictdef-resolvemessageargs">#dictdef-resolvemessageargs</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-resolvemessageargs">8.3.1. resolve messages</a>
-    <li><a href="#ref-for-dictdef-resolvemessageargs①">8.3.2. reject messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-resolvemessageargs-messageid">
-   <b><a href="#dom-resolvemessageargs-messageid">#dom-resolvemessageargs-messageid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-resolvemessageargs-messageid">8.2.3. Receiving messages</a>
-    <li><a href="#ref-for-dom-resolvemessageargs-messageid①">8.3.1. resolve messages</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-resolvemessageargs-value">
-   <b><a href="#dom-resolvemessageargs-value">#dom-resolvemessageargs-value</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-resolvemessageargs-value">8.2.3. Receiving messages</a> <a href="#ref-for-dom-resolvemessageargs-value①">(2)</a>
-    <li><a href="#ref-for-dom-resolvemessageargs-value②">8.3.1. resolve messages</a>
-    <li><a href="#ref-for-dom-resolvemessageargs-value③">8.3.2. reject messages</a>
-   </ul>
-  </aside>
-<script>/* script-var-click-highlighting */
-
-    document.addEventListener("click", e=>{
-        if(e.target.nodeName == "VAR") {
-            highlightSameAlgoVars(e.target);
-        }
-    });
-    {
-        const indexCounts = new Map();
-        const indexNames = new Map();
-        function highlightSameAlgoVars(v) {
-            // Find the algorithm container.
-            let algoContainer = null;
-            let searchEl = v;
-            while(algoContainer == null && searchEl != document.body) {
-                searchEl = searchEl.parentNode;
-                if(searchEl.hasAttribute("data-algorithm")) {
-                    algoContainer = searchEl;
-                }
-            }
-
-            // Not highlighting document-global vars,
-            // too likely to be unrelated.
-            if(algoContainer == null) return;
-
-            const algoName = algoContainer.getAttribute("data-algorithm");
-            const varName = getVarName(v);
-            const addClass = !v.classList.contains("selected");
-            let highlightClass = null;
-            if(addClass) {
-                const index = chooseHighlightIndex(algoName, varName);
-                indexCounts.get(algoName)[index] += 1;
-                indexNames.set(algoName+"///"+varName, index);
-                highlightClass = nameFromIndex(index);
-            } else {
-                const index = previousHighlightIndex(algoName, varName);
-                indexCounts.get(algoName)[index] -= 1;
-                highlightClass = nameFromIndex(index);
-            }
-
-            // Find all same-name vars, and toggle their class appropriately.
-            for(const el of algoContainer.querySelectorAll("var")) {
-                if(getVarName(el) == varName) {
-                    el.classList.toggle("selected", addClass);
-                    el.classList.toggle(highlightClass, addClass);
-                }
-            }
-        }
-        function getVarName(el) {
-            return el.textContent.replace(/(\s| )+/, " ").trim();
-        }
-        function chooseHighlightIndex(algoName, varName) {
-            let indexes = null;
-            if(indexCounts.has(algoName)) {
-                indexes = indexCounts.get(algoName);
-            } else {
-                // 7 classes right now
-                indexes = [0,0,0,0,0,0,0];
-                indexCounts.set(algoName, indexes);
-            }
-
-            // If the element was recently unclicked,
-            // *and* that color is still unclaimed,
-            // give it back the same color.
-            const lastIndex = previousHighlightIndex(algoName, varName);
-            if(indexes[lastIndex] === 0) return lastIndex;
-
-            // Find the earliest index with the lowest count.
-            const minCount = Math.min.apply(null, indexes);
-            let index = null;
-            for(var i = 0; i < indexes.length; i++) {
-                if(indexes[i] == minCount) {
-                    return i;
-                }
-            }
-        }
-        function previousHighlightIndex(algoName, varName) {
-            return indexNames.get(algoName+"///"+varName);
-        }
-        function nameFromIndex(index) {
-            return "selected" + index;
-        }
-    }
-    </script>
 <script>/* script-dfn-panel */
 
 document.body.addEventListener("click", function(e) {
