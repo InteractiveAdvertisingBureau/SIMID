@@ -679,14 +679,14 @@ All SIMID messages are sent via the [[#msg-proto]]
       <td>[[#simid-creative-requestChangeVolume-reject]]</td>
     </tr>
     <tr>
-      <td>[[#simid-creative-requestFullScreen]]</td>
-      <td>[[#simid-creative-requestFullScreen-resolve]]</td>
-      <td>[[#simid-creative-requestFullScreen-reject]]</td>
+      <td>[[#simid-creative-requestFullscreen]]</td>
+      <td>[[#simid-creative-requestFullscreen-resolve]]</td>
+      <td>[[#simid-creative-requestFullscreen-reject]]</td>
     </tr>
     <tr>
-      <td>[[#simid-creative-requestExitFullScreen]]</td>
-      <td>[[#simid-creative-requestExitFullScreen-resolve]]</td>
-      <td>[[#simid-creative-requestExitFullScreen-reject]]</td>
+      <td>[[#simid-creative-requestExitFullscreen]]</td>
+      <td>[[#simid-creative-requestExitFullscreen-resolve]]</td>
+      <td>[[#simid-creative-requestExitFullscreen-reject]]</td>
     </tr>
     <tr>
       <td>[[#simid-creative-requestPause]]</td>
@@ -920,7 +920,7 @@ While some `SIMID:Player` messages expect `resolve` and/or `reject` creative res
 		</tr>
 		<tr>
 			<td>[[#simid-player-resize]]</td>
-			<td>`mediaDimensions`<br>`creativeDimensions`<br>`fullScreen`</td>
+			<td>`mediaDimensions`<br>`creativeDimensions`<br>`fullscreen`</td>
 			<td>n/a</td>
 		</tr>
 		<tr>
@@ -1071,7 +1071,7 @@ dictionary CreativeData {
 dictionary EnvironmentData {
 	required Dimensions videoDimensions;
 	required Dimensions creativeDimensions;
-	required boolean fullScreen;
+	required boolean fullscreen;
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
 	required SkippableState skippableState;
@@ -1099,7 +1099,7 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 	<dd>Communicates media element coordinates and size.
 	<dt><dfn>creativeDimensions</dfn>
 	<dd>Communicates creative iframe coordinates and size the player will set when iframe becomes visible.
-	<dt><dfn>fullScreen</dfn>
+	<dt><dfn>fullscreen</dfn>
 	<dd>The value `true` indicates that the player is currently in full-screen mode.
 	<dt><dfn>fullscreenAllowed</dfn>
 	<dd>Communicates the player’s capacity to toggle screen modes.
@@ -1168,7 +1168,7 @@ enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
 </dl>
 
 <ul class="footnote">
-	<li>see [[#simid-creative-requestFullScreen]] and [[#simid-creative-requestExitFullScreen]] messages.</li>
+	<li>see [[#simid-creative-requestFullscreen]] and [[#simid-creative-requestExitFullscreen]] messages.</li>
 	<li>In SSAI, live broadcast, and other time-constrained environments, the player must support uninterrupted media (both content and ads) playback progress. Specifically, the player may not be able to pause the media, shorten ad, or extend user ad experience.</li>
 	<li>see [[#simid-creative-requestPause]], [[#simid-creative-requestPlay]], [[#simid-creative-requestChangeAdDuration]], and [[#simid-creative-requestStop]].</li>
 	<li>SIMID does not expect device audio state information.</li>
@@ -1254,7 +1254,7 @@ When the player changes any of ad components’ size, it posts the `SIMID:Player
 dictionary MessageArgs {
 	required Dimensions videoDimensions;
 	required Dimensions creativeDimensions;
-	required boolean fullScreen;
+	required boolean fullscreen;
 };
 
 dictionary Dimensions {
@@ -1269,7 +1269,7 @@ dictionary Dimensions {
 	<dd>Media element size and coordinates.
 	<dt><dfn>creativeDimensions</dfn>
 	<dd>SIMID iframe size and coordinates.*
-	<dt><dfn>fullScreen</dfn>
+	<dt><dfn>fullscreen</dfn>
 	<dd>Value is `true` when the ad is in full-screen mode.
 </dl>
 <ul class="footnote">
@@ -1390,14 +1390,14 @@ Note: in SIMID, the interactive component initializes the session and posts the 
 			<td>[[#simid-creative-requestChangeVolume-resolve]]<br>[[#simid-creative-requestChangeVolume-reject]]</td>
 		</tr>
 		</tr>
-			<td>[[#simid-creative-requestExitFullScreen]]</td>
+			<td>[[#simid-creative-requestExitFullscreen]]</td>
 			<td>n/a</td>
-			<td>[[#simid-creative-requestExitFullScreen-resolve]]<br>[[#simid-creative-requestExitFullScreen-reject]]</td>
+			<td>[[#simid-creative-requestExitFullscreen-resolve]]<br>[[#simid-creative-requestExitFullscreen-reject]]</td>
 		</tr>
 		</tr>
-			<td>[[#simid-creative-requestFullScreen]]</td>
+			<td>[[#simid-creative-requestFullscreen]]</td>
 			<td>n/a</td>
-			<td>[[#simid-creative-requestFullScreen-resolve]]<br>[[#simid-creative-requestFullScreen-reject]]</td>
+			<td>[[#simid-creative-requestFullscreen-resolve]]<br>[[#simid-creative-requestFullscreen-reject]]</td>
 		</tr>
 		</tr>
 			<td>[[#simid-creative-requestPause]]</td>
@@ -1654,32 +1654,32 @@ By posting `resolve` message, the player signals it has changed the media audio 
 #### reject #### {#simid-creative-requestChangeVolume-reject}
 By posting `reject` message, the player signals that it did not change the audio state.
 
-### SIMID:Creative:requestFullScreen ### {#simid-creative-requestFullScreen}
-The creative requests the player to transition the ad into full-screen mode by posting a `SIMID:Creative:requestFullScreen` message.
+### SIMID:Creative:requestFullscreen ### {#simid-creative-requestFullscreen}
+The creative requests the player to transition the ad into full-screen mode by posting a `SIMID:Creative:requestFullscreen` message.
 
-Note: the player communicates its capacity to toggle screen modes with [[#simid-player-init]] message parameter `fullscreenAllowed`. When the value of `fullscreenAllowed` is `false`, the creative refrains from posting `Creative:requestFullScreen` message.
+Note: the player communicates its capacity to toggle screen modes with [[#simid-player-init]] message parameter `fullscreenAllowed`. When the value of `fullscreenAllowed` is `false`, the creative refrains from posting `Creative:requestFullscreen` message.
 
-#### resolve #### {#simid-creative-requestFullScreen-resolve}
-By posting `resolve` response to `requestFullScreen` message, the player signals that it moved both the media element and the SIMID iframe into full-screen mode.
+#### resolve #### {#simid-creative-requestFullscreen-resolve}
+By posting `resolve` response to `requestFullscreen` message, the player signals that it moved both the media element and the SIMID iframe into full-screen mode.
 
-#### reject #### {#simid-creative-requestFullScreen-reject}
-By posting `reject` response to `requestFullScreen` message, the player signals that it did not change the screen mode because it is either:
+#### reject #### {#simid-creative-requestFullscreen-reject}
+By posting `reject` response to `requestFullscreen` message, the player signals that it did not change the screen mode because it is either:
 	<ul collapse>
 		<li>Incapable of toggling between screen modes.</li>
 		<li>Already in the full-screen mode.</li>
 		<li>Disallows full-screen mode.</li>
 	</ul>
 
-### SIMID:Creative:requestExitFullScreen ### {#simid-creative-requestExitFullScreen}
-The creative requests the player to transition the ad into normal-screen mode by posting a `SIMID:Creative:requestExitFullScreen` message.
+### SIMID:Creative:requestExitFullscreen ### {#simid-creative-requestExitFullscreen}
+The creative requests the player to transition the ad into normal-screen mode by posting a `SIMID:Creative:requestExitFullscreen` message.
 
-Note: the player communicates its capacity to toggle screen modes with [[#simid-player-init]] message parameter `fullscreenAllowed`. When the value of `fullscreenAllowed` is false, the creative refrains from posting `Creative:requestExitFullScreen` message.
+Note: the player communicates its capacity to toggle screen modes with [[#simid-player-init]] message parameter `fullscreenAllowed`. When the value of `fullscreenAllowed` is false, the creative refrains from posting `Creative:requestExitFullscreen` message.
 
-#### resolve #### {#simid-creative-requestExitFullScreen-resolve}
+#### resolve #### {#simid-creative-requestExitFullscreen-resolve}
 By posting `resolve` response to `requestExitFullScree`n message, the player signals that it moved both the media element and the SIMID iframe into normal-screen mode.
 
-#### reject #### {#simid-creative-requestExitFullScreen-reject}
-The player responds to `requestExitFullScreen` message with a `reject` when it did not change the screen mode because it is either:
+#### reject #### {#simid-creative-requestExitFullscreen-reject}
+The player responds to `requestExitFullscreen` message with a `reject` when it did not change the screen mode because it is either:
 	<ul collapse>
 		<li>Incapable of toggling between screen modes or</li>
 		<li>Already in the normal-screen mode.</li>
@@ -1714,7 +1714,7 @@ The creative requests ad resize by posting a `SIMID:Creative:requestResize` mess
 
 The player must not resize the ad unless it can change the dimensions of both media element and SIMID iframe to the values specified by the `Creative:requestResize` message.
 
-Note: the message `requestResize` must not be used to change screen mode. See the [[#simid-creative-requestFullScreen]] and [[#simid-creative-requestExitFullScreen]] messages.
+Note: the message `requestResize` must not be used to change screen mode. See the [[#simid-creative-requestFullscreen]] and [[#simid-creative-requestExitFullscreen]] messages.
 
 <xmp class="idl">
 dictionary MessageArgs {
@@ -1894,14 +1894,14 @@ respond to SIMID:Creative:requestPlay message with resolve and play the video.
 The player may resize the ad slot. The player must send a [[#simid-player-resize]] message any time the ad slot size is changed.
 
 If {{EnvironmentData/fullscreenAllowed}} is `true`, the SIMID creative may
-send a [[#simid-creative-requestFullScreen]] message. The player must resize only the ad
+send a [[#simid-creative-requestFullscreen]] message. The player must resize only the ad
 slot to fullscreen (not the video). The SIMID creative then will resize the
 video as it sees fit. The player must send a [[#simid-player-resize]] message to the SIMID creative
-with {{ResizeParameters/fullScreen}} set to `true` and {{ResizeParameters/videoDimensions}} and
+with {{ResizeParameters/fullscreen}} set to `true` and {{ResizeParameters/videoDimensions}} and
 {{ResizeParameters/creativeDimensions}} set to the full screen dimensions.
 
 If player goes fullscreen on its own. Then the player must send a [[#simid-player-resize]] message to the SIMID creative
-with {{ResizeParameters/fullScreen}} set to `true` and {{ResizeParameters/videoDimensions}} and
+with {{ResizeParameters/fullscreen}} set to `true` and {{ResizeParameters/videoDimensions}} and
 {{ResizeParameters/creativeDimensions}} set to the full screen dimensions.
 
 
