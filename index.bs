@@ -881,7 +881,7 @@ The player posts a `SIMID:Media:playing` message in one of the following cases:
 * playback restarts;
 * after seek operation completion. 
 
-In HTML, the player posts `Media:play` message when `HTMLMediaElement` dispatches `playing` event.
+In HTML, the player posts `Media:playing` message when `HTMLMediaElement` dispatches `playing` event.
 
 
 ### SIMID:Media:seeked ### {#simid-media-seeked}
