@@ -885,20 +885,20 @@ In HTML, the player posts a `Media:playing` message when `HTMLMediaElement` disp
 
 
 ### SIMID:Media:seeked ### {#simid-media-seeked}
-When user finished moving playhead into a new position (in HTML, `HTMLMediaElement` dispatches `seeked` event), the player posts a `SIMID:Media:seeked` message.
+When the user finished moving playhead into a new position (in HTML, `HTMLMediaElement` dispatches a `seeked` event), the player posts a `SIMID:Media:seeked` message.
 
 
 ### SIMID:Media:seeking ### {#simid-media-seeking}
-When user initiates seek operation (in HTML, `HTMLMediaElement` dispatches `seeking` event), the player posts a `SIMID:Media:seeking` message.
+When the user initiates seek operation (in HTML, `HTMLMediaElement` dispatches a `seeking` event), the player posts a `SIMID:Media:seeking` message.
 
 
 ### SIMID:Media:stalled ### {#simid-media-stalled}
-When media data is not available for rendering (in HTML, `HTMLMediaElement` dispatches `stalled` event), the player posts a `SIMID:Media:stalled` message.
+When media data is not available for rendering (in HTML, `HTMLMediaElement` dispatches a `stalled` event), the player posts a `SIMID:Media:stalled` message.
 
 ### SIMID:Media:timeupdate ### {#simid-media-timeupdate}
 The player communicates media playhead position by posting a `SIMID:Media:timeupdate` message. The message `Media:timeupdate` frequency should be not less than every 250ms.
 
-In HTML, the player sends `Media:timeupdate` message when` HTMLMediaElement` dispatches `timeupdate` event.
+In HTML, the player sends a `Media:timeupdate` message when` HTMLMediaElement` dispatches a `timeupdate` event.
 <xmp class="idl">
 dictionary MessageArgs {
 	required float currentTime;
@@ -909,11 +909,11 @@ dictionary MessageArgs {
   <dt><dfn>currentTime</dfn>
   <dd>The value in seconds. In HTML, `HTMLMediaElement.currentTime` property value.
 </dl>
-<p class="note">In Server-Side Ad Insertion, the client-side media playback is a continuous stream, which requires additional `currentTime` calculations. For the current ad, the player must compute `currentTime` value as a delta between the actual playhead position and the time the ad started.</p>
+<p class="note">In Server-Side Ad Insertion, the client-side media playback is a continuous stream which requires additional `currentTime` calculations. For the current ad, the player must compute the `currentTime` value as a delta between the actual playhead position and the time the ad started.</p>
 
 
 ### SIMID:Media:volumechange ### {#simid-media-volumechange}
-When the media audio state changes (in HTML, `HTMLMediaElement` dispatches `volumechange` event), the player posts a `SIMID:Media:volumechange` message.
+When the media audio state changes (in HTML, `HTMLMediaElement` dispatches a `volumechange` event), the player posts a `SIMID:Media:volumechange` message.
 <xmp class="idl">
 dictionary MessageArgs {
 	required float volume;
