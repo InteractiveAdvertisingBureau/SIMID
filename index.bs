@@ -781,7 +781,7 @@ SIMID API is a set of messages and data structures that ad-rendering parties exc
 
 SIMID specifies a group of messages that describe ad media states. The player prepends such messages with the `SIMID:Media namespace`.
 
-SIMID borrows media-related semantics and naming conventions from the standard `HTMLMediaElement` behavior. In player implementations, where an `HTMLMediaElement` is not used, the player must translate events and property values into the associated `SIMID:Media` message.
+SIMID borrows media-related semantics and naming conventions from the standard `HTMLMediaElement` behavior. In player implementations where an `HTMLMediaElement` is not used, the player must translate events and property values into the associated `SIMID:Media` message.
 
 In HTML environments, `SIMID:Media` messages contain the original media event type.
 <div class="example">
@@ -843,10 +843,10 @@ dictionary MessageArgs {
 <li>In SSAI, `HTMLMediaElement.duration` value does not express the actual ad media duration. In such cases, the player must compute the ad’s actual media length.</li>
 </ul>
 ### SIMID:Media:ended ### {#simid-media-ended}
-When the media playback completes (in HTML, `HTMLMediaElement` dispatches `ended` event), the player posts a `SIMID:Media:ended` message. 
+When the media playback completes (in HTML, `HTMLMediaElement` dispatches an `ended` event), the player posts a `SIMID:Media:ended` message. 
 
 ### SIMID:Media:error ### {#simid-media-error}
-When playback throws an exception (in HTML, `HTMLMediaElement` dispatches `error` event), the player posts `SIMID:Media:error` message.
+When playback throws an exception (in HTML, `HTMLMediaElement` dispatches an `error` event), the player posts a `SIMID:Media:error` message.
 
 <xmp class="idl">
 dictionary MessageArgs {
@@ -868,10 +868,10 @@ dictionary MessageArgs {
 </dl>
 
 ### SIMID:Media:pause ### {#simid-media-pause}
-When the media pauses (in HTML, `HTMLMediaElement` dispatches `pause` event), the player posts a `SIMID:Media:pause` message.
+When the media pauses (in HTML, `HTMLMediaElement` dispatches a `pause` event), the player posts a `SIMID:Media:pause` message.
 
 ### SIMID:Media:play ### {#simid-media-play}
-When media playback starts as a result of autoplay or its state is no longer paused (in HTML, `HTMLMediaElement` dispatches `play` event),  the player posts a `SIMID:Media:play` message.
+When media playback starts as a result of autoplay or its state is no longer paused (in HTML, `HTMLMediaElement` dispatches a `play` event),  the player posts a `SIMID:Media:play` message.
 
 
 ### SIMID:Media:playing ### {#simid-media-playing}
@@ -881,7 +881,7 @@ The player posts a `SIMID:Media:playing` message in one of the following cases:
 * playback restarts;
 * after seek operation completion. 
 
-In HTML, the player posts `Media:playing` message when `HTMLMediaElement` dispatches `playing` event.
+In HTML, the player posts a `Media:playing` message when `HTMLMediaElement` dispatches a `playing` event.
 
 
 ### SIMID:Media:seeked ### {#simid-media-seeked}
