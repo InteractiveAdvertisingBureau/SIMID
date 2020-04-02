@@ -928,7 +928,7 @@ dictionary MessageArgs {
   <dd>`true` if audio is muted.*
 </dl>
 <ul class="footnote">
-<li>Properties `volume` and `muted` describe two independent audio states. While media is muted, its `volume` may be greater than zero; while `volume` is zero, media may be unmuted.</li>
+<li>The properties `volume` and `muted` describe two independent audio states. While the media is muted, its `volume` may be greater than zero; while `volume` is zero, the media may be unmuted.</li>
 </ul>
 
 ## Messages from the player ## {#player-messages}
@@ -1056,7 +1056,7 @@ dictionary MessageArgs {
 </dl>
 
 #### resolve #### {#simid-player-fatalError-resolve}
-The creative must respond to `Player:fatalError` with `resolve`. After `resolve arrives`, the player should remove the iframe. 
+The creative must respond to `Player:fatalError` with `resolve`. After `resolve` arrives, the player should remove the iframe. 
 
 ### SIMID:Player:init ### {#simid-player-init}
 The purpose of the `SIMID:player:init` message is to transport data to assist with the interactive component initialization. See [[#workflow-initialization]] and [[#workflow-uninterupted-initialization]].
@@ -1315,7 +1315,7 @@ The creative posts messages to the player to requests the ad’s state changes, 
 
 `SIMID:Creative` messages may require the player to accept and process arguments. With some messages, the creative expects the player to respond with resolutions.
 
-Note: in SIMID, the interactive component initializes the session and posts the first message `createSession`. See [[#protocol-session-layer]].
+Note: In SIMID, the interactive component initializes the session and posts the first message, `createSession`. See [[#protocol-session-layer]].
 
 <p table-header id="table-creative-messages">`SIMID:Creative` messages summary.</p>
 
@@ -1404,7 +1404,7 @@ Note: in SIMID, the interactive component initializes the session and posts the 
 
 The purpose of a `SIMID:Creative:clickThru` message is to assist the player with `clickthrough` tracking. SIMID delegates clickthrough execution to the creative, including redirecting the user to the landing page. The interactive component posts `clickThru` only when the creative classifies a user interaction as a clickthrough.
 
-The message `clickThru` is not an explicit media-pausing directive to the player. If the environment permits, the player should pause ad media in all cases when the user navigates away from the player hosting page or app, including clickthrough. See [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API).
+The message, `clickThru`, is not an explicit media-pausing directive to the player. If the environment permits, the player must pause ad media in all cases when the user navigates away from the player hosting page or app, including clickthrough. See [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API).
 
 <xmp class="idl">
 dictionary MessageArgs {
@@ -1422,7 +1422,7 @@ dictionary MessageArgs {
 
 
 ### SIMID:Creative:fatalError ### {#simid-creative-fatalError}
-The creative posts `SIMID:Creative:fatalError` in cases when its internal exceptions prevent the interactive component from further execution. In response to the `Creative:fatalError` message, the player unloads the SIMID iframe and reports VAST error tracker with the `errorCode` specified by the creative. The ad media playback stops if possible.
+The creative posts `SIMID:Creative:fatalError` in cases when its internal exceptions prevent the interactive component from further execution. In response to the `Creative:fatalError` message, the player unloads the SIMID iframe and reports VAST error tracker with the `errorCode` specified by the creative. The ad media playback must stop, if possible.
 
 <xmp class="idl">
 dictionary MessageArgs {
@@ -1482,7 +1482,7 @@ dictionary MessageArgs {
 The message `SIMID:Creative:log` enables the creative to communicate arbitrary information to the player.
 
 
-Note: If the `log` message purpose is to notify the player about the player’s non-standard behavior, the creative prepends `Message.args.message` value with “WARNING:” `string`. Warning messages are used to inform interested parties about occuraeces of non-fatal issues. 
+Note: If the `log` message purpose is to notify the player about the player’s non-standard behavior, the creative prepends `Message.args.message` value with “WARNING:” `string`. Warning messages are used to inform interested parties about occurances of non-fatal issues. 
 
 <xmp class="idl">
 dictionary MessageArgs {
