@@ -1287,7 +1287,7 @@ By posting `resolve`, the interactive creative acknowledges that it is ready for
 
 Refer to [[#workflow-startCreative]] <span step><b>2</b></span>.
 
-If the creative fails to reply with a `resolve` by the time ad media playback completes, the player reports VAST error tracker with the errorCode XXX.
+If the creative fails to reply with a `resolve` by the time ad media playback completes, the player reports VAST error tracker with the errorCode 1213. See [[#error-codes]].
 
 #### reject #### {#simid-player-startCreative-reject}
 When the creative responds with a reject, the player may unload the iframe. The player reports VAST error tracker with the `errorCode` the creative supplied.
@@ -1872,11 +1872,11 @@ In these situations, the player keeps the iframe invisible and refrains from pos
 
 The interactive creative responding to a `Player:init` message with a `resolve` message is a critical step in the SIMID ad serving flow (<a href="#diagram-player-init-normal">Init Diagram</a>,  <span step><b>4</b></span> above). The player keeps the SIMID iframe invisible and does not post either `SIMID:Player` or `SIMID:Media` messages until the iframe replies with a `resolve` message.
 
-If the interactive creative fails to respond to a `Player:init` message within the allotted time, the player may continue with ad media rendering only (<a href="#diagram-player-init-resolve-timeout">diagram</a>,  <span step><b>2</b></span>). 
+If the interactive creative fails to respond to a `Player:init` message within the allotted time, the player may continue with ad media rendering only (<a href="#diagram-player-init-resolve-timeout">Player:init resolve</a> <span step><b>2</b></span>). 
 
 The player maintains the hidden interactive creative until ad media playback completion.
 
-If the interactive creative does not resume communication by the playback end, the player must report the VAST error tracker (if available) with the code XXX (<a href="#diagram-player-init-resolve-timeout">diagram</a>,  <span step><b>5</b></span>).
+If the interactive creative does not resume communication by the playback end, the player must report the VAST error tracker (if available) with the code 1212. See <a href="#diagram-player-init-resolve-timeout">Player:init resolve</a> <span step><b>5</b></span>).
 
 <div diagram id="diagram-player-init-resolve-timeout">
   <p>`Player:init resolve` delay</p>
@@ -2490,6 +2490,16 @@ This table describes SIMID error codes the creative may fire.
       <td>1211</td>
       <td>The SIMID creative is not following the spec in the way it
           sends messages.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1212</td>
+      <td>The SIMID creative did not reply to the initialization message.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1213</td>
+      <td>The SIMID creative did not reply to the start message.</td>
       <td></td>
     </tr>
   </tbody>
