@@ -1276,7 +1276,7 @@ dictionary Dimensions {
 
 ### SIMID:Player:startCreative ### {#simid-player-startCreative}
 
-See [[#simid-startCreative]]
+See [[#workflow-startCreative]]
 
 The player posts `SIMID:Player:startCreative` message when it is ready to make the iframe visible. The player must transmit `Player:startCreative` as close to the first media frame rendering as possible. The player waits for a [[#simid-player-startCreative-resolve]] response to display the SIMID iframe. The interactive creative should be ready to reply to `Player:startCreative` immediately.
 
@@ -1285,7 +1285,7 @@ The player posts `SIMID:Player:startCreative` message when it is ready to make t
 #### resolve #### {#simid-player-startCreative-resolve}
 By posting `resolve`, the interactive creative acknowledges that it is ready for display. The creative should be ready to respond immediately. The player makes the iframe visible upon a resolve receipt
 
-Refer to [[#simid-startCreative]] <span step><b>2</b></span>.
+Refer to [[#workflow-startCreative]] <span step><b>2</b></span>.
 
 If the creative fails to reply with a `resolve` by the time ad media playback completes, the player reports VAST error tracker with the errorCode XXX.
 
@@ -1838,6 +1838,16 @@ After the player gets a resolve message <a href="#diagram-player-init-normal">No
 
 ## Typical Start Creative WorkFlow ## {#workflow-startCreative}
 
+<div diagram id="diagram-player-startcreative">
+ <p>Normal `Player:startCreative` Sequence</p>
+ <img src="images/dgrm-startCreative-normal.png" alt="startCreative normal sequence.">
+ <ol dgrm-details>
+   <li>Media playback begins.</li>
+   <li>Player posts `Player:startCreative`.</li>
+   <li>Creative responds with a `resolve`.</li>
+   <li>Player displays the creative iframe.</li>
+ </ol>
+</div>
 
 ## Uninterrupted Initialization WorkFlow ## {#workflow-uninterupted-initialization}
 
