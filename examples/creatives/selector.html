@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <style>
+    .title {
+      transition: 1s ease-in-out;
+      text-align: center;
+      color: white;
+      font-size: 30px;
+      -ms-transform: translate(0px, -250px); /* IE 9 */
+      -webkit-transform: translate(0px, -250px); /* Safari */
+      transform: translate(0px, -250px);
+      visibility: hidden;
+    }
+    .title.showing {
+      -ms-transform: translate(0px, 0px); /* IE 9 */
+      -webkit-transform: translate(0px, 0px); /* Safari */
+      transform: translate(0px, 0px);     
+      visibility: visible;
+      text-shadow: 2px 2px 4px #000000;
+    }
+    .video1 {
+      transition: 1s ease-in-out;
+      -ms-transform: translate(-250px, 250px); /* IE 9 */
+      -webkit-transform: translate(-250px, 250px); /* Safari */
+      transform: translate(-250px, 250px);
+      width: 128;
+      height: 96;
+      visibility: hidden;
+    }
+    .video1.showing {
+      -ms-transform: translate(100px, 250px); /* IE 9 */
+      -webkit-transform: translate(100px, 250px); /* Safari */
+      transform: translate(100px, 250px);     
+      visibility: visible;
+      width: 128;
+      height: 96;
+    }
+    .video2 {
+      transition: 1s ease-in-out;
+      -ms-transform: translate(840px, 250px); /* IE 9 */
+      -webkit-transform: translate(840px, 250px); /* Safari */
+      transform: translate(840px, 250px);
+      width: 128;
+      height: 96;
+      visibility: hidden;
+    }
+    .video2.showing {
+      -ms-transform: translate(300px, 250px); /* IE 9 */
+      -webkit-transform: translate(300px, 250px); /* Safari */
+      transform: translate(300px, 250px);     
+      visibility: visible;
+      width: 128;
+      height: 96;
+    }
+    .fullSize {
+      transition: 1s ease-in-out;
+      -ms-transform: translate(0%, 0%); /* IE 9 */
+      -webkit-transform: translate(0%, 0%); /* Safari */
+      transform: translate(0%, 0%);
+      width: 640px;
+      height: 480px;
+      top:0;
+      left:0;
+      position: fixed;
+      visibility: visible;
+    }
+    </style>
+    <script src="../simid_protocol.js"> </script>
+    <script src="base_simid_creative.js"> </script>
+    <script src="selector.js"> </script>
+  </head>
+  <body>
+  <div id="title" class="title">Select a Shorter Ad</div>
+  <video src="../media/shortAd.mp4" id="video1" class="video1"> </video>
+  <video src="../media/shortAd.mp4" id="video2" class="video2"> </video>
+  <script>
+    const survey = new SimidSelector();
+    // This implementation is immediately ready but other creatives
+    // may wish to wait for assets to load before calling ready.
+    survey.ready();
+  </script>
+  </body>
+</html>
