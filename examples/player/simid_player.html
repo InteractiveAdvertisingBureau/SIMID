@@ -17,6 +17,10 @@
       width: 640px;
       height: 480px;
     }
+    .content {
+      width: 640px;
+      height: 480px;
+    }
   </style>
   <script>
     let simidPlayer;
@@ -68,17 +72,24 @@
     <p><h1><center>SIMID Sample Ad Player</center></h1></p>
     <table>
       <tr>
-        <td>InteractiveCreativeFile</td>
-        <td><input type="text" id="creative_url" size = 30 
-           value="../creatives/simid_overlay.html">
+        <td>Choose Sample Creative Template</td>
+        <td>
         <button onclick="switchCreative('simid_overlay.html')">overlay</button>
         <button onclick="switchCreative('survey.html')">survey</button>
+        <button onclick="switchCreative('selector.html')">selector</button>
+      </td>
+      </tr>
+
+      <tr>
+        <td>Interactive Creative File</td>
+        <td><input type="text" id="creative_url" size = 30 
+           value="../creatives/simid_overlay.html">
         </td>
       </tr>
       <tr>
-        <td>MediaFile</td>
+        <td>Media File</td>
         <td><input type="text" id="video_url" size = 30 
-           value="../fakeAd.mp4">
+           value="../media/IAB480-small.mp4">
         </td>
       </tr>
       <tr>
@@ -91,7 +102,7 @@
   </div>
 
   <div id="player_div" style="position:absolute;">
-    <video id="video_player" src="../fakeContent.mp4" controls> </video>
+    <video id="video_player" class="content" src="../media/Big_Buck_Bunny.mp4" controls> </video>
     <div id="ad_video_div" class="overlayed" style="display:none;">
       <video id="ad_video_player" class="overlayed" style="display:none;" src="">
     </div>

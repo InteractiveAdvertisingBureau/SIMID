@@ -55,7 +55,6 @@ class SimidProtocol {
   sendMessage(messageType, messageArgs) {
     // Incrementing between messages keeps each message id unique.
     const messageId = this.nextMessageId_ ++;
-
     // Only create session does not need to be in the SIMID name space
     // because it is part of the protocol.
     const nameSpacedMessage = 
@@ -179,12 +178,13 @@ class SimidProtocol {
       case ProtocolMessage.RESOLVE:
         // intentional fallthrough
       case ProtocolMessage.REJECT:
-        const messageId = data['messageId'];
-        const resolutionFunction = this.resolutionListeners_[messageId];
+        const args = data['args'];
+        const correlatingId = args['messageId'];
+        const resolutionFunction = this.resolutionListeners_[correlatingId];
         if (resolutionFunction) {
           // If the listener exists call it once only.
           resolutionFunction(data);
-          delete this.resolutionListeners_[messageId];
+          delete this.resolutionListeners_[correlatingId];
         }
         break;
     } 
