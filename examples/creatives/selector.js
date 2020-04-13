@@ -52,16 +52,23 @@ class SimidSelector extends BaseSimidCreative {
     console.log('vid clicked');
     this.adSelected_ = true;
 
+    // Request that the ad playback pauses and then wait for the player to resolve.
     this.simidProtocol.sendMessage(CreativeMessage.REQUEST_PAUSE).then(() => {
-      console.log('other video paused');
+      // Set the clicked video to take up the entire video area.
       clickedVid.classList.add('fullSize');
+
+      // Remove the unused elements.
       clickedVid.classList.remove('showing');
       unclickedVid.classList.remove('showing');
       document.getElementById('title').classList.remove('showing');
       clickedVid.classList.remove('showing');
-      clickedVid.addEventListener('ended', () => this.onEnded());
-      clickedVid.play();
 
+      // When the clicked video ends terminate the ad.
+      clickedVid.addEventListener('ended', () => this.onEnded());
+
+      // Start playback of the clicked video.  This should work on all
+      // browsers, since there was a user intent to play the video.
+      clickedVid.play();
     });
   }
 
