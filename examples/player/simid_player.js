@@ -1,3 +1,6 @@
+const NO_REQUESTED_DURATION = 0;
+const UNLIMITED_DURATION = -2;
+
 /**
  * All the logic for a simple SIMID player
  */
@@ -49,10 +52,15 @@ class SimidPlayer {
 
     /**
      * A function to execute on ad completion
-     * @private (!Function)
+     * @private {!Function}
      */
     this.adComplete_ = adComplete;
 
+    /**
+     * The duration requested by the ad.
+     * @private {number}
+     */
+    this.requestedDuration_ = NO_REQUESTED_DURATION;
 
     /**
      * Resolution function for the session created message
@@ -79,6 +87,7 @@ class SimidPlayer {
     // initializes the communication channel. Then it will call
     // sendInitMessage.
     this.simidIframe_ = this.createSimidIframe_();
+    this.requestDuration_ = NO_REQUESTED_DURATION;
   }
 
   /**
@@ -130,6 +139,9 @@ class SimidPlayer {
     this.simidProtocol.addListener(CreativeMessage.FATAL_ERROR, this.onCreativeFatalError.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_SKIP, this.onRequestSkip.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_STOP, this.onRequestStop.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_CHANGE_AD_DURATION,
+        this.onRequestChangeAdDuration.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
   }
 
   destroySimidIframe() {
@@ -138,10 +150,10 @@ class SimidPlayer {
       this.simidIframe_ = null;
       this.simidProtocol.reset();
     }
-    this.videoTrackingEvents_.clear();
     for(let [key, func] of this.videoTrackingEvents_) {
       this.adVideoElement_.removeEventListener(key, func, true);
     }
+    this.videoTrackingEvents_.clear();
     this.adComplete_();
   }
 
@@ -230,14 +242,7 @@ class SimidPlayer {
    */
   onAdInitializedFailed_(data) {
     console.log("Ad did not inialize so we can error out.");
-    const closeMessage = {
-      'code': StopCode.CREATIVE_INITIATED,
-    }
-    // Instead of destroying the iframe immediately tell hide it until
-    // it acknowledges its fatal error.
-    this.hideSimidIFrame_();
-    this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
-      .then(this.stopAd.bind(this));
+    this.destroyIframeAndResumeContent_();
   }
 
   /** @private */
@@ -315,26 +320,45 @@ class SimidPlayer {
    */
   videoComplete() {
       this.simidProtocol.sendMessage(MediaMessage.ENDED);
-      // once an ad is complete an the iframe should be hidden
-      this.hideSimidIFrame_();
-      const closeMessage = {
-        'code': StopCode.MEDIA_PLAYBACK_COMPLETE,
+
+      if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
+        this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
+      } else if (this.requestedDuration_ != UNLIMITED_DURATION) {
+        // The creative has requested a different completion duration, so use that duration.
+        const durationExtensionMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
+        setTimeout(() => {
+          // The creative has suggested a different close time, so label this creative_initiated.
+          this.stopAd(StopCode.CREATIVE_INITATED);
+        }, durationExtensionMs);
       }
-      // Wait for the SIMID creative to acknowledge stop and then clean
-      // up the iframe.
-      this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED)
-        .then(this.destroySimidIframe());
   }
 
   /**
    * Stops the ad and destroys the ad iframe.
+   * @param {StopCode} reason The reason the ad will stop.
    */
-  stopAd() {
-    this.adVideoElement_.src = '';
+  stopAd(reason = StopCode.PLAYER_INITATED) {
+      // The iframe is only hidden on ad stoppage. The ad might still request
+      // tracking pixels before it is cleaned up.
+      this.hideSimidIFrame_();
+      const closeMessage = {
+        'code': reason,
+      }
+      // Wait for the SIMID creative to acknowledge stop and then clean
+      // up the iframe.
+      this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED)
+        .then(() => this.destroyIframeAndResumeContent_());
+  }
+
+  /**
+   * Removes the simid ad entirely and resumes video playback.
+   * @private
+   */
+  destroyIframeAndResumeContent_() {
     this.hideAdPlayer_();
-    this.contentVideoElement_.play();
+    this.adVideoElement_.src = '';
     this.destroySimidIframe();
-    // TODO: Let the ad know it is being stopped.
+    this.contentVideoElement_.play();
   }
 
   /** The creative wants to go full screen. */
@@ -379,30 +403,21 @@ class SimidPlayer {
   /** The creative wants to stop with a fatal error. */
   onCreativeFatalError(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
-    const closeMessage = {
-      'code': StopCode.CREATIVE_INITIATED,
-    }
-    this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED, closeMessage)
-      .then(this.stopAd());
+    this.stopAd(StopCode.CREATIVE_INITIATED);
   }
 
   /** The creative wants to skip this ad. */
   onRequestSkip(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
     this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
-        .then(this.stopAd());
+        .then(() => this.destroyIframeAndResumeContent_());
   }
   
   /** The creative wants to stop the ad early. */
   onRequestStop(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
-    const stopReason = {
-      'code': StopCode.CREATIVE_INITIATED,
-    }
-    // After the creative resolves then the iframe should be destroyed.
-    this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED, stopReason)
-        .then(this.stopAd());
-  }
+    this.stopAd(StopCode.CREATIVE_INITIATED);
+}
 
   /**
    * The player must implement sending tracking pixels from the creative.
@@ -412,5 +427,29 @@ class SimidPlayer {
   onReportTracking(incomingMessage) {
     const requestedUrlArray = incomingMessage.args['trackingUrls']
     console.log('The creative has asked for the player to ping ' + requestedUrlArray);
+  }
+
+  onRequestChangeAdDuration(incomingMessage) {
+    if (this.requestedDuration_ != NO_REQUESTED_DURATION) {
+      // TODO: Support multiple change duration requests.
+      this.simidProtocol.reject(incomingMessage);
+    }
+    const requestedDuration  = incomingMessage.args['duration'];
+    this.requestedDuration_ = requestedDuration;
+    this.simidProtocol.resolve(incomingMessage);
+  }
+
+  onGetMediaState(incomingMessage) {
+    const mediaState = {
+      'currentSrc': this.adVideoElement_.currentSrc,
+      'currentTime': this.adVideoElement_.currentTime,
+      'duration': this.adVideoElement_.duration,
+      'ended': this.adVideoElement_.ended,
+      'muted': this.adVideoElement_.muted,
+      'paused': this.adVideoElement_.paused,
+      'volume': this.adVideoElement_.volume,
+      'fullscreen': this.adVideoElement_.fullscreen,
+    }
+    this.simidProtocol.resolve(incomingMessage, mediaState);
   }
 }
