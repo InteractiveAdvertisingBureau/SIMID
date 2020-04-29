@@ -1994,7 +1994,7 @@ When an ad finishes at the same time as its media.
 2. The player hides the creative.
 3. The creative may dispatch any tracking pixels via [[#simid-creative-reportTracking]]
 4. The creative may wait for a [[#simid-creative-reportTracking-resolve]] response message from the reportTracking message.
-5. The creative dispatches `resolve` on the `adSkipped` message [[#simid-player-adStopped-resolve]].
+5. The creative dispatches `resolve` on the `adStopped` message [[#simid-player-adStopped-resolve]].
 6. The player unloads the ad.
 
 ### Ad Errors Out ### {#workflow-error}
@@ -2011,7 +2011,7 @@ When an player errors out it must follow these steps.
 2. The player hides the creative.
 3. The creative may dispatch any tracking pixels via [[#simid-creative-reportTracking]]
 4. The creative may wait for a [[#simid-creative-reportTracking-resolve]] response from the reportTracking message.
-5. The creative dispatches `resolve` on the `adSkipped` message [[#simid-player-fatalError-resolve]].
+5. The creative dispatches `resolve` on the `fatalError` message [[#simid-player-fatalError-resolve]].
 6. The player unloads the ad.
 
 ### Ad Requests Stop ### {#workflow-request-stop}
