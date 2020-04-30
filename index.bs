@@ -2085,21 +2085,6 @@ This specification does not define the user experience for a close control (clos
 
 The ad creative can also request to be dismissed at any point in time.  An ad creative may opt to show its own controls, including a close control.
 
-## Additional Notes ## {#workflow-notes}
-
-The player may send a [[#simid-player-adStopped]] message at any time. The creative should respond with
-`resolved` after finishing its ad end logic. The player should allow 1 second
-between sending the [[#simid-player-adStopped]] message and receiving `resolved`. The implementer of the
-player should take into consideration that dropping a SIMID ad unit before it has
-dispatched `resolved` may result in tracking discrepancies, and that sending the
-[[#simid-player-adStopped]] message before the ad experience has ended (which is AFTER the optional
-lean-in phase) could harm the overall ad experience.
-
-The SIMID creative may also dispatch [[#simid-creative-requestStop]] at any time, signaling to the
-player that the ad has finished and unloaded. Any further interaction with the
-SIMID creative after `requestStop` may not result in the desired outcome. The same
-is true for `fatalError`.
-
 # Error Handling and Timeouts # {#errors}
 
 If the media cannot be played the player should terminate the ad and fire an error using the standard VAST errors.
