@@ -1032,9 +1032,7 @@ The creative must respond to `Player:adStopped` with `resolve` once its internal
 Within mobile in-app ads, when the app moves to the background, the player posts a `SIMID:Player:appBackgrounded` message.
 
 #### resolve #### {#simid-player-app-backgrounded-resolve}
-
-
-<p class="note" warning>Response to `appBackgrounded` with `resolve` has been deprecated.</p>
+The creative resonds to `appBackgrounded` with `resolve` message.
 
 ### SIMID:Player:appForegrounded ### {#simid-player-app-foregrounded}
 Within mobile in-app ad executions, when the app moves from the background to the foreground, the player posts a `SIMID:Player:appForegrounded` message.
