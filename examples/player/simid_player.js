@@ -174,7 +174,7 @@ class SimidPlayer {
     const creativeDimensions = this.getDimensions(this.contentVideoElement_);
 
     const environmentData = {
-      'videoDimenions': videoDimensions,
+      'videoDimensions': videoDimensions,
       'creativeDimensions': creativeDimensions,
       'fullscreen': false,
       'fullscreenAllowed': true,
