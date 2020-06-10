@@ -2337,7 +2337,7 @@ If the creative has not established a session before the media playback is compl
 </ol>
 
 # Error Codes # {#error-codes}
-This table describes SIMID error codes the creative may fire.
+The table below is the list of error codes the player and the creative use with `reject` messages. SIMID allocates the range `1100-1199` to the errors that the creative reports; the range `1200-1299` to the errors the player reports.
 <p table-header id="table-error-codes">Error Codes.</p>
 <table class="alternatecolor">
   <tbody>
