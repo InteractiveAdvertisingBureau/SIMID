@@ -308,7 +308,7 @@ PlayerMessage = {
 CreativeMessage = {
   CLICK_THRU: 'Creative:clickThru',
   FATAL_ERROR: 'Creative:fatalError',
-  GET_VIDEO_STATE: 'Creative:getVideoState',
+  GET_MEDIA_STATE: 'Creative:getMediaState',
   REQUEST_FULL_SCREEN: 'Creative:requestFullScreen',
   REQUEST_SKIP: 'Creative:requestSkip',
   REQUEST_STOP: 'Creative:requestStop',
@@ -325,7 +325,7 @@ CreativeMessage = {
  * All other messages do not require a response and are information only.
  */
 EventsThatRequireResponse = [
-  CreativeMessage.GET_VIDEO_STATE,
+  CreativeMessage.GET_MEDIA_STATE,
   CreativeMessage.REQUEST_VIDEO_LOCATION,
   CreativeMessage.READY,
   CreativeMessage.CLICK_THRU,
@@ -344,7 +344,6 @@ EventsThatRequireResponse = [
   PlayerMessage.AD_STOPPED,
   PlayerMessage.FATAL_ERROR,
   ProtocolMessage.CREATE_SESSION,
-  MediaMessage.GET_VIDEO_STATE,
 ];
 
 // A list of errors the creative might send to the player.

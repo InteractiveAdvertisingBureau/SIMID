@@ -122,14 +122,15 @@ class BaseSimidCreative {
   }
 
   /**
-   * Asks the player for the video state.
+   * Asks the player for the state of the video element.
    */
-  fetchVideoState() {
-    const onGetVideoStateResolve = (data) => {
-      this.videoState = data;
-    }
-    this.simidProtocol.sendMessage(CreativeMessages.GET_VIDEO_STATE, {})
-        .then(onGetVideoStateResolve.bind(this));
+  fetchMediaState() {
+    this.simidProtocol.sendMessage(CreativeMessage.GET_MEDIA_STATE, {})
+        .then((data) => this.onGetMediaStateResolve(data));
+  }
+
+  onGetMediaStateResolve(data) {
+    this.videoState = data;
   }
 
   onDurationChange(data) {
