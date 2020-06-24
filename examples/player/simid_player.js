@@ -175,6 +175,7 @@ class SimidPlayer {
 
   /**
    * Resolves the session created promise.
+   * @private
    */
   onSessionCreated_() {
     // Anything that must happen after the session is created can now happen
