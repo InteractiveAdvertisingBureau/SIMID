@@ -64,12 +64,13 @@ class SimidPlayer {
 
     /**
      * Resolution function for the session created message
+     * @private {?Function}
      */
     this.resolveSessionCreatedPromise_ = null;
 
     /**
      * A promise that resolves once the creative creates a session.
-     * @private {?Promise}
+     * @private {!Promise}
      */
     this.sessionCreatedPromise_ = new Promise((resolve, reject) => {
       this.resolveSessionCreatedPromise_ = resolve;
@@ -77,17 +78,19 @@ class SimidPlayer {
 
     /**
      * Resolution function for the ad being initialized.
+     * @private {?Function}
      */
     this.resolveInitializationPromise_ = null;
 
     /**
      * Reject function for the ad being initialized.
+     * @private {?Function}
      */
     this.rejectInitializationPromise_ = null;
 
     /**
      * A promise that resolves once the creative responds to initialization with resolve.
-     * @private {?Promise}
+     * @private {!Promise}
      */
     this.initializationPromise_ = new Promise((resolve, reject) => {
       this.resolveInitializationPromise_ = resolve;
