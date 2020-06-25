@@ -1,7 +1,7 @@
 <!doctype html><html lang="en">
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <title>Secure Interactive Media Interface Definition (SIMID) &lt;br>&lt;img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg" ></title>
+  <title>Secure Interactive Media Interface Definition (SIMID) &lt;br>&lt;img alt="IAB Tech Lab" src="simid-1.0.1.images/IABTechLabLogo.jpg" ></title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
@@ -1175,7 +1175,7 @@ Possible extra rowspan handling
 		   1. When table < content column, centers table in column.
 		   2. When content < table < available, left-aligns.
 		   3. When table > available, fills available + scroll bar.
-		*/ 
+		*/
 		display: grid;
 		grid-template-columns: minmax(0, 50em);
 	}
@@ -1221,7 +1221,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 78f8c09c, updated Tue May 19 10:51:23 2020 -0700" name="generator">
+  <meta content="Bikeshed version 40de15f9, updated Thu Jun 11 17:47:04 2020 -0700" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
 
@@ -1833,8 +1833,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-05-29">29 May 2020</time></span></h2>
+   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="simid-1.0.1.simid-1.0.1.images/IABTechLabLogo.jpg"></h1>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-06-25">25 June 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1853,7 +1853,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 29 May 2020,
+In addition, as of 25 June 2020,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2114,7 +2114,7 @@ controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
    <div diagram id="diagram-simid-overlay">
     <p>SIMID ads sandboxing from the publisher player environment</p>
-     <img alt="Normal Creative Initilaizatioin Sequence" src="images/simid_diagram_1_overlay.png"> 
+     <img alt="Normal Creative Initilaizatioin Sequence" src="simid-1.0.1.simid-1.0.1.images/simid_diagram_1_overlay.png"> 
    </div>
    <p>A diagram showing SIMID ads sandboxed from the publisher player environment</p>
    <p>SIMID is part of a broader effort to replace the older VPAID standard (more details in <a href="http://bit.ly/videoAdVision">this blog post</a> by the IAB Tech Lab). While
@@ -2127,7 +2127,7 @@ primary use case of interactivity.</p>
    <h3 class="heading settled" data-level="2.1" id="simid-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIMID vs. VPAID Comparison</span><a class="self-link" href="#simid-vs-vpaid"></a></h3>
    <div diagram id="diagram-simid-api-models">
     <p>VPAID vs. SIMID APIs</p>
-     <img alt="Normal Creative Initilaizatioin Sequence" src="images/simid_diagram_2_api_models.png" style="margin-left: -10px;"> 
+     <img alt="Normal Creative Initilaizatioin Sequence" src="simid-1.0.1.simid-1.0.1.images/simid_diagram_2_api_models.png" style="margin-left: -10px;"> 
    </div>
    <p id="simid-vs-vapid" table-header>SIMID vs. VPAID Comparison.</p>
    <table class="alternatecolor">
@@ -2199,7 +2199,7 @@ Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc
    <h3 class="heading settled" data-level="3.1" id="simid-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIMID Interactive Creative Nature</span><a class="self-link" href="#simid-interactive-creative-nature"></a></h3>
    <div diagram id="diagram-simid-api-models①">
     <p>SIMID Assets loading</p>
-     <img alt="SIMID Interactive Creative Nature" src="images/simid_diagram_3_assets.png" style="margin-left: -10px;"> 
+     <img alt="SIMID Interactive Creative Nature" src="simid-1.0.1.simid-1.0.1.images/simid_diagram_3_assets.png" style="margin-left: -10px;"> 
    </div>
    <p>A SIMID creative can be included in a VAST document by way of an <code>&lt;InteractiveCreativeFile></code> element. The text within this element must be a url which returns an HTML document.
 When loaded into an iframe by a media player, this HTML document will define the SIMID creative’s content, and will direct the web browser or host application to load any additional assets
@@ -2223,7 +2223,7 @@ For more technical details, see the <a href="#api-vast">§ 5 Referencing a SIM
 The media player obtains urls for both files from a VAST document, loads the files, assembles them into a single ad unit, and ensures a cohesive ad experience.</p>
    <div diagram id="diagram-simid-api-models②">
     <p>SIMID creative loading and presentation process.</p>
-     <img alt="SIMID creative loading and presentation process." src="images/simid_diagram_4_loading.png" style="margin-left: -10px;"> 
+     <img alt="SIMID creative loading and presentation process." src="simid-1.0.1.simid-1.0.1.images/simid_diagram_4_loading.png" style="margin-left: -10px;"> 
    </div>
    <h3 class="heading settled" data-level="3.3" id="player-creative-communication"><span class="secno">3.3. </span><span class="content">Player and Creative Communication</span><a class="self-link" href="#player-creative-communication"></a></h3>
    <p>A media player and a SIMID creative communicate by sending serialized messages back and forth to each other.</p>
@@ -3253,7 +3253,7 @@ on to the next ad in the current ad pod).</p>
    </ol>
    <div diagram id="diagram-simid-initialization">
     <p>SIMID Loading and Initialization</p>
-     <img alt="SIMID Initialization." src="images/dgrm-simid-initialization.png"> 
+     <img alt="SIMID Initialization." src="simid-1.0.1.simid-1.0.1.images/dgrm-simid-initialization.png"> 
     <ol dgrm-details>
      <li>Player starts listening to <code>message</code> event on the window.
      <li>
@@ -3297,7 +3297,7 @@ on to the next ad in the current ad pod).</p>
    <p>After the player gets a resolve message <a href="#diagram-player-init-normal">Normal Ad Initilaizatioin Sequence</a>, <span step><b>4</b></span>, it initializes media playback at its discretion <span step><b>5</b></span>. Once media rendering begins <span step><b>6</b></span>, the player reports impression <span step><b>7</b></span> and posts <a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a> <span step><b>8</b></span>.</p>
    <div diagram id="diagram-player-init-normal">
     <p>Normal Ad Initilaization Sequence</p>
-     <img alt="Normal Ad Initilaizatioin Sequence" src="images/dgrm-init-normal.png"> 
+     <img alt="Normal Ad Initilaizatioin Sequence" src="simid-1.0.1.simid-1.0.1.images/dgrm-init-normal.png"> 
     <ol dgrm-details>
      <li>Creative initializes the session.
      <li>Player posts <code>Player:init</code> message immediately upon session creation.
@@ -3312,7 +3312,7 @@ on to the next ad in the current ad pod).</p>
    <h3 class="heading settled" data-level="6.3" id="workflow-startCreative"><span class="secno">6.3. </span><span class="content">Typical Start Creative WorkFlow</span><a class="self-link" href="#workflow-startCreative"></a></h3>
    <div diagram id="diagram-player-startcreative">
     <p>Normal <code>Player:startCreative</code> Sequence</p>
-     <img alt="startCreative normal sequence." src="images/dgrm-startCreative-normal.png"> 
+     <img alt="startCreative normal sequence." src="simid-1.0.1.simid-1.0.1.images/dgrm-startCreative-normal.png"> 
     <ol dgrm-details>
      <li>Media playback begins.
      <li>Player posts <code>Player:startCreative</code>.
@@ -3325,7 +3325,7 @@ on to the next ad in the current ad pod).</p>
    <p>In these situations, the player keeps the iframe invisible and refrains from posting messages to the creative until it responds to the <code>Player:init</code> with a <code>resolve</code> message.</p>
    <div diagram id="diagram-player-init-special">
     <p>Special Creative Initialization Cases</p>
-     <img alt="Creative initialization special cases sequence" src="images/dgrm-init-special.png"> 
+     <img alt="Creative initialization special cases sequence" src="simid-1.0.1.simid-1.0.1.images/dgrm-init-special.png"> 
     <ol dgrm-details>
      <li>Player initializes ad media playback.
      <li>Player posts <code>Player:init</code> message after ad media playback started.
@@ -3341,7 +3341,7 @@ on to the next ad in the current ad pod).</p>
    <p>If the interactive creative does not resume communication by the playback end, the player must report the VAST error tracker (if available) with the code 1212. See <a href="#diagram-player-init-resolve-timeout">Player:init resolve</a> <span step><b>5</b></span>).</p>
    <div diagram id="diagram-player-init-resolve-timeout">
     <p><code>Player:init resolve</code> delay</p>
-     <img alt="Player:init resolve delay" src="images/dgrm-init-resolve-delay.png"> 
+     <img alt="Player:init resolve delay" src="simid-1.0.1.simid-1.0.1.images/dgrm-init-resolve-delay.png"> 
     <ol dgrm-details>
      <li>Player posts <code>Player:init</code> message and establishes a timeout.
      <li>Player starts ad media playback upon timeout expiration.
@@ -3355,7 +3355,7 @@ on to the next ad in the current ad pod).</p>
    <p>The creative may respond with a <code>reject</code> based on its internal logic. In response to <code>reject</code>, the player proceeds with the ad media playback. The player may unload the iframe. The player reports VAST error trackers with the <code>errorCode</code> specified by the creative.</p>
    <div diagram id="diagram-player-init-reject">
     <p><code>Player:init reject</code> Sequence</p>
-     <img alt="Player:init reject sequence." src="images/dgrm-init-reject.png"> 
+     <img alt="Player:init reject sequence." src="simid-1.0.1.simid-1.0.1.images/dgrm-init-reject.png"> 
     <ol dgrm-details>
      <li>Player posts <code>Player:init</code> message.
      <li>Creative responds with a <code>reject</code>.
@@ -3422,7 +3422,7 @@ with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <cod
    </p>
    <div diagram id="diagram-requestSkip">
     <p><code>Creative:requestSkip</code> Sequence</p>
-     <img alt="Creative:requestSkip sequence." src="images/dgrm-requestSkip.png"> 
+     <img alt="Creative:requestSkip sequence." src="simid-1.0.1.simid-1.0.1.images/dgrm-requestSkip.png"> 
     <ol dgrm-details>
      <li>Creative posts <code>Creative:requestSkip</code> message.
      <li>Player hides the SIMID iframe.
@@ -3484,7 +3484,7 @@ unit playback. This might not be possible in server side stitched ads.</p>
    <p>In the event the interactive component disregards or fails to accommodate player’s ability to resolve <code>requestStop</code>, the iframe remains visible and the player continues sending <code>SIMID:Media</code> and <code>SIMID:Player</code> messages. The creative should maintain communication with the player. See <a href="#simid-creative-requestStop-reject">§ 4.4.14.2 reject</a>.</p>
    <div diagram id="diagram-requestStop">
     <p><code>Creative:requestStop</code> Sequence</p>
-     <img alt="Creative:requestStop sequence." src="images/dgrm-requestStop.png"> 
+     <img alt="Creative:requestStop sequence." src="simid-1.0.1.simid-1.0.1.images/dgrm-requestStop.png"> 
     <ol dgrm-details>
      <li>Creative posts <code>Creative:requestStop</code> message.
      <li>Player hides the SIMID iframe.
@@ -3512,7 +3512,7 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="6.9.2" id="workflow-ad-duartion-changed-known"><span class="secno">6.9.2. </span><span class="content">Ad Duration Changed Workflow - Known Time</span><a class="self-link" href="#workflow-ad-duartion-changed-known"></a></h4>
    <div diagram id="diagram-durationchange-known">
     <p>Known Ad Duration Change Sequence</p>
-     <img alt="requestChangeAdDuration known duration change handling." src="images/dgrm-requestChangeAdDuration-known.png"> 
+     <img alt="requestChangeAdDuration known duration change handling." src="simid-1.0.1.simid-1.0.1.images/dgrm-requestChangeAdDuration-known.png"> 
     <ol dgrm-details>
      <li>Player starts countdown. Countdown depends on the media progress.
      <li>Creative posts <code>requestChangeAdDuration</code> with the <code>duration</code> value greater than zero.
@@ -3525,7 +3525,7 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="6.9.3" id="workflow-ad-duartion-changed-unknown"><span class="secno">6.9.3. </span><span class="content">Ad Duration Changed Workflow - Unknown Time</span><a class="self-link" href="#workflow-ad-duartion-changed-unknown"></a></h4>
    <div diagram id="diagram-durationchange-unknown">
     <p>Unknown Ad Duration Change Sequence</p>
-     <img alt="requestChangeAdDuration unknown duration change handling." src="images/dgrm-requestChangeAdDuration-unknown.png"> 
+     <img alt="requestChangeAdDuration unknown duration change handling." src="simid-1.0.1.simid-1.0.1.images/dgrm-requestChangeAdDuration-unknown.png"> 
     <ol dgrm-details>
      <li>Player starts countdown. Countdown depends on the media progress.
      <li>Creative posts <code>requestChangeAdDuration</code> with the <code>duration</code> value <code>-2</code>.
@@ -3686,7 +3686,7 @@ duration must only be extended in response to user interaction.</p>
    <p>The player responds to <code>createSession</code> with a <code>resolve</code> message.</p>
    <div diagram id="diagram-durationchange-unknown①">
     <p>Typical Session Initialization Sequence</p>
-     <img alt="Typical session initialization." src="images/dgrm-session-init-sequence.png"> 
+     <img alt="Typical session initialization." src="simid-1.0.1.images/dgrm-session-init-sequence.png"> 
     <ol dgrm-details>
      <li>The player starts a <code>createSession</code> message timeout.
      <li>The player loads creative.
@@ -3731,7 +3731,7 @@ If the creative does not post a <code>createSession</code> message on time, the 
     <li>The player proceeds with the creative initialization.
    </ol>
    <h2 class="heading settled" data-level="9" id="error-codes"><span class="secno">9. </span><span class="content">Error Codes</span><a class="self-link" href="#error-codes"></a></h2>
-    This table describes SIMID error codes the creative may fire. 
+    The table below is the list of error codes the player and the creative use with <code>reject</code> messages. SIMID allocates the range <code>1100-1199</code> to the errors that the creative reports; the range <code>1200-1299</code> to the errors the player reports. 
    <p id="table-error-codes" table-header>Error Codes.</p>
    <table class="alternatecolor">
     <tbody>
