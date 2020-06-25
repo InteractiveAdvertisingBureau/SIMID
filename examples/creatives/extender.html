@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <style>
+
+    .bottomright {
+      position: absolute;
+      bottom: 8px;
+      right: 16px;
+    }
+
+    .topleft {
+      position: absolute;
+      top: 8px;
+      left: 16px;
+    }
+
+    .hidden {
+      opacity:0;
+    }
+    .fade-in {
+      animation: fadeIn ease 1s;
+      -webkit-animation: fadeIn ease 1s;
+      -moz-animation: fadeIn ease 1s;
+      -o-animation: fadeIn ease 1s;
+      -ms-animation: fadeIn ease 1s;
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity:0;
+      }
+      100% {
+        opacity:1;
+      }
+    }
+
+    @-moz-keyframes fadeIn {
+      0% {
+        opacity:0;
+      }
+      100% {
+        opacity:1;
+      }
+    }
+
+    @-webkit-keyframes fadeIn {
+      0% {
+        opacity:0;
+      }
+      100% {
+        opacity:1;
+      }
+    }
+
+    @-o-keyframes fadeIn {
+      0% {
+        opacity:0;
+      }
+      100% {
+        opacity:1;
+      }
+    }
+
+    @-ms-keyframes fadeIn {
+      0% {
+        opacity:0;
+      }
+      100% {
+        opacity:1;
+    }
+    </style>
+    <script src="../simid_protocol.js"> </script>
+    <script src="base_simid_creative.js"> </script>
+    <script src="extender.js"> </script>
+  </head>
+  <body>
+    <div id="firstTag" class="hidden topleft">
+      <img src="../media/visitSiteEndCard.jpg"></img>
+    </div>
+    <div id="secondTag" class="hidden bottomright">
+      <img src="../media/LearnMoreEndCard.jpg"></img>
+    </div>
+    <script>
+      const extender = new Extender();
+      // This implementation is immediately ready but other creatives
+      // may wish to wait for assets to load before calling ready.
+      extender.ready();
+  </script>
+  </body>
+</html>
