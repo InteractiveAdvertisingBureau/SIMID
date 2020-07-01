@@ -64,16 +64,39 @@ class SimidPlayer {
 
     /**
      * Resolution function for the session created message
+     * @private {?Function}
      */
-    this.sessionCreatedResolve_ = null;
+    this.resolveSessionCreatedPromise_ = null;
 
     /**
      * A promise that resolves once the creative creates a session.
-     * @private {?Promise}
+     * @private {!Promise}
      */
-    this.sessionCreated_ = new Promise((resolve, reject) => {
-      this.sessionCreatedResolve_ = resolve;
+    this.sessionCreatedPromise_ = new Promise((resolve, reject) => {
+      this.resolveSessionCreatedPromise_ = resolve;
     });
+
+    /**
+     * Resolution function for the ad being initialized.
+     * @private {?Function}
+     */
+    this.resolveInitializationPromise_ = null;
+
+    /**
+     * Reject function for the ad being initialized.
+     * @private {?Function}
+     */
+    this.rejectInitializationPromise_ = null;
+
+    /**
+     * A promise that resolves once the creative responds to initialization with resolve.
+     * @private {!Promise}
+     */
+    this.initializationPromise_ = new Promise((resolve, reject) => {
+      this.resolveInitializationPromise_ = resolve;
+      this.rejectInitializationPromise_ = reject;
+    });
+
 
     this.trackEventsOnVideoElement_();
     this.hideAdPlayer_();
@@ -88,6 +111,10 @@ class SimidPlayer {
     // sendInitMessage.
     this.simidIframe_ = this.createSimidIframe_();
     this.requestDuration_ = NO_REQUESTED_DURATION;
+    this.sessionCreatedPromise_.then(() => {
+      this.sendInitMessage_()
+    });
+
   }
 
   /**
@@ -95,11 +122,13 @@ class SimidPlayer {
    */
   playAd() {
     this.contentVideoElement_.pause();
-    // First make sure that a session is created.
-    this.sessionCreated_.then(() => {
-      // Once the creative responds to the initialize message, start playback.
-      this.initializationPromise_.then(this.startCreativePlayback_.bind(this))
-          .catch(this.onAdInitializedFailed_.bind(this));
+    // This example waits for the ad to be initialized, before playing video.
+    // NOTE: Not all players will wait for session creation and initialization
+    // before they start playback.
+    this.initializationPromise_.then(() =>  {
+      this.startCreativePlayback_()
+    }).catch(() => {
+      this.onAdInitializedFailed_()
     });
   }
 
@@ -132,7 +161,7 @@ class SimidPlayer {
    * @private
    */
   addListeners_() {
-    this.simidProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.sendInitMessage.bind(this));
+    this.simidProtocol.addListener(ProtocolMessage.CREATE_SESSION, this.onSessionCreated_.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_FULL_SCREEN, this.onRequestFullScreen.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_PLAY, this.onRequestPlay.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_PAUSE, this.onRequestPause.bind(this));
@@ -142,6 +171,16 @@ class SimidPlayer {
     this.simidProtocol.addListener(CreativeMessage.REQUEST_CHANGE_AD_DURATION,
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
+  }
+
+  /**
+   * Resolves the session created promise.
+   * @private
+   */
+  onSessionCreated_() {
+    // Anything that must happen after the session is created can now happen
+    // since this promise is resolved.
+    this.resolveSessionCreatedPromise_();
   }
 
   destroySimidIframe() {
@@ -178,8 +217,9 @@ class SimidPlayer {
 
   /**
    * Initializes the SIMID creative with all data it needs.
+   * @private
    */
-  sendInitMessage() {
+  sendInitMessage_() {
     const videoDimensions = this.getDimensions(this.contentVideoElement_);
     // Since the creative starts as hidden it will take on the
     // video element dimensions, so tell the ad about those dimensions.
@@ -213,10 +253,13 @@ class SimidPlayer {
       'environmentData' : environmentData,
       'creativeData': creativeData
     }
-    this.initializationPromise_ = this.simidProtocol.sendMessage(
+    const initPromise = this.simidProtocol.sendMessage(
         PlayerMessage.INIT, initMessage);
-    // It is possible that start is called before this initializationm message is sent.
-    this.sessionCreatedResolve_();
+    initPromise.then(()=> {
+      this.resolveInitializationPromise_();
+    }).catch(() => {
+      this.rejectInitializationPromise_();
+    })
   }
 
   /**
