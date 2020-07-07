@@ -7,10 +7,10 @@ const UNLIMITED_DURATION = -2;
 class SimidPlayer {
 
   /**
-   * Sets up the creative iframe and starts listening for message
+   * Sets up the creative iframe and starts listening for messages
    * from the creative.
    * @param {!Function} This function gets called when the ad stops.
-
+  */
   constructor(adComplete) {
     /**
      * The protocol for sending and receiving messages.
@@ -142,7 +142,7 @@ class SimidPlayer {
     this.simidProtocol.addListener(CreativeMessage.REQUEST_CHANGE_AD_DURATION,
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
-    this.simidProtocol.addListener(CreativeMessage.LOG, this.onLog.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
   }
 
   destroySimidIframe() {
@@ -359,7 +359,7 @@ class SimidPlayer {
     this.hideAdPlayer_();
     this.adVideoElement_.src = '';
     this.destroySimidIframe();
-    this.contentVideoElement_.play();
+    // this.contentVideoElement_.play();
   }
 
   /** The creative wants to go full screen. */
@@ -454,10 +454,15 @@ class SimidPlayer {
     this.simidProtocol.resolve(incomingMessage, mediaState);
   }
 
-  onLog(incomingMessage) {
-    const logMessage = {
-      'message': incomingMessage,
-    }
-    this.logPromise_ = this.simidProtocol.sendMessage(
-      CreativeMessage.LOG, logMessage);
+  onReceiveCreativeLog(incomingMessage) {
+    const logMessage = incomingMessage.args['message']
+    console.log(logMessage);
   }
+
+  sendLog(outgoingMessage) {
+    const logMessage = {
+      'message': outgoingMessage,
+    }
+    this.simidProtocol.sendMessage(PlayerMessage.LOG, logMessage);
+  }
+}

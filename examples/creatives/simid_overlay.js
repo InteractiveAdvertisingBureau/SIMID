@@ -26,6 +26,7 @@ class SimidOverlay extends BaseSimidCreative {
     this.sendMessageOnButtonClick_('fatal_error', CreativeMessage.FATAL_ERROR);
     this.sendMessageOnButtonClick_('request_skip', CreativeMessage.REQUEST_SKIP);
     this.sendMessageOnButtonClick_('request_stop', CreativeMessage.REQUEST_STOP);
+    this.sendMessageOnLog_('log', CreativeMessage.LOG);
   }
 
   /**
@@ -38,5 +39,14 @@ class SimidOverlay extends BaseSimidCreative {
     const sendMessageFunction = () => {this.simidProtocol.sendMessage(message);}
     document.getElementById(elementName).addEventListener(
         'click', sendMessageFunction.bind(this));
+  }
+
+  sendMessageOnLog_(elementName, message) {
+    const pauseErrorMessage = {
+          message: "WARNING: testing log",
+        };
+    const sendLogFunction = () => {this.simidProtocol.sendMessage(message, pauseErrorMessage);}
+    document.getElementById(elementName).addEventListener(
+      'click', sendLogFunction.bind(this));
   }
 }

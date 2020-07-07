@@ -47,6 +47,7 @@ class BaseSimidCreative {
     this.simidProtocol.addListener(PlayerMessage.FATAL_ERROR, this.onFatalError.bind(this));
     this.simidProtocol.addListener(PlayerMessage.AD_STOPPED, this.onAdStopped.bind(this));
     this.simidProtocol.addListener(PlayerMessage.AD_SKIPPED, this.onAdSkipped.bind(this));
+    this.simidProtocol.addListener(PlayerMessage.LOG, this.onReceivePlayerLog.bind(this));
     // Handlers with different video events.
     this.simidProtocol.addListener(MediaMessage.DURATION_CHANGE, this.onDurationChange.bind(this));
     this.simidProtocol.addListener(MediaMessage.ENDED, this.onVideoEnded.bind(this));
@@ -171,5 +172,10 @@ class BaseSimidCreative {
 
   onVolumeChange(data) {
     this.videoState.volume = data.args.volume;
+  }
+
+  onReceivePlayerLog(incomingMessage) {
+    const logMessage = incomingMessage.args['message']
+    console.log(logMessage);
   }
 }
