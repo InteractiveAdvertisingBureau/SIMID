@@ -57,9 +57,17 @@ class SimidProtocol {
     const messageId = this.nextMessageId_ ++;
     // Only create session does not need to be in the SIMID name space
     // because it is part of the protocol.
-    const nameSpacedMessage = 
-        messageType == ProtocolMessage.CREATE_SESSION ?
-            messageType : 'SIMID:' + messageType;
+    const nameSpacedMessage;
+    if (messageType == ProtocolMessage.CREATE_SESSION) {
+       nameSpacedMessage = messageType;
+    }
+    //Log message needs to start with a warning signal
+    else if (messageType == CreativeMessage.LOG) {
+       nameSpacedMessage = 'WARNING:' + messageType;
+    }
+    else {
+       nameSpacedMessage = 'SIMID:' + messageType;
+    }
 
     // The message object as defined by the SIMID spec.
     const message = {
@@ -309,6 +317,7 @@ CreativeMessage = {
   CLICK_THRU: 'Creative:clickThru',
   FATAL_ERROR: 'Creative:fatalError',
   GET_MEDIA_STATE: 'Creative:getMediaState',
+  LOG: 'Creative:log',
   REQUEST_FULL_SCREEN: 'Creative:requestFullScreen',
   REQUEST_SKIP: 'Creative:requestSkip',
   REQUEST_STOP: 'Creative:requestStop',
