@@ -1,8 +1,8 @@
 const NO_REQUESTED_DURATION = 0;
 const UNLIMITED_DURATION = -2;
 
-/*
-  All the logic for a simple SIMID player
+/** 
+ *All the logic for a simple SIMID player
  */
 class SimidPlayer {
 
@@ -10,7 +10,7 @@ class SimidPlayer {
    * Sets up the creative iframe and starts listening for messages
    * from the creative.
    * @param {!Function} This function gets called when the ad stops.
-  */
+   */
   constructor(adComplete) {
     /**
      * The protocol for sending and receiving messages.
@@ -359,7 +359,7 @@ class SimidPlayer {
     this.hideAdPlayer_();
     this.adVideoElement_.src = '';
     this.destroySimidIframe();
-    // this.contentVideoElement_.play();
+    this.contentVideoElement_.play();
   }
 
   /** The creative wants to go full screen. */

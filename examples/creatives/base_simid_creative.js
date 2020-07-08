@@ -174,8 +174,8 @@ class BaseSimidCreative {
     this.videoState.volume = data.args.volume;
   }
 
-  onReceivePlayerLog(incomingMessage) {
-    const logMessage = incomingMessage.args['message']
+  onReceivePlayerLog(data) {
+    const logMessage = data.args.message;
     console.log(logMessage);
   }
 }
