@@ -410,8 +410,7 @@ class SimidPlayer {
     this.hideAdPlayer_();
     this.adVideoElement_.src = '';
     this.destroySimidIframe();
-    // TODO don't comment next line
-    //this.contentVideoElement_.play();
+    this.contentVideoElement_.play();
   }
 
   /** The creative wants to go full screen. */
