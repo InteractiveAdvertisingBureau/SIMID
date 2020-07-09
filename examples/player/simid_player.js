@@ -2,7 +2,7 @@ const NO_REQUESTED_DURATION = 0;
 const UNLIMITED_DURATION = -2;
 
 /** 
- *All the logic for a simple SIMID player
+ * All the logic for a simple SIMID player
  */
 class SimidPlayer {
 
@@ -456,7 +456,7 @@ class SimidPlayer {
 
   onReceiveCreativeLog(incomingMessage) {
     const logMessage = incomingMessage.args['message']
-    console.log(logMessage);
+    console.log("Received message from creative: " + logMessage);
   }
 
   sendLog(outgoingMessage) {

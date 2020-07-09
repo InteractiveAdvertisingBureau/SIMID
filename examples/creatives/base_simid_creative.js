@@ -176,6 +176,6 @@ class BaseSimidCreative {
 
   onReceivePlayerLog(data) {
     const logMessage = data.args.message;
-    console.log(logMessage);
+    console.log("Received message from player: " + logMessage);
   }
 }
