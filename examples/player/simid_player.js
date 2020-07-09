@@ -1,6 +1,5 @@
 const NO_REQUESTED_DURATION = 0;
 const UNLIMITED_DURATION = -2;
-
 /** 
  * All the logic for a simple SIMID player
  */
