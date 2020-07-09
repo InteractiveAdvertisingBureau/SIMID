@@ -41,7 +41,7 @@ class SimidOverlay extends BaseSimidCreative {
         'click', sendMessageFunction.bind(this));
   }
 
-    /**
+  /**
    * Listens for a click event on the log button and sends the
    *   message contained in the input field to the player.
    * @private
