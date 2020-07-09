@@ -151,7 +151,8 @@ class SimidPlayer {
     simidIframe.src = document.getElementById('creative_url').value;
 
     this.simidProtocol.setMessageTarget(simidIframe.contentWindow);
-    simidIframe.setAttribute('allowFullScreen', '')
+    simidIframe.setAttribute('allowFullScreen', '');
+    simidIframe.setAttribute('allow', 'geolocation');
     return simidIframe;
   }
 
