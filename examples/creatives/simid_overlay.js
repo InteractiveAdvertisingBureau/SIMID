@@ -26,6 +26,7 @@ class SimidOverlay extends BaseSimidCreative {
     this.sendMessageOnButtonClick_('fatal_error', CreativeMessage.FATAL_ERROR);
     this.sendMessageOnButtonClick_('request_skip', CreativeMessage.REQUEST_SKIP);
     this.sendMessageOnButtonClick_('request_stop', CreativeMessage.REQUEST_STOP);
+    this.sendMessageOnLog_();
   }
 
   /**
@@ -38,5 +39,22 @@ class SimidOverlay extends BaseSimidCreative {
     const sendMessageFunction = () => {this.simidProtocol.sendMessage(message);}
     document.getElementById(elementName).addEventListener(
         'click', sendMessageFunction.bind(this));
+  }
+
+  /**
+   * Listens for a click event on the log button and sends the
+   * message contained in the input field to the player.
+   * @private
+   */
+  sendMessageOnLog_() {
+    const sendLogFunction = () => {
+      const logInputMessage = document.getElementById('log_input').value;
+      const logMessage = {
+        message: logInputMessage,
+      };
+      this.simidProtocol.sendMessage(CreativeMessage.LOG, logMessage);
+    }
+    document.getElementById('log_button').addEventListener(
+      'click', sendLogFunction.bind(this));
   }
 }

@@ -60,7 +60,6 @@ class SimidProtocol {
     const nameSpacedMessage = 
         messageType == ProtocolMessage.CREATE_SESSION ?
             messageType : 'SIMID:' + messageType;
-
     // The message object as defined by the SIMID spec.
     const message = {
       'sessionId': this.sessionId_,
@@ -190,7 +189,6 @@ class SimidProtocol {
     } 
   }
 
-
   /**
    * Resolves an incoming message.
    * @param {!Object} incomingMessage the message that is being resolved.
@@ -298,6 +296,7 @@ MediaMessage = {
 PlayerMessage = {
   RESIZE: 'Player:resize',
   INIT: 'Player:init',
+  LOG: 'Player:log',
   START_CREATIVE: 'Player:startCreative',
   AD_SKIPPED: 'Player:adSkipped',
   AD_STOPPED: 'Player:adStopped',
@@ -309,6 +308,7 @@ CreativeMessage = {
   CLICK_THRU: 'Creative:clickThru',
   FATAL_ERROR: 'Creative:fatalError',
   GET_MEDIA_STATE: 'Creative:getMediaState',
+  LOG: 'Creative:log',
   REQUEST_FULL_SCREEN: 'Creative:requestFullScreen',
   REQUEST_SKIP: 'Creative:requestSkip',
   REQUEST_STOP: 'Creative:requestStop',

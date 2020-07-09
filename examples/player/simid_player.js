@@ -1,7 +1,6 @@
 const NO_REQUESTED_DURATION = 0;
 const UNLIMITED_DURATION = -2;
-
-/**
+/** 
  * All the logic for a simple SIMID player
  */
 class SimidPlayer {
@@ -171,6 +170,7 @@ class SimidPlayer {
     this.simidProtocol.addListener(CreativeMessage.REQUEST_CHANGE_AD_DURATION,
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
   }
 
   /**
@@ -494,5 +494,17 @@ class SimidPlayer {
       'fullscreen': this.adVideoElement_.fullscreen,
     }
     this.simidProtocol.resolve(incomingMessage, mediaState);
+  }
+
+  onReceiveCreativeLog(incomingMessage) {
+    const logMessage = incomingMessage.args['message']
+    console.log("Received message from creative: " + logMessage);
+  }
+
+  sendLog(outgoingMessage) {
+    const logMessage = {
+      'message': outgoingMessage,
+    }
+    this.simidProtocol.sendMessage(PlayerMessage.LOG, logMessage);
   }
 }
