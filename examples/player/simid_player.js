@@ -103,15 +103,26 @@ class SimidPlayer {
 
   /**
    * Initializes an ad. This should be called before an ad plays.
+   * Creates an iframe with the creative in it, then uses a promise
+   * to call init on the creative as soon as the creative initializes
+   * a session.
    */
   initializeAd() {
-    // After the iframe is created the player will wait until the ad
-    // initializes the communication channel. Then it will call
-    // sendInitMessage.
     this.simidIframe_ = this.createSimidIframe_();
     this.requestDuration_ = NO_REQUESTED_DURATION;
+
+    // Prepare for the case that init fails before sending
+    // the init message. Initialization failing means abandoning
+    // the ad.
+    this.initializationPromise_.catch((e) => {
+      this.onAdInitializedFailed_(e);
+    });
+
+    // Using a promise means that the init message will
+    // send as soon as the session is created. If the session
+    // is already created this will send the init message immediately.
     this.sessionCreatedPromise_.then(() => {
-      this.sendInitMessage_()
+      this.sendInitMessage_();
     });
 
   }
@@ -126,8 +137,6 @@ class SimidPlayer {
     // before they start playback.
     this.initializationPromise_.then(() =>  {
       this.startCreativePlayback_()
-    }).catch(() => {
-      this.onAdInitializedFailed_()
     });
   }
 
@@ -256,10 +265,10 @@ class SimidPlayer {
     }
     const initPromise = this.simidProtocol.sendMessage(
         PlayerMessage.INIT, initMessage);
-    initPromise.then(()=> {
-      this.resolveInitializationPromise_();
-    }).catch(() => {
-      this.rejectInitializationPromise_();
+    initPromise.then((args)=> {
+      this.resolveInitializationPromise_(args);
+    }).catch((args) => {
+      this.rejectInitializationPromise_(args);
     })
   }
 
@@ -285,7 +294,7 @@ class SimidPlayer {
    * @private
    */
   onAdInitializedFailed_(data) {
-    console.log("Ad did not inialize so we can error out.");
+    console.log('Ad init failed. ' + JSON.stringify(data));
     this.destroyIframeAndResumeContent_();
   }
 
