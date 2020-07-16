@@ -20,7 +20,17 @@ class BaseSimidCreative {
      * The most recent video state from the player.
      * @protected {?Object}
      */
-    this.videoState = {};
+    this.videoState = {
+      currentSrc:'',
+      currentTime: -1, // Time not yet known
+      duration: -1, // duration unknown
+      ended: false,
+      muted: false,
+      paused: false,
+      volume: 0.5,
+      fullscreen: false
+    }
+
 
     /**
      * The simid version, once the player makes it known.
@@ -68,28 +78,32 @@ class BaseSimidCreative {
   /**
    * Receives init message from the player.
    * @param {!Object} eventData Data from the event.
+   * @protected
    */
   onInit(eventData) {
+    this.updateInternalOnInit(eventData);
+    this.simidProtocol.resolve(eventData, {});
+  }
+
+  /**
+   * Updates internal data on initialization call.
+   *
+   * Note: When overriding the onInit function and not wishing
+   * to always resolve, subclasses may instead use this function.
+   * @param {!Object} eventData Data from the event.
+   * @protected
+   */
+  updateInternalOnInit(eventData) {
     this.creativeData = eventData.args.creativeData;
     this.environmentData = eventData.args.environmentData;
-
-
-    this.videoState = {
-      currentSrc:'',
-      currentTime: -1, // Time not yet known
-      duration: -1, // duration unknown
-      ended: false,
-      muted: this.environmentData.muted,
-      paused: false,
-      volume: this.environmentData.volume,
-      fullscreen: false //TODO add this to environment data in spec
-    }
-    this.simidProtocol.resolve(eventData, {});
+    this.videoState.muted = this.environmentData.muted;
+    this.videoState.volume = this.environmentData.volume;
   }
 
   /**
    * Receives start message from the player.
    * @param {!Object} eventData Data from the event.
+   * @protected
    */
   onStart(eventData) {
     // Acknowledge that the ad is started.
@@ -97,19 +111,28 @@ class BaseSimidCreative {
     console.log('Simid creative started.')
   }
 
-  /** Called when the creative receives the fatal error message from the player.*/
+  /**
+   * Called when the creative receives the fatal error message from the player.
+   * @protected
+   */
   onFatalError(eventData) {
     // After resolving the iframe with this ad should be cleaned up.
     this.simidProtocol.resolve(eventData, {});
   }
 
-  /** Called when the creative receives the stop message from the player.*/
+  /**
+   * Called when the creative receives the stop message from the player.
+   * @protected
+   */
   onAdStopped(eventData) {
     // After resolving the iframe with this ad should be cleaned up.
     this.simidProtocol.resolve(eventData, {});
   }
 
-  /** Called when the creative receives the skip message from the player.*/
+  /**
+   * Called when the creative receives the skip message from the player.
+   * @protected
+   */
   onAdSkipped(eventData) {
     // After resolving the iframe with this ad should be cleaned up.
     this.simidProtocol.resolve(eventData, {});
@@ -117,6 +140,7 @@ class BaseSimidCreative {
 
   /** 
    * Opens the click through url and lets the player know about it.
+   * @protected
    */
   clickThru() {
 
@@ -124,52 +148,86 @@ class BaseSimidCreative {
 
   /**
    * Asks the player for the state of the video element.
+   * @protected
    */
   fetchMediaState() {
     this.simidProtocol.sendMessage(CreativeMessage.GET_MEDIA_STATE, {})
         .then((data) => this.onGetMediaStateResolve(data));
   }
 
+  /**
+   * @protected
+   */
   onGetMediaStateResolve(data) {
     this.videoState = data;
   }
 
+  /**
+   * @protected
+   */
   onDurationChange(data) {
     this.videoState.duration = data.args.duration;
   }
 
+  /**
+   * @protected
+   */
   onVideoEnded() {
     this.videoState.ended = true;
   }
 
+  /**
+   * @protected
+   */
   onVideoError() {
     // no op for this example
   }
 
+  /**
+   * @protected
+   */
   onPause() {
     this.videoState.paused = true;
   }
 
+  /**
+   * @protected
+   */
   onPlay() {
     this.videoState.paused = false;
   }
 
+  /**
+   * @protected
+   */
   onPlaying() {
     this.videoState.paused = false;
   }
 
+  /**
+   * @protected
+   */
   onSeeked() {
     // no op for this example
   }
 
+  /**
+   * @protected
+   */
   onSeeking() {
     // no op for this example
   }
 
+  /**
+   * @protected
+   */
   onTimeUpdate(data) {
     this.videoState.currentTime = data.args.currentTime;
   }
 
+  /**
+   * @protected
+   */
   onVolumeChange(data) {
     this.videoState.volume = data.args.volume;
   }
