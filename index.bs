@@ -506,6 +506,19 @@ primary use case of interactivity.
 
 The SIMID standard is geared toward the digital media advertising community. Anyone who works with digital media advertising products or services can benefit from reading the Introduction sections of this document. The Messaging Protocol, API Reference, and later sections predominantly target software engineers.
 
+## Changes In SIMID 1.1 ## {#simid-11-changes}
+
+SIMID version 1.1 introduces the following enhancements:
+1. Nonlinear ads support. SIMID offers:
+  * New messages Creative:expandNonlinear, Creative:collapseNonlinear, and Player:collapseNonlinear.
+  * Related to nonlinear ads data.
+  * Additional error codes.
+1. Player handling user navigation to external landing pages for the in-mobile apps servings. For this purpose, SIMID 
+  * Introduces a message Creative:requestNavigation.
+  * Upgrades Creative:clickThru message.
+  * Offers corresponding data.
+  * Includes related error codes.
+
 
 # Introduction # {#intro}
 
