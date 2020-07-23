@@ -5,6 +5,12 @@
       <script src="nonlinear_overlay.js"> </script>
     </head>
     <style>
+      #close_ad {
+        color: red;
+        border: solid white 1px;
+        font-size: 14;
+        float: right;
+      }
       button {
         cursor: pointer;
       }
@@ -13,22 +19,26 @@
       }
     </style>
   <body>
+    <button id="close_ad">X</button>
     <div id="content_container">
-      <div id="resizing_inputs">
-        <label for="x_val">X: </label>
-        <input type="number" id="resize_x_val" min="0" style="width: 50px;">
-  
-        <label for="y_val">Y: </label>
-        <input type="number" id="resize_y_val" min="0" style="width: 50px;">
-  
-        <label for="width">Width: </label>
-        <input type="number" id="resize_width" min="0" style="width: 50px;">
-  
-        <label for="height">Height: </label>
-        <input type="number" id="resize_height" min="0" style="width: 50px;">
-  
-        <button id="resize_button" onclick="resizing()">Resize Ad</button>
-      </div>
+      <button id="expand_button">Expand Ad</button>
+      <button id="collapse_button">Collapse Ad</button>
+    </div>
+    <div id="resizing_inputs">
+      <label for="x_val">X: </label>
+      <input type="number" id="resize_x_val" min="0" style="width: 50px;">
+
+      <label for="y_val">Y: </label>
+      <input type="number" id="resize_y_val" min="0" style="width: 50px;">
+
+      <label for="width">Width: </label>
+      <input type="number" id="resize_width" min="0" style="width: 50px;">
+
+      <label for="height">Height: </label>
+      <input type="number" id="resize_height" min="0" style="width: 50px;">
+
+      <button id="resize_button" onclick="resizing()">Resize Ad</button>
+    </div>
     </div>
     <script>
       //The creative should first call ready
