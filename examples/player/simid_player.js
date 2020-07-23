@@ -112,6 +112,12 @@ class SimidPlayer {
    * Initializes an ad. This should be called before an ad plays.
    */
   initializeAd() {
+
+    if (!this.isLinear_ && !this.isValidDimensions(this.getNonLinearDimensions())) {
+      console.log('Dimensions bigger than player');
+      return;
+    }
+
     // After the iframe is created the player will wait until the ad
     // initializes the communication channel. Then it will call
     // sendInitMessage.
@@ -236,6 +242,22 @@ class SimidPlayer {
       // TODO: This example does not currently support transition duration.
       'transitionDuration': 0
     };
+  }
+
+  /**
+   * Checks whether the input dimensions are valid and fit in the player window
+   * @param {!Object} A dimension that contains an x,y,width & height field
+   * @return {boolean}
+   */
+  isValidDimensions(dimensions) {
+    const playerDiv = document.getElementById('player_div');
+    const playerRect = playerDiv.getBoundingClientRect();
+    // const dimensions = this.getNonLinearDimensions();
+
+    const heightFits = parseInt(dimensions.y) + parseInt(dimensions.height) <= parseInt(playerRect.height);
+    const widthFits = parseInt(dimensions.x) + parseInt(dimensions.width) <= parseInt(playerRect.width);
+    
+    return heightFits && widthFits;
   }
 
   /**
