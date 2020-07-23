@@ -132,7 +132,7 @@ class SimidPlayer {
   }
 
   /**
-   * Closes t SIMID creative.
+   * Closes the ad and SIMID creative.
    */
   closeAd() {
     this.onRequestStop(CreativeMessage.REQUEST_STOP);
