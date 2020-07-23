@@ -320,6 +320,11 @@ class SimidPlayer {
     }
   }
 
+  /**
+   * Changes the simid iframe 
+   * @param {!Object} A dimension that contains an x,y,width & height fields.
+   * @return {boolean}
+   */
   setSimidIframeDimensions_(resizeDimensions) {
     this.simidIframe_.style.height = resizeDimensions.height;
     this.simidIframe_.style.width = resizeDimensions.width;
