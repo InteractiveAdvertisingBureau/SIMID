@@ -10,7 +10,7 @@ class SimidPlayer {
    * from the creative.
    * @param {!Function} This function gets called when the ad stops.
    */
-  constructor(adComplete) {
+  constructor(adComplete, isLinear) {
     /**
      * The protocol for sending and receiving messages.
      * @protected {!SimidProtocol}
@@ -54,6 +54,12 @@ class SimidPlayer {
      * @private {!Function}
      */
     this.adComplete_ = adComplete;
+
+    /**
+     * A boolean indicating whether type of creative is 
+     * @private
+     */
+    this.isLinear_ = isLinear;
 
     /**
      * The duration requested by the ad.
