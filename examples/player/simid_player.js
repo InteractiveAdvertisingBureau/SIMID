@@ -115,6 +115,11 @@ class SimidPlayer {
     // initializes the communication channel. Then it will call
     // sendInitMessage.
     this.simidIframe_ = this.createSimidIframe_();
+
+    if (!this.isLinearAd_) {
+      this.displayNonLinearCreative_();
+    }
+
     this.requestDuration_ = NO_REQUESTED_DURATION;
     this.sessionCreatedPromise_.then(() => {
       this.sendInitMessage_()
@@ -214,17 +219,16 @@ class SimidPlayer {
   }
 
   /**
-   * Returns the dimensions of an element within the player div.
+   * Returns the full dimensions of an element within the player div.
+   * These dimensions will equal the full size of the player.
    * @return {!Object}
    */
-  getDimensions(elem) {
-    // The player div wraps all elements and is used as the offset.
-    const playerDiv = document.getElementById('player_div');
-    const playerRect = playerDiv.getBoundingClientRect();
+  getFullVideoDimensions(elem) {
     const videoRect = elem.getBoundingClientRect();
+
     return {
-      'x' : videoRect.x - playerRect.x,
-      'y' : videoRect.y - playerRect.y,
+      'x' : 0,
+      'y' : 0,
       'width' : videoRect.width,
       'height' : videoRect.height,
       // TODO: This example does not currently support transition duration.
@@ -233,14 +237,52 @@ class SimidPlayer {
   }
 
   /**
+   * Returns the specified dimensions of the non-linear creative.
+   * @return {!Object}
+   */
+  getNonLinearDimensions_() {
+    const x_val = document.getElementById('x_val').value;
+    const y_val = document.getElementById('y_val').value;
+    const width = document.getElementById('width').value;
+    const height = document.getElementById('height').value;
+
+    return {
+      'x' : x_val,
+      'y' : y_val,
+      'width' : width,
+      'height' : height,
+      // TODO: This example does not currently support transition duration.
+      'transitionDuration': 0
+    };
+  }
+
+  /**
+   * Displays the non-linear creative with the specified size
+   * on top of the video content.
+   * @return {!Object}
+   */
+  displayNonLinearCreative_() {
+    const dimensions = this.getNonLinearDimensions_();
+    
+    this.simidIframe_.style.height = dimensions.height;
+    this.simidIframe_.style.width = dimensions.width;
+    this.simidIframe_.style.left = `${dimensions.x}px`;
+    this.simidIframe_.style.top = `${dimensions.y}px`;
+
+    this.simidIframe_.style.position = "absolute";
+
+    this.contentVideoElement_.play();
+  }
+
+  /**
    * Initializes the SIMID creative with all data it needs.
    * @private
    */
   sendInitMessage_() {
-    const videoDimensions = this.getDimensions(this.contentVideoElement_);
+    const videoDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
     // Since the creative starts as hidden it will take on the
     // video element dimensions, so tell the ad about those dimensions.
-    const creativeDimensions = this.getDimensions(this.contentVideoElement_);
+    const creativeDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
 
     const environmentData = {
       'videoDimensions': videoDimensions,

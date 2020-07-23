@@ -7,7 +7,15 @@
     <style>
     </style>
   <body>
+    <div id="content_container">
+      <button>hello</button>
+    </div>
     <script>
+      //The creative should first call ready
+       const nonLinear = new NonLinear();
+      // This implementation is immediately ready but other creatives
+      // may wish to wait for assets to load before calling ready.
+      nonLinear.ready();
     </script>
   </body> 
 </html>
