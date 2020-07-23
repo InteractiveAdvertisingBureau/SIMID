@@ -58,7 +58,8 @@ class SimidPlayer {
 
     /**
      * A boolean indicating what type of creative ad is
-     * @constant @private {boolean}
+     * @constant 
+     * @private {boolean}
      */
     this.isLinearAd_ = isLinearAd;
 
@@ -151,9 +152,10 @@ class SimidPlayer {
     // The target of the player to send messages to is the newly
     // created iframe.
     playerDiv.appendChild(simidIframe);
-    // Set up css to overlay the SIMID iframe over the entire video creative
-    // only if linear.
-    if (this.isLinearAd_){
+
+    if (this.isLinearAd_) {
+      // Set up css to overlay the SIMID iframe over the entire video creative
+      // only if linear. Non-linear ads will have dimension inputs for placement
       simidIframe.classList.add('linear_simid_creative');
     }
     
@@ -283,17 +285,20 @@ class SimidPlayer {
     // If the ad is not visible it must be made visible here.
     this.showSimidIFrame_();
 
-    // only linear ones play ad videos
     if (this.isLinearAd_) {
-      this.contentVideoElement_.pause();
-      this.showAdPlayer_();
-      this.adVideoElement_.src = document.getElementById('video_url').value;
-      this.adVideoElement_.play();
+      this.playLinearVideoAd_();
     } else {
-      this.
+      this.contentVideoElement_.play();
     }
     
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
+  }
+
+  playLinearVideoAd_() {
+    this.contentVideoElement_.pause();
+    this.showAdPlayer_();
+    this.adVideoElement_.src = document.getElementById('video_url').value;
+    this.adVideoElement_.play();
   }
 
   /**
@@ -451,7 +456,9 @@ class SimidPlayer {
   onRequestPlay(incomingMessage) {
     
     if (this.isLinearAd_) {
-      this.adVideoElement_.play().then(() => this.simidProtocol.resolve(incomingMessage));
+      this.adVideoElement_.play()
+      .then(() => this.simidProtocol.resolve(incomingMessage))
+      .catch(() => this.simidProtocol.reject(incomingMessage));
     } else {
       this.simidProtocol.reject(incomingMessage);
     }
