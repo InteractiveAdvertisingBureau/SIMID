@@ -245,8 +245,8 @@ class SimidPlayer {
   }
 
   /**
-   * Checks whether the input dimensions are valid and fit in the player window
-   * @param {!Object} A dimension that contains an x,y,width & height field
+   * Checks whether the input dimensions are valid and fit in the player window.
+   * @param {!Object} A dimension that contains an x,y,width & height fields.
    * @return {boolean}
    */
   isValidDimensions(dimensions) {
@@ -285,13 +285,9 @@ class SimidPlayer {
    * on top of the video content.
    */
   displayNonLinearCreative_() {
-    const dimensions = this.getNonLinearDimensions();
-    
-    this.simidIframe_.style.height = dimensions.height;
-    this.simidIframe_.style.width = dimensions.width;
-    this.simidIframe_.style.left = `${dimensions.x}px`;
-    this.simidIframe_.style.top = `${dimensions.y}px`;
+    const nonLinearDimensions = this.getNonLinearDimensions();
 
+    this.setSimidIframeDimensions_(nonLinearDimensions);
     this.simidIframe_.style.position = "absolute";
 
     this.contentVideoElement_.play();
@@ -299,8 +295,7 @@ class SimidPlayer {
 
   /**
    * Allows users to request resizing of the creative
-   * @param {!Object} incomingMessage Message sent from the 
-   *   creative to the player
+   * @param {!Object} incomingMessage Message sent from the creative to the player
    */
   onRequestResize(incomingMessage) {
     const x_val  = incomingMessage.args['x_val'];
@@ -308,19 +303,28 @@ class SimidPlayer {
     const width  = incomingMessage.args['width'];
     const height  = incomingMessage.args['height'];
 
-    const resizeDimensions = {
+    const newDimensions = {
       'x' : x_val,
       'y' : y_val,
       'width' : width,
       'height' : height,
     }
 
+    if (!this.isValidDimensions(newDimensions)){
+      console.log("Dimensions bigger than player");
+      this.simidProtocol.reject(incomingMessage);
+    
+    } else {
+      this.setSimidIframeDimensions_(newDimensions)
+      this.simidProtocol.resolve(incomingMessage);
+    }
+  }
+
+  setSimidIframeDimensions_(resizeDimensions) {
     this.simidIframe_.style.height = resizeDimensions.height;
     this.simidIframe_.style.width = resizeDimensions.width;
     this.simidIframe_.style.left = `${resizeDimensions.x}px`;
     this.simidIframe_.style.top = `${resizeDimensions.y}px`;
-
-    this.simidProtocol.resolve(incomingMessage);
   }
 
   /**
