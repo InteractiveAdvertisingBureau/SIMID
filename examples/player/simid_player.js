@@ -288,9 +288,14 @@ class SimidPlayer {
     // Once the ad is successfully initialized it can start.
     // If the ad is not visible it must be made visible here.
     this.showSimidIFrame_();
-    this.showAdPlayer_();
-    this.adVideoElement_.src = document.getElementById('video_url').value;
-    this.adVideoElement_.play();
+
+    // only linear ones play ad videos
+    if (this.isLinearAd_) {
+      this.showAdPlayer_();
+      this.adVideoElement_.src = document.getElementById('video_url').value;
+      this.adVideoElement_.play();
+    }
+    
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
 
@@ -447,11 +452,14 @@ class SimidPlayer {
   
   /** The creative wants to play video. */
   onRequestPlay(incomingMessage) {
-    this.adVideoElement_.play().then(
-      // The play function returns a promise.
-      this.simidProtocol.resolve(incomingMessage),
-      this.simidProtocol.reject(incomingMessage)
-    );
+    
+    if (this.isLinearAd_) {
+      this.adVideoElement_.play().then(
+        // The play function returns a promise.
+        this.simidProtocol.resolve(incomingMessage),
+        this.simidProtocol.reject(incomingMessage)
+      );
+    }
   }
   
   /** The creative wants to pause video. */
