@@ -292,6 +292,11 @@ class SimidPlayer {
       'height' : height,
     }
 
+    if(!this.isNonLinear_) {
+      console.log("Cannot resize linear ad");
+      return;
+    }
+
     this.simidIframe_.style.height = resizeDimensions.height;
     this.simidIframe_.style.width = resizeDimensions.width;
     this.simidIframe_.style.left = `${resizeDimensions.x}px`;
