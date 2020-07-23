@@ -8,8 +8,8 @@ class SimidPlayer {
   /**
    * Sets up the creative iframe and starts listening for messages
    * from the creative.
-   * @param {!Function} This function gets called when the ad stops.
-   * @param {boolean} Represents if the ad is a linear one
+   * @param {!Function} adComplete This function gets called when the ad stops.
+   * @param {boolean} isLinearAd Represents if the ad is a linear one.
    */
   constructor(adComplete, isLinearAd) {
     /**
@@ -57,8 +57,8 @@ class SimidPlayer {
     this.adComplete_ = adComplete;
 
     /**
-     * A boolean indicating whether type of creative
-     * @private
+     * A boolean indicating what type of creative ad is
+     * @constant @private {boolean}
      */
     this.isLinearAd_ = isLinearAd;
 
@@ -127,13 +127,6 @@ class SimidPlayer {
    * Plays a SIMID  creative once it has responded to the initialize ad message.
    */
   playAd() {
-
-    // content video shouldn't be paused for non-linear ads
-    if (this.isLinearAd_) {
-      this.contentVideoElement_.pause();
-    } else {
-      this.contentVideoElement_.play();
-    }
     
     // This example waits for the ad to be initialized, before playing video.
     // NOTE: Not all players will wait for session creation and initialization
@@ -292,9 +285,12 @@ class SimidPlayer {
 
     // only linear ones play ad videos
     if (this.isLinearAd_) {
+      this.contentVideoElement_.pause();
       this.showAdPlayer_();
       this.adVideoElement_.src = document.getElementById('video_url').value;
       this.adVideoElement_.play();
+    } else {
+      this.
     }
     
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
