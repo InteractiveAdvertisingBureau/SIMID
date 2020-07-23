@@ -193,6 +193,7 @@ class SimidPlayer {
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
   /**
@@ -240,7 +241,7 @@ class SimidPlayer {
    * Returns the specified dimensions of the non-linear creative.
    * @return {!Object}
    */
-  getNonLinearDimensions_() {
+  getNonLinearDimensions() {
     const x_val = document.getElementById('x_val').value;
     const y_val = document.getElementById('y_val').value;
     const width = document.getElementById('width').value;
@@ -259,10 +260,9 @@ class SimidPlayer {
   /**
    * Displays the non-linear creative with the specified size
    * on top of the video content.
-   * @return {!Object}
    */
   displayNonLinearCreative_() {
-    const dimensions = this.getNonLinearDimensions_();
+    const dimensions = this.getNonLinearDimensions();
     
     this.simidIframe_.style.height = dimensions.height;
     this.simidIframe_.style.width = dimensions.width;
@@ -272,6 +272,32 @@ class SimidPlayer {
     this.simidIframe_.style.position = "absolute";
 
     this.contentVideoElement_.play();
+  }
+
+  /**
+   * Allows users to request resizing of the creative
+   * @param {!Object} incomingMessage Message sent from the 
+   *   creative to the player
+   */
+  onRequestResize(incomingMessage) {
+    const x_val  = incomingMessage.args['x_val'];
+    const y_val  = incomingMessage.args['y_val'];
+    const width  = incomingMessage.args['width'];
+    const height  = incomingMessage.args['height'];
+
+    const resizeDimensions = {
+      'x' : x_val,
+      'y' : y_val,
+      'width' : width,
+      'height' : height,
+    }
+
+    this.simidIframe_.style.height = resizeDimensions.height;
+    this.simidIframe_.style.width = resizeDimensions.width;
+    this.simidIframe_.style.left = `${resizeDimensions.x}px`;
+    this.simidIframe_.style.top = `${resizeDimensions.y}px`;
+
+    this.simidProtocol.resolve(incomingMessage);
   }
 
   /**
