@@ -40,8 +40,8 @@ class NonLinear extends BaseSimidCreative {
     const resize_height = document.getElementById('resize_height').value;
 
     const resize_params = {
-      'x_val': resize_x_val,
-      'y_val': resize_y_val,
+      'x': resize_x_val,
+      'y': resize_y_val,
       'width': resize_width,
       'height': resize_height,
     };

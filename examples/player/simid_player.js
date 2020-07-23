@@ -315,8 +315,8 @@ class SimidPlayer {
    * @param {!Object} incomingMessage Message sent from the creative to the player
    */
   onRequestResize(incomingMessage) {
-    const x_val  = incomingMessage.args['x_val'];
-    const y_val  = incomingMessage.args['y_val'];
+    const x_val  = incomingMessage.args['x'];
+    const y_val  = incomingMessage.args['y'];
     const width  = incomingMessage.args['width'];
     const height  = incomingMessage.args['height'];
 
