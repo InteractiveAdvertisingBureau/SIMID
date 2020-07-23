@@ -35,11 +35,26 @@
       simidPlayer.initializeAd();
     }
 
+    function toggleButtons() {
+      let adRequests = document.querySelectorAll(".ad_request");
+      adRequests.forEach(function(request) {
+        if (request.disabled == false) {
+          console.log("Not disabled");
+          request.disabled = true;
+        }
+        else {
+          request.disabled = false;
+          console.log("Already disabled");
+        }
+      });
+    }
+
     function playAd() {
       if (!simidPlayer) {
         initAd();
       }
       simidPlayer.playAd();
+      toggleButtons();
     }
 
     function closeAd() {
@@ -47,20 +62,17 @@
         initAd();
       }
       simidPlayer.closeAd();
+      toggleButtons();
     }
 
     function skipAd() {
-      if (!simidPlayer) {
-        initAd();
-      }
       simidPlayer.skipAd();
+      toggleButtons();
     }
 
     function fatalError() {
-      if (!simidPlayer) {
-        initAd();
-      }
       simidPlayer.fatalError();
+      toggleButtons();
     }
 
     function switchCreative(value) {
@@ -121,9 +133,9 @@
     </table>
     <button onclick="playAd()"> Start ad playback </button>
     <button onclick="initAd()"> Initialize the creative </button>
-    <button onclick="closeAd()"> Close the ad </button> 
-    <button onclick="skipAd()"> Skip ad </button>
-    <button onclick="fatalError()"> Fatal Error </button>
+    <button class="ad_request" onclick="closeAd()" disabled> Close the ad </button> 
+    <button class="ad_request" onclick="skipAd()" disabled> Skip ad </button>
+    <button class="ad_request" onclick="fatalError()" disabled> Fatal Error </button>
   </div>
 
   <div id="player_div" style="position:absolute;">
