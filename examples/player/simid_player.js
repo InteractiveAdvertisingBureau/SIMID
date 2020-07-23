@@ -252,7 +252,6 @@ class SimidPlayer {
   isValidDimensions(dimensions) {
     const playerDiv = document.getElementById('player_div');
     const playerRect = playerDiv.getBoundingClientRect();
-    // const dimensions = this.getNonLinearDimensions();
 
     const heightFits = parseInt(dimensions.y) + parseInt(dimensions.height) <= parseInt(playerRect.height);
     const widthFits = parseInt(dimensions.x) + parseInt(dimensions.width) <= parseInt(playerRect.width);
@@ -321,9 +320,8 @@ class SimidPlayer {
   }
 
   /**
-   * Changes the simid iframe 
+   * Changes the simid iframe dimensions to the given dimensions
    * @param {!Object} A dimension that contains an x,y,width & height fields.
-   * @return {boolean}
    */
   setSimidIframeDimensions_(resizeDimensions) {
     this.simidIframe_.style.height = resizeDimensions.height;
