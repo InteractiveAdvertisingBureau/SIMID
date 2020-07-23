@@ -39,12 +39,10 @@
       let adRequests = document.querySelectorAll(".ad_request");
       adRequests.forEach(function(request) {
         if (request.disabled == false) {
-          console.log("Not disabled");
           request.disabled = true;
         }
         else {
           request.disabled = false;
-          console.log("Already disabled");
         }
       });
     }
@@ -58,9 +56,6 @@
     }
 
     function closeAd() {
-      if (!simidPlayer) {
-        initAd();
-      }
       simidPlayer.closeAd();
       toggleButtons();
     }
