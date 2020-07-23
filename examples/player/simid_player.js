@@ -200,6 +200,8 @@ class SimidPlayer {
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_EXPAND, this.onExpandResize.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.loadNonLinearDimensions_.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
@@ -290,6 +292,22 @@ class SimidPlayer {
     this.simidIframe_.style.position = "absolute";
 
     this.contentVideoElement_.play();
+  }
+
+  /** The creative wants to expand the ad. */
+  onExpandResize(incomingMessage) {
+    if (this.isLinear_) {
+      console.log("Cannot resize linear ads");
+      this.simidProtocol.reject(incomingMessage);
+  
+    } else {
+      const fullDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
+      
+      this.setSimidIframeDimensions_(fullDimensions);
+      
+      this.contentVideoElement_.pause();
+      this.simidProtocol.resolve(incomingMessage);
+    }
   }
 
   /**
