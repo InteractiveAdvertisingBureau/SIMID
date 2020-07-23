@@ -57,6 +57,9 @@
     }
 
     function fatalError() {
+      if (!simidPlayer) {
+        initAd();
+      }
       simidPlayer.fatalError();
     }
 
