@@ -132,6 +132,30 @@ class SimidPlayer {
   }
 
   /**
+   * Closes t SIMID creative.
+   */
+  closeAd() {
+    this.onRequestStop(CreativeMessage.REQUEST_STOP);
+    this.sendLog("Ad closed by player");
+  }
+
+  /**
+   * Skips the ad.
+   */
+  skipAd() {
+    this.onRequestSkip(CreativeMessage.REQUEST_SKIP);
+    this.sendLog("Ad skipped by player");
+  }
+
+  /**
+   * Stops the ad when player detects a fatal error.
+   */
+  fatalError() {
+    this.onCreativeFatalError(CreativeMessage.FATAL_ERROR);
+    this.sendLog("Fatal error detected by player");
+  }
+
+  /**
    * Sets up an iframe for holding the simid element.
    *
    * @return {!Element} The iframe where the simid element lives.

@@ -42,6 +42,24 @@
       simidPlayer.playAd();
     }
 
+    function closeAd() {
+      if (!simidPlayer) {
+        initAd();
+      }
+      simidPlayer.closeAd();
+    }
+
+    function skipAd() {
+      if (!simidPlayer) {
+        initAd();
+      }
+      simidPlayer.skipAd();
+    }
+
+    function fatalError() {
+      simidPlayer.fatalError();
+    }
+
     function switchCreative(value) {
       document.getElementById('creative_url').value = '../creatives/' + value;
       // populate ad parameters with some hard coded values
@@ -100,10 +118,13 @@
     </table>
     <button onclick="playAd()"> Start ad playback </button>
     <button onclick="initAd()"> Initialize the creative </button>
+    <button onclick="closeAd()"> Close the ad </button> 
+    <button onclick="skipAd()"> Skip ad </button>
+    <button onclick="fatalError()"> Fatal Error </button>
   </div>
 
   <div id="player_div" style="position:absolute;">
-    <video id="video_player" class="content" src="../media/Big_Buck_Bunny.mp4" controls> </video>
+    <video id="video_player" class="content" src="../media/fakeContent.mp4" controls> </video>
     <div id="ad_video_div" class="overlayed" style="display:none;">
       <video id="ad_video_player" class="overlayed" style="display:none;" src="">
     </div>
