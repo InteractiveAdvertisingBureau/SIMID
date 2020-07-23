@@ -292,7 +292,7 @@ class SimidPlayer {
       'height' : height,
     }
 
-    if(!this.isNonLinear_) {
+    if (this.isLinearAd_) {
       console.log("Cannot resize linear ad");
       return;
     }
