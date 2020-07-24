@@ -158,29 +158,29 @@ class SimidPlayer {
     });
   }
 
-  /**
-   * Player closes the ad and SIMID creative.
-   */
-  playerCloseAd() {
-    this.stopAd();
-    this.sendLog("Ad stopped by player");
-  }
+  // /**
+  //  * Player closes the ad and SIMID creative.
+  //  */
+  // playerCloseAd() {
+  //   this.stopAd();
+  //   this.sendLog("Ad stopped by player");
+  // }
 
-  /**
-   * Player skips the ad.
-   */
-  playerSkipAd() {
-    this.skipAd();
-    this.sendLog("Ad skipped by player");
-  }
+  // /**
+  //  * Player skips the ad.
+  //  */
+  // playerSkipAd() {
+  //   this.skipAd();
+  //   this.sendLog("Ad skipped by player");
+  // }
 
-  /**
-   * Stops the ad when player detects a fatal error.
-   */
-  playerFatalError() {
-    this.stopAd();
-    this.sendLog("Fatal error detected by player");
-  }
+  // /**
+  //  * Stops the ad when player detects a fatal error.
+  //  */
+  // playerFatalError() {
+  //   this.stopAd();
+  //   this.sendLog("Fatal error detected by player");
+  // }
 
   /**
    * Sets up an iframe for holding the simid element.

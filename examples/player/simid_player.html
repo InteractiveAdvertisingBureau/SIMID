@@ -69,7 +69,8 @@
       if (!simidPlayer) {
         return;
       }
-      simidPlayer.playerCloseAd();
+      simidPlayer.stopAd();
+      simidPlayer.sendLog("Ad stopped by player");
       setButtonState(/* state= */ true);
     }
 
@@ -77,7 +78,8 @@
       if (!simidPlayer) {
         return;
       }
-      simidPlayer.playerSkipAd();
+      simidPlayer.skipAd();
+      simidPlayer.sendLog("Ad skipped by player");
       setButtonState(/* state= */ true);
     }
 
@@ -85,7 +87,8 @@
       if (!simidPlayer) {
         return;
       }
-      simidPlayer.playerFatalError();
+      simidPlayer.stopAd();
+      simidPlayer.sendLog("Fatal error detected by player");
       setButtonState(/* state= */ true);
     }
 
