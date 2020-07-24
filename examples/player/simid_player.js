@@ -474,14 +474,14 @@ class SimidPlayer {
       .then(() => this.simidProtocol.resolve(incomingMessage))
       .catch(() => {
         errorMessage = {
-          errorCode : 1206,
+          errorCode : PlayerErrorCode.VIDEO_COULD_NOT_LOAD,
           message: 'The SIMID media could not be loaded.'
         }
         this.simidProtocol.reject(incomingMessage, errorMessage);
       });
     } else {
       errorMessage = {
-        errorCode : 1102,
+        errorCode : CreativeErrorCode.PLAYBACK_AREA_UNUSABLE,
         message: 'Non linear ads do not play video.'
       }
       this.simidProtocol.reject(incomingMessage, errorMessage);
