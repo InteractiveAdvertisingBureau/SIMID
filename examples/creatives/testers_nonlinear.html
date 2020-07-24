@@ -1,32 +1,73 @@
 <html>
-    <head>
-      <script src="../simid_protocol.js"> </script>
-      <script src="base_simid_creative.js"> </script>
-      <script src="testers_nonlinear.js"> </script>
-    </head>
-    <style>
-      button {
-        cursor: pointer;
-      }
-      label {
-        color: white;
-      }
-    </style>
+  <head>
+    <script src="../simid_protocol.js"> </script>
+    <script src="base_simid_creative.js"> </script>
+    <script src="testers_nonlinear.js"> </script>
+  </head>
+  <style>
+    button {
+      cursor: pointer;
+    }
+    label {
+      color: white;
+      font-weight: bold;
+    }
+    body {
+      background-color: rgba(255,255,255,0.2);
+    }
+    .resize_dimension {
+      display: inline-block;
+      padding: 5px;
+    }
+    #resize_button {
+      margin-top: 15px;
+    }
+    [data-tip] {
+      position:relative;
+
+    }
+    [data-tip]:before {
+      /* hides the tooltip when not hovered */
+      display:none;
+    }
+    [data-tip]:after {
+      display:none;
+      content:attr(data-tip);
+      position:absolute;
+      top:35px;
+      padding:5px 8px;
+      background:#1a1a1a;
+      color:#fff;
+      font-size: 0.75em;
+      height:18px;
+      line-height:18px;
+      border-radius: 3px;
+      white-space:nowrap;
+    }
+    [data-tip]:hover:before,
+    [data-tip]:hover:after {
+      display:block;
+    }
+  </style>
   <body>
     <div id="content_container">
       <div id="resizing_inputs">
-        <label for="x_val">X-Offset: </label>
-        <input type="number" id="resize_x_val" min="0" style="width: 50px;">
-  
-        <label for="y_val">Y-Offset: </label>
-        <input type="number" id="resize_y_val" min="0" style="width: 50px;">
-  
-        <label for="width">Width: </label>
-        <input type="number" id="resize_width" min="0" style="width: 50px;">
-  
-        <label for="height">Height: </label>
-        <input type="number" id="resize_height" min="0" style="width: 50px;">
-  
+        <div class="resize_dimension" data-tip="X offset in pixels from the top left corner">
+          <label for="x_val">X: </label>
+          <input type="number" id="resize_x_val" min="0" style="width: 50px;">
+        </div>
+        <div class="resize_dimension" data-tip="Y offset in pixels from the top left corner">
+          <label for="y_val">Y: </label>
+          <input type="number" id="resize_y_val" min="0" style="width: 50px;">
+        </div>
+        <div class="resize_dimension">
+          <label for="width">Width: </label>
+          <input type="number" id="resize_width" min="0" style="width: 50px;">
+        </div>
+        <div class="resize_dimension">
+          <label for="height">Height: </label>
+          <input type="number" id="resize_height" min="0" style="width: 50px;">
+        </div>
         <button id="resize_button" onclick="testersNonLinear.onRequestResize()">Resize Ad</button>
       </div>
     </div>
