@@ -50,8 +50,9 @@
       simidPlayer.initializeAd();
     }
 
-    /* Disables or enables stop, skip, and fatal error buttons
+    /**Disables or enables stop, skip, and fatal error buttons
      *  depending on if the ad is showing.
+     * @param {boolean} disable If buttons should be disabled or enabled
      */
     function setButtonState(disable) {
       let adRequests = document.querySelectorAll(".ad_request");
@@ -65,7 +66,7 @@
         initAd();
       }
       simidPlayer.playAd();
-      setButtonState(/* state= */ false);
+      setButtonState(/* disable= */ false);
     }
 
     function closeAd() {
@@ -74,7 +75,7 @@
       }
       simidPlayer.stopAd();
       simidPlayer.sendLog("Ad stopped by player");
-      setButtonState(/* state= */ true);
+      setButtonState(/* disable= */ true);
     }
 
     function skipAd() {
