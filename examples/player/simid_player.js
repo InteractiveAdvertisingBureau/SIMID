@@ -114,7 +114,7 @@ class SimidPlayer {
    */
   initializeAd() {
 
-    if (!this.isLinear_ && !this.isValidDimensions_(this.getCreativeDimensions_())) {
+    if (!this.isLinearAd_ && !this.isValidDimensions_(this.getCreativeDimensions_())) {
       console.log('Dimensions bigger than player');
       return;
     }
@@ -547,7 +547,7 @@ class SimidPlayer {
 
   /** The creative wants to expand the ad. */
   onExpandResize(incomingMessage) {
-    if (this.isLinear_) {
+    if (this.isLinearAd_) {
       console.log("Cannot resize linear ads");
       this.simidProtocol.reject(incomingMessage);
   
