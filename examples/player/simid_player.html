@@ -35,10 +35,10 @@
       simidPlayer.initializeAd();
     }
 
-    function disableButtons(state) {
+    function setButtonState(disable) {
       let adRequests = document.querySelectorAll(".ad_request");
       adRequests.forEach((request) => {
-        request.disabled = state;
+        request.disabled = disable;
       });
     }
 
@@ -47,7 +47,7 @@
         initAd();
       }
       simidPlayer.playAd();
-      disableButtons(false);
+      setButtonState(/* state= */ false);
     }
 
     function closeAd() {
@@ -55,7 +55,7 @@
         return;
       }
       simidPlayer.playerCloseAd();
-      disableButtons(true);
+      setButtonState(/* state= */ true);
     }
 
     function skipAd() {
@@ -63,7 +63,7 @@
         return;
       }
       simidPlayer.playerSkipAd();
-      disableButtons(true);
+      setButtonState(/* state= */ true);
     }
 
     function fatalError() {
@@ -71,7 +71,7 @@
         return;
       }
       simidPlayer.playerFatalError();
-      disableButtons(true);
+      setButtonState(/* state= */ true);
     }
 
     function switchCreative(value) {

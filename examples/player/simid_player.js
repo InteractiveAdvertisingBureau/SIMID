@@ -143,7 +143,6 @@ class SimidPlayer {
    * Player skips the ad.
    */
   playerSkipAd() {
-    debugger;
     this.skipAd();
     this.sendLog("Ad skipped by player");
   }
@@ -420,7 +419,6 @@ class SimidPlayer {
 
   /**
    * Skips the ad and destroys the ad iframe.
-   * @param {StopCode} reason The reason the ad will stop.
    */
   skipAd() {
     // The iframe is only hidden on ad stoppage. The ad might still request
@@ -428,7 +426,7 @@ class SimidPlayer {
     this.hideSimidIFrame_();
     // Wait for the SIMID creative to acknowledge stop and then clean
     // up the iframe.
-    this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED, "Ad skipped by player")
+    this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED)
       .then(() => this.destroyIframeAndResumeContent_());
   }
 
