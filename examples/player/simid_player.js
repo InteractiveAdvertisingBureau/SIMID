@@ -57,9 +57,8 @@ class SimidPlayer {
     this.adComplete_ = adComplete;
 
     /**
-     * A boolean indicating what type of creative ad is
-     * @constant 
-     * @private {boolean}
+     * A boolean indicating what type of creative ad is.
+     * @const @private {boolean}
      */
     this.isLinearAd_ = isLinearAd;
 
@@ -302,10 +301,12 @@ class SimidPlayer {
     }
     
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
+    // TODO: handle creative rejecting startCreative message.
   }
 
-  /** Pauses content video and plays linear ad.
-   *  @private 
+  /** 
+   * Pauses content video and plays linear ad.
+   * @private 
    */
   playLinearVideoAd_() {
     this.contentVideoElement_.pause();
@@ -471,9 +472,19 @@ class SimidPlayer {
     if (this.isLinearAd_) {
       this.adVideoElement_.play()
       .then(() => this.simidProtocol.resolve(incomingMessage))
-      .catch(() => this.simidProtocol.reject(incomingMessage));
+      .catch(() => {
+        errorMessage = {
+          errorCode : 1206,
+          message: 'The SIMID media could not be loaded.'
+        }
+        this.simidProtocol.reject(incomingMessage, errorMessage);
+      });
     } else {
-      this.simidProtocol.reject(incomingMessage);
+      errorMessage = {
+        errorCode : 1102,
+        message: 'Non linear ads do not play video.'
+      }
+      this.simidProtocol.reject(incomingMessage, errorMessage);
     }
   }
   
