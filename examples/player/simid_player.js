@@ -132,26 +132,26 @@ class SimidPlayer {
   }
 
   /**
-   * Closes the ad and SIMID creative.
+   * Player closes the ad and SIMID creative.
    */
-  closeAd() {
+  playerCloseAd() {
     this.stopAd();
     this.sendLog("Ad stopped by player");
   }
 
   /**
-   * Skips the ad.
+   * Player skips the ad.
    */
-  skipAd() {
-    this.onRequestSkip(CreativeMessage.REQUEST_SKIP);
+  playerSkipAd() {
+    this.skipAd();
     this.sendLog("Ad skipped by player");
   }
 
   /**
    * Stops the ad when player detects a fatal error.
    */
-  fatalError() {
-    this.onCreativeFatalError(CreativeMessage.FATAL_ERROR);
+  playerFatalError() {
+    this.stopAd();
     this.sendLog("Fatal error detected by player");
   }
 
@@ -418,6 +418,23 @@ class SimidPlayer {
   }
 
   /**
+   * Skips the ad and destroys the ad iframe.
+   * @param {StopCode} reason The reason the ad will stop.
+   */
+  skipAd(reason = StopCode.PLAYER_INITATED) {
+    // The iframe is only hidden on ad stoppage. The ad might still request
+    // tracking pixels before it is cleaned up.
+    this.hideSimidIFrame_();
+    const closeMessage = {
+      'code': reason,
+    }
+    // Wait for the SIMID creative to acknowledge stop and then clean
+    // up the iframe.
+    this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED)
+      .then(() => this.destroyIframeAndResumeContent_());
+  }
+
+  /**
    * Removes the simid ad entirely and resumes video playback.
    * @private
    */
@@ -476,8 +493,7 @@ class SimidPlayer {
   /** The creative wants to skip this ad. */
   onRequestSkip(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
-    this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
-        .then(() => this.destroyIframeAndResumeContent_());
+    this.skipAd(StopCode.CREATIVE_INITATED);
   }
   
   /** The creative wants to stop the ad early. */
