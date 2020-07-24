@@ -221,7 +221,6 @@ class SimidPlayer {
 
   /**
    * Returns the full dimensions of an element within the player div.
-   * These dimensions will equal the full size of the player.
    * @return {!Object}
    */
   getFullVideoDimensions(elem) {
