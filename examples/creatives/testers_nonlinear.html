@@ -1,0 +1,41 @@
+<html>
+    <head>
+      <script src="../simid_protocol.js"> </script>
+      <script src="base_simid_creative.js"> </script>
+      <script src="testers_nonlinear.js"> </script>
+    </head>
+    <style>
+      button {
+        cursor: pointer;
+      }
+      label {
+        color: white;
+      }
+    </style>
+  <body>
+    <div id="content_container">
+      <div id="resizing_inputs">
+        <label for="x_val">X-Offset: </label>
+        <input type="number" id="resize_x_val" min="0" style="width: 50px;">
+  
+        <label for="y_val">Y-Offset: </label>
+        <input type="number" id="resize_y_val" min="0" style="width: 50px;">
+  
+        <label for="width">Width: </label>
+        <input type="number" id="resize_width" min="0" style="width: 50px;">
+  
+        <label for="height">Height: </label>
+        <input type="number" id="resize_height" min="0" style="width: 50px;">
+  
+        <button id="resize_button" onclick="testersNonLinear.onRequestResize()">Resize Ad</button>
+      </div>
+    </div>
+    <script>
+      //The creative should first call ready
+       const testersNonLinear = new TestersNonLinear();
+      // This implementation is immediately ready but other creatives
+      // may wish to wait for assets to load before calling ready.
+      testersNonLinear.ready();
+    </script>
+  </body> 
+</html>
