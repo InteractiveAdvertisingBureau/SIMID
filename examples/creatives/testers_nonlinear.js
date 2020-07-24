@@ -29,7 +29,7 @@ class TestersNonLinear extends BaseSimidCreative {
   }
 
   /**
-   * When creative asks to resize itself send mes.
+   * When creative asks to resize itself send message to the player.
    */
   onRequestResize() {
     const resize_params = {};
