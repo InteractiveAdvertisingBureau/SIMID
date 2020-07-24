@@ -270,8 +270,6 @@ class SimidPlayer {
     this.simidIframe_.style.top = `${dimensions.y}px`;
 
     this.simidIframe_.style.position = "absolute";
-
-    // this.contentVideoElement_.play();
   }
 
   /**
@@ -293,6 +291,8 @@ class SimidPlayer {
     }
 
     if (this.isLinearAd_) {
+      debugger;
+      this.simidProtocol.reject(incomingMessage, "Cannot resize linear ad");
       console.log("Cannot resize linear ad");
       return;
     }
