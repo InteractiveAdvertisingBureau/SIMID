@@ -513,8 +513,7 @@ class SimidPlayer {
   onRequestPlay(incomingMessage) {
     
     if (this.isLinearAd_) {
-      this.adVideoElement_.play()
-      .then(() => this.simidProtocol.resolve(incomingMessage))
+      this.adVideoElement_.play().then(() => this.simidProtocol.resolve(incomingMessage))
       .catch(() => this.simidProtocol.reject(incomingMessage));
     } else {
       this.simidProtocol.reject(incomingMessage);
@@ -580,18 +579,12 @@ class SimidPlayer {
    */
   onRequestResize(incomingMessage) {
 
-    let newDimensions = {};
-    newDimensions.x = incomingMessage.args['x'];
-    newDimensions.y = incomingMessage.args['y'];
-    newDimensions.width = incomingMessage.args['width'];
-    newDimensions.height = incomingMessage.args['height'];
-
-    if (!this.isValidDimensions_(newDimensions)){
+    if (!this.isValidDimensions_(incomingMessage.args)){
       console.log("Dimensions bigger than player");
       this.simidProtocol.reject(incomingMessage);
     
     } else {
-      this.setSimidIframeDimensions_(newDimensions)
+      this.setSimidIframeDimensions_(incomingMessage.args)
       this.simidProtocol.resolve(incomingMessage);
     }
   }
