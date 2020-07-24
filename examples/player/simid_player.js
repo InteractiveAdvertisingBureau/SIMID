@@ -10,7 +10,7 @@ class SimidPlayer {
    * from the creative.
    * @param {!Function} This function gets called when the ad stops.
    */
-  constructor(adComplete) {
+  constructor(adComplete, isLinearAd) {
     /**
      * The protocol for sending and receiving messages.
      * @protected {!SimidProtocol}
@@ -54,6 +54,12 @@ class SimidPlayer {
      * @private {!Function}
      */
     this.adComplete_ = adComplete;
+
+    /**
+     * A boolean indicating whether type of creative is linear or non-linear.
+     * @private
+     */
+    this.isLinearAd_ = isLinearAd;
 
     /**
      * The duration requested by the ad.
@@ -109,6 +115,11 @@ class SimidPlayer {
    */
   initializeAd() {
     this.simidIframe_ = this.createSimidIframe_();
+
+    if (!this.isLinearAd_) {
+      this.displayNonLinearCreative_();
+    }
+
     this.requestDuration_ = NO_REQUESTED_DURATION;
 
     // Prepare for the case that init fails before sending
@@ -131,7 +142,14 @@ class SimidPlayer {
    * Plays a SIMID  creative once it has responded to the initialize ad message.
    */
   playAd() {
-    this.contentVideoElement_.pause();
+
+    // content video shouldn't be paused for non-linear ads
+    if (this.isLinearAd_) {
+      this.contentVideoElement_.pause();
+    } else {
+      this.contentVideoElement_.play();
+    }
+    
     // This example waits for the ad to be initialized, before playing video.
     // NOTE: Not all players will wait for session creation and initialization
     // before they start playback.
@@ -153,8 +171,12 @@ class SimidPlayer {
     // The target of the player to send messages to is the newly
     // created iframe.
     playerDiv.appendChild(simidIframe);
-    // Set up css to overlay the SIMID iframe over the video creative.
-    simidIframe.classList.add('simid_creative');
+    // Set up css to overlay the SIMID iframe over the entire video creative
+    // only if linear.
+    if (this.isLinearAd_){
+      simidIframe.classList.add('linear_creative');
+    }
+    
     // Set the iframe creative, this should be an html creative.
     // TODO: This sample does not show what to do when loading fails.
     simidIframe.src = document.getElementById('creative_url').value;
@@ -181,6 +203,7 @@ class SimidPlayer {
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
   /**
@@ -207,22 +230,71 @@ class SimidPlayer {
   }
 
   /**
-   * Returns the dimensions of an element within the player div.
+   * Returns the full dimensions of an element within the player div.
    * @return {!Object}
    */
-  getDimensions(elem) {
-    // The player div wraps all elements and is used as the offset.
-    const playerDiv = document.getElementById('player_div');
-    const playerRect = playerDiv.getBoundingClientRect();
+  getFullVideoDimensions(elem) {
     const videoRect = elem.getBoundingClientRect();
+
     return {
-      'x' : videoRect.x - playerRect.x,
-      'y' : videoRect.y - playerRect.y,
+      'x' : 0,
+      'y' : 0,
       'width' : videoRect.width,
       'height' : videoRect.height,
-      // TODO: This example does not currently support transition duration.
-      'transitionDuration': 0
     };
+  }
+
+  /**
+   * Returns the original specified dimensions of the non-linear creative.
+   * @return {!Object}
+   */
+  getNonLinearDimensions() {
+    const x_val = document.getElementById('x_val').value;
+    const y_val = document.getElementById('y_val').value;
+    const width = document.getElementById('width').value;
+    const height = document.getElementById('height').value;
+
+    return {
+      'x' : x_val,
+      'y' : y_val,
+      'width' : width,
+      'height' : height,
+    };
+  }
+
+  /**
+   * Displays the non-linear creative with the specified size
+   * on top of the video content.
+   */
+  displayNonLinearCreative_() {
+    const dimensions = this.getNonLinearDimensions();
+    
+    this.simidIframe_.style.height = dimensions.height;
+    this.simidIframe_.style.width = dimensions.width;
+    this.simidIframe_.style.left = `${dimensions.x}px`;
+    this.simidIframe_.style.top = `${dimensions.y}px`;
+
+    this.simidIframe_.style.position = "absolute";
+  }
+
+  /**
+   * Allows users to request resizing of the creative
+   * @param {!Object} incomingMessage Message sent from the 
+   *   creative to the player
+   */
+  onRequestResize(incomingMessage) {
+    if (this.isLinearAd_) {
+      this.simidProtocol.reject(incomingMessage, "Cannot resize linear ad");
+      console.log("Cannot resize linear ad");
+      return;
+    }
+
+    this.simidIframe_.style.height = incomingMessage.args['height'];
+    this.simidIframe_.style.width = incomingMessage.args['width'];
+    this.simidIframe_.style.left = incomingMessage.args['x_val'];
+    this.simidIframe_.style.top = incomingMessage.args['y_val'];
+
+    this.simidProtocol.resolve(incomingMessage);
   }
 
   /**
@@ -230,10 +302,10 @@ class SimidPlayer {
    * @private
    */
   sendInitMessage_() {
-    const videoDimensions = this.getDimensions(this.contentVideoElement_);
+    const videoDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
     // Since the creative starts as hidden it will take on the
     // video element dimensions, so tell the ad about those dimensions.
-    const creativeDimensions = this.getDimensions(this.contentVideoElement_);
+    const creativeDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
 
     const environmentData = {
       'videoDimensions': videoDimensions,
@@ -281,9 +353,17 @@ class SimidPlayer {
     // Once the ad is successfully initialized it can start.
     // If the ad is not visible it must be made visible here.
     this.showSimidIFrame_();
-    this.showAdPlayer_();
-    this.adVideoElement_.src = document.getElementById('video_url').value;
-    this.adVideoElement_.play();
+
+    // only linear ones play ad videos
+    if (this.isLinearAd_) {
+      this.showAdPlayer_();
+      this.adVideoElement_.src = document.getElementById('video_url').value;
+      this.adVideoElement_.play();
+    }
+    else {
+      this.contentVideoElement_.play();
+    }
+    
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
 
@@ -440,11 +520,14 @@ class SimidPlayer {
   
   /** The creative wants to play video. */
   onRequestPlay(incomingMessage) {
-    this.adVideoElement_.play().then(
-      // The play function returns a promise.
-      this.simidProtocol.resolve(incomingMessage),
-      this.simidProtocol.reject(incomingMessage)
-    );
+    
+    if (this.isLinearAd_) {
+      this.adVideoElement_.play().then(
+        // The play function returns a promise.
+        this.simidProtocol.resolve(incomingMessage),
+        this.simidProtocol.reject(incomingMessage)
+      );
+    }
   }
   
   /** The creative wants to pause video. */

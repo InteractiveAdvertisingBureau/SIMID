@@ -318,6 +318,7 @@ CreativeMessage = {
   REQUEST_VOLUME: 'Creative:requestVolume',
   REQUEST_TRACKING: 'Creative:reportTracking',
   REQUEST_CHANGE_AD_DURATION: 'Creative:requestChangeAdDuration',
+  REQUEST_RESIZE: 'Creative:requestResize',
 };
 
 /**

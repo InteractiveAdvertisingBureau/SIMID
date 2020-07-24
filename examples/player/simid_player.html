@@ -4,7 +4,7 @@
   <script src="../simid_protocol.js"></script>
   <script src="simid_player.js"></script>
   <style>
-    .simid_creative {
+    .linear_creative {
       position: absolute;
       top: 0;
       border-width: 0px;
@@ -23,6 +23,20 @@
     }
   </style>
   <script>
+    //if ad is non-linear allow user to insert specific dimensions
+    function enableDisable() {
+      let isNonLin = document.getElementById("nonlinear_ad");
+      let uniqueDimensions = document.querySelectorAll(".unique_dimension");
+      uniqueDimensions.forEach(function(dimension) {
+        if (isNonLin.checked) {
+          dimension.disabled = false;
+        }
+        else {
+          dimension.disabled = true;
+        }
+      });
+    }
+
     let simidPlayer;
     function initAd() {
       // clean old ad if it exists
@@ -30,8 +44,9 @@
         simidPlayer.stopAd();
       }
 
+      let isLinear = document.getElementById("linear_ad").checked;
       // Init ad should be called before playad.
-      simidPlayer = new SimidPlayer(() => {simidPlayer = null;});
+      simidPlayer = new SimidPlayer(() => {simidPlayer = null;}, isLinear);
       simidPlayer.initializeAd();
     }
 
@@ -78,9 +93,34 @@
         <button onclick="switchCreative('survey.html')">survey</button>
         <button onclick="switchCreative('selector.html')">selector</button>
         <button onclick="switchCreative('extender.html')">extender</button>
+        <button onclick="switchCreative('testers_nonlinear.html')">testers_nonlinear</button>
       </td>
       </tr>
+      <tr>
+        <td>Ad type</td>
+        <td>
+          <input type="radio" id="linear_ad" name="ad_type" checked onclick="enableDisable()"> <label for="linear_ad" style="font-size: 16px;">Linear
+        Ad</label>
+        <input type="radio" id="nonlinear_ad" name="ad_type" onclick="enableDisable()"> <label for="nonlinear_ad" style="font-size: 16px;">Non-Linear
+          Ad</label>
+        </td>
+      </tr>
+      <tr>
+        <td>Creative Dimensions</td>
+        <td>
+          <label for="x_val">X: </label>
+          <input class="unique_dimension" type="number" id="x_val" value="5" min="0" style="width: 50px;" disabled>
 
+          <label for="y_val">Y: </label>
+          <input class="unique_dimension" type="number" id="y_val" value="5" min="0" style="width: 50px;" disabled>
+
+          <label for="width">Width: </label>
+          <input class="unique_dimension" type="number" id="width" value="500" min="0" style="width: 50px;" disabled>
+
+          <label for="height">Height: </label>
+          <input class="unique_dimension" type="number" id="height" value="100" min="0" style="width: 50px;" disabled>
+        </td>
+      </tr>
       <tr>
         <td>Interactive Creative File</td>
         <td><input type="text" id="creative_url" size = 30 
@@ -90,7 +130,7 @@
       <tr>
         <td>Media File</td>
         <td><input type="text" id="video_url" size = 30 
-           value="../media/IAB480-small.mp4">
+           value="https://storage.googleapis.com/gvabox/media/red30s.mp4">>
         </td>
       </tr>
       <tr>
@@ -103,7 +143,7 @@
   </div>
 
   <div id="player_div" style="position:absolute;">
-    <video id="video_player" class="content" src="../media/Big_Buck_Bunny.mp4" controls> </video>
+    <video id="video_player" class="content" src="../media/fakeContent.mp4" controls> </video>
     <div id="ad_video_div" class="overlayed" style="display:none;">
       <video id="ad_video_player" class="overlayed" style="display:none;" src="">
     </div>
