@@ -250,8 +250,6 @@ class SimidPlayer {
       'y' : y_val,
       'width' : width,
       'height' : height,
-      // TODO: This example does not currently support transition duration.
-      'transitionDuration': 0
     };
   }
 
@@ -276,28 +274,16 @@ class SimidPlayer {
    *   creative to the player
    */
   onRequestResize(incomingMessage) {
-    const x_val  = incomingMessage.args['x_val'];
-    const y_val  = incomingMessage.args['y_val'];
-    const width  = incomingMessage.args['width'];
-    const height  = incomingMessage.args['height'];
-
-    const resizeDimensions = {
-      'x' : x_val,
-      'y' : y_val,
-      'width' : width,
-      'height' : height,
-    }
-
     if (this.isLinearAd_) {
       this.simidProtocol.reject(incomingMessage, "Cannot resize linear ad");
       console.log("Cannot resize linear ad");
       return;
     }
 
-    this.simidIframe_.style.height = resizeDimensions.height;
-    this.simidIframe_.style.width = resizeDimensions.width;
-    this.simidIframe_.style.left = `${resizeDimensions.x}px`;
-    this.simidIframe_.style.top = `${resizeDimensions.y}px`;
+    this.simidIframe_.style.height = incomingMessage.args['height'];
+    this.simidIframe_.style.width = incomingMessage.args['width'];
+    this.simidIframe_.style.left = incomingMessage.args['x_val'];
+    this.simidIframe_.style.top = incomingMessage.args['y_val'];
 
     this.simidProtocol.resolve(incomingMessage);
   }
