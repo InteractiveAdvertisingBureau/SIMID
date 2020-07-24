@@ -232,8 +232,6 @@ class SimidPlayer {
       'y' : 0,
       'width' : videoRect.width,
       'height' : videoRect.height,
-      // TODO: This example does not currently support transition duration.
-      'transitionDuration': 0
     };
   }
 
