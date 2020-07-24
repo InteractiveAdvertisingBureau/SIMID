@@ -51,7 +51,8 @@
     }
 
     /* Disables or enables stop, skip, and fatal error buttons
-     *  depending on if the ad is 
+     *  depending on if the ad is showing.
+     */
     function setButtonState(disable) {
       let adRequests = document.querySelectorAll(".ad_request");
       adRequests.forEach((request) => {
