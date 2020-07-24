@@ -236,7 +236,7 @@ class SimidPlayer {
   }
 
   /**
-   * Returns the specified dimensions of the non-linear creative.
+   * Returns the original specified dimensions of the non-linear creative.
    * @return {!Object}
    */
   getNonLinearDimensions() {
