@@ -114,7 +114,7 @@ class SimidPlayer {
    */
   initializeAd() {
 
-    if (!this.isLinear_ && !this.isValidDimensions(this.getNonLinearDimensions())) {
+    if (!this.isLinear_ && !this.isValidDimensions(this.getnewDimensions())) {
       console.log('Dimensions bigger than player');
       return;
     }
@@ -260,20 +260,15 @@ class SimidPlayer {
    * Returns the specified dimensions of the non-linear creative.
    * @return {!Object}
    */
-  getNonLinearDimensions() {
-    const x_val = document.getElementById('x_val').value;
-    const y_val = document.getElementById('y_val').value;
-    const width = document.getElementById('width').value;
-    const height = document.getElementById('height').value;
+  getnewDimensions() {
 
-    return {
-      'x' : x_val,
-      'y' : y_val,
-      'width' : width,
-      'height' : height,
-      // TODO: This example does not currently support transition duration.
-      'transitionDuration': 0
-    };
+    let newDimensions = {};
+    newDimensions.x = document.getElementById('x_val').value;
+    newDimensions.y = document.getElementById('y_val').value;
+    newDimensions.width = document.getElementById('width').value;
+    newDimensions.height = document.getElementById('height').value;
+
+    return newDimensions;
   }
 
   /**
@@ -281,9 +276,9 @@ class SimidPlayer {
    * on top of the video content.
    */
   displayNonLinearCreative_() {
-    const nonLinearDimensions = this.getNonLinearDimensions();
+    const newDimensions = this.getnewDimensions();
 
-    this.setSimidIframeDimensions_(nonLinearDimensions);
+    this.setSimidIframeDimensions_(newDimensions);
     this.simidIframe_.style.position = "absolute";
 
     this.contentVideoElement_.play();
@@ -310,17 +305,12 @@ class SimidPlayer {
    * @param {!Object} incomingMessage Message sent from the creative to the player
    */
   onRequestResize(incomingMessage) {
-    const x_val  = incomingMessage.args['x'];
-    const y_val  = incomingMessage.args['y'];
-    const width  = incomingMessage.args['width'];
-    const height  = incomingMessage.args['height'];
 
-    const newDimensions = {
-      'x' : x_val,
-      'y' : y_val,
-      'width' : width,
-      'height' : height,
-    }
+    let newDimensions = {};
+    newDimensions.x = incomingMessage.args['x'];
+    newDimensions.y = incomingMessage.args['y'];
+    newDimensions.width = incomingMessage.args['width'];
+    newDimensions.height = incomingMessage.args['height'];
 
     if (!this.isValidDimensions(newDimensions)){
       console.log("Dimensions bigger than player");
