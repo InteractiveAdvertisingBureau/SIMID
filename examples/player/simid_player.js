@@ -135,8 +135,8 @@ class SimidPlayer {
    * Closes the ad and SIMID creative.
    */
   closeAd() {
-    this.onRequestStop(CreativeMessage.REQUEST_STOP);
-    this.sendLog("Ad closed by player");
+    this.stopAd();
+    this.sendLog("Ad stopped by player");
   }
 
   /**
