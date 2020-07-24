@@ -5,7 +5,7 @@
  *  collapseCreative - Returns the creative to its original size.
  *  resizeCreative - Allows a specific size for the creative.
  */
-class NonLinear extends BaseSimidCreative {
+class NonLinearTester extends BaseSimidCreative {
   constructor() {
     super();
 

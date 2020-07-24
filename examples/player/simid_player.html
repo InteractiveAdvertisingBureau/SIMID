@@ -25,10 +25,10 @@
   <script>
     //if ad is non-linear allow user to insert specific dimensions
     function enableDisable() {
-      let isNonLin = document.getElementById("nonlinear_ad");
+      let isNonLinear = document.getElementById("nonlinear_ad");
       let uniqueDimensions = document.querySelectorAll(".unique_dimension");
       uniqueDimensions.forEach(function(dimension) {
-        if (isNonLin.checked) {
+        if (isNonLinear.checked) {
           dimension.disabled = false;
         }
         else {
