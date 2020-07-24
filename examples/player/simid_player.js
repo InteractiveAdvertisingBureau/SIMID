@@ -291,7 +291,6 @@ class SimidPlayer {
     }
 
     if (this.isLinearAd_) {
-      debugger;
       this.simidProtocol.reject(incomingMessage, "Cannot resize linear ad");
       console.log("Cannot resize linear ad");
       return;
