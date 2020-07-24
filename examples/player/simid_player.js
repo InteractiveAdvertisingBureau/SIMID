@@ -294,6 +294,9 @@ class SimidPlayer {
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
   }
 
+  /** Pauses content video and plays linear ad.
+   *  @private 
+   */
   playLinearVideoAd_() {
     this.contentVideoElement_.pause();
     this.showAdPlayer_();
