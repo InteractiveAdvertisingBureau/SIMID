@@ -10,23 +10,38 @@
       }
       label {
         color: white;
+        font-weight: bold;
+      }
+      body {
+        background-color: rgba(255,255,255,0.2);
+      }
+      .resize_dimension {
+        display: inline-block;
+        padding: 5px;
+      }
+      #resize_button {
+        margin-top: 15px;
       }
     </style>
   <body>
     <div id="content_container">
       <div id="resizing_inputs">
-        <label for="x_val">X-Offset: </label>
-        <input type="number" id="resize_x_val" min="0" style="width: 50px;">
-  
-        <label for="y_val">Y-Offset: </label>
-        <input type="number" id="resize_y_val" min="0" style="width: 50px;">
-  
-        <label for="width">Width: </label>
-        <input type="number" id="resize_width" min="0" style="width: 50px;">
-  
-        <label for="height">Height: </label>
-        <input type="number" id="resize_height" min="0" style="width: 50px;">
-  
+        <div class="resize_dimension">
+          <label for="x_val">X-Offset: </label>
+          <input type="number" id="resize_x_val" min="0" style="width: 50px;">
+        </div>
+        <div class="resize_dimension">
+          <label for="y_val">Y-Offset: </label>
+          <input type="number" id="resize_y_val" min="0" style="width: 50px;">
+        </div>
+        <div class="resize_dimension">
+          <label for="width">Width: </label>
+          <input type="number" id="resize_width" min="0" style="width: 50px;">
+        </div>
+        <div class="resize_dimension">
+          <label for="height">Height: </label>
+          <input type="number" id="resize_height" min="0" style="width: 50px;">
+        </div>
         <button id="resize_button" onclick="testersNonLinear.onRequestResize()">Resize Ad</button>
       </div>
     </div>
