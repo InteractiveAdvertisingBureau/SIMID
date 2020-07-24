@@ -511,10 +511,10 @@ class SimidPlayer {
    * Skips the ad and destroys the ad iframe.
    */
   skipAd() {
-    // The iframe is only hidden on ad stoppage. The ad might still request
+    // The iframe is only hidden on ad skipped. The ad might still request
     // tracking pixels before it is cleaned up.
     this.hideSimidIFrame_();
-    // Wait for the SIMID creative to acknowledge stop and then clean
+    // Wait for the SIMID creative to acknowledge skip and then clean
     // up the iframe.
     this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED)
       .then(() => this.destroyIframeAndResumeContent_());
