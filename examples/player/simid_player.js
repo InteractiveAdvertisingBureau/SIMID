@@ -114,7 +114,7 @@ class SimidPlayer {
    */
   initializeAd() {
 
-    if (!this.isLinear_ && !this.isValidDimensions(this.getnewDimensions())) {
+    if (!this.isLinear_ && !this.isValidDimensions_(this.getCreativeDimensions_())) {
       console.log('Dimensions bigger than player');
       return;
     }
@@ -125,7 +125,7 @@ class SimidPlayer {
     this.simidIframe_ = this.createSimidIframe_();
 
     if (!this.isLinearAd_) {
-      this.displayNonLinearCreative_();
+      this.onCollapseResize();
     }
 
     this.requestDuration_ = NO_REQUESTED_DURATION;
@@ -196,7 +196,7 @@ class SimidPlayer {
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_EXPAND, this.onExpandResize.bind(this));
-    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.displayNonLinearCreative_.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.onCollapseResize.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
@@ -210,7 +210,11 @@ class SimidPlayer {
     this.resolveSessionCreatedPromise_();
   }
 
-  destroySimidIframe() {
+  /**
+   * Destroys the existing simid iframe.
+   * @private
+   */
+  destroySimidIframe_() {
     if (this.simidIframe_) {
       this.simidIframe_.remove();
       this.simidIframe_ = null;
@@ -228,7 +232,7 @@ class SimidPlayer {
    * These dimensions will equal the full size of the player.
    * @return {!Object}
    */
-  getFullVideoDimensions(elem) {
+  getFullDimensions_(elem) {
     const videoRect = elem.getBoundingClientRect();
 
     return {
@@ -243,10 +247,10 @@ class SimidPlayer {
 
   /**
    * Checks whether the input dimensions are valid and fit in the player window.
-   * @param {!Object} A dimension that contains an x,y,width & height fields.
+   * @param {!Object} dimensions A dimension that contains x, y, width & height fields.
    * @return {boolean}
    */
-  isValidDimensions(dimensions) {
+  isValidDimensions_(dimensions) {
     const playerDiv = document.getElementById('player_div');
     const playerRect = playerDiv.getBoundingClientRect();
 
@@ -260,8 +264,7 @@ class SimidPlayer {
    * Returns the specified dimensions of the non-linear creative.
    * @return {!Object}
    */
-  getnewDimensions() {
-
+  getCreativeDimensions_() {
     let newDimensions = {};
     newDimensions.x = document.getElementById('x_val').value;
     newDimensions.y = document.getElementById('y_val').value;
@@ -269,57 +272,6 @@ class SimidPlayer {
     newDimensions.height = document.getElementById('height').value;
 
     return newDimensions;
-  }
-
-  /**
-   * Displays the non-linear creative with the specified size
-   * on top of the video content.
-   */
-  displayNonLinearCreative_() {
-    const newDimensions = this.getnewDimensions();
-
-    this.setSimidIframeDimensions_(newDimensions);
-    this.simidIframe_.style.position = "absolute";
-
-    this.contentVideoElement_.play();
-  }
-
-  /** The creative wants to expand the ad. */
-  onExpandResize(incomingMessage) {
-    if (this.isLinear_) {
-      console.log("Cannot resize linear ads");
-      this.simidProtocol.reject(incomingMessage);
-  
-    } else {
-      const fullDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
-      
-      this.setSimidIframeDimensions_(fullDimensions);
-      
-      this.contentVideoElement_.pause();
-      this.simidProtocol.resolve(incomingMessage);
-    }
-  }
-
-  /**
-   * Allows users to request resizing of the creative
-   * @param {!Object} incomingMessage Message sent from the creative to the player
-   */
-  onRequestResize(incomingMessage) {
-
-    let newDimensions = {};
-    newDimensions.x = incomingMessage.args['x'];
-    newDimensions.y = incomingMessage.args['y'];
-    newDimensions.width = incomingMessage.args['width'];
-    newDimensions.height = incomingMessage.args['height'];
-
-    if (!this.isValidDimensions(newDimensions)){
-      console.log("Dimensions bigger than player");
-      this.simidProtocol.reject(incomingMessage);
-    
-    } else {
-      this.setSimidIframeDimensions_(newDimensions)
-      this.simidProtocol.resolve(incomingMessage);
-    }
   }
 
   /**
@@ -338,10 +290,10 @@ class SimidPlayer {
    * @private
    */
   sendInitMessage_() {
-    const videoDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
+    const videoDimensions = this.getFullDimensions_(this.contentVideoElement_);
     // Since the creative starts as hidden it will take on the
     // video element dimensions, so tell the ad about those dimensions.
-    const creativeDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
+    const creativeDimensions = this.getFullDimensions_(this.contentVideoElement_);
 
     const environmentData = {
       'videoDimensions': videoDimensions,
@@ -529,7 +481,7 @@ class SimidPlayer {
   destroyIframeAndResumeContent_() {
     this.hideAdPlayer_();
     this.adVideoElement_.src = '';
-    this.destroySimidIframe();
+    this.destroySimidIframe_();
     this.contentVideoElement_.play();
   }
 
@@ -592,7 +544,57 @@ class SimidPlayer {
   onRequestStop(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
     this.stopAd(StopCode.CREATIVE_INITIATED);
-}
+  }
+
+  /** The creative wants to expand the ad. */
+  onExpandResize(incomingMessage) {
+    if (this.isLinear_) {
+      console.log("Cannot resize linear ads");
+      this.simidProtocol.reject(incomingMessage);
+  
+    } else {
+      const fullDimensions = this.getFullDimensions_(this.contentVideoElement_);
+      this.setSimidIframeDimensions_(fullDimensions);
+      
+      this.contentVideoElement_.pause();
+      this.simidProtocol.resolve(incomingMessage);
+    }
+  }
+
+  /**
+   * Displays the non-linear creative with the specified size
+   * on top of the video content.
+   */
+  onCollapseResize() {
+    const newDimensions = this.getCreativeDimensions_();
+
+    this.setSimidIframeDimensions_(newDimensions);
+    this.simidIframe_.style.position = "absolute";
+
+    this.contentVideoElement_.play();
+  }
+
+  /**
+   * Allows users to request resizing of the creative
+   * @param {!Object} incomingMessage Message sent from the creative to the player
+   */
+  onRequestResize(incomingMessage) {
+
+    let newDimensions = {};
+    newDimensions.x = incomingMessage.args['x'];
+    newDimensions.y = incomingMessage.args['y'];
+    newDimensions.width = incomingMessage.args['width'];
+    newDimensions.height = incomingMessage.args['height'];
+
+    if (!this.isValidDimensions_(newDimensions)){
+      console.log("Dimensions bigger than player");
+      this.simidProtocol.reject(incomingMessage);
+    
+    } else {
+      this.setSimidIframeDimensions_(newDimensions)
+      this.simidProtocol.resolve(incomingMessage);
+    }
+  }
 
   /**
    * The player must implement sending tracking pixels from the creative.
