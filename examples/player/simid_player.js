@@ -579,7 +579,11 @@ class SimidPlayer {
    */
   onRequestResize(incomingMessage) {
 
-    if (!this.isValidDimensions_(incomingMessage.args)){
+    if (this.isLinearAd_) {
+      console.log("Cannot resize linear ads");
+      this.simidProtocol.reject(incomingMessage);
+    
+    } else if (!this.isValidDimensions_(incomingMessage.args)){
       console.log("Dimensions bigger than player");
       this.simidProtocol.reject(incomingMessage);
     
