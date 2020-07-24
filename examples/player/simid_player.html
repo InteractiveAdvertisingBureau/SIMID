@@ -84,7 +84,7 @@
       }
       simidPlayer.skipAd();
       simidPlayer.sendLog("Ad skipped by player");
-      setButtonState(/* state= */ true);
+      setButtonState(/* disable= */ true);
     }
 
     function fatalError() {
@@ -93,7 +93,7 @@
       }
       simidPlayer.stopAd();
       simidPlayer.sendLog("Fatal error detected by player");
-      setButtonState(/* state= */ true);
+      setButtonState(/* disable= */ true);
     }
 
     function switchCreative(value) {
