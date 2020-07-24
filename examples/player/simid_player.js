@@ -56,7 +56,7 @@ class SimidPlayer {
     this.adComplete_ = adComplete;
 
     /**
-     * A boolean indicating whether type of creative
+     * A boolean indicating whether type of creative is linear or non-linear.
      * @private
      */
     this.isLinearAd_ = isLinearAd;
@@ -165,7 +165,7 @@ class SimidPlayer {
     // Set up css to overlay the SIMID iframe over the entire video creative
     // only if linear.
     if (this.isLinearAd_){
-      simidIframe.classList.add('simid_creative');
+      simidIframe.classList.add('linear_creative');
     }
     
     // Set the iframe creative, this should be an html creative.
@@ -271,7 +271,7 @@ class SimidPlayer {
 
     this.simidIframe_.style.position = "absolute";
 
-    this.contentVideoElement_.play();
+    // this.contentVideoElement_.play();
   }
 
   /**
@@ -367,6 +367,9 @@ class SimidPlayer {
       this.showAdPlayer_();
       this.adVideoElement_.src = document.getElementById('video_url').value;
       this.adVideoElement_.play();
+    }
+    else {
+      this.contentVideoElement_.play();
     }
     
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
