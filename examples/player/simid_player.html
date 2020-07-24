@@ -35,15 +35,10 @@
       simidPlayer.initializeAd();
     }
 
-    function toggleButtons() {
+    function disableButtons(state) {
       let adRequests = document.querySelectorAll(".ad_request");
       adRequests.forEach((request) => {
-        if (request.disabled == false) {
-          request.disabled = true;
-        }
-        else {
-          request.disabled = false;
-        }
+        request.disabled = state;
       });
     }
 
@@ -52,23 +47,31 @@
         initAd();
       }
       simidPlayer.playAd();
-      toggleButtons();
+      disableButtons(false);
     }
 
     function closeAd() {
-      if
+      if (!simidPlayer) {
+        return;
+      }
       simidPlayer.playerCloseAd();
-      toggleButtons();
+      disableButtons(true);
     }
 
     function skipAd() {
+      if (!simidPlayer) {
+        return;
+      }
       simidPlayer.playerSkipAd();
-      toggleButtons();
+      disableButtons(true);
     }
 
     function fatalError() {
+      if (!simidPlayer) {
+        return;
+      }
       simidPlayer.playerFatalError();
-      toggleButtons();
+      disableButtons(true);
     }
 
     function switchCreative(value) {
