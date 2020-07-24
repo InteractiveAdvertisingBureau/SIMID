@@ -8,17 +8,12 @@ class TestersNonLinear extends BaseSimidCreative {
     }
 
     onRequestResize() {
-      const resize_x_val = document.getElementById('resize_x_val').value;
-      const resize_y_val = document.getElementById('resize_y_val').value;
-      const resize_width = document.getElementById('resize_width').value;
-      const resize_height = document.getElementById('resize_height').value;
-  
-      const resize_params = {
-        'x': resize_x_val,
-        'y': resize_y_val,
-        'width': resize_width,
-        'height': resize_height,
-      };
+      const resize_params = {};
+      
+      resize_params.x = document.getElementById('resize_x_val').value;
+      resize_params.y = document.getElementById('resize_y_val').value;
+      resize_params.width = document.getElementById('resize_width').value;
+      resize_params.height = document.getElementById('resize_height').value;
   
       this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, resize_params);
     }
