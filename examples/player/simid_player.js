@@ -127,7 +127,7 @@ class SimidPlayer {
     this.simidIframe_ = this.createSimidIframe_();
 
     if (!this.isLinearAd_) {
-      this.onCollapseResize();
+      this.displayNonLinearCreative();
     }
 
     this.requestDuration_ = NO_REQUESTED_DURATION;
@@ -208,7 +208,7 @@ class SimidPlayer {
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_EXPAND, this.onExpandResize.bind(this));
-    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.onCollapseResize.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.displayNonLinearCreative.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
@@ -297,8 +297,8 @@ class SimidPlayer {
   /** The creative wants to expand the ad. */
   onExpandResize(incomingMessage) {
     if (this.isLinearAd_) {
-      console.log("Cannot resize linear ads");
-      this.simidProtocol.reject(incomingMessage);
+      this.simidProtocol.reject(incomingMessage, "Cannot expand linear ads");
+      console.log("Cannot expand linear ads");
   
     } else {
       const fullDimensions = this.getFullDimensions_(this.contentVideoElement_);
@@ -313,13 +313,22 @@ class SimidPlayer {
    * Displays the non-linear creative with the specified size
    * on top of the video content.
    */
-  onCollapseResize() {
+  displayNonLinearCreative(incomingMessage = CreativeMessage.REQUEST_COLLAPSE) {
     const newDimensions = this.getCreativeDimensions_();
 
-    this.setSimidIframeDimensions_(newDimensions);
-    this.simidIframe_.style.position = "absolute";
+    if (this.isLinearAd_) {
+      this.simidProtocol.reject(incomingMessage, "Cannot collapse linear ads");
+      console.log("Cannot collapse linear ads");
+    } else if (!this.isValidDimensions_(newDimensions)) {
+      this.simidProtocol.reject(incomingMessage, "Dimensions bigger than player");
+      console.log("Dimensions bigger than player");
+    } else {
+      this.setSimidIframeDimensions_(newDimensions);
+      this.simidIframe_.style.position = "absolute";
 
-    this.contentVideoElement_.play();
+      this.contentVideoElement_.play();
+      this.simidProtocol.resolve(incomingMessage);
+    }
   }
 
   /**
