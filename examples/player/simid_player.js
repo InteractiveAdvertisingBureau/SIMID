@@ -127,8 +127,7 @@ class SimidPlayer {
     this.simidIframe_ = this.createSimidIframe_();
 
     if (!this.isLinearAd_) {
-      this.onRequestCollapse();
-      this
+      this.displayNonlinearCreative_();
     }
 
     this.requestDuration_ = NO_REQUESTED_DURATION;
@@ -284,6 +283,21 @@ class SimidPlayer {
     return newDimensions;
   }
 
+  /** Validates and displays the non-linear creative. */
+  displayNonlinearCreative_() {
+    const newDimensions = this.getCreativeDimensions_();
+    
+    if (!this.isValidDimensions_(newDimensions)) {
+      console.log('Unable to play a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.');
+      return;
+    } else {
+      this.setSimidIframeDimensions_(newDimensions);
+      this.simidIframe_.style.position = "absolute";
+
+      this.contentVideoElement_.play();
+    }
+  }
+
   /**
    * Changes the simid iframe dimensions to the given dimensions
    * @param {!Object} A dimension that contains an x,y,width & height fields.
@@ -358,7 +372,7 @@ class SimidPlayer {
     } else if (!this.isValidDimensions_(incomingMessage.args.creativeDimensions)) { 
       const errorMessage = {
         errorCode : CreativeErrorCode.EXPAND_NOT_POSSIBLE,
-        message: 'Unable to play a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.'
+        message: 'Unable to resize a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.'
       }
       this.simidProtocol.reject(incomingMessage, errorMessage);
       console.log(errorMessage.message);
