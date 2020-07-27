@@ -1,5 +1,10 @@
 const NO_REQUESTED_DURATION = 0;
 const UNLIMITED_DURATION = -2;
+
+/** DISABLED and ENABLED constants are used to control the state of buttons. */
+const DISABLED = true;
+const ENABLED = false;
+
 /** 
  * All the logic for a simple SIMID player
  */
@@ -403,6 +408,19 @@ class SimidPlayer {
   }
 
   /**
+   * Disables or enables stop, skip, and fatal error buttons
+   *  depending on if the ad is showing.
+   * @private
+   * @param {boolean} controlState If buttons should be disabled or enabled
+   */
+  setCreativeControlsState_(controlState) {
+    let adRequests = document.querySelectorAll(".ad_request");
+    adRequests.forEach((request) => {
+      request.disabled = controlState;
+    });
+  }
+
+  /**
    * Tracks the events on the video element specified by the simid spec
    * @private
    */
@@ -477,6 +495,7 @@ class SimidPlayer {
       const closeMessage = {
         'code': reason,
       }
+      this.setCreativeControlsState_(/* controlState= */ DISABLED);
       // Wait for the SIMID creative to acknowledge stop and then clean
       // up the iframe.
       this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED)
