@@ -30,7 +30,7 @@ class TestersNonLinear extends BaseSimidCreative {
         'click', sendMessageFunction.bind(this));
   }
 
-  /** When creative asks to resize itself, this sends message to the player. */
+  /** When creative asks to resize itself, this sends a message to the player. */
   onRequestResize() {
     const creativeDimensions = {};
 
