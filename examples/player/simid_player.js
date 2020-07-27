@@ -291,8 +291,8 @@ class SimidPlayer {
 
     this.simidIframe_.style.height = incomingMessage.args.creativeDimensions['height'];
     this.simidIframe_.style.width = incomingMessage.args.creativeDimensions['width'];
-    this.simidIframe_.style.left = incomingMessage.args.creativeDimensions['x_val'];
-    this.simidIframe_.style.top = incomingMessage.args.creativeDimensions['y_val'];
+    this.simidIframe_.style.left = incomingMessage.args.creativeDimensions['x'];
+    this.simidIframe_.style.top = incomingMessage.args.creativeDimensions['y'];
 
     this.simidProtocol.resolve(incomingMessage);
   }
