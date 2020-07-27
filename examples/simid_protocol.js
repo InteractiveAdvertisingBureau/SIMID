@@ -10,7 +10,7 @@ class SimidProtocol {
      * A map of messsage type to an array of callbacks.
      * @private {Map<String, Array<Function>>}
      */
-    this.listeners_ = new Map();
+    this.listeners_ = {};
 
     /*
      * The session ID for this protocol.
@@ -38,7 +38,7 @@ class SimidProtocol {
 
   /* Reverts this protocol to its original state */
   reset() {
-    this.listeners_.clear();
+    this.listeners_ = {};
     this.sessionId_ = '';
     this.nextMessageId_ = 1;
     // TODO: Perhaps we should reject all associated promises.
