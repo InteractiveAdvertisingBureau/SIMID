@@ -116,7 +116,7 @@ class SimidPlayer {
    */
   initializeAd() {
 
-    if (!this.isLinearAd_ && !this.isValidDimensions_(this.getCreativeDimensions_())) {
+    if (!this.isLinearAd_ && !this.isValidDimensions_(this.getNonlinearDimensions_())) {
       console.log('Unable to play a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.');
       return;
     }
@@ -273,7 +273,7 @@ class SimidPlayer {
    * Returns the specified dimensions of the non-linear creative.
    * @return {!Object}
    */
-  getCreativeDimensions_() {
+  getNonlinearDimensions_() {
     let newDimensions = {};
     newDimensions.x = document.getElementById('x_val').value;
     newDimensions.y = document.getElementById('y_val').value;
@@ -285,7 +285,7 @@ class SimidPlayer {
 
   /** Validates and displays the non-linear creative. */
   displayNonlinearCreative_() {
-    const newDimensions = this.getCreativeDimensions_();
+    const newDimensions = this.getNonlinearDimensions_();
     
     if (!this.isValidDimensions_(newDimensions)) {
       console.log('Unable to play a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.');
@@ -330,7 +330,7 @@ class SimidPlayer {
 
   /** The creative wants to collapse the ad. */
   onRequestCollapse(incomingMessage) {
-    const newDimensions = this.getCreativeDimensions_();
+    const newDimensions = this.getNonlinearDimensions_();
 
     if (this.isLinearAd_) {
       const errorMessage = {
@@ -391,7 +391,9 @@ class SimidPlayer {
     const videoDimensions = this.getFullDimensions_(this.contentVideoElement_);
     // Since the creative starts as hidden it will take on the
     // video element dimensions, so tell the ad about those dimensions.
-    const creativeDimensions = this.getFullDimensions_(this.contentVideoElement_);
+    const creativeDimensions = this.isLinearAd_ ? 
+      this.getFullDimensions_(this.contentVideoElement_) : 
+      this.getNonlinearDimensions_();
 
     const environmentData = {
       'videoDimensions': videoDimensions,
