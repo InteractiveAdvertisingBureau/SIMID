@@ -4,7 +4,7 @@
   <script src="../simid_protocol.js"></script>
   <script src="simid_player.js"></script>
   <style>
-    .linear_creative {
+    .linear_simid_creative {
       position: absolute;
       top: 0;
       border-width: 0px;
@@ -21,6 +21,11 @@
       width: 640px;
       height: 480px;
     }
+    
+    .ad_type_label {
+      font-size: 16px;
+    }
+
   </style>
   <script>
     /** DISABLED and ENABLED constants are used to control the state of buttons. */
@@ -142,26 +147,10 @@
       <tr>
         <td>Ad type</td>
         <td>
-          <input type="radio" id="linear_ad" name="ad_type" checked onclick="enableDisable()"> <label for="linear_ad" style="font-size: 16px;">Linear
+          <input type="radio" id="linear_ad" name="ad_type" checked> <label for="linear_ad" class="ad_type_label">Linear
         Ad</label>
-        <input type="radio" id="nonlinear_ad" name="ad_type" onclick="enableDisable()"> <label for="nonlinear_ad" style="font-size: 16px;">Non-Linear
+        <input type="radio" id="nonlinear_ad" name="ad_type"> <label for="nonlinear_ad" class="ad_type_label">Non-Linear
           Ad</label>
-        </td>
-      </tr>
-      <tr>
-        <td>Creative Dimensions</td>
-        <td>
-          <label for="x_val">X: </label>
-          <input class="unique_dimension" type="number" id="x_val" value="5" min="0" style="width: 50px;" disabled>
-
-          <label for="y_val">Y: </label>
-          <input class="unique_dimension" type="number" id="y_val" value="5" min="0" style="width: 50px;" disabled>
-
-          <label for="width">Width: </label>
-          <input class="unique_dimension" type="number" id="width" value="500" min="0" style="width: 50px;" disabled>
-
-          <label for="height">Height: </label>
-          <input class="unique_dimension" type="number" id="height" value="100" min="0" style="width: 50px;" disabled>
         </td>
       </tr>
       <tr>

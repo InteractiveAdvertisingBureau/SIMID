@@ -8,7 +8,8 @@ class SimidPlayer {
   /**
    * Sets up the creative iframe and starts listening for messages
    * from the creative.
-   * @param {!Function} This function gets called when the ad stops.
+   * @param {!Function} adComplete This function gets called when the ad stops.
+   * @param {boolean} isLinearAd Represents if the ad is a linear one.
    */
   constructor(adComplete, isLinearAd) {
     /**
@@ -56,8 +57,8 @@ class SimidPlayer {
     this.adComplete_ = adComplete;
 
     /**
-     * A boolean indicating whether type of creative is linear or non-linear.
-     * @private
+     * A boolean indicating what type of creative ad is.
+     * @const @private {boolean}
      */
     this.isLinearAd_ = isLinearAd;
 
@@ -142,13 +143,6 @@ class SimidPlayer {
    * Plays a SIMID  creative once it has responded to the initialize ad message.
    */
   playAd() {
-
-    // content video shouldn't be paused for non-linear ads
-    if (this.isLinearAd_) {
-      this.contentVideoElement_.pause();
-    } else {
-      this.contentVideoElement_.play();
-    }
     
     // This example waits for the ad to be initialized, before playing video.
     // NOTE: Not all players will wait for session creation and initialization
@@ -171,10 +165,11 @@ class SimidPlayer {
     // The target of the player to send messages to is the newly
     // created iframe.
     playerDiv.appendChild(simidIframe);
-    // Set up css to overlay the SIMID iframe over the entire video creative
-    // only if linear.
-    if (this.isLinearAd_){
-      simidIframe.classList.add('linear_creative');
+
+    if (this.isLinearAd_) {
+      // Set up css to overlay the SIMID iframe over the entire video creative
+      // only if linear. Non-linear ads will have dimension inputs for placement
+      simidIframe.classList.add('linear_simid_creative');
     }
     
     // Set the iframe creative, this should be an html creative.
@@ -354,17 +349,25 @@ class SimidPlayer {
     // If the ad is not visible it must be made visible here.
     this.showSimidIFrame_();
 
-    // only linear ones play ad videos
     if (this.isLinearAd_) {
-      this.showAdPlayer_();
-      this.adVideoElement_.src = document.getElementById('video_url').value;
-      this.adVideoElement_.play();
-    }
-    else {
+      this.playLinearVideoAd_();
+    } else {
       this.contentVideoElement_.play();
     }
     
     this.simidProtocol.sendMessage(PlayerMessage.START_CREATIVE);
+    // TODO: handle creative rejecting startCreative message.
+  }
+
+  /** 
+   * Pauses content video and plays linear ad.
+   * @private 
+   */
+  playLinearVideoAd_() {
+    this.contentVideoElement_.pause();
+    this.showAdPlayer_();
+    this.adVideoElement_.src = document.getElementById('video_url').value;
+    this.adVideoElement_.play();
   }
 
   /**
@@ -535,11 +538,21 @@ class SimidPlayer {
   onRequestPlay(incomingMessage) {
     
     if (this.isLinearAd_) {
-      this.adVideoElement_.play().then(
-        // The play function returns a promise.
-        this.simidProtocol.resolve(incomingMessage),
-        this.simidProtocol.reject(incomingMessage)
-      );
+      this.adVideoElement_.play()
+      .then(() => this.simidProtocol.resolve(incomingMessage))
+      .catch(() => {
+        const errorMessage = {
+          errorCode : PlayerErrorCode.VIDEO_COULD_NOT_LOAD,
+          message: 'The SIMID media could not be loaded.'
+        }
+        this.simidProtocol.reject(incomingMessage, errorMessage);
+      });
+    } else {
+      const errorMessage = {
+        errorCode : CreativeErrorCode.PLAYBACK_AREA_UNUSABLE,
+        message: 'Non linear ads do not play video.'
+      }
+      this.simidProtocol.reject(incomingMessage, errorMessage);
     }
   }
   
