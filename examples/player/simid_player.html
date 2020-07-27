@@ -28,6 +28,20 @@
 
   </style>
   <script>
+    //if ad is non-linear allow user to insert specific dimensions
+    function enableDisable() {
+      let isNonLin = document.getElementById("nonlinear_ad");
+      let uniqueDimensions = document.querySelectorAll(".unique_dimension");
+      uniqueDimensions.forEach(function(dimension) {
+        if (isNonLin.checked) {
+          dimension.disabled = false;
+        }
+        else {
+          dimension.disabled = true;
+        }
+      });
+    }
+
     let simidPlayer;
     function initAd() {
       // clean old ad if it exists
@@ -84,7 +98,7 @@
         <button onclick="switchCreative('survey.html')">survey</button>
         <button onclick="switchCreative('selector.html')">selector</button>
         <button onclick="switchCreative('extender.html')">extender</button>
-        <button onclick="switchCreative('nonlinear_tester.html')">nonlinear_tester</button>
+        <button onclick="switchCreative('testers_nonlinear.html')">testers_nonlinear</button>
       </td>
       </tr>
       <tr>
@@ -105,7 +119,7 @@
       <tr>
         <td>Media File</td>
         <td><input type="text" id="video_url" size = 30 
-           value="../media/IAB480-small.mp4">
+           value="https://storage.googleapis.com/gvabox/media/red30s.mp4">>
         </td>
       </tr>
       <tr>

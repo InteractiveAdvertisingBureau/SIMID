@@ -116,6 +116,11 @@ class SimidPlayer {
    */
   initializeAd() {
     this.simidIframe_ = this.createSimidIframe_();
+
+    if (!this.isLinearAd_) {
+      this.displayNonLinearCreative_();
+    }
+
     this.requestDuration_ = NO_REQUESTED_DURATION;
 
     // Prepare for the case that init fails before sending
@@ -193,6 +198,7 @@ class SimidPlayer {
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
   /**
@@ -219,22 +225,71 @@ class SimidPlayer {
   }
 
   /**
-   * Returns the dimensions of an element within the player div.
+   * Returns the full dimensions of an element within the player div.
    * @return {!Object}
    */
-  getDimensions(elem) {
-    // The player div wraps all elements and is used as the offset.
-    const playerDiv = document.getElementById('player_div');
-    const playerRect = playerDiv.getBoundingClientRect();
+  getFullVideoDimensions(elem) {
     const videoRect = elem.getBoundingClientRect();
+
     return {
-      'x' : videoRect.x - playerRect.x,
-      'y' : videoRect.y - playerRect.y,
+      'x' : 0,
+      'y' : 0,
       'width' : videoRect.width,
       'height' : videoRect.height,
-      // TODO: This example does not currently support transition duration.
-      'transitionDuration': 0
     };
+  }
+
+  /**
+   * Returns the original specified dimensions of the non-linear creative.
+   * @return {!Object}
+   */
+  getNonLinearDimensions() {
+    const x_val = document.getElementById('x_val').value;
+    const y_val = document.getElementById('y_val').value;
+    const width = document.getElementById('width').value;
+    const height = document.getElementById('height').value;
+
+    return {
+      'x' : x_val,
+      'y' : y_val,
+      'width' : width,
+      'height' : height,
+    };
+  }
+
+  /**
+   * Displays the non-linear creative with the specified size
+   * on top of the video content.
+   */
+  displayNonLinearCreative_() {
+    const dimensions = this.getNonLinearDimensions();
+    
+    this.simidIframe_.style.height = dimensions.height;
+    this.simidIframe_.style.width = dimensions.width;
+    this.simidIframe_.style.left = `${dimensions.x}px`;
+    this.simidIframe_.style.top = `${dimensions.y}px`;
+
+    this.simidIframe_.style.position = "absolute";
+  }
+
+  /**
+   * Allows users to request resizing of the creative
+   * @param {!Object} incomingMessage Message sent from the 
+   *   creative to the player
+   */
+  onRequestResize(incomingMessage) {
+    if (this.isLinearAd_) {
+      this.simidProtocol.reject(incomingMessage, "Cannot resize linear ad");
+      console.log("Cannot resize linear ad");
+      return;
+    }
+
+    this.simidIframe_.style.height = incomingMessage.args['height'];
+    this.simidIframe_.style.width = incomingMessage.args['width'];
+    this.simidIframe_.style.left = incomingMessage.args['x_val'];
+    this.simidIframe_.style.top = incomingMessage.args['y_val'];
+
+    this.simidProtocol.resolve(incomingMessage);
   }
 
   /**
@@ -242,10 +297,10 @@ class SimidPlayer {
    * @private
    */
   sendInitMessage_() {
-    const videoDimensions = this.getDimensions(this.contentVideoElement_);
+    const videoDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
     // Since the creative starts as hidden it will take on the
     // video element dimensions, so tell the ad about those dimensions.
-    const creativeDimensions = this.getDimensions(this.contentVideoElement_);
+    const creativeDimensions = this.getFullVideoDimensions(this.contentVideoElement_);
 
     const environmentData = {
       'videoDimensions': videoDimensions,
@@ -473,14 +528,14 @@ class SimidPlayer {
       this.adVideoElement_.play()
       .then(() => this.simidProtocol.resolve(incomingMessage))
       .catch(() => {
-        errorMessage = {
+        const errorMessage = {
           errorCode : PlayerErrorCode.VIDEO_COULD_NOT_LOAD,
           message: 'The SIMID media could not be loaded.'
         }
         this.simidProtocol.reject(incomingMessage, errorMessage);
       });
     } else {
-      errorMessage = {
+      const errorMessage = {
         errorCode : CreativeErrorCode.PLAYBACK_AREA_UNUSABLE,
         message: 'Non linear ads do not play video.'
       }
