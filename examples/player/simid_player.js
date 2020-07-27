@@ -484,6 +484,19 @@ class SimidPlayer {
   }
 
   /**
+   * Skips the ad and destroys the ad iframe.
+   */
+  skipAd() {
+    // The iframe is only hidden on ad skipped. The ad might still request
+    // tracking pixels before it is cleaned up.
+    this.hideSimidIFrame_();
+    // Wait for the SIMID creative to acknowledge skip and then clean
+    // up the iframe.
+    this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED)
+      .then(() => this.destroyIframeAndResumeContent_());
+  }
+
+  /**
    * Removes the simid ad entirely and resumes video playback.
    * @private
    */
@@ -545,8 +558,7 @@ class SimidPlayer {
   /** The creative wants to skip this ad. */
   onRequestSkip(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
-    this.simidProtocol.sendMessage(PlayerMessage.AD_SKIPPED, {})
-        .then(() => this.destroyIframeAndResumeContent_());
+    this.skipAd();
   }
   
   /** The creative wants to stop the ad early. */

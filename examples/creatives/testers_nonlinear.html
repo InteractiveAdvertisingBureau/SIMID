@@ -8,6 +8,12 @@
     button {
       cursor: pointer;
     }
+    #close_ad {
+        color: red;
+        border: solid white 1px;
+        font-size: 14;
+        float: right;
+    }
     label {
       color: white;
       font-weight: bold;
@@ -50,6 +56,7 @@
     }
   </style>
   <body>
+    <button id="close_ad">X</button>
     <div id="content_container">
       <div id="resizing_inputs">
         <div class="resize_dimension" data-tip="X offset in pixels from the top left corner">
@@ -71,11 +78,11 @@
         <button id="resize_button" onclick="testersNonLinear.onRequestResize()">Resize Ad</button>
       </div>
     </div>
+  </div>
     <script>
-      //The creative should first call ready
-       const testersNonLinear = new TestersNonLinear();
       // This implementation is immediately ready but other creatives
       // may wish to wait for assets to load before calling ready.
+       const testersNonLinear = new TestersNonLinear();
       testersNonLinear.ready();
     </script>
   </body> 
