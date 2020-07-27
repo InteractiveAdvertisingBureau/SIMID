@@ -28,10 +28,6 @@
 
   </style>
   <script>
-    /** DISABLED and ENABLED constants are used to control the state of buttons. */
-    const DISABLED = true;
-    const ENABLED = false;
-
     //if ad is non-linear allow user to insert specific dimensions
     function enableDisable() {
       let isNonLin = document.getElementById("nonlinear_ad");
@@ -59,23 +55,12 @@
       simidPlayer.initializeAd();
     }
 
-    /**Disables or enables stop, skip, and fatal error buttons
-     *  depending on if the ad is showing.
-     * @param {boolean} disable If buttons should be disabled or enabled
-     */
-    function setCreativeControlsState(controlState) {
-      let adRequests = document.querySelectorAll(".ad_request");
-      adRequests.forEach((request) => {
-        request.disabled = controlState;
-      });
-    }
-
     function playAd() {
       if (!simidPlayer) {
         initAd();
       }
       simidPlayer.playAd();
-      setCreativeControlsState(/* controlState= */ ENABLED);
+      simidPlayer.setCreativeControlsState_(/* controlState= */ ENABLED);
     }
 
     function closeAd() {
@@ -84,7 +69,7 @@
       }
       simidPlayer.stopAd();
       simidPlayer.sendLog("User clicked close ad button on player");
-      setCreativeControlsState(/* controlState= */ DISABLED);
+      simidPlayer.setCreativeControlsState_(/* controlState= */ DISABLED);
     }
 
     function skipAd() {
@@ -93,7 +78,7 @@
       }
       simidPlayer.skipAd();
       simidPlayer.sendLog("User clicked skip ad button on player");
-      setCreativeControlsState(/* controlState= */ DISABLED);
+      simidPlayer.setCreativeControlsState_(/* controlState= */ DISABLED);
     }
 
     function fatalError() {
@@ -102,7 +87,7 @@
       }
       simidPlayer.stopAd();
       simidPlayer.sendLog("User clicked fatal error button on player");
-      setCreativeControlsState(/* controlState= */ DISABLED);
+      simidPlayer.setCreativeControlsState_(/* controlState= */ DISABLED);
     }
 
     function switchCreative(value) {
