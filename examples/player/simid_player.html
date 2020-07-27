@@ -21,6 +21,9 @@
       width: 640px;
       height: 480px;
     }
+    .resize_inputs {
+      width: 50px;
+    }
     .hidden {
       display: none;
     }    
@@ -160,16 +163,16 @@
         <td>Creative Dimensions</td>
         <td>
           <label for="x_val">X: </label>
-          <input type="number" id="x_val" value="5" min="0" style="width: 50px;">
+          <input type="number" id="x_val" value="5" min="0" class="resize_inputs">
 
           <label for="y_val">Y: </label>
-          <input type="number" id="y_val" value="5" min="0" style="width: 50px;">
+          <input type="number" id="y_val" value="5" min="0" class="resize_inputs">
 
           <label for="width">Width: </label>
-          <input type="number" id="width" value="500" min="0" style="width: 50px;">
+          <input type="number" id="width" value="500" min="0" class="resize_inputs">
 
           <label for="height">Height: </label>
-          <input type="number" id="height" value="120" min="0" style="width: 50px;">
+          <input type="number" id="height" value="120" min="0" class="resize_inputs">
         </td>
       </tr>
       <tr id="media_file" class="hidden">
