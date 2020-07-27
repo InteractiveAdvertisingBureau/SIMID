@@ -78,7 +78,7 @@
         return;
       }
       simidPlayer.stopAd();
-      simidPlayer.sendLog("Ad stopped by player");
+      simidPlayer.sendLog("User clicked close ad button on player");
       setCreativeControlsState(/* controlState= */ DISABLED);
     }
 
@@ -87,7 +87,7 @@
         return;
       }
       simidPlayer.skipAd();
-      simidPlayer.sendLog("Ad skipped by player");
+      simidPlayer.sendLog("User clicked skip ad button on player");
       setCreativeControlsState(/* controlState= */ DISABLED);
     }
 
@@ -96,7 +96,7 @@
         return;
       }
       simidPlayer.stopAd();
-      simidPlayer.sendLog("Fatal error detected by player");
+      simidPlayer.sendLog("User clicked fatal error button on player");
       setCreativeControlsState(/* controlState= */ DISABLED);
     }
 
