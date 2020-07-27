@@ -289,10 +289,10 @@ class SimidPlayer {
       return;
     }
 
-    this.simidIframe_.style.height = incomingMessage.args['height'];
-    this.simidIframe_.style.width = incomingMessage.args['width'];
-    this.simidIframe_.style.left = incomingMessage.args['x_val'];
-    this.simidIframe_.style.top = incomingMessage.args['y_val'];
+    this.simidIframe_.style.height = incomingMessage.args.creativeDimensions['height'];
+    this.simidIframe_.style.width = incomingMessage.args.creativeDimensions['width'];
+    this.simidIframe_.style.left = incomingMessage.args.creativeDimensions['x_val'];
+    this.simidIframe_.style.top = incomingMessage.args.creativeDimensions['y_val'];
 
     this.simidProtocol.resolve(incomingMessage);
   }

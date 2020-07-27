@@ -32,13 +32,18 @@ class TestersNonLinear extends BaseSimidCreative {
    * When creative asks to resize itself send message to the player.
    */
   onRequestResize() {
-    const resize_params = {};
-    
-    resize_params.x = document.getElementById('resize_x_val').value;
-    resize_params.y = document.getElementById('resize_y_val').value;
-    resize_params.width = document.getElementById('resize_width').value;
-    resize_params.height = document.getElementById('resize_height').value;
+    const creativeDimensions = {};
 
-    this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, resize_params);
+    creativeDimensions.x = document.getElementById('resize_x_val').value;
+    creativeDimensions.y = document.getElementById('resize_y_val').value;
+    creativeDimensions.width = document.getElementById('resize_width').value;
+    creativeDimensions.height = document.getElementById('resize_height').value;
+
+    const resizeParams = {
+      mediaDimensions: {},
+      creativeDimensions: creativeDimensions
+    };
+
+    this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, resizeParams);
   }
 }
