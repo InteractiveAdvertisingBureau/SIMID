@@ -14,6 +14,8 @@ class TestersNonLinear extends BaseSimidCreative {
    */
   addButtonClickActions_() {
     this.sendMessageOnButtonClick_("close_ad", CreativeMessage.REQUEST_STOP);
+    this.sendMessageOnButtonClick_("expand_button", CreativeMessage.REQUEST_EXPAND);
+    this.sendMessageOnButtonClick_("collapse_button", CreativeMessage.REQUEST_COLLAPSE);
   }
 
   /**
@@ -28,9 +30,7 @@ class TestersNonLinear extends BaseSimidCreative {
         'click', sendMessageFunction.bind(this));
   }
 
-  /**
-   * When creative asks to resize itself send message to the player.
-   */
+  /** When creative asks to resize itself, this sends message to the player. */
   onRequestResize() {
     const creativeDimensions = {};
 
