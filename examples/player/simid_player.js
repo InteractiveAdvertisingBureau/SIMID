@@ -495,7 +495,6 @@ class SimidPlayer {
       const closeMessage = {
         'code': reason,
       }
-      this.setCreativeControlsState_(/* controlState= */ DISABLED);
       // Wait for the SIMID creative to acknowledge stop and then clean
       // up the iframe.
       this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED)
@@ -523,6 +522,7 @@ class SimidPlayer {
     this.hideAdPlayer_();
     this.adVideoElement_.src = '';
     this.destroySimidIframe();
+    this.setCreativeControlsState_(/* controlState= */ DISABLED);
     this.contentVideoElement_.play();
   }
 
