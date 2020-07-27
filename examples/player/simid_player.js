@@ -117,7 +117,7 @@ class SimidPlayer {
   initializeAd() {
 
     if (!this.isLinearAd_ && !this.isValidDimensions_(this.getCreativeDimensions_())) {
-      console.log('Dimensions bigger than player');
+      console.log('Unable to play a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.');
       return;
     }
 
@@ -127,7 +127,8 @@ class SimidPlayer {
     this.simidIframe_ = this.createSimidIframe_();
 
     if (!this.isLinearAd_) {
-      this.displayNonLinearCreative();
+      this.onRequestCollapse();
+      this
     }
 
     this.requestDuration_ = NO_REQUESTED_DURATION;
@@ -208,7 +209,7 @@ class SimidPlayer {
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_EXPAND, this.onExpandResize.bind(this));
-    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.displayNonLinearCreative.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.onRequestCollapse.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
@@ -297,8 +298,12 @@ class SimidPlayer {
   /** The creative wants to expand the ad. */
   onExpandResize(incomingMessage) {
     if (this.isLinearAd_) {
-      this.simidProtocol.reject(incomingMessage, "Cannot expand linear ads");
-      console.log("Cannot expand linear ads");
+      const errorMessage = {
+        errorCode : CreativeErrorCode.EXPAND_NOT_POSSIBLE,
+        message: 'Linear resize not yet supported.'
+      }
+      this.simidProtocol.reject(incomingMessage, errorMessage);
+      console.log(errorMessage.message);
   
     } else {
       const fullDimensions = this.getFullDimensions_(this.contentVideoElement_);
@@ -309,19 +314,24 @@ class SimidPlayer {
     }
   }
 
-  /**
-   * Displays the non-linear creative with the specified size
-   * on top of the video content.
-   */
-  displayNonLinearCreative(incomingMessage = CreativeMessage.REQUEST_COLLAPSE) {
+  /** The creative wants to collapse the ad. */
+  onRequestCollapse(incomingMessage) {
     const newDimensions = this.getCreativeDimensions_();
 
     if (this.isLinearAd_) {
-      this.simidProtocol.reject(incomingMessage, "Cannot collapse linear ads");
-      console.log("Cannot collapse linear ads");
+      const errorMessage = {
+        message: 'Cannot collapse linear ads.'
+      }
+      this.simidProtocol.reject(incomingMessage, errorMessage);
+      console.log(errorMessage.message);
+
     } else if (!this.isValidDimensions_(newDimensions)) {
-      this.simidProtocol.reject(incomingMessage, "Dimensions bigger than player");
-      console.log("Dimensions bigger than player");
+      const errorMessage = {
+        message: 'Unable to collapse to dimensions bigger than the player. Please modify dimensions to a smaller size.'
+      }
+      this.simidProtocol.reject(incomingMessage, errorMessage);
+      console.log(errorMessage.message);
+      
     } else {
       this.setSimidIframeDimensions_(newDimensions);
       this.simidIframe_.style.position = "absolute";
@@ -338,12 +348,20 @@ class SimidPlayer {
   onRequestResize(incomingMessage) {
 
     if (this.isLinearAd_) {
-      this.simidProtocol.reject(incomingMessage, "Cannot resize linear ad");
-      console.log("Cannot resize linear ad");
+      const errorMessage = {
+        errorCode : CreativeErrorCode.EXPAND_NOT_POSSIBLE,
+        message: 'Linear resize not yet supported.'
+      }
+      this.simidProtocol.reject(incomingMessage, errorMessage);
+      console.log(errorMessage.message);
     
     } else if (!this.isValidDimensions_(incomingMessage.args.creativeDimensions)) { 
-      this.simidProtocol.reject(incomingMessage, "Dimensions bigger than player");
-      console.log("Dimensions bigger than player");
+      const errorMessage = {
+        errorCode : CreativeErrorCode.EXPAND_NOT_POSSIBLE,
+        message: 'Unable to play a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.'
+      }
+      this.simidProtocol.reject(incomingMessage, errorMessage);
+      console.log(errorMessage.message);
     
     } else {
       this.setSimidIframeDimensions_(incomingMessage.args.creativeDimensions)
