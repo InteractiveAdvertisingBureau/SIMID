@@ -246,6 +246,7 @@ class SimidPlayer {
 
   /**
    * Returns the full dimensions of an element within the player div.
+   * @private
    * @return {!Object}
    */
   getFullDimensions_(elem) {
@@ -261,6 +262,7 @@ class SimidPlayer {
 
   /**
    * Checks whether the input dimensions are valid and fit in the player window.
+   * @private
    * @param {!Object} dimensions A dimension that contains x, y, width & height fields.
    * @return {boolean}
    */
@@ -276,6 +278,7 @@ class SimidPlayer {
 
   /**
    * Returns the specified dimensions of the non-linear creative.
+   * @private
    * @return {!Object}
    */
   getNonlinearDimensions_() {
@@ -288,7 +291,10 @@ class SimidPlayer {
     return newDimensions;
   }
 
-  /** Validates and displays the non-linear creative. */
+  /** 
+   * Validates and displays the non-linear creative.
+   * @private
+   */
   displayNonlinearCreative_() {
     const newDimensions = this.getNonlinearDimensions_();
     
@@ -304,8 +310,9 @@ class SimidPlayer {
   }
 
   /**
-   * Changes the simid iframe dimensions to the given dimensions
-   * @param {!Object} A dimension that contains an x,y,width & height fields.
+   * Changes the simid iframe dimensions to the given dimensions.
+   * @private
+   * @param {!Object} resizeDimensions A dimension that contains an x,y,width & height fields.
    */
   setSimidIframeDimensions_(resizeDimensions) {
     this.simidIframe_.style.height = resizeDimensions.height;
@@ -314,7 +321,10 @@ class SimidPlayer {
     this.simidIframe_.style.top = `${resizeDimensions.y}px`;
   }
 
-  /** The creative wants to expand the ad. */
+  /** 
+   * The creative wants to expand the ad.
+   * @param {!Object} incomingMessage Message sent from the creative to the player
+   */
   onExpandResize(incomingMessage) {
     if (this.isLinearAd_) {
       const errorMessage = {
@@ -333,7 +343,10 @@ class SimidPlayer {
     }
   }
 
-  /** The creative wants to collapse the ad. */
+  /** 
+   * The creative wants to collapse the ad. 
+   * @param {!Object} incomingMessage Message sent from the creative to the player
+   */
   onRequestCollapse(incomingMessage) {
     const newDimensions = this.getNonlinearDimensions_();
 
@@ -361,8 +374,8 @@ class SimidPlayer {
   }
 
   /**
-   * Allows users to request resizing of the creative
-   * @param {!Object} incomingMessage Message sent from the creative to the player
+   * The creative wants to resize the ad.
+   * @param {!Object} incomingMessage Message sent from the creative to the player.
    */
   onRequestResize(incomingMessage) {
 
