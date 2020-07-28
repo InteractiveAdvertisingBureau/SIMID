@@ -346,10 +346,9 @@ class SimidPlayer {
 
   /**
    * Called once the creative responds positively to being initialized.
-   * @param {!Object} data
    * @private
    */
-  startCreativePlayback_(data) {
+  startCreativePlayback_() {
     // Once the ad is successfully initialized it can start.
     // If the ad is not visible it must be made visible here.
     this.showSimidIFrame_();
@@ -431,7 +430,7 @@ class SimidPlayer {
     this.videoTrackingEvents_.set("durationchange", () => {
       this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
     });
-    this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
+    // this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
     this.videoTrackingEvents_.set("error", () => {
       this.simidProtocol.sendMessage(MediaMessage.ERROR,
         {
@@ -469,22 +468,33 @@ class SimidPlayer {
   }
 
   /**
-   * Called when video playback is complete.
+   * Called when creative requests a change in duration of ad.
+   * @param {int} requestedDuration The duration change request made
+   *   by the creative.
    * @private
    */
-  videoComplete() {
-      this.simidProtocol.sendMessage(MediaMessage.ENDED);
+  changeAdEndTime(requestedDuration) {
+    this.interval_ = setInterval(() => {
+        this.compareCurrentTimeAndRequestedDuration(requestedDuration); 
+    }, 250);
+  }
 
-      if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
-        this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
-      } else if (this.requestedDuration_ != UNLIMITED_DURATION) {
-        // The creative has requested a different completion duration, so use that duration.
-        const durationExtensionMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
-        setTimeout(() => {
-          // The creative has suggested a different close time, so label this creative_initiated.
-          this.stopAd(StopCode.CREATIVE_INITATED);
-        }, durationExtensionMs);
-      }
+  compareCurrentTimeAndRequestedDuration(requestedDuration) {
+    const durationChangeMs = (requestedDuration) * 1000;
+    console.log("duration change: " + durationChangeMs);
+
+    if (this.adVideoElement_.currentTime >= requestedDuration) {
+      console.log("request duration shorter than ad duration");
+        this.stopAd(StopCode.CREATIVE_INITATED);
+        clearInterval(this.interval_);
+    } else if (requestedDuration >= this.adVideoElement_.duration) {
+      console.log("request duration longer than ad duration");
+      setTimeout(() => {
+        this.stopAd(StopCode.CREATIVE_INITIATED);
+      }, durationChangeMs);
+      clearInterval(this.interval_);
+    }
+    this.simidProtocol.sendMessage(MediaMessage.ENDED);
   }
 
   /**
@@ -494,6 +504,7 @@ class SimidPlayer {
   stopAd(reason = StopCode.PLAYER_INITATED) {
       // The iframe is only hidden on ad stoppage. The ad might still request
       // tracking pixels before it is cleaned up.
+    if (this.simidIframe_) {
       this.hideSimidIFrame_();
       const closeMessage = {
         'code': reason,
@@ -502,6 +513,7 @@ class SimidPlayer {
       // up the iframe.
       this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED)
         .then(() => this.destroyIframeAndResumeContent_());
+    }
   }
 
   /**
@@ -610,13 +622,28 @@ class SimidPlayer {
   }
 
   onRequestChangeAdDuration(incomingMessage) {
-    if (this.requestedDuration_ != NO_REQUESTED_DURATION) {
-      // TODO: Support multiple change duration requests.
-      this.simidProtocol.reject(incomingMessage);
+    this.requestedDuration_  = incomingMessage.args['duration'];
+    console.log("requested Duration is: " + this.requestedDuration_);
+
+    if (this.requestedDuration_ < 0) {
+      console.log("requested duration too short");
+      console.log("video ad: " + this.adVideoElement_.duration);
+      // this.requestedDuration_ = this.adVideoElement_.duration
+      // this.simidProtocol.resolve(incomingMessage);
+      setTimeout(() => {
+        this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
+      }, this.adVideoElement_.duration);
     }
-    const requestedDuration  = incomingMessage.args['duration'];
-    this.requestedDuration_ = requestedDuration;
-    this.simidProtocol.resolve(incomingMessage);
+    
+    else if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
+      console.log("No ad duration");
+      // this.simidProtocol.resolve(incomingMessage);
+      this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
+    }
+    else {
+      this.changeAdEndTime(this.requestedDuration_ );
+      this.simidProtocol.resolve(incomingMessage);
+    }
   }
 
   onGetMediaState(incomingMessage) {
