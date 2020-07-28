@@ -618,7 +618,7 @@ class SimidPlayer {
     this.hideAdPlayer_();
     this.adVideoElement_.src = '';
     this.destroySimidIframe_();
-    this.setCreativeControlsState_(/* controlState= */ DISABLED);
+    this.setCreativeControlsState_(DISABLED);
     this.contentVideoElement_.play();
   }
 

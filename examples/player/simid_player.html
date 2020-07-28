@@ -66,7 +66,7 @@
         initAd();
       }
       simidPlayer.playAd();
-      simidPlayer.setCreativeControlsState_(/* controlState= */ ENABLED);
+      simidPlayer.setCreativeControlsState_(ENABLED);
     }
 
     function closeAd() {
@@ -75,7 +75,7 @@
       }
       simidPlayer.stopAd();
       simidPlayer.sendLog("User clicked close ad button on player");
-      simidPlayer.setCreativeControlsState_(/* controlState= */ DISABLED);
+      simidPlayer.setCreativeControlsState_(DISABLED);
     }
 
     function skipAd() {
@@ -84,7 +84,7 @@
       }
       simidPlayer.skipAd();
       simidPlayer.sendLog("User clicked skip ad button on player");
-      simidPlayer.setCreativeControlsState_(/* controlState= */ DISABLED);
+      simidPlayer.setCreativeControlsState_(DISABLED);
     }
 
     function fatalError() {
@@ -93,7 +93,7 @@
       }
       simidPlayer.stopAd();
       simidPlayer.sendLog("User clicked fatal error button on player");
-      simidPlayer.setCreativeControlsState_(/* controlState= */ DISABLED);
+      simidPlayer.setCreativeControlsState_(DISABLED);
     }
 
     function switchCreative(value) {
