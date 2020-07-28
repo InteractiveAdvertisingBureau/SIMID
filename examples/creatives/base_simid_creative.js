@@ -243,10 +243,13 @@ class BaseSimidCreative {
     console.log("Received message from player: " + logMessage);
   }
 
+  /**Sends message requesting a to resize creative based off of given resizeParameters
+   * @param {!Object} resizeParams
+   */
   requestResize(resizeParams) {
     this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, resizeParams).then( () => {
       this.environmentData.creativeDimensions = resizeParams.creativeDimensions;
       this.environmentData.videoDimensions = resizeParams.videoDimensions;
-    })
+    });
   }
 }
