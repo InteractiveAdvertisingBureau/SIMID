@@ -58,6 +58,7 @@ class BaseSimidCreative {
     this.simidProtocol.addListener(PlayerMessage.AD_STOPPED, this.onAdStopped.bind(this));
     this.simidProtocol.addListener(PlayerMessage.AD_SKIPPED, this.onAdSkipped.bind(this));
     this.simidProtocol.addListener(PlayerMessage.LOG, this.onReceivePlayerLog.bind(this));
+    this.simidProtocol.addListener(PlayerMessage.RESIZE, this.onReceiveResize.bind(this));
     // Handlers with different video events.
     this.simidProtocol.addListener(MediaMessage.DURATION_CHANGE, this.onDurationChange.bind(this));
     this.simidProtocol.addListener(MediaMessage.ENDED, this.onVideoEnded.bind(this));
@@ -136,6 +137,11 @@ class BaseSimidCreative {
   onAdSkipped(eventData) {
     // After resolving the iframe with this ad should be cleaned up.
     this.simidProtocol.resolve(eventData, {});
+  }
+
+  onReceiveResize(eventData) {
+    this.environmentData.creativeDimensions = eventData.args.creativeDimensions;
+    this.environmentData.videoDimensions = eventData.args.videoDimensions;
   }
 
   /** 
@@ -235,5 +241,12 @@ class BaseSimidCreative {
   onReceivePlayerLog(data) {
     const logMessage = data.args.message;
     console.log("Received message from player: " + logMessage);
+  }
+
+  requestResize(resizeParams) {
+    this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, resizeParams).then( () => {
+      this.environmentData.creativeDimensions = resizeParams.creativeDimensions;
+      this.environmentData.videoDimensions = resizeParams.videoDimensions;
+    })
   }
 }

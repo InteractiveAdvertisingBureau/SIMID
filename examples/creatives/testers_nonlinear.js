@@ -40,10 +40,10 @@ class TestersNonLinear extends BaseSimidCreative {
     creativeDimensions.height = document.getElementById('resize_height').value;
 
     const resizeParams = {
-      mediaDimensions: {},
+      videoDimensions: this.environmentData.videoDimensions,
       creativeDimensions: creativeDimensions
     };
 
-    this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, resizeParams);
+    this.super.requestResize(resizeParams);
   }
 }
