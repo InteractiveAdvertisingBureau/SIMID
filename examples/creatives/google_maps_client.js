@@ -1,5 +1,3 @@
-// import {CreativeMessage} from '../constants.js';
-// import {CreativeMessage} from '../simid_protocol.js';
 const DEFAULT_MAP_LAT = 37.422004;
 const DEFAULT_MAP_LNG = -122.081402;
 const DEFAULT_ZOOM = 13;

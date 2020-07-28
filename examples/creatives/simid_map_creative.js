@@ -1,4 +1,3 @@
-
 const AdParamKeys = {
   BUTTON_LABEL: 'buttonLabel',
   SEARCH_QUERY: 'searchQuery',
