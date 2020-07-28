@@ -106,7 +106,6 @@ class SimidMapCreative extends BaseSimidCreative {
     this.simidProtocol.sendMessage(CreativeMessage.REQUEST_PAUSE).then(() => {
       const onMapsClientComplete = () => {this.playAd_()};
       this.createMapState_();
-      debugger;
       this.googleMapsClient_ = new GoogleMapsClient(this.query_,
          this.markerUrl_, this.simidProtocol, onMapsClientComplete, document.getElementById(TRAVEL_METHOD),
           document.getElementById(TIME_DISPLAY), this.coordinates_);
