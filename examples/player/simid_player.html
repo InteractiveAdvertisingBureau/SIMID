@@ -98,13 +98,15 @@
 
     function switchCreative(value) {
       document.getElementById('creative_url').value = '../creatives/' + value;
+      document.getElementById('geolocation').classList.add("hidden");
       // populate ad parameters with some hard coded values
       let adParams = '';
+      let adParamsObj = '';
       switch (value) {
         case 'simid_overlay.html':
           break;
         case 'survey.html':
-          let adParamsObj = [
+          adParamsObj = [
             {'question':'Would you like a survey?',
              'answers':['Yes', 'No', 'Not Sure']},
             {'question':'Are you certain?',
@@ -114,8 +116,53 @@
           ];
           adParams = JSON.stringify(adParamsObj);
           break;
+        case 'simid_map.html':
+          document.getElementById('geolocation').classList.remove("hidden");
+          adParamsObj = {
+           "buttonLabel": "Park",
+           "searchQuery": "nearby park",
+           "marker": "http://maps.google.com/mapfiles/kml/shapes/parks.png"
+          };
+          
+          adParams = JSON.stringify(adParamsObj);
+          break;
       }
       document.getElementById('ad_params').value = adParams;
+    }
+
+    window.getLocationPermission = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          let adParamObject = document.getElementById('ad_params').value;
+          let adParams = JSON.parse(adParamObject);
+          adParams.userCoordinates = pos;
+          adParamObject = JSON.stringify(adParams);
+          document.getElementById('ad_params').value = adParamObject;
+        }, (error) => { //callback function that takes a GeolocationPositionError 
+          handleLocationError(error, true);
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(error, false);
+      }
+    }
+
+    function handleLocationError (error, geolocationAllowed) {
+      let errorMessage = "ERROR: ";
+      if(!geolocationAllowed) {
+        errorMessage += "Browser does not support Geolocation."
+      } else {
+        errorMessage += "Geolocation failed due to: " + error;
+      }
+      /**
+       * Using console.error() in place of sendLog temporarily.
+       * Currently order of function calls makes sendLog ineffective.
+       */
+      console.error(errorMessage);
     }
   </script>
 </head>
@@ -133,6 +180,7 @@
         <button onclick="switchCreative('selector.html')">selector</button>
         <button onclick="switchCreative('extender.html')">extender</button>
         <button onclick="switchCreative('testers_nonlinear.html')">testers_nonlinear</button>
+        <button onclick="switchCreative('simid_map.html')">map</button>
       </td>
       </tr>
       <tr>
@@ -179,6 +227,7 @@
     </table>
     <button onclick="playAd()"> Start ad playback </button>
     <button onclick="initAd()"> Initialize the creative </button>
+    <button id="geolocation" class="hidden" onclick="getLocationPermission()">Allow Location Access</button>
     <button class="ad_request" onclick="closeAd()" disabled> Close the ad </button> 
     <button class="ad_request" onclick="skipAd()" disabled> Skip ad </button>
     <button class="ad_request" onclick="fatalError()" disabled> Fatal Error </button>

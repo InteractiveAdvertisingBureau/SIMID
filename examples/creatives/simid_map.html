@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="simid_map.css">
+    <script src="base_simid_creative.js"></script>
+    <script src="simid_map_creative.js"></script>
+    <script src="google_maps_client.js"></script>
+    <script src="../simid_protocol.js"></script>
+  </head>
+  <body>
+    <div id="adContainer">
+      <div id="button_container">
+        <button id="findNearest"></button>
+      </div>
+      <div id="map"></div>
+    </div>
+    <script>
+      const map = new SimidMapCreative();
+      map.ready();
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZZxBSv-oA2hgRk5OZjSvdv-NO57cUhU&libraries=places">
+    </script>
+  </body>
+</html>
