@@ -319,6 +319,8 @@ CreativeMessage = {
   REQUEST_TRACKING: 'Creative:reportTracking',
   REQUEST_CHANGE_AD_DURATION: 'Creative:requestChangeAdDuration',
   REQUEST_RESIZE: 'Creative:requestResize',
+  REQUEST_EXPAND: 'Creative:requestExpand',
+  REQUEST_COLLAPSE: 'Creative:requestCollapse',
 };
 
 /**
