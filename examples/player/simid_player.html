@@ -32,8 +32,8 @@
     }
   </style>
   <script>
-    //if ad is non-linear allow user to insert specific dimensions
-    function toggleInputs() {
+		/** If ad type is linear, a media file input appears while non-linear ads ask for dimensions instead. */
+    function setInputsForAdType() {
       let linearButton = document.getElementById("linear_ad");
       let creativeDimensions = document.getElementById("creative_dimensions");
       let mediaFile = document.getElementById("media_file");
@@ -138,9 +138,9 @@
       <tr>
         <td>Ad type</td>
         <td>
-          <input type="radio" id="linear_ad" name="ad_type" onclick="toggleInputs()" checked> <label for="linear_ad" class="ad_type_label">Linear
+          <input type="radio" id="linear_ad" name="ad_type" onclick="setInputsForAdType()" checked> <label for="linear_ad" class="ad_type_label">Linear
         Ad</label>
-        <input type="radio" id="nonlinear_ad" name="ad_type" onclick="toggleInputs()"> <label for="nonlinear_ad" class="ad_type_label">Non-Linear
+        <input type="radio" id="nonlinear_ad" name="ad_type" onclick="setInputsForAdType()"> <label for="nonlinear_ad" class="ad_type_label">Non-Linear
           Ad</label>
         </td>
       </tr>
