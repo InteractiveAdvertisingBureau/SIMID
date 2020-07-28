@@ -21,25 +21,31 @@
       width: 640px;
       height: 480px;
     }
-    
+    .resize_inputs {
+      width: 50px;
+    }
+    .hidden {
+      display: none;
+    }    
     .ad_type_label {
       font-size: 16px;
     }
-
   </style>
   <script>
-    //if ad is non-linear allow user to insert specific dimensions
-    function enableDisable() {
-      let isNonLin = document.getElementById("nonlinear_ad");
-      let uniqueDimensions = document.querySelectorAll(".unique_dimension");
-      uniqueDimensions.forEach(function(dimension) {
-        if (isNonLin.checked) {
-          dimension.disabled = false;
-        }
-        else {
-          dimension.disabled = true;
-        }
-      });
+		/** If ad type is linear, a media file input appears while non-linear ads ask for dimensions instead. */
+    function setInputsForAdType() {
+      let linearButton = document.getElementById("linear_ad");
+      let creativeDimensions = document.getElementById("creative_dimensions");
+      let mediaFile = document.getElementById("media_file");
+      
+      if (linearButton.checked) {
+        creativeDimensions.classList.add("hidden");
+        mediaFile.classList.remove("hidden");
+     
+      } else {
+        creativeDimensions.classList.remove("hidden");
+        mediaFile.classList.add("hidden");
+      }
     }
 
     let simidPlayer;
@@ -132,22 +138,38 @@
       <tr>
         <td>Ad type</td>
         <td>
-          <input type="radio" id="linear_ad" name="ad_type" checked> <label for="linear_ad" class="ad_type_label">Linear
+          <input type="radio" id="linear_ad" name="ad_type" onclick="setInputsForAdType()" checked> <label for="linear_ad" class="ad_type_label">Linear
         Ad</label>
-        <input type="radio" id="nonlinear_ad" name="ad_type"> <label for="nonlinear_ad" class="ad_type_label">Non-Linear
+        <input type="radio" id="nonlinear_ad" name="ad_type" onclick="setInputsForAdType()"> <label for="nonlinear_ad" class="ad_type_label">Non-Linear
           Ad</label>
+        </td>
+      </tr>
+      <tr id="creative_dimensions" class="hidden">
+        <td>Creative Dimensions</td>
+        <td>
+          <label for="x_val">X: </label>
+          <input type="number" id="x_val" value="5" min="0" class="resize_inputs">
+
+          <label for="y_val">Y: </label>
+          <input type="number" id="y_val" value="5" min="0" class="resize_inputs">
+
+          <label for="width">Width: </label>
+          <input type="number" id="width" value="500" min="0" class="resize_inputs">
+
+          <label for="height">Height: </label>
+          <input type="number" id="height" value="120" min="0" class="resize_inputs">
+        </td>
+      </tr>
+      <tr id="media_file">
+        <td>Media File</td>
+        <td><input type="text" id="video_url" size = 30 
+           value="../media/IAB480-small.mp4">
         </td>
       </tr>
       <tr>
         <td>Interactive Creative File</td>
         <td><input type="text" id="creative_url" size = 30 
            value="../creatives/simid_overlay.html">
-        </td>
-      </tr>
-      <tr>
-        <td>Media File</td>
-        <td><input type="text" id="video_url" size = 30 
-           value="https://storage.googleapis.com/gvabox/media/red30s.mp4">>
         </td>
       </tr>
       <tr>
