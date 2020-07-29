@@ -100,7 +100,7 @@ class SimidPlayer {
     this.rejectInitializationPromise_ = null;
 
     /**
-     * An array of the resized nonlinear creative's dimensions.
+     * An object containing the resized nonlinear creative's dimensions.
      * @private {?Object}
      */
     this.resizeDimensions_ = null;
@@ -290,14 +290,13 @@ class SimidPlayer {
   getNonlinearDimensions_() {
     if(this.resizeDimensions_) {
       return this.resizeDimensions_;
-    } else {
-      let newDimensions = {};
-      newDimensions.x = document.getElementById('x_val').value;
-      newDimensions.y = document.getElementById('y_val').value;
-      newDimensions.width = document.getElementById('width').value;
-      newDimensions.height = document.getElementById('height').value;
-      return newDimensions;
-    }
+    } 
+    let newDimensions = {};
+    newDimensions.x = document.getElementById('x_val').value;
+    newDimensions.y = document.getElementById('y_val').value;
+    newDimensions.width = document.getElementById('width').value;
+    newDimensions.height = document.getElementById('height').value;
+    return newDimensions;  
   }
 
   /** 
