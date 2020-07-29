@@ -27,6 +27,7 @@ class SimidOverlay extends BaseSimidCreative {
     this.sendMessageOnButtonClick_('request_skip', CreativeMessage.REQUEST_SKIP);
     this.sendMessageOnButtonClick_('request_stop', CreativeMessage.REQUEST_STOP);
     this.sendMessageOnLog_();
+    this.sendChangeAdDuration_();
   }
 
   /**
@@ -56,5 +57,21 @@ class SimidOverlay extends BaseSimidCreative {
     }
     document.getElementById('log_button').addEventListener(
       'click', sendLogFunction.bind(this));
+  }
+
+  sendChangeAdDuration_() {
+    const sendAdDurationFunction = () => {
+      const durationInput = document.getElementById('change_duration_input').value;
+      const params = {
+        'duration': durationInput,
+      };
+      this.simidProtocol.sendMessage(CreativeMessage.REQUEST_CHANGE_AD_DURATION, params).then(() => {
+        this.extendDuration_ = true;
+      }).catch(() => {
+        console.log('Player does not support requested duration change.');
+      });
+    }
+    document.getElementById('change_duration_button').addEventListener(
+      'click', sendAdDurationFunction.bind(this));
   }
 }
