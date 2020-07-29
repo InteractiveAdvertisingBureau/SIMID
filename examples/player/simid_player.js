@@ -632,7 +632,7 @@ class SimidPlayer {
     this.requestedDuration_  = incomingMessage.args['duration'];
     //If requested duration is negative seconds, play entire ad
     if (this.requestedDuration_ < 0) {
-      this.sendLog("requested duration too short");
+      this.sendLog("requested duration too short: " + this.requestedDuration_ + " seconds");
       setTimeout(() => {
         this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
       }, this.adVideoElement_.duration * 1000);
