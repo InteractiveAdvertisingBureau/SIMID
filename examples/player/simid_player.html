@@ -21,7 +21,7 @@
       width: 640px;
       height: 480px;
     }
-    .resize_inputs {
+    .nonlinear_inputs {
       width: 50px;
     }
     .hidden {
@@ -37,14 +37,17 @@
       let linearButton = document.getElementById("linear_ad");
       let creativeDimensions = document.getElementById("creative_dimensions");
       let mediaFile = document.getElementById("media_file");
+      let creativeduration = document.getElementById("creative_duration");
       
       if (linearButton.checked) {
         creativeDimensions.classList.add("hidden");
         mediaFile.classList.remove("hidden");
+        creativeduration.classList.add("hidden");
      
       } else {
         creativeDimensions.classList.remove("hidden");
         mediaFile.classList.add("hidden");
+        creativeduration.classList.remove("hidden");
       }
     }
 
@@ -196,16 +199,21 @@
         <td>Creative Dimensions</td>
         <td>
           <label for="x_val">X: </label>
-          <input type="number" id="x_val" value="5" min="0" class="resize_inputs">
+          <input type="number" id="x_val" value="5" min="0" class="nonlinear_inputs">
 
           <label for="y_val">Y: </label>
-          <input type="number" id="y_val" value="5" min="0" class="resize_inputs">
+          <input type="number" id="y_val" value="5" min="0" class="nonlinear_inputs">
 
           <label for="width">Width: </label>
-          <input type="number" id="width" value="500" min="0" class="resize_inputs">
+          <input type="number" id="width" value="500" min="0" class="nonlinear_inputs">
 
           <label for="height">Height: </label>
-          <input type="number" id="height" value="120" min="0" class="resize_inputs">
+          <input type="number" id="height" value="120" min="0" class="nonlinear_inputs">
+        </td>
+      </tr>
+      <tr id="creative_duration" class="hidden">
+        <td>Ad Duration (seconds)</td>
+        <td><input type="number" id="duration" value="30" class="nonlinear_inputs">
         </td>
       </tr>
       <tr id="media_file">
