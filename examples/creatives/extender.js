@@ -20,11 +20,9 @@ class Extender extends BaseSimidCreative {
   /** @override */
   onGetMediaStateResolve(data) {
     super.onGetMediaStateResolve(data);
-    console.log(data);
     const mediaDuration = data['duration'];
-    console.log("media duration: " + mediaDuration);
     const params = {
-      'duration': mediaDuration + 5,
+      'duration': mediaDuration - 35,
     };
 
     if (params.duration < 0) {
