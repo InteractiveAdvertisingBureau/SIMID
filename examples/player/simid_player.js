@@ -481,7 +481,6 @@ class SimidPlayer {
 
   compareCurrentTimeAndRequestedDuration(requestedDuration) {
     const durationChangeMs = (requestedDuration) * 1000;
-    console.log("duration change: " + durationChangeMs);
 
     if (this.adVideoElement_.currentTime >= requestedDuration) {
       console.log("request duration shorter than ad duration");
@@ -623,21 +622,17 @@ class SimidPlayer {
 
   onRequestChangeAdDuration(incomingMessage) {
     this.requestedDuration_  = incomingMessage.args['duration'];
-    console.log("requested Duration is: " + this.requestedDuration_);
 
     if (this.requestedDuration_ < 0) {
-      console.log("requested duration too short");
-      console.log("video ad: " + this.adVideoElement_.duration);
-      // this.requestedDuration_ = this.adVideoElement_.duration
-      // this.simidProtocol.resolve(incomingMessage);
+      this.sendLog("requested duration too short");
+
       setTimeout(() => {
         this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
-      }, this.adVideoElement_.duration);
+      }, this.adVideoElement_.duration * 1000);
+      this.simidProtocol.resolve(incomingMessage);
     }
     
     else if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
-      console.log("No ad duration");
-      // this.simidProtocol.resolve(incomingMessage);
       this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
     }
     else {
