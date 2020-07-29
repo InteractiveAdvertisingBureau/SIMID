@@ -22,7 +22,7 @@ class Extender extends BaseSimidCreative {
     super.onGetMediaStateResolve(data);
     const mediaDuration = data['duration'];
     const params = {
-      'duration': mediaDuration - 35,
+      'duration': mediaDuration + 5,
     };
 
     // Ask the player if we can extend duration 5 seconds to show end cards.
