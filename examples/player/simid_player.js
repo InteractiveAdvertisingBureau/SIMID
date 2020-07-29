@@ -100,6 +100,18 @@ class SimidPlayer {
     this.rejectInitializationPromise_ = null;
 
     /**
+     * A boolean value that tracks whether or not the creative has been resized.
+     * @private {boolean}
+     */
+    this.isResized_ = false;
+
+    /**
+     * An array of the resized nonlinear creative's dimensions.
+     * @private {?Array<!Integer>}
+     */
+    this.resizeDimensions_ = null;
+
+    /**
      * A promise that resolves once the creative responds to initialization with resolve.
      * @private {!Promise}
      */
@@ -287,8 +299,11 @@ class SimidPlayer {
     newDimensions.y = document.getElementById('y_val').value;
     newDimensions.width = document.getElementById('width').value;
     newDimensions.height = document.getElementById('height').value;
-
-    return newDimensions;
+    if(this.isResized_) {
+      return this.resizeDimensions_;
+    } else {
+      return newDimensions;
+    }
   }
 
   /** 
@@ -396,7 +411,9 @@ class SimidPlayer {
       console.log(errorMessage.message);
     
     } else {
-      this.setSimidIframeDimensions_(incomingMessage.args.creativeDimensions)
+      this.isResized_ = true;
+      this.resizeDimensions_ = incomingMessage.args.creativeDimensions;
+      this.setSimidIframeDimensions_(incomingMessage.args.creativeDimensions);
       this.simidProtocol.resolve(incomingMessage);
     }
   }
