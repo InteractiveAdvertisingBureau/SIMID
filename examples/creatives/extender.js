@@ -24,7 +24,7 @@ class Extender extends BaseSimidCreative {
     const mediaDuration = data['duration'];
     console.log("media duration: " + mediaDuration);
     const params = {
-      'duration': mediaDuration - 31,
+      'duration': mediaDuration + 5,
     };
 
     if (params.duration < 0) {

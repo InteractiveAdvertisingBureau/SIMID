@@ -468,26 +468,30 @@ class SimidPlayer {
   }
 
   /**
-   * Called when creative requests a change in duration of ad.
-   * @param {int} requestedDuration The duration change request made
-   *   by the creative.
+   * Compares the requested change duration with the current ad time
+   *  to determine when to stop the ad, every 250 milliseconds.
    * @private
    */
-  changeAdEndTime(requestedDuration) {
+  changeAdEndTime() {
     this.interval_ = setInterval(() => {
-        this.compareCurrentTimeAndRequestedDuration(requestedDuration); 
+        this.compareAdAndRequestedDurations(); 
     }, 250);
   }
 
-  compareCurrentTimeAndRequestedDuration(requestedDuration) {
-    const durationChangeMs = (requestedDuration) * 1000;
+  /**
+   * Compares the duration of the ad with the requested change duration.
+   * If request duration is shorter, the ad stops early. 
+   * If the request duration is longer, the ad extends for the requested
+   *  amount of time.
+   * @private
+   */
+  compareAdAndRequestedDurations() {
+    const durationChangeMs = this.requestedDuration_ * 1000;
 
-    if (this.adVideoElement_.currentTime >= requestedDuration) {
-      console.log("request duration shorter than ad duration");
+    if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
         this.stopAd(StopCode.CREATIVE_INITATED);
         clearInterval(this.interval_);
-    } else if (requestedDuration >= this.adVideoElement_.duration) {
-      console.log("request duration longer than ad duration");
+    } else if (this.requestedDuration_ >= this.adVideoElement_.duration) {
       setTimeout(() => {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, durationChangeMs);
@@ -620,22 +624,25 @@ class SimidPlayer {
     console.log('The creative has asked for the player to ping ' + requestedUrlArray);
   }
 
+  /**
+   * Called when creative requests a change in duration of ad.
+   * @private
+   */
   onRequestChangeAdDuration(incomingMessage) {
     this.requestedDuration_  = incomingMessage.args['duration'];
-
+    //If requested duration is negative seconds, play entire ad
     if (this.requestedDuration_ < 0) {
       this.sendLog("requested duration too short");
-
       setTimeout(() => {
         this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
       }, this.adVideoElement_.duration * 1000);
-    }
-    
+    } //If requested duration is 0 seconds, stop ad immediately  
     else if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
       this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
-    }
+    } /*If requested duration is positive amount of seconds, call
+      changeAdEndTime()*/
     else {
-      this.changeAdEndTime(this.requestedDuration_ );
+      this.changeAdEndTime();
       this.simidProtocol.resolve(incomingMessage);
     }
   }
