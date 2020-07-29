@@ -107,7 +107,7 @@ class SimidPlayer {
 
     /**
      * An array of the resized nonlinear creative's dimensions.
-     * @private {?Array<!Integer>}
+     * @private {?Object}
      */
     this.resizeDimensions_ = null;
 
