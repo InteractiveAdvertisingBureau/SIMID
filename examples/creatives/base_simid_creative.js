@@ -139,6 +139,11 @@ class BaseSimidCreative {
     this.simidProtocol.resolve(eventData, {});
   }
 
+  /**
+   * Called when the creative receives a resize message from the player.
+   * @param {!Object} eventData Data from the event.
+   * @protected
+   */
   onReceiveResize(eventData) {
     this.environmentData.creativeDimensions = eventData.args.creativeDimensions;
     this.environmentData.videoDimensions = eventData.args.videoDimensions;
