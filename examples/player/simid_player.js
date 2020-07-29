@@ -1,5 +1,6 @@
 const NO_REQUESTED_DURATION = 0;
 const UNLIMITED_DURATION = -2;
+const INTERVAL_TIMER = 250;
 
 /** DISABLED and ENABLED constants are used to control the state of buttons. */
 const DISABLED = true;
@@ -430,7 +431,7 @@ class SimidPlayer {
     this.videoTrackingEvents_.set("durationchange", () => {
       this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
     });
-    // this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
+    this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
     this.videoTrackingEvents_.set("error", () => {
       this.simidProtocol.sendMessage(MediaMessage.ERROR,
         {
@@ -465,39 +466,6 @@ class SimidPlayer {
     for(let [key, func] of this.videoTrackingEvents_) {
       this.adVideoElement_.addEventListener(key, func, true);
     }
-  }
-
-  /**
-   * Compares the requested change duration with the current ad time
-   *  to determine when to stop the ad, every 250 milliseconds.
-   * @private
-   */
-  changeAdEndTime() {
-    this.interval_ = setInterval(() => {
-        this.compareAdAndRequestedDurations(); 
-    }, 250);
-  }
-
-  /**
-   * Compares the duration of the ad with the requested change duration.
-   * If request duration is shorter, the ad stops early. 
-   * If the request duration is longer, the ad extends for the requested
-   *  amount of time.
-   * @private
-   */
-  compareAdAndRequestedDurations() {
-    const durationChangeMs = this.requestedDuration_ * 1000;
-
-    if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
-        this.stopAd(StopCode.CREATIVE_INITATED);
-        clearInterval(this.interval_);
-    } else if (this.requestedDuration_ >= this.adVideoElement_.duration) {
-      setTimeout(() => {
-        this.stopAd(StopCode.CREATIVE_INITIATED);
-      }, durationChangeMs);
-      clearInterval(this.interval_);
-    }
-    this.simidProtocol.sendMessage(MediaMessage.ENDED);
   }
 
   /**
@@ -625,6 +593,18 @@ class SimidPlayer {
   }
 
   /**
+   * Called when video playback is complete.
+   * @private
+   */
+  videoComplete() {
+    this.simidProtocol.sendMessage(MediaMessage.ENDED);
+
+    if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
+      this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
+    }
+  }
+
+  /**
    * Called when creative requests a change in duration of ad.
    * @private
    */
@@ -637,12 +617,43 @@ class SimidPlayer {
         this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
         this.simidProtocol.reject(incomingMessage);
       }, this.adVideoElement_.duration * 1000);
-    }/*If requested duration is positive amount of seconds, call
-      changeAdEndTime()*/
+    }//If requested duration is positive amount of seconds, call changeAdEndTime()
     else {
       this.changeAdEndTime();
       this.simidProtocol.resolve(incomingMessage);
     }
+  }
+
+  /**
+   * Compares the requested change duration with the current ad time
+   *  to determine when to stop the ad, every 250 milliseconds.
+   * @private
+   */
+  changeAdEndTime() {
+    this.interval_ = setInterval(() => {
+        this.compareAdAndRequestedDurations(); 
+    }, INTERVAL_TIMER);
+  }
+
+  /**
+   * Compares the duration of the ad with the requested change duration.
+   * If request duration is shorter, the ad stops early. 
+   * If the request duration is longer, the ad extends for the requested
+   *  amount of time.
+   * @private
+   */
+  compareAdAndRequestedDurations() {
+    if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
+        this.stopAd(StopCode.CREATIVE_INITATED);
+        clearInterval(this.interval_);
+    } else if (this.requestedDuration_ >= this.adVideoElement_.duration) {
+      const durationChangeMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
+      setTimeout(() => {
+        this.stopAd(StopCode.CREATIVE_INITIATED);
+      }, durationChangeMs);
+      clearInterval(this.interval_);
+    }
+    this.simidProtocol.sendMessage(MediaMessage.ENDED);
   }
 
   onGetMediaState(incomingMessage) {
