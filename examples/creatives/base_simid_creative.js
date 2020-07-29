@@ -248,7 +248,8 @@ class BaseSimidCreative {
     console.log("Received message from player: " + logMessage);
   }
 
-  /**Sends message requesting a to resize creative based off of given resizeParameters
+  /**
+   * Sends message requesting to resize creative based off of given resizeParameters
    * @param {!Object} resizeParams An object with the video & creative dimensions.
    */
   requestResize(resizeParams) {

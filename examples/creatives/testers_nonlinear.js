@@ -44,6 +44,6 @@ class TestersNonLinear extends BaseSimidCreative {
       creativeDimensions: creativeDimensions
     };
 
-    super.requestResize(resizeParams);
+    this.requestResize(resizeParams);
   }
 }
