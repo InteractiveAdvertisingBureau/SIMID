@@ -244,7 +244,7 @@ class BaseSimidCreative {
   }
 
   /**Sends message requesting a to resize creative based off of given resizeParameters
-   * @param {!Object} resizeParams
+   * @param {!Object} resizeParams an object with the video & creative dimensions.
    */
   requestResize(resizeParams) {
     this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, resizeParams).then( () => {
