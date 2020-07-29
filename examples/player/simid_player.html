@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 <head>
   <title> A very simple SIMID player</title>
   <script src="../simid_protocol.js"></script>
@@ -190,10 +190,128 @@
       <video id="ad_video_player" class="overlayed" style="display:none;" src="">
     </div>
     <!-- SIMID creative will be here. -->
-  </div>
+  <!-- </div>
 
 <script>
 </script>
 <body>
 
+</html> -->
+<html>
+	<body>
+    <div id="content_box">
+    </div>
+		<script>
+
+      class DrawingTool {
+        constructor() {
+          this.previousX_ = 0;
+          this.previousY_ = 0;
+          this.function_ = (event) => this.onMouseMove_(event);
+        }
+        
+        setupCanvasAndListeners() {
+          let canvas = document.createElement('canvas');
+          canvas.id = "drawing_area";
+          canvas.style.cursor = 'crosshair';
+          canvas.style.borderStyle = 'solid';
+
+          let context = canvas.getContext('2d');
+          context.strokeStyle = 'rgb(0,0,0)';
+          context.lineWidth = 2;
+          
+          let contentBox = document.getElementById("content_box");
+          contentBox.appendChild(canvas);
+
+          canvas.addEventListener('mousedown', (event) => this.onMouseDown_(event));
+          canvas.addEventListener('mouseup', (event) => this.onMouseUp_(event));
+        }
+
+        onMouseDown_(event) {
+          this.previousX_ = event.clientX;
+          this.previousY_ = event.clientY;
+
+          let canvas = document.getElementById('drawing_area');
+          canvas.addEventListener('mousemove', this.function_);
+        }
+
+        onMouseUp_(event) {
+          let canvas = document.getElementById('drawing_area');
+          canvas.removeEventListener('mousemove', this.function_);
+        }
+
+        onMouseMove_(event) {
+          let canvas = document.getElementById('drawing_area');
+          let context = canvas.getContext('2d');
+
+          // const canvasRect = canvas.getBoundingClientRect();
+          // const newX = event.
+
+          
+          context.beginPath();
+          context.moveTo(this.previousX_, this.previousY_);
+          context.lineTo(event.clientX, event.clientY);
+          context.stroke();
+
+          this.previousX_ = event.clientX;
+          this.previousY_ = event.clientY;
+
+        }
+      }
+
+      let drawingTool = new DrawingTool();
+      drawingTool.setupCanvasAndListeners();
+
+      
+// 			var canvas, context, mouse = { x: 0, y: 0 };
+
+// init();
+
+// function init() {
+
+//   canvas = document.createElement( 'canvas' );
+//   canvas.width = window.innerWidth;
+//   canvas.height = window.innerHeight;
+//   canvas.style.cursor = 'crosshair';
+
+//   context = canvas.getContext( '2d' );
+//   context.strokeStyle = 'rgb(0,0,0)';
+//   context.lineWidth = 0.5;
+
+//   document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+//   document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+
+//   document.body.appendChild( canvas );
+
+// }
+
+// function onDocumentMouseDown( event ) {
+
+//   mouse.x = event.clientX;
+//   mouse.y = event.clientY;
+
+//   document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+// }
+
+// function onDocumentMouseUp( event ) {
+
+//   document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
+
+// }
+
+// function onDocumentMouseMove( event ) {
+
+//   context.beginPath();
+//   context.moveTo( mouse.x, mouse.y );
+//   context.lineTo( event.clientX, event.clientY );
+//   context.stroke();
+
+//   mouse.x = event.clientX;
+//   mouse.y = event.clientY;
+
+// }
+
+		</script>
+	</body>
 </html>
