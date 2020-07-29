@@ -629,7 +629,6 @@ class SimidPlayer {
       setTimeout(() => {
         this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
       }, this.adVideoElement_.duration * 1000);
-      this.simidProtocol.resolve(incomingMessage);
     }
     
     else if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
