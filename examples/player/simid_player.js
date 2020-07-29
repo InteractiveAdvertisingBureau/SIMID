@@ -148,7 +148,6 @@ class SimidPlayer {
     // is already created this will send the init message immediately.
     this.sessionCreatedPromise_.then(() => {
       this.sendInitMessage_();
-      debugger;
     });
 
   }
