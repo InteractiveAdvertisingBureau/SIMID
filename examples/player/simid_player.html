@@ -90,6 +90,22 @@
       simidPlayer.setCreativeControlsState_(DISABLED);
     }
 
+    function pauseAd() {
+      if (!simidPlayer) {
+        return;
+      }
+      simidPlayer.pauseAd();
+      simidPlayer.sendLog("User clicked pause ad button on player");
+    }
+ 
+    function playAdVideo() {
+      if (!simidPlayer) {
+        return;
+      }
+      simidPlayer.playAdVideo();
+      simidPlayer.sendLog("User clicked play ad button on player");
+    }
+
     function switchCreative(value) {
       document.getElementById('creative_url').value = '../creatives/' + value;
       // populate ad parameters with some hard coded values
@@ -160,6 +176,8 @@
     <button class="ad_request" onclick="closeAd()" disabled> Close the ad </button> 
     <button class="ad_request" onclick="skipAd()" disabled> Skip ad </button>
     <button class="ad_request" onclick="fatalError()" disabled> Fatal Error </button>
+    <button class="ad_request" onclick="pauseAd()" disabled> Pause ad</button>
+    <button class="ad_request" onclick="playAdVideo()" disabled> Play ad</button>
   </div>
 
   <div id="player_div" style="position:absolute;">

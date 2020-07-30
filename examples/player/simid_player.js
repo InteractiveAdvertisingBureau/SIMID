@@ -158,6 +158,11 @@ class SimidPlayer {
     });
   }
 
+  /** Plays the video ad element. */
+  playAdVideo() {
+    this.adVideoElement_.play();
+  } 
+
   /**
    * Sets up an iframe for holding the simid element.
    *
@@ -566,7 +571,12 @@ class SimidPlayer {
     this.adVideoElement_.pause();
     this.simidProtocol.resolve(incomingMessage);
   }
-  
+
+  /** Pauses the video ad element.*/
+  pauseAd() {
+    this.adVideoElement_.pause();
+  }
+
   /** The creative wants to stop with a fatal error. */
   onCreativeFatalError(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
