@@ -306,6 +306,12 @@ class SimidPlayer {
       this.simidIframe_.style.position = "absolute";
 
       this.contentVideoElement_.play();
+
+      const nonlinearDuration = document.getElementById('duration').value * 1000;
+        setTimeout(() => {
+          // The nonlinear ad should only be displayed for the requested duration time.
+          this.stopAd(StopCode.PLAYER_INITATED);
+        }, nonlinearDuration);
     }
   }
 
@@ -430,6 +436,7 @@ class SimidPlayer {
 
     const creativeData = {
       'adParameters' : document.getElementById('ad_params').value,
+      'duration' : document.getElementById('duration').value,
       // These values should be populated from the VAST response.
       'adId' : '',
       'creativeId' : '',
