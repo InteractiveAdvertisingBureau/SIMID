@@ -431,7 +431,10 @@ class SimidPlayer {
     this.videoTrackingEvents_.set("durationchange", () => {
       this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
     });
-    this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
+    // this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
+    this.videoTrackingEvents_.set("ended", () => {
+      this.simidProtocol.sendMessage(MediaMessage.ENDED);
+    });
     this.videoTrackingEvents_.set("error", () => {
       this.simidProtocol.sendMessage(MediaMessage.ERROR,
         {
@@ -597,6 +600,7 @@ class SimidPlayer {
    * @private
    */
   videoComplete() {
+    console.log("ended");
     this.simidProtocol.sendMessage(MediaMessage.ENDED);
 
     if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
@@ -652,16 +656,19 @@ class SimidPlayer {
     console.log("current ad time" + this.adVideoElement_.currentTime);
 
     if (this.adVideoElement_.ended) {
+      //If the video ad has ended already
       console.log("video ad ended");
       setTimeout(() => {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, durationChangeMs);
       clearInterval(this.interval_);
+      return;
     } else if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
       console.log("requested duration shorter");
       //Creative requested a duration shorter than the ad
       this.stopAd(StopCode.CREATIVE_INITATED);
       clearInterval(this.interval_);
+      return;
     } else if (this.requestedDuration_ >= this.adVideoElement_.duration) {
       console.log("requested duration longer");
       console.log("duration change: " + durationChangeMs);
@@ -673,6 +680,7 @@ class SimidPlayer {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, newAdDuration);
       clearInterval(this.interval_);
+      return;
     }
   }
 
