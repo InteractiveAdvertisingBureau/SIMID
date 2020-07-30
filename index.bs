@@ -1646,6 +1646,8 @@ dictionary MessageArgs {
   <dd>The address of the landing page.
 </dl>
 
+  <img src="images/dgrm-creative-requestNavigation.png" alt="SIMID Request Navigation.">
+
 1. The user interacts with navigation control.
 1. The creative posts [[#simid-creative-requestNavigation]].
 1. The player receives [[#simid-creative-requestNavigation]] message.
@@ -1655,6 +1657,13 @@ dictionary MessageArgs {
   * The player pauses the media (if feasible).
   * The player opens the landing page.  
 
+#### resolve #### {#simid-creative-requestNavigation-resolve}
+
+The player posts resolve before it opens the window to assure the creative receives the message prior to app backgrounding. 
+
+#### reject #### {#simid-creative-requestNavigation-reject}
+
+The player did not navigate to a new window.
 
 ### SIMID:Creative:requestPause ### {#simid-creative-requestPause}
 The creative requests the player to pause media playback by posting a `SIMID:Creative:requestPause` message.
