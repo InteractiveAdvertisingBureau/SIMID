@@ -723,6 +723,16 @@ SIMID API is a set of messages and data structures that ad-rendering parties exc
       <td>n/a</td>
     </tr>
     <tr>
+      <td>[[#simid-creative-collapseNonlinear]]</td>
+      <td>[[#simid-creative-collapseNonlinear-resolve]]</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>[[#simid-creative-expandNonlinear]]</td>
+      <td>[[#simid-creative-expandNonlinear-resolve]]</td>
+      <td>[[#simid-creative-expandNonlinear-reject]]</td>
+    </tr>
+    <tr>
       <td>[[#simid-creative-fatalError]]</td>
       <td>n/a</td>
       <td>n/a</td>
@@ -1427,6 +1437,39 @@ dictionary MessageArgs {
 	
 </dl>
 
+### SIMID:Creative:collapseNonlinear ### {#simid-creative-collapseNonlinear}
+When the creative is ready to collapse, it posts a Creative:collapseNonlinear message. In response to collapseNonlinear, the player resizes the ad to its original state and resumes the media content.
+
+  <img src="images/collapse-non-linear-workflow.png" alt="Normal Creative Initilaizatioin Sequence" style="margin-left: -10px;"/>
+
+#### resolve #### {#simid-creative-collapseNonlinear-resolve}
+When the player resizes the ad, it posts a resolve message.
+
+### SIMID:Creative:expandNonlinear ### {#simid-creative-expandNonlinear}
+
+The creative posts Creative:expandNonlinear when a user indicates they want to see the expanded ad portion (by clicking expand control/button that default banner provides). 
+
+Auto-expand is strongly discouraged and goes against industry guidelines. Under normal circumstances, the player pauses the media content and resizes the creative iframe to the dimensions of the media content and places the expanded creative at video zero coordinates.
+
+If the player communicates to the creative that it has no capacity to expand the ad (with Player:init message), the creative does not provide an expand button or post an expandNonlinear message.
+
+  <img src="images/expand-non-linear-workflow.png" alt="Normal Creative Initilaizatioin Sequence" style="margin-left: -10px;"/>
+
+Flow:
+1. User requests ad expand.
+1. The creative posts expandNonlinear.
+1. The player pauses content media.
+1. The player resizes the creative iframe.
+1. The player posts resolve response.
+
+#### resolve #### {#simid-creative-expandNonlinear-resolve}
+Once the player resizes the ad, it posts a resolve message. The player provides the expanded size dimensions and position with the resolve message.args
+
+Message.arg:
+Dimensions {x ,y, width, height}
+
+#### reject #### {#simid-creative-expandNonlinear-reject}
+If the player declines the expansion request, it posts a reject message.
 
 ### SIMID:Creative:fatalError ### {#simid-creative-fatalError}
 The creative posts `SIMID:Creative:fatalError` in cases when its internal exceptions prevent the interactive component from further execution. In response to the `Creative:fatalError` message, the player unloads the SIMID iframe and reports VAST error tracker with the `errorCode` specified by the creative. The ad media playback must stop, if possible.
