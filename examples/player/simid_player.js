@@ -101,6 +101,13 @@ class SimidPlayer {
     this.rejectInitializationPromise_ = null;
 
     /**
+     * The unique ID for the interval used to compares the requested change 
+     *  duration and the current ad time.
+     * @private {number}
+     */
+    this.durationInterval_ = null;
+
+    /**
      * A promise that resolves once the creative responds to initialization with resolve.
      * @private {!Promise}
      */
@@ -644,7 +651,7 @@ class SimidPlayer {
    * @private
    */
   changeAdEndTime() {
-    this.interval_ = setInterval(() => {
+    this.durationInterval_ = setInterval(() => {
         this.compareAdAndRequestedDurations(); 
     }, INTERVAL_TIMER);
   }
@@ -664,12 +671,12 @@ class SimidPlayer {
       setTimeout(() => {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, durationChangeMs);
-      clearInterval(this.interval_);
+      clearInterval(this.durationInterval_);
       return;
     } else if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
       //Creative requested a duration shorter than the ad
       this.stopAd(StopCode.CREATIVE_INITATED);
-      clearInterval(this.interval_);
+      clearInterval(this.durationInterval_);
       return;
     }
   } 
