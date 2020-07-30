@@ -616,6 +616,14 @@ class SimidPlayer {
   videoComplete() {
     this.simidProtocol.sendMessage(MediaMessage.ENDED);
 
+    //If the request duration is longer than the ad duration, the ad extends for the requested amount of time
+    if (this.requestedDuration_ != UNLIMITED_DURATION) {
+      const durationChangeMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
+      setTimeout(() => {
+        this.stopAd(StopCode.CREATIVE_INITIATED);
+      }, durationChangeMs);
+    }
+
     if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
       this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
     }
@@ -659,21 +667,10 @@ class SimidPlayer {
   /**
    * Compares the duration of the ad with the requested change duration.
    * If request duration is shorter, the ad stops early. 
-   * If the request duration is longer, the ad extends for the requested
-   *  amount of time.
    * @private
    */
   compareAdAndRequestedDurations() {
-    const durationChangeMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
-
-    if (this.adVideoElement_.ended) {
-      //If the video ad has ended already close the creative at the requested duration
-      setTimeout(() => {
-        this.stopAd(StopCode.CREATIVE_INITIATED);
-      }, durationChangeMs);
-      clearInterval(this.durationInterval_);
-      return;
-    } else if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
+    if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
       //Creative requested a duration shorter than the ad
       this.stopAd(StopCode.CREATIVE_INITATED);
       clearInterval(this.durationInterval_);
