@@ -65,9 +65,7 @@ class SimidOverlay extends BaseSimidCreative {
       const params = {
         'duration': durationInput,
       };
-      this.simidProtocol.sendMessage(CreativeMessage.REQUEST_CHANGE_AD_DURATION, params).then(() => {
-        this.extendDuration_ = true;
-      }).catch(() => {
+      this.simidProtocol.sendMessage(CreativeMessage.REQUEST_CHANGE_AD_DURATION, params).catch(() => {
         console.log('Player does not support requested duration change.');
       });
     }
