@@ -572,7 +572,7 @@ class SimidPlayer {
     this.simidProtocol.resolve(incomingMessage);
   }
 
-  /** Pauses the video ad element.*/
+  /** Pauses the video ad element. */
   pauseAd() {
     this.adVideoElement_.pause();
   }
@@ -622,15 +622,17 @@ class SimidPlayer {
    * @private
    */
   onRequestChangeAdDuration(incomingMessage) {
+    const originalDuration = this.requestedDuration_;
     this.requestedDuration_  = incomingMessage.args['duration'];
     if (this.requestedDuration_ != UNLIMITED_DURATION && this.requestedDuration_< 0) {
       const durationErrorMessage = {
         errorCode: PlayerErrorCode.UNSUPPORTED_TIME,
         message: 'A negative duration is not valid.'
       }
+      this.requestedDuration_ = originalDuration;
       this.simidProtocol.reject(incomingMessage, durationErrorMessage);
     } else if (this.requestedDuration_ == UNLIMITED_DURATION) {
-      //Note: User can x out of the ad using the close ad button on the player
+      //Note: Users can end the ad using the close ad button on the player
       return;
     } else {
       //If requested duration is any other acceptable value
