@@ -14,7 +14,7 @@ Markup Shorthands: markdown yes, idl yes, dfn yes, markup yes
 </pre>
 
 # Version # {#version-number}
-1.0.1
+1.1.0
 
 <style>
 
