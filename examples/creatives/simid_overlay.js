@@ -27,7 +27,7 @@ class SimidOverlay extends BaseSimidCreative {
     this.sendMessageOnButtonClick_('request_skip', CreativeMessage.REQUEST_SKIP);
     this.sendMessageOnButtonClick_('request_stop', CreativeMessage.REQUEST_STOP);
     this.sendMessageOnLog_();
-    this.sendChangeAdDuration_();
+    this.sendMessageOnChangeDurationClick_();
   }
 
   /**
@@ -59,7 +59,7 @@ class SimidOverlay extends BaseSimidCreative {
       'click', sendLogFunction.bind(this));
   }
 
-  sendChangeAdDuration_() {
+  sendMessageOnChangeDurationClick_() {
     const sendAdDurationFunction = () => {
       const durationInput = document.getElementById('change_duration_input').value;
       const params = {
