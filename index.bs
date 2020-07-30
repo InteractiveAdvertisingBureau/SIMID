@@ -1684,6 +1684,42 @@ The player responds to `requestExitFullscreen` message with a `reject` when it d
 		<li>Already in the normal-screen mode.</li>
 	</ul>
 
+### SIMID:Creative:requestNavigation ### {#simid-creative-requestNavigation}
+
+In environments like mobile apps, the player manages redirections of the user to external landing pages. In response to [[#simid-creative-requestNavigation]], the player opens a browser window with the location the creative provides with the message.args.uri parameter.
+
+In web environments, the creative manages navigation.
+
+The creative sends [[#simid-creative-requestNavigation]] in response to the user’s interaction. The creative does not request navigation without user interaction.
+
+<xmp class="idl">
+dictionary MessageArgs {
+  required string uri;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+  <dt><dfn>uri</dfn>
+  <dd>The address of the landing page.
+</dl>
+
+  <img src="images/dgrm-creative-requestNavigation.png" alt="SIMID Request Navigation.">
+
+1. The user interacts with navigation control.
+1. The creative posts [[#simid-creative-requestNavigation]].
+1. The player receives [[#simid-creative-requestNavigation]] message.
+1. If the player cannot redirect the user - it responds with reject.
+1. If the player can redirect the user:
+  * The player responds with resolve.
+  * The player pauses the media (if feasible).
+  * The player opens the landing page.  
+
+#### resolve #### {#simid-creative-requestNavigation-resolve}
+
+The player posts resolve before it opens the window to assure the creative receives the message prior to app backgrounding. 
+
+#### reject #### {#simid-creative-requestNavigation-reject}
+
+The player did not navigate to a new window.
 
 ### SIMID:Creative:requestPause ### {#simid-creative-requestPause}
 The creative requests the player to pause media playback by posting a `SIMID:Creative:requestPause` message.
