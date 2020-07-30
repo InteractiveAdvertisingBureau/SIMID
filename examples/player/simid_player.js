@@ -308,10 +308,10 @@ class SimidPlayer {
       this.contentVideoElement_.play();
 
       const nonlinearDuration = document.getElementById('duration').value * 1000;
-        setTimeout(() => {
-          // The nonlinear ad should only be displayed for the requested duration time.
-          this.stopAd(StopCode.PLAYER_INITATED);
-        }, nonlinearDuration);
+      setTimeout(() => {
+        // The nonlinear ad should only be displayed for the requested duration time.
+        this.stopAd(StopCode.PLAYER_INITATED);
+      }, nonlinearDuration);
     }
   }
 
