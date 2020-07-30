@@ -663,7 +663,7 @@ class SimidPlayer {
     const durationChangeMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
 
     if (this.adVideoElement_.ended) {
-      //If the video ad has ended already
+      //If the video ad has ended already close the creative at the requested duration
       setTimeout(() => {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, durationChangeMs);
@@ -674,16 +674,8 @@ class SimidPlayer {
       this.stopAd(StopCode.CREATIVE_INITATED);
       clearInterval(this.interval_);
       return;
-    } else if (this.requestedDuration_ >= this.adVideoElement_.duration) {
-      //Creative requested a longer duration
-      const newAdDuration = (this.adVideoElement_.duration * 1000) + durationChangeMs;
-      setTimeout(() => {
-        this.stopAd(StopCode.CREATIVE_INITIATED);
-      }, newAdDuration);
-      clearInterval(this.interval_);
-      return;
     }
-  }
+  } 
 
   onGetMediaState(incomingMessage) {
     const mediaState = {
