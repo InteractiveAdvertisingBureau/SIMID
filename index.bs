@@ -591,6 +591,19 @@ SIMID should not be set up to measure viewability.
 Any use of the SIMID spec to support something other than interactive or
 dynamic content within the ad unit is counter to the intentions of this spec.
 
+## Introduction to Nonlinear ## {#nonlinear-intro}
+
+  <img src="images/non-linear-intro.png" alt="Examples of how nonlinear video ads look" style="margin-left: -10px;"/><br>
+
+Non-linear ads are units that media (video or audio) players serve concurrently with the primary media content. In video players, nonlinear ads overlay a portion of the video.
+
+Non-linear ads implement two states: collapsed and expanded. The player renders the ad in the collapsed (original) state while media content progresses uninterrupted. The expanded ad state typically occupies the entire player viewport and requires the media content to be paused. Users are able to toggle the state of the ad.
+
+Unlike the linear ads, there is no media asset that the player needs to render with a non-linear ad. 
+
+SIMID supports non-linear ads by providing a non-linear specific API. Both linear and non-linear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe. 
+
+
 # API Reference # {#api}
 
 SIMID API is a set of messages and data structures that ad-rendering parties exchange via [[#msg-proto]].
