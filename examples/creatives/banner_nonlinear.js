@@ -27,18 +27,28 @@ class BannerNonLinear extends BaseSimidCreative{
     }
 
     dynamicResize() {
-        const newX = this.environmentData.videoDimensions.width * .2;
-        const newY = this.environmentData.videoDimensions.height * .8;
-        const newWidth = this.environmentData.videoDimensions.width *.75;
+        const newX = this.environmentData.videoDimensions.width * .15;
+        const newY = this.environmentData.videoDimensions.height * .7;
+        const newWidth = this.environmentData.videoDimensions.width *.7;
         const newHeight = this.environmentData.videoDimensions.height * .2;
 
-        const dynamic_params = {
+        const creativeDimensions = {
             'x': newX,
             'y': newY,
             'width': newWidth,
             'height': newHeight,
         };
+        const videoDimensions = this.environmentData.videoDimensions;
+        const params = {
+            videoDimensions: videoDimensions,
+            creativeDimensions: creativeDimensions
+        };
     
-        this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, dynamic_params);
+        this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, params);
+    }
+
+    onInit(eventData) {
+        super.onInit(eventData);
+        this.dynamicResize();
     }
 }
