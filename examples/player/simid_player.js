@@ -600,7 +600,6 @@ class SimidPlayer {
    * @private
    */
   videoComplete() {
-    console.log("ended");
     this.simidProtocol.sendMessage(MediaMessage.ENDED);
 
     if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
@@ -621,7 +620,6 @@ class SimidPlayer {
       }
       this.simidProtocol.reject(incomingMessage, durationErrorMessage);
     } else if (this.requestedDuration_ == UNLIMITED_DURATION) {
-      console.log("unlimited requested");
       //Note: User can x out of the ad using the close ad button on the player
       return;
     } else {
@@ -651,31 +649,22 @@ class SimidPlayer {
    */
   compareAdAndRequestedDurations() {
     const durationChangeMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
-    console.log("video ad duration: " + this.adVideoElement_.duration);
-    console.log("requested duration: " + this.requestedDuration_);
-    console.log("current ad time" + this.adVideoElement_.currentTime);
 
     if (this.adVideoElement_.ended) {
       //If the video ad has ended already
-      console.log("video ad ended");
       setTimeout(() => {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, durationChangeMs);
       clearInterval(this.interval_);
       return;
     } else if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
-      console.log("requested duration shorter");
       //Creative requested a duration shorter than the ad
       this.stopAd(StopCode.CREATIVE_INITATED);
       clearInterval(this.interval_);
       return;
     } else if (this.requestedDuration_ >= this.adVideoElement_.duration) {
-      console.log("requested duration longer");
-      console.log("duration change: " + durationChangeMs);
-      console.log("video duration: " + this.adVideoElement_.duration);
       //Creative requested a longer duration
       const newAdDuration = (this.adVideoElement_.duration * 1000) + durationChangeMs;
-      console.log("extra duration : " + newAdDuration);
       setTimeout(() => {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, newAdDuration);
