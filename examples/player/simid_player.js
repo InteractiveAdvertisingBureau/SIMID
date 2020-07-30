@@ -436,10 +436,7 @@ class SimidPlayer {
     this.videoTrackingEvents_.set("durationchange", () => {
       this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
     });
-    // this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
-    this.videoTrackingEvents_.set("ended", () => {
-      this.simidProtocol.sendMessage(MediaMessage.ENDED);
-    });
+    this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
     this.videoTrackingEvents_.set("error", () => {
       this.simidProtocol.sendMessage(MediaMessage.ERROR,
         {
