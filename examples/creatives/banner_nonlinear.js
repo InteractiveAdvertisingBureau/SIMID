@@ -25,12 +25,14 @@ class BannerNonLinear extends BaseSimidCreative{
         document.getElementById(elementName).addEventListener(
             'click', sendMessageFunction.bind(this));
     }
-
+    /**
+     * Repositions the banner ad according to the dimensions of the video player
+     */
     dynamicResize() {
         const newX = this.environmentData.videoDimensions.width * .15;
         const newY = this.environmentData.videoDimensions.height * .7;
         const newWidth = this.environmentData.videoDimensions.width *.7;
-        const newHeight = this.environmentData.videoDimensions.height * .2;
+        const newHeight = this.environmentData.videoDimensions.height * .15;
 
         const creativeDimensions = {
             'x': newX,
