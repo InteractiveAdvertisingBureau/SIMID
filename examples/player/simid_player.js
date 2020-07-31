@@ -1,6 +1,5 @@
 const NO_REQUESTED_DURATION = 0;
 const UNLIMITED_DURATION = -2;
-const INTERVAL_TIMER = 250;
 
 /** DISABLED and ENABLED constants are used to control the state of buttons. */
 const DISABLED = true;
