@@ -27,8 +27,10 @@ class BannerNonLinear extends BaseSimidCreative{
     }
     /**
      * Repositions the banner ad according to the dimensions of the video player
+     * by calculating desired dimensions and sending a resize request to creative.
+     * @private
      */
-    dynamicResize() {
+    dynamicResize_() {
         const newX = this.environmentData.videoDimensions.width * .15;
         const newY = this.environmentData.videoDimensions.height * .7;
         const newWidth = this.environmentData.videoDimensions.width *.7;
@@ -49,8 +51,13 @@ class BannerNonLinear extends BaseSimidCreative{
         this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, params);
     }
 
+    /**
+     * Receives init message from the player.
+     * @param {!Object} eventData Data from the event.
+     * @protected
+     */
     onInit(eventData) {
         super.onInit(eventData);
-        this.dynamicResize();
+        this.dynamicResize_();
     }
 }
