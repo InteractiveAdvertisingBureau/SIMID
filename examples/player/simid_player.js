@@ -66,6 +66,12 @@ class SimidPlayer {
      * @const @private {boolean}
      */
     this.isLinearAd_ = isLinearAd;
+    
+    /**
+     * A number indicating when the non linear ad started.
+     * @private {?number}
+     */
+    this.nonLinearStartTime_ = null;
 
     /**
      * The duration requested by the ad.
@@ -109,7 +115,8 @@ class SimidPlayer {
     });
 
 
-    this.trackEventsOnVideoElement_();
+    this.trackEventsOnAdVideoElement_();
+    this.trackEventsOnContentVideoElement_();
     this.hideAdPlayer_();
   }
 
@@ -307,11 +314,8 @@ class SimidPlayer {
 
       this.contentVideoElement_.play();
 
-      const nonLinearDuration = document.getElementById('duration').value * 1000;
-      setTimeout(() => {
-        // The nonlinear ad should only be displayed for the requested duration time.
-        this.stopAd(StopCode.PLAYER_INITATED);
-      }, nonLinearDuration);
+      const nonLinearDuration = document.getElementById('duration').value;
+      this.requestedDuration_ = nonLinearDuration;
     }
   }
 
@@ -473,6 +477,7 @@ class SimidPlayer {
     if (this.isLinearAd_) {
       this.playLinearVideoAd_();
     } else {
+      this.nonLinearStartTime_ = this.contentVideoElement_.currentTime;
       this.contentVideoElement_.play();
     }
     
@@ -543,7 +548,7 @@ class SimidPlayer {
    * Tracks the events on the video element specified by the simid spec
    * @private
    */
-  trackEventsOnVideoElement_() {
+  trackEventsOnAdVideoElement_() {
     this.videoTrackingEvents_.set("durationchange", () => {
       this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
     });
@@ -582,6 +587,14 @@ class SimidPlayer {
     for(let [key, func] of this.videoTrackingEvents_) {
       this.adVideoElement_.addEventListener(key, func, true);
     }
+  }
+
+  trackEventsOnContentVideoElement_() {
+    this.contentVideoElement_.addEventListener("timeupdate", () => {
+      if (this.contentVideoElement_.currentTime - this.nonLinearStartTime_ > this.requestedDuration_) {
+        this.stopAd(StopCode.NON_LINEAR_DURATION_COMPLETE);
+      }
+    });
   }
 
   /**
