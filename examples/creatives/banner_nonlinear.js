@@ -45,7 +45,6 @@ class BannerNonLinear extends BaseSimidCreative{
         const newY = this.environmentData.videoDimensions.height * .7;
         const newWidth = this.environmentData.videoDimensions.width *.7;
         const newHeight = this.environmentData.videoDimensions.height * .15;
-
         const creativeDimensions = {
             'x': newX,
             'y': newY,
@@ -57,7 +56,6 @@ class BannerNonLinear extends BaseSimidCreative{
             videoDimensions: videoDimensions,
             creativeDimensions: creativeDimensions
         };
-    
-        this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, params);
+        this.requestResize(params);
     }
 }
