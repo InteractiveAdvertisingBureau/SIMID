@@ -1,4 +1,8 @@
-class BannerNonLinear extends BaseSimidCreative{
+const Y_OFFSET_PERCENTAGE = .7;
+const X_OFFSET_PERCENTAGE = .15;
+const WIDTH_PERCENTAGE = .7;
+const HEIGHT_PERCENTAGE = .15;
+class BannerNonLinear extends BaseSimidCreative {
     constructor() {
         super();
         this.addButtonClickActions_();
@@ -31,17 +35,19 @@ class BannerNonLinear extends BaseSimidCreative{
         document.getElementById(elementName).addEventListener(
             'click', sendMessageFunction);
     }
+
     /**
      * Repositions the banner ad according to the dimensions of the video player
      * by calculating desired dimensions and sending a resize request to creative.
      * @private
      */
     dynamicResize_() {
+        // This ad requests that the player resize it and move it, so that it is centered within the player.
         let creativeDimensions = {};
-        creativeDimensions.x = this.environmentData.videoDimensions.width * .15;
-        creativeDimensions.y = this.environmentData.videoDimensions.height * .7;
-        creativeDimensions.width = this.environmentData.videoDimensions.width *.7;
-        creativeDimensions.height = this.environmentData.videoDimensions.height * .15;
+        creativeDimensions.x = this.environmentData.videoDimensions.width * X_OFFSET_PERCENTAGE;
+        creativeDimensions.y = this.environmentData.videoDimensions.height * Y_OFFSET_PERCENTAGE;
+        creativeDimensions.width = this.environmentData.videoDimensions.width * WIDTH_PERCENTAGE;
+        creativeDimensions.height = this.environmentData.videoDimensions.height * HEIGHT_PERCENTAGE;
         const params = {
             videoDimensions: this.environmentData.videoDimensions,
             creativeDimensions: creativeDimensions
