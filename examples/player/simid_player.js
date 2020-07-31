@@ -654,6 +654,8 @@ class SimidPlayer {
 
   /**
    * Compares the duration of the ad with the requested change duration.
+   * If request duration is the same as the ad duration, ad ends as normal.
+   * If request duration is unlimited, ad stays on screen until user closes ad.
    * If request duration is shorter, the ad stops early. 
    * @private
    */
