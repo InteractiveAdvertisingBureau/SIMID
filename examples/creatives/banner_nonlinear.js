@@ -6,6 +6,16 @@ class BannerNonLinear extends BaseSimidCreative{
     }
 
     /**
+     * Receives init message from the player.
+     * @param {!Object} eventData Data from the event.
+     * @protected
+     */
+    onInit(eventData) {
+        super.onInit(eventData);
+        this.dynamicResize_();
+    }
+
+    /**
      * Adds actions to different buttons available on the overlay.
      */
     addButtonClickActions_() {
@@ -49,15 +59,5 @@ class BannerNonLinear extends BaseSimidCreative{
         };
     
         this.simidProtocol.sendMessage(CreativeMessage.REQUEST_RESIZE, params);
-    }
-
-    /**
-     * Receives init message from the player.
-     * @param {!Object} eventData Data from the event.
-     * @protected
-     */
-    onInit(eventData) {
-        super.onInit(eventData);
-        this.dynamicResize_();
     }
 }
