@@ -436,12 +436,15 @@ class SimidPlayer {
 
     const creativeData = {
       'adParameters' : document.getElementById('ad_params').value,
-      'duration' : document.getElementById('duration').value,
       // These values should be populated from the VAST response.
       'adId' : '',
       'creativeId' : '',
       'adServingId': '',
       'clickThroughUrl': 'http://example.com'
+    }
+
+    if (!this.isLinearAd_) {
+      creativeData['duration'] = document.getElementById('duration').value;
     }
 
     const initMessage = {
