@@ -22,21 +22,21 @@
     }
 
     body {
-    background: rgba(0,0,0,0.5);
-    width: auto;
-    text-align: center;
-    transition: opacity .5s cubic-bezier(0.0,0.0,0.2,1);
-    text-shadow: 0 0 4px rgba(0,0,0,0.75);
-    cursor: pointer;
-}
+      background: rgba(0,0,0,0.5);
+      width: auto;
+      text-align: center;
+      transition: opacity .5s cubic-bezier(0.0,0.0,0.2,1);
+      text-shadow: 0 0 4px rgba(0,0,0,0.75);
+      cursor: pointer;
+    }
 
     body:hover {
-        background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.7);
     }
 
     #ad_text {
-        color: white;
-        text-align: center;
+      color: white;
+      text-align: center;
     }
 
   </style>
@@ -44,8 +44,6 @@
     <button id="minimize_ad">_</button>
     <button id="close_ad">X</button>
     <div id="content_container">
-      <button id="expand_button" style="display:none;">Expand Ad</button>
-      <button id="collapse_button" style="display:none;">Collapse Ad</button>
       <h1 id="ad_text">This is a banner ad</h1>
     </div>
     <script>
