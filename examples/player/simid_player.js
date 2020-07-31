@@ -259,6 +259,7 @@ class SimidPlayer {
     }
 
     this.adVideoTrackingEvents_.clear();
+    this.contentVideoTrackingEvents_.clear();
     this.adComplete_();
   }
 
