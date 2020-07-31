@@ -2,8 +2,6 @@ class BannerNonLinear extends BaseSimidCreative{
     constructor() {
         super();
         this.addButtonClickActions_();
-        this.onExpand();
-        this.onMinimize();
     }
 
     /** @override */
@@ -18,6 +16,8 @@ class BannerNonLinear extends BaseSimidCreative{
      */
     addButtonClickActions_() {
         this.sendMessageOnButtonClick_("close_ad", CreativeMessage.REQUEST_STOP);
+        this.onExpand_();
+        this.onMinimize_();
     }
 
     /**
@@ -31,6 +31,7 @@ class BannerNonLinear extends BaseSimidCreative{
         document.getElementById(elementName).addEventListener(
             'click', sendMessageFunction);
     }
+
     /**
      * Repositions the banner ad according to the dimensions of the video player
      * by calculating desired dimensions and sending a resize request to creative.
@@ -49,7 +50,12 @@ class BannerNonLinear extends BaseSimidCreative{
         this.requestResize(params);
     }
 
-    onExpand() {
+    /**
+     * Adds click event that expands the nonlinear, hides the original ad content and
+     * displays the canvas.
+     * @private
+     */
+    onExpand_() {
         document.getElementById("ad_text").addEventListener('click', () => {
             this.simidProtocol.sendMessage(CreativeMessage.REQUEST_EXPAND);
             document.getElementById("ad_text").classList.add("hidden");
@@ -57,7 +63,12 @@ class BannerNonLinear extends BaseSimidCreative{
         });
     }
 
-    onMinimize() {
+    /**
+     * Adds click event that minimizes the nonlinear, hides the canvas and
+     * displays the original content of the ad.
+     * @private
+     */
+    onMinimize_() {
         document.getElementById("minimize_ad").addEventListener('click', () => {
             this.simidProtocol.sendMessage(CreativeMessage.REQUEST_COLLAPSE);
             document.getElementById("ad_text").classList.remove("hidden");
