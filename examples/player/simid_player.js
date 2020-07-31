@@ -120,7 +120,6 @@ class SimidPlayer {
    * a session.
    */
   initializeAd() {
-    
     if (!this.isLinearAd_ && !this.isValidDimensions_(this.getNonlinearDimensions_())) {
       console.log('Unable to play a non-linear ad with dimensions bigger than the player. Please modify dimensions to a smaller size.');
       return;
