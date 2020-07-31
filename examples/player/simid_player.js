@@ -469,6 +469,7 @@ class SimidPlayer {
     this.videoTrackingEvents_.set("timeupdate", () => {
       this.simidProtocol.sendMessage(MediaMessage.TIME_UPDATE,
         {'currentTime': this.adVideoElement_.currentTime});
+        this.compareAdAndRequestedDurations();
     });
     this.videoTrackingEvents_.set("volumechange", () => {
       this.simidProtocol.sendMessage(MediaMessage.VOLUME_CHANGE,
@@ -643,25 +644,12 @@ class SimidPlayer {
       }
       this.requestedDuration_ = originalDuration;
       this.simidProtocol.reject(incomingMessage, durationErrorMessage);
-    } else if (this.requestedDuration_ == UNLIMITED_DURATION) {
-      //Note: Users can end the ad using the close ad button on the player
-      return;
-    } else {
+    }
+    else {
       //If requested duration is any other acceptable value
-      this.changeAdEndTime();
+      this.compareAdAndRequestedDurations();
       this.simidProtocol.resolve(incomingMessage);
     }
-  }
-
-  /**
-   * Compares the requested change duration with the current ad time
-   *  to determine when to stop the ad, every 250 milliseconds.
-   * @private
-   */
-  changeAdEndTime() {
-    this.durationInterval_ = setInterval(() => {
-        this.compareAdAndRequestedDurations(); 
-    }, INTERVAL_TIMER);
   }
 
   /**
@@ -670,10 +658,15 @@ class SimidPlayer {
    * @private
    */
   compareAdAndRequestedDurations() {
-    if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
+    if (this.requestedDuration_ == NO_REQUESTED_DURATION || 
+      this.requestedDuration_ == UNLIMITED_DURATION) {
+        //Note: Users can end the ad with unlimited duration with
+        // the close ad button on the player
+        return;
+      }
+    else if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
       //Creative requested a duration shorter than the ad
       this.stopAd(StopCode.CREATIVE_INITATED);
-      clearInterval(this.durationInterval_);
       return;
     }
   } 
