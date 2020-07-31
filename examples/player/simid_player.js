@@ -616,16 +616,16 @@ class SimidPlayer {
   videoComplete() {
     this.simidProtocol.sendMessage(MediaMessage.ENDED);
 
+    if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
+      this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
+    }
+
     //If the request duration is longer than the ad duration, the ad extends for the requested amount of time
     if (this.requestedDuration_ != UNLIMITED_DURATION) {
       const durationChangeMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
       setTimeout(() => {
         this.stopAd(StopCode.CREATIVE_INITIATED);
       }, durationChangeMs);
-    }
-
-    if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
-      this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
     }
   }
 
