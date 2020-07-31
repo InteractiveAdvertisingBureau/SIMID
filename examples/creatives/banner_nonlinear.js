@@ -2,6 +2,8 @@ class BannerNonLinear extends BaseSimidCreative{
     constructor() {
         super();
         this.addButtonClickActions_();
+        this.onExpand();
+        this.onMinimize();
     }
 
     /** @override */
@@ -16,8 +18,6 @@ class BannerNonLinear extends BaseSimidCreative{
      */
     addButtonClickActions_() {
         this.sendMessageOnButtonClick_("close_ad", CreativeMessage.REQUEST_STOP);
-        this.sendMessageOnButtonClick_("ad_text", CreativeMessage.REQUEST_EXPAND);
-        this.sendMessageOnButtonClick_("minimize_ad", CreativeMessage.REQUEST_COLLAPSE);
     }
 
     /**
@@ -47,5 +47,21 @@ class BannerNonLinear extends BaseSimidCreative{
             creativeDimensions: creativeDimensions
         };
         this.requestResize(params);
+    }
+
+    onExpand() {
+        document.getElementById("ad_text").addEventListener('click', () => {
+            this.simidProtocol.sendMessage(CreativeMessage.REQUEST_EXPAND);
+            document.getElementById("ad_text").classList.add("hidden");
+            document.getElementById("content_box").classList.remove("hidden");
+        });
+    }
+
+    onMinimize() {
+        document.getElementById("minimize_ad").addEventListener('click', () => {
+            this.simidProtocol.sendMessage(CreativeMessage.REQUEST_COLLAPSE);
+            document.getElementById("ad_text").classList.remove("hidden");
+            document.getElementById("content_box").classList.add("hidden");
+        });
     }
 }
