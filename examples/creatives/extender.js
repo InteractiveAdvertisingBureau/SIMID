@@ -24,11 +24,12 @@ class Extender extends BaseSimidCreative {
     const params = {
       'duration': mediaDuration + 5,
     };
+
     // Ask the player if we can extend duration 5 seconds to show end cards.
     this.simidProtocol.sendMessage(CreativeMessage.REQUEST_CHANGE_AD_DURATION, params).then(() => {
       this.extendDuration_ = true;
     }).catch(() => {
-      console.log('Player does not support extended duration.');
+      console.log('Player does not support requested duration change.');
     });
   }
 
