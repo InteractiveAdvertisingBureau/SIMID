@@ -103,7 +103,7 @@ class SimidPlayer {
      * An object containing the resized nonlinear creative's dimensions.
      * @private {?Object}
      */
-    this.resizeDimensions_ = null;
+    this.nonLinearDimensions_ = null;
 
     /**
      * A promise that resolves once the creative responds to initialization with resolve.
@@ -288,8 +288,8 @@ class SimidPlayer {
    * @return {!Object}
    */
   getNonlinearDimensions_() {
-    if(this.resizeDimensions_) {
-      return this.resizeDimensions_;
+    if(this.nonLinearDimensions_) {
+      return this.nonLinearDimensions_;
     } 
     let newDimensions = {};
     newDimensions.x = document.getElementById('x_val').value;
@@ -404,7 +404,7 @@ class SimidPlayer {
       console.log(errorMessage.message);
     
     } else {
-      this.resizeDimensions_ = incomingMessage.args.creativeDimensions;
+      this.nonLinearDimensions_ = incomingMessage.args.creativeDimensions;
       this.setSimidIframeDimensions_(incomingMessage.args.creativeDimensions);
       this.simidProtocol.resolve(incomingMessage);
     }
