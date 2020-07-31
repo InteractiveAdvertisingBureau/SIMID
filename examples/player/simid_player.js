@@ -634,16 +634,12 @@ class SimidPlayer {
    * @private
    */
   onRequestChangeAdDuration(incomingMessage) {
-    // const originalDuration = this.requestedDuration_;
     const newRequestedDuration = incomingMessage.args['duration'];
-    // this.requestedDuration_  = incomingMessage.args['duration'];
     if (newRequestedDuration != UNLIMITED_DURATION && newRequestedDuration < 0) {
-      // debugger;
       const durationErrorMessage = {
         errorCode: PlayerErrorCode.UNSUPPORTED_TIME,
         message: 'A negative duration is not valid.'
       }
-      // this.requestedDuration_ = originalDuration;
       this.simidProtocol.reject(incomingMessage, durationErrorMessage);
     }
     else {
