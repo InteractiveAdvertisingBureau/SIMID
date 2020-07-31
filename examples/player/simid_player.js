@@ -104,6 +104,12 @@ class SimidPlayer {
      * @private {?Object}
      */
     this.nonLinearDimensions_ = null;
+    
+    /** The unique ID for the interval used to compares the requested change 
+     *  duration and the current ad time.
+     * @private {number}
+     */
+    this.durationInterval_ = null;
 
     /**
      * A promise that resolves once the creative responds to initialization with resolve.
@@ -171,6 +177,11 @@ class SimidPlayer {
       this.startCreativePlayback_()
     });
   }
+
+  /** Plays the video ad element. */
+  playAdVideo() {
+    this.adVideoElement_.play();
+  } 
 
   /**
    * Sets up an iframe for holding the simid element.
@@ -461,10 +472,9 @@ class SimidPlayer {
 
   /**
    * Called once the creative responds positively to being initialized.
-   * @param {!Object} data
    * @private
    */
-  startCreativePlayback_(data) {
+  startCreativePlayback_() {
     // Once the ad is successfully initialized it can start.
     // If the ad is not visible it must be made visible here.
     this.showSimidIFrame_();
@@ -572,6 +582,7 @@ class SimidPlayer {
     this.videoTrackingEvents_.set("timeupdate", () => {
       this.simidProtocol.sendMessage(MediaMessage.TIME_UPDATE,
         {'currentTime': this.adVideoElement_.currentTime});
+        this.compareAdAndRequestedDurations_();
     });
     this.videoTrackingEvents_.set("volumechange", () => {
       this.simidProtocol.sendMessage(MediaMessage.VOLUME_CHANGE,
@@ -584,31 +595,13 @@ class SimidPlayer {
   }
 
   /**
-   * Called when video playback is complete.
-   * @private
-   */
-  videoComplete() {
-      this.simidProtocol.sendMessage(MediaMessage.ENDED);
-
-      if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
-        this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
-      } else if (this.requestedDuration_ != UNLIMITED_DURATION) {
-        // The creative has requested a different completion duration, so use that duration.
-        const durationExtensionMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
-        setTimeout(() => {
-          // The creative has suggested a different close time, so label this creative_initiated.
-          this.stopAd(StopCode.CREATIVE_INITATED);
-        }, durationExtensionMs);
-      }
-  }
-
-  /**
    * Stops the ad and destroys the ad iframe.
    * @param {StopCode} reason The reason the ad will stop.
    */
   stopAd(reason = StopCode.PLAYER_INITATED) {
       // The iframe is only hidden on ad stoppage. The ad might still request
       // tracking pixels before it is cleaned up.
+    if (this.simidIframe_) {
       this.hideSimidIFrame_();
       const closeMessage = {
         'code': reason,
@@ -617,6 +610,7 @@ class SimidPlayer {
       // up the iframe.
       this.simidProtocol.sendMessage(PlayerMessage.AD_STOPPED)
         .then(() => this.destroyIframeAndResumeContent_());
+    }
   }
 
   /**
@@ -695,7 +689,12 @@ class SimidPlayer {
     this.adVideoElement_.pause();
     this.simidProtocol.resolve(incomingMessage);
   }
-  
+
+  /** Pauses the video ad element. */
+  pauseAd() {
+    this.adVideoElement_.pause();
+  }
+
   /** The creative wants to stop with a fatal error. */
   onCreativeFatalError(incomingMessage) {
     this.simidProtocol.resolve(incomingMessage);
@@ -724,15 +723,66 @@ class SimidPlayer {
     console.log('The creative has asked for the player to ping ' + requestedUrlArray);
   }
 
-  onRequestChangeAdDuration(incomingMessage) {
-    if (this.requestedDuration_ != NO_REQUESTED_DURATION) {
-      // TODO: Support multiple change duration requests.
-      this.simidProtocol.reject(incomingMessage);
+  /**
+   * Called when video playback is complete.
+   * @private
+   */
+  videoComplete() {
+    this.simidProtocol.sendMessage(MediaMessage.ENDED);
+
+    if (this.requestedDuration_ == NO_REQUESTED_DURATION) {
+      this.stopAd(StopCode.MEDIA_PLAYBACK_COMPLETE);
     }
-    const requestedDuration  = incomingMessage.args['duration'];
-    this.requestedDuration_ = requestedDuration;
-    this.simidProtocol.resolve(incomingMessage);
+
+    //If the request duration is longer than the ad duration, the ad extends for the requested amount of time
+    else if (this.requestedDuration_ != UNLIMITED_DURATION) {
+      const durationChangeMs = (this.requestedDuration_ - this.adVideoElement_.duration) * 1000;
+      setTimeout(() => {
+        this.stopAd(StopCode.CREATIVE_INITIATED);
+      }, durationChangeMs);
+    }
   }
+
+  /**
+   * Called when creative requests a change in duration of ad.
+   * @private
+   */
+  onRequestChangeAdDuration(incomingMessage) {
+    const newRequestedDuration = incomingMessage.args['duration'];
+    if (newRequestedDuration != UNLIMITED_DURATION && newRequestedDuration < 0) {
+      const durationErrorMessage = {
+        errorCode: PlayerErrorCode.UNSUPPORTED_TIME,
+        message: 'A negative duration is not valid.'
+      }
+      this.simidProtocol.reject(incomingMessage, durationErrorMessage);
+    }
+    else {
+      this.requestedDuration_ = newRequestedDuration;
+      //If requested duration is any other acceptable value
+      this.compareAdAndRequestedDurations_();
+      this.simidProtocol.resolve(incomingMessage);
+    }
+  }
+
+  /**
+   * Compares the duration of the ad with the requested change duration.
+   * If request duration is the same as the ad duration, ad ends as normal.
+   * If request duration is unlimited, ad stays on screen until user closes ad.
+   * If request duration is shorter, the ad stops early. 
+   * @private
+   */
+  compareAdAndRequestedDurations_() {
+    if (this.requestedDuration_ == NO_REQUESTED_DURATION || 
+      this.requestedDuration_ == UNLIMITED_DURATION) {
+        //Note: Users can end the ad with unlimited duration with
+        // the close ad button on the player
+        return;
+      }
+    else if (this.adVideoElement_.currentTime >= this.requestedDuration_) {
+      //Creative requested a duration shorter than the ad
+      this.stopAd(StopCode.CREATIVE_INITATED);
+    }
+  } 
 
   onGetMediaState(incomingMessage) {
     const mediaState = {
