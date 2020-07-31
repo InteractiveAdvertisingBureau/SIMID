@@ -1,4 +1,3 @@
-const AdParamKey = {BANNER_TEXT: 'bannerText'};
 class BannerNonLinear extends BaseSimidCreative{
     constructor() {
         super();
