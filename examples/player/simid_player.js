@@ -50,10 +50,16 @@ class SimidPlayer {
     this.initializationPromise_ = null;
 
     /**
-     * A map of events tracked on the video element.
+     * A map of events tracked on the ad video element.
      * @private {!Map}
      */
-    this.videoTrackingEvents_ = new Map();
+    this.adVideoTrackingEvents_ = new Map();
+    
+    /**
+     * A map of events tracked on the content video element.
+     * @private {!Map}
+     */
+    this.contentVideoTrackingEvents_ = new Map();
 
     /**
      * A function to execute on ad completion
@@ -66,6 +72,12 @@ class SimidPlayer {
      * @const @private {boolean}
      */
     this.isLinearAd_ = isLinearAd;
+    
+    /**
+     * A number indicating when the non linear ad started.
+     * @private {?number}
+     */
+    this.nonLinearStartTime_ = null;
 
     /**
      * The duration requested by the ad.
@@ -121,7 +133,8 @@ class SimidPlayer {
     });
 
 
-    this.trackEventsOnVideoElement_();
+    this.trackEventsOnAdVideoElement_();
+    this.trackEventsOnContentVideoElement_();
     this.hideAdPlayer_();
   }
 
@@ -253,10 +266,16 @@ class SimidPlayer {
       this.simidIframe_ = null;
       this.simidProtocol.reset();
     }
-    for(let [key, func] of this.videoTrackingEvents_) {
+    for(let [key, func] of this.adVideoTrackingEvents_) {
       this.adVideoElement_.removeEventListener(key, func, true);
     }
-    this.videoTrackingEvents_.clear();
+
+    for(let [key, func] of this.contentVideoTrackingEvents_) {
+      this.contentVideoElement_.removeEventListener(key, func, true);
+    }
+
+    this.adVideoTrackingEvents_.clear();
+    this.contentVideoTrackingEvents_.clear();
     this.adComplete_();
   }
 
@@ -324,6 +343,9 @@ class SimidPlayer {
       this.simidIframe_.style.position = "absolute";
 
       this.contentVideoElement_.play();
+
+      const nonLinearDuration = document.getElementById('duration').value;
+      this.requestedDuration_ = nonLinearDuration;
     }
   }
 
@@ -456,6 +478,10 @@ class SimidPlayer {
       'clickThroughUrl': 'http://example.com'
     }
 
+    if (!this.isLinearAd_) {
+      creativeData['duration'] = document.getElementById('duration').value;
+    }
+
     const initMessage = {
       'environmentData' : environmentData,
       'creativeData': creativeData
@@ -481,6 +507,7 @@ class SimidPlayer {
     if (this.isLinearAd_) {
       this.playLinearVideoAd_();
     } else {
+      this.nonLinearStartTime_ = this.contentVideoElement_.currentTime;
       this.contentVideoElement_.play();
     }
     
@@ -548,48 +575,64 @@ class SimidPlayer {
   }
 
   /**
-   * Tracks the events on the video element specified by the simid spec
+   * Tracks the events on the ad video element specified by the simid spec
    * @private
    */
-  trackEventsOnVideoElement_() {
-    this.videoTrackingEvents_.set("durationchange", () => {
+  trackEventsOnAdVideoElement_() {
+    this.adVideoTrackingEvents_.set("durationchange", () => {
       this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
     });
-    this.videoTrackingEvents_.set("ended", this.videoComplete.bind(this));
-    this.videoTrackingEvents_.set("error", () => {
+    this.adVideoTrackingEvents_.set("ended", this.videoComplete.bind(this));
+    this.adVideoTrackingEvents_.set("error", () => {
       this.simidProtocol.sendMessage(MediaMessage.ERROR,
         {
           'error': '',  // TODO fill in these values correctly
           'message': ''
         });
     });
-    this.videoTrackingEvents_.set("pause", () => {
+    this.adVideoTrackingEvents_.set("pause", () => {
       this.simidProtocol.sendMessage(MediaMessage.PAUSE);
     });
-    this.videoTrackingEvents_.set("play", () => {
+    this.adVideoTrackingEvents_.set("play", () => {
       this.simidProtocol.sendMessage(MediaMessage.PLAY);
     });
-    this.videoTrackingEvents_.set("playing", () => {
+    this.adVideoTrackingEvents_.set("playing", () => {
       this.simidProtocol.sendMessage(MediaMessage.PLAYING);
     });
-    this.videoTrackingEvents_.set("seeked", () => {
+    this.adVideoTrackingEvents_.set("seeked", () => {
       this.simidProtocol.sendMessage(MediaMessage.SEEKED);
     });
-    this.videoTrackingEvents_.set("seeking", () => {
+    this.adVideoTrackingEvents_.set("seeking", () => {
       this.simidProtocol.sendMessage(MediaMessage.SEEKING);
     });
-    this.videoTrackingEvents_.set("timeupdate", () => {
+    this.adVideoTrackingEvents_.set("timeupdate", () => {
       this.simidProtocol.sendMessage(MediaMessage.TIME_UPDATE,
         {'currentTime': this.adVideoElement_.currentTime});
         this.compareAdAndRequestedDurations_();
     });
-    this.videoTrackingEvents_.set("volumechange", () => {
+    this.adVideoTrackingEvents_.set("volumechange", () => {
       this.simidProtocol.sendMessage(MediaMessage.VOLUME_CHANGE,
         {'volume': this.adVideoElement_.volume});
     });
 
-    for(let [key, func] of this.videoTrackingEvents_) {
+    for(let [key, func] of this.adVideoTrackingEvents_) {
       this.adVideoElement_.addEventListener(key, func, true);
+    }
+  }
+  
+  /**
+   * Tracks the events on the content video element.
+   * @private
+   */
+  trackEventsOnContentVideoElement_() {
+    this.contentVideoTrackingEvents_.set("timeupdate", () => {
+      if (this.contentVideoElement_.currentTime - this.nonLinearStartTime_ > this.requestedDuration_) {
+        this.stopAd(StopCode.NON_LINEAR_DURATION_COMPLETE);
+      }
+    });
+
+    for (let [key, func] of this.contentVideoTrackingEvents_) {
+      this.contentVideoElement_.addEventListener(key, func, true);
     }
   }
 
