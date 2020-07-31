@@ -4,11 +4,7 @@ class BannerNonLinear extends BaseSimidCreative{
         this.addButtonClickActions_();
     }
 
-    /**
-     * Receives init message from the player.
-     * @param {!Object} eventData Data from the event.
-     * @protected
-     */
+    /** @override */
     onInit(eventData) {
         super.onInit(eventData);
         this.dynamicResize_();
@@ -33,7 +29,7 @@ class BannerNonLinear extends BaseSimidCreative{
     sendMessageOnButtonClick_(elementName, message) {
         const sendMessageFunction = () => {this.simidProtocol.sendMessage(message);}
         document.getElementById(elementName).addEventListener(
-            'click', sendMessageFunction.bind(this));
+            'click', sendMessageFunction);
     }
     /**
      * Repositions the banner ad according to the dimensions of the video player
@@ -41,19 +37,13 @@ class BannerNonLinear extends BaseSimidCreative{
      * @private
      */
     dynamicResize_() {
-        const newX = this.environmentData.videoDimensions.width * .15;
-        const newY = this.environmentData.videoDimensions.height * .7;
-        const newWidth = this.environmentData.videoDimensions.width *.7;
-        const newHeight = this.environmentData.videoDimensions.height * .15;
-        const creativeDimensions = {
-            'x': newX,
-            'y': newY,
-            'width': newWidth,
-            'height': newHeight,
-        };
-        const videoDimensions = this.environmentData.videoDimensions;
+        let creativeDimensions = {};
+        creativeDimensions.x = this.environmentData.videoDimensions.width * .15;
+        creativeDimensions.y = this.environmentData.videoDimensions.height * .7;
+        creativeDimensions.width = this.environmentData.videoDimensions.width *.7;
+        creativeDimensions.height = this.environmentData.videoDimensions.height * .15;
         const params = {
-            videoDimensions: videoDimensions,
+            videoDimensions: this.environmentData.videoDimensions,
             creativeDimensions: creativeDimensions
         };
         this.requestResize(params);
