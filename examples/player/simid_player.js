@@ -100,7 +100,12 @@ class SimidPlayer {
     this.rejectInitializationPromise_ = null;
 
     /**
-     * The unique ID for the interval used to compares the requested change 
+     * An object containing the resized nonlinear creative's dimensions.
+     * @private {?Object}
+     */
+    this.nonLinearDimensions_ = null;
+    
+    /** The unique ID for the interval used to compares the requested change 
      *  duration and the current ad time.
      * @private {number}
      */
@@ -294,13 +299,15 @@ class SimidPlayer {
    * @return {!Object}
    */
   getNonlinearDimensions_() {
+    if(this.nonLinearDimensions_) {
+      return this.nonLinearDimensions_;
+    } 
     let newDimensions = {};
     newDimensions.x = document.getElementById('x_val').value;
     newDimensions.y = document.getElementById('y_val').value;
     newDimensions.width = document.getElementById('width').value;
     newDimensions.height = document.getElementById('height').value;
-
-    return newDimensions;
+    return newDimensions;  
   }
 
   /** 
@@ -408,7 +415,8 @@ class SimidPlayer {
       console.log(errorMessage.message);
     
     } else {
-      this.setSimidIframeDimensions_(incomingMessage.args.creativeDimensions)
+      this.nonLinearDimensions_ = incomingMessage.args.creativeDimensions;
+      this.setSimidIframeDimensions_(incomingMessage.args.creativeDimensions);
       this.simidProtocol.resolve(incomingMessage);
     }
   }
