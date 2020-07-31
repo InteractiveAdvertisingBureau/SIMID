@@ -16,6 +16,7 @@ class BannerNonLinear extends BaseSimidCreative{
 
     /**
      * Adds actions to different buttons available on the overlay.
+     * @private
      */
     addButtonClickActions_() {
         this.sendMessageOnButtonClick_("close_ad", CreativeMessage.REQUEST_STOP);
