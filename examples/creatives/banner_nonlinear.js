@@ -2,6 +2,7 @@ const Y_OFFSET_PERCENTAGE = .7;
 const X_OFFSET_PERCENTAGE = .15;
 const WIDTH_PERCENTAGE = .7;
 const HEIGHT_PERCENTAGE = .15;
+
 class BannerNonLinear extends BaseSimidCreative {
     constructor() {
         super();
