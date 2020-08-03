@@ -123,8 +123,10 @@
       let adParamsObj = '';
       switch (value) {
         case 'simid_overlay.html':
+          document.getElementById("linear_ad").click();
           break;
         case 'survey.html':
+          document.getElementById("linear_ad").click();
           adParamsObj = [
             {'question':'Would you like a survey?',
              'answers':['Yes', 'No', 'Not Sure']},
@@ -135,7 +137,14 @@
           ];
           adParams = JSON.stringify(adParamsObj);
           break;
+        case 'selector.html':
+          document.getElementById("linear_ad").click();
+          break;
+        case 'extender.html':
+          document.getElementById("linear_ad").click();
+          break;
         case 'simid_map.html':
+          document.getElementById("linear_ad").click();
           document.getElementById('geolocation').classList.remove("hidden");
           adParamsObj = {
            "buttonLabel": "Park",
@@ -144,6 +153,13 @@
           };
           
           adParams = JSON.stringify(adParamsObj);
+          break;
+        case 'testers_nonlinear.html':
+          document.getElementById("nonlinear_ad").click();
+          break;
+        case 'banner_nonlinear.html':
+          document.getElementById("nonlinear_ad").click();
+          document.getElementById("duration").value = 10;
           break;
       }
       document.getElementById('ad_params').value = adParams;
@@ -198,9 +214,9 @@
         <button onclick="switchCreative('survey.html')">survey</button>
         <button onclick="switchCreative('selector.html')">selector</button>
         <button onclick="switchCreative('extender.html')">extender</button>
+        <button onclick="switchCreative('simid_map.html')">map</button>
         <button onclick="switchCreative('testers_nonlinear.html')">testers_nonlinear</button>
         <button onclick="switchCreative('banner_nonlinear.html')">banner_nonlinear</button>
-        <button onclick="switchCreative('simid_map.html')">map</button>
 
       </td>
       </tr>
