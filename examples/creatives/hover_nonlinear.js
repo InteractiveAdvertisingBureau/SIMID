@@ -13,7 +13,7 @@ class HoverNonLinear extends BaseSimidCreative {
     /** @override */
     onInit(eventData) {
         super.onInit(eventData);
-        this.initialDimensions_ = this.storeCreativeDimensions_();
+        this.initialDimensions_ = this.environmentData.creativeDimensions;
     }
 
     /** @override */
@@ -44,22 +44,6 @@ class HoverNonLinear extends BaseSimidCreative {
     }
 
     /**
-     * Stores the initial dimensions of the creative on ad initialization.
-     * @return {Object} creativeDimensions The original dimensions of the creative
-     * @private
-     */
-    storeCreativeDimensions_() {
-        const creativeDimensions = {};
-
-        creativeDimensions.x = this.environmentData.creativeDimensions.x;
-        creativeDimensions.y = this.environmentData.creativeDimensions.y;
-        creativeDimensions.width = this.environmentData.creativeDimensions.width;
-        creativeDimensions.height = this.environmentData.creativeDimensions.height;
-
-        return creativeDimensions;
-    }
-
-    /**
      * Adds a hover event listener to the contents of the iframe that expands the iframe.
      * @param {String} elementName The name of the element.
      * @param {Event} event The event performed on the element.
@@ -76,6 +60,7 @@ class HoverNonLinear extends BaseSimidCreative {
         
             const resizeParams = {
                 creativeDimensions: newDimensions,
+                videoDimensions: this.environmentData.videoDimensions,
             };
         
             this.requestResize(resizeParams);
@@ -94,6 +79,7 @@ class HoverNonLinear extends BaseSimidCreative {
         const collpaseOnMouseOutFunction = () => {
             const restoreParams = {
                 creativeDimensions: this.initialDimensions_,
+                videoDimensions: this.environmentData.videoDimensions,
             };
         
             this.requestResize(restoreParams);
