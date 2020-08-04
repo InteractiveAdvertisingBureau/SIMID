@@ -388,7 +388,6 @@ class SimidPlayer {
    * @param {!Object} incomingMessage Message sent from the creative to the player
    */
   onRequestCollapse(incomingMessage) {
-    console.log("collapse");
     const newDimensions = this.getNonlinearDimensions_();
 
     if (this.isLinearAd_) {
