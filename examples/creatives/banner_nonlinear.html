@@ -46,7 +46,6 @@
       <h2 id="ad_text">Click here to draw!</h2>
       <div id="content_box" class="hidden">
         <iframe src="https://quickdraw.withgoogle.com/" width="600" height="400"></iframe>
-        <!-- <canvas id="drawing_area" width="600" height="400"></canvas> -->
       </div>
     </div>
     <script>
@@ -54,62 +53,6 @@
       // may wish to wait for assets to load before calling ready.
       const bannerNonLinear = new BannerNonLinear();
       bannerNonLinear.ready();
-
-      // class DrawingTool {
-      //   constructor() {
-      //     this.previousX_ = 0;
-      //     this.previousY_ = 0;
-      //     this.function_ = (event) => this.onMouseMove_(event);
-      //   }
-        
-      //   setupCanvasAndListeners() {
-      //     let canvas = document.getElementById("drawing_area");
-      //     canvas.style.cursor = 'crosshair';
-      //     canvas.style.borderStyle = 'solid';
-      //     let context = canvas.getContext('2d');
-      //     context.strokeStyle = 'rgb(255,255,255)';
-      //     context.lineWidth = 4;
-      //     canvas.addEventListener('mousedown', (event) => this.onMouseDown_(event));
-      //     canvas.addEventListener('mouseup', (event) => this.onMouseUp_(event));
-      //   }
-
-      //   getMousePos_(canvas, evt) {
-      //     var rect = canvas.getBoundingClientRect();
-      //     return {
-      //       x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
-      //       y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
-      //     };
-      //   }
-
-      //   onMouseDown_(event) {
-      //     let canvas = document.getElementById('drawing_area');
-      //     const mousePos = this.getMousePos_(canvas, event);
-      //     this.previousX_ = mousePos.x;
-      //     this.previousY_ = mousePos.y;
-      //     canvas.addEventListener('mousemove', this.function_);
-      //   }
-
-      //   onMouseUp_(event) {
-      //     let canvas = document.getElementById('drawing_area');
-      //     canvas.removeEventListener('mousemove', this.function_);
-      //   }
-
-      //   onMouseMove_(event) {
-      //     let canvas = document.getElementById('drawing_area');
-      //     let context = canvas.getContext('2d');
-      //     const mousePos = this.getMousePos_(canvas, event);
-      //     const newX = mousePos.x;
-      //     const  newY = mousePos.y;   
-      //     context.beginPath();
-      //     context.moveTo(this.previousX_, this.previousY_);
-      //     context.lineTo(newX, newY);
-      //     context.stroke();
-      //     this.previousX_ = newX;
-      //     this.previousY_ = newY;
-      //   }
-      // }
-      // let drawingTool = new DrawingTool();
-      // drawingTool.setupCanvasAndListeners();
     </script>
   </body>
 </html>
