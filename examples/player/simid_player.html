@@ -116,7 +116,17 @@
     }
 
     function switchCreative(value) {
-      document.getElementById('creative_url').value = '../creatives/' + value;
+      const creative_url = document.getElementById('creative_url').value = '../creatives/' + value;
+
+      if (creative_url.includes("nonlinear")){
+        document.getElementById("nonlinear_ad").checked = true;
+        document.getElementById("linear_ad").checked = false;
+      }
+      else {
+        document.getElementById("linear_ad").checked = true;
+        document.getElementById("nonlinear_ad").checked = false;
+      }
+
       document.getElementById('geolocation').classList.add("hidden");
       // populate ad parameters with some hard coded values
       let adParams = '';
