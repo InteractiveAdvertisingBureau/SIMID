@@ -1,5 +1,5 @@
-const Y_OFFSET_PERCENTAGE = 2;
-const X_OFFSET_PERCENTAGE = 2;
+const Y_OFFSET_PERCENTAGE = 8;
+const X_OFFSET_PERCENTAGE = 8;
 const WIDTH_PERCENTAGE = 1.1;
 const HEIGHT_PERCENTAGE = 2;
 
@@ -27,7 +27,7 @@ class HoverNonLinear extends BaseSimidCreative {
      * @private
      */
     addActions_() {
-        this.sendMessageOnEvent_("close_ad", 'click', CreativeMessage.REQUEST_STOP);
+        this.sendMessageOnClick_("close_ad", CreativeMessage.REQUEST_STOP);
         this.onHover_("content_container", 'mouseover');
         this.onMouseOut_("content_container", 'mouseout');
     }
@@ -35,14 +35,12 @@ class HoverNonLinear extends BaseSimidCreative {
     /**
      * Listens for an event on the banner
      * @param {String} elementName The name of the element.
-     * @param {Event} event The event performed on the element.
      * @param {String} message The message to send to the player.
      * @private
      */
-    sendMessageOnEvent_(elementName, event, message) {
+    sendMessageOnClick_(elementName, message) {
         const sendMessageFunction = () => {this.simidProtocol.sendMessage(message);}
-        document.getElementById(elementName).addEventListener(
-            event, sendMessageFunction);
+        document.getElementById(elementName).addEventListener('click', sendMessageFunction);
     }
 
     /**
