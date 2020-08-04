@@ -34,6 +34,7 @@
   <script>
 		/** If ad type is linear, a media file input appears while non-linear ads ask for dimensions instead. */
     function setInputsForAdType() {
+      console.log("here");
       let linearButton = document.getElementById("linear_ad");
       let creativeDimensions = document.getElementById("creative_dimensions");
       let mediaFile = document.getElementById("media_file");
@@ -123,10 +124,10 @@
       let adParamsObj = '';
       switch (value) {
         case 'simid_overlay.html':
-          document.getElementById("linear_ad").click();
+          document.getElementById("linear_ad").checked = true;
           break;
         case 'survey.html':
-          document.getElementById("linear_ad").click();
+          document.getElementById("linear_ad").checked = true;
           adParamsObj = [
             {'question':'Would you like a survey?',
              'answers':['Yes', 'No', 'Not Sure']},
@@ -138,13 +139,13 @@
           adParams = JSON.stringify(adParamsObj);
           break;
         case 'selector.html':
-          document.getElementById("linear_ad").click();
+          document.getElementById("linear_ad").checked = true;
           break;
         case 'extender.html':
-          document.getElementById("linear_ad").click();
+          document.getElementById("linear_ad").checked = true;
           break;
         case 'simid_map.html':
-          document.getElementById("linear_ad").click();
+          document.getElementById("linear_ad").checked = true;
           document.getElementById('geolocation').classList.remove("hidden");
           adParamsObj = {
            "buttonLabel": "Park",
@@ -155,13 +156,14 @@
           adParams = JSON.stringify(adParamsObj);
           break;
         case 'testers_nonlinear.html':
-          document.getElementById("nonlinear_ad").click();
+          document.getElementById("nonlinear_ad").checked = true;
           break;
         case 'banner_nonlinear.html':
-          document.getElementById("nonlinear_ad").click();
+          document.getElementById("nonlinear_ad").checked = true;
           document.getElementById("duration").value = 10;
           break;
       }
+      setInputsForAdType();
       document.getElementById('ad_params').value = adParams;
     }
 
