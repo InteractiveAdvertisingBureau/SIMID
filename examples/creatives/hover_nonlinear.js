@@ -14,7 +14,6 @@ class HoverNonLinear extends BaseSimidCreative {
     onInit(eventData) {
         super.onInit(eventData);
         this.initialDimensions_ = this.storeCreativeDimensions_();
-        console.log(this.initialDimensions_);
     }
 
     /** @override */
@@ -30,7 +29,7 @@ class HoverNonLinear extends BaseSimidCreative {
     addActions_() {
         this.sendMessageOnEvent_("close_ad", 'click', CreativeMessage.REQUEST_STOP);
         this.onHover_("content_container", 'mouseover');
-        this.sendMessageOnEvent_("content_container", 'mouseout', CreativeMessage.REQUEST_COLLAPSE);
+        this.onMouseOut_("content_container", 'mouseout');
     }
 
     /**
@@ -68,11 +67,29 @@ class HoverNonLinear extends BaseSimidCreative {
             newDimensions.height = this.initialDimensions_.height * HEIGHT_PERCENTAGE;
         
             const resizeParams = {
-            creativeDimensions: newDimensions,
+                creativeDimensions: newDimensions,
             };
         
             this.requestResize(resizeParams);
         }
         document.getElementById(elementName).addEventListener(event, expandOnHoverFunction);
+    }
+
+    onMouseOut_(elementName, event) {
+        const collpaseOnMouseOutFunction = () => {
+            const restoreDimensions = {};
+
+            restoreDimensions.x = this.initialDimensions_.x;
+            restoreDimensions.y = this.initialDimensions_.y;
+            restoreDimensions.width = this.initialDimensions_.width;
+            restoreDimensions.height = this.initialDimensions_.height;
+        
+            const restoreParams = {
+                creativeDimensions: restoreDimensions,
+            };
+        
+            this.requestResize(restoreParams);
+        }
+        document.getElementById(elementName).addEventListener(event, collpaseOnMouseOutFunction);
     }
 }
