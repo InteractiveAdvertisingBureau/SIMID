@@ -688,12 +688,12 @@ SIMID API is a set of messages and data structures that ad-rendering parties exc
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#simid-player-collapseNonlinear]]</td>
+      <td>[[#simid-player-app-foregrounded]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
     <tr>
-      <td>[[#simid-player-app-foregrounded]]</td>
+      <td>[[#simid-player-collapseNonlinear]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
@@ -1071,7 +1071,7 @@ The player may resize the ad to its default dimensions without the creative requ
 
 The player posts the [[#simid-player-collapseNonlinear]] message before it resizes the creative iframe.
 
-The Player:collapseNonlinear is an information-only message; there are no associated resolution responses.
+The [[#simid-player-collapseNonlinear]] is an information-only message; there are no associated resolution responses.
 
 ### SIMID:Player:fatalError ### {#simid-player-fatalError}
 The player posts a `SIMID:Player:fatalError` message when it encounters exceptions that disqualify the ad from displaying any longer. If feasible, the player stops the ad media. 
