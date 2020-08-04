@@ -520,7 +520,6 @@ SIMID version 1.1 introduces the following enhancements:
   * Offers corresponding data.
   * Includes related [[#error-codes]].
 
-
 # Introduction # {#intro}
 
 Throughout this document, the SIMID interactive component is referred to
