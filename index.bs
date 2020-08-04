@@ -693,6 +693,11 @@ SIMID API is a set of messages and data structures that ad-rendering parties exc
       <td>n/a</td>
     </tr>
     <tr>
+      <td>[[#simid-player-collapseNonlinear]]</td>
+      <td>n/a</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
       <td>[[#simid-player-fatalError]]</td>
       <td>[[#simid-player-fatalError-resolve]]</td>
       <td>n/a</td>
@@ -1059,6 +1064,14 @@ The creative resonds to `appBackgrounded` with `resolve` message.
 
 ### SIMID:Player:appForegrounded ### {#simid-player-app-foregrounded}
 Within mobile in-app ad executions, when the app moves from the background to the foreground, the player posts a `SIMID:Player:appForegrounded` message.
+
+### SIMID:Player:collapseNonlinear ###  {#simid-player-collapseNonlinear}
+
+The player may resize the ad to its default dimensions without the creative requesting a collapse. The player may collapse the ad based on its internal logic or in response to the user resuming media playback.
+
+The player posts the [[#simid-player-collapseNonlinear]] message before it resizes the creative iframe.
+
+The [[#simid-player-collapseNonlinear]] is an information-only message; there are no associated resolution responses.
 
 ### SIMID:Player:fatalError ### {#simid-player-fatalError}
 The player posts a `SIMID:Player:fatalError` message when it encounters exceptions that disqualify the ad from displaying any longer. If feasible, the player stops the ad media. 
