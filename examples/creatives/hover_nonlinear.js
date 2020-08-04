@@ -45,7 +45,11 @@ class HoverNonLinear extends BaseSimidCreative {
             event, sendMessageFunction);
     }
 
-    /** When creative asks to resize itself, this sends a message to the player. */
+    /**
+     * Stores the initial dimensions of the creative on ad initialization.
+     * @return {Object} creativeDimensions The original dimensions of the creative
+     * @private
+     */
     storeCreativeDimensions_() {
         const creativeDimensions = {};
 
@@ -57,6 +61,12 @@ class HoverNonLinear extends BaseSimidCreative {
         return creativeDimensions;
     }
 
+    /**
+     * Adds a hover event listener to the contents of the iframe that expands the iframe.
+     * @param {String} elementName The name of the element.
+     * @param {Event} event The event performed on the element.
+     * @private
+     */   
     onHover_(elementName, event) {
         const expandOnHoverFunction = () => {
             const newDimensions = {};
@@ -75,6 +85,13 @@ class HoverNonLinear extends BaseSimidCreative {
         document.getElementById(elementName).addEventListener(event, expandOnHoverFunction);
     }
 
+    /**
+     * Adds a mouse out event listener to the contents of the iframe that shrinks the iframe
+     *  back to its original size.
+     * @param {String} elementName The name of the element.
+     * @param {Event} event The event performed on the element.
+     * @private
+     */  
     onMouseOut_(elementName, event) {
         const collpaseOnMouseOutFunction = () => {
             const restoreParams = {
