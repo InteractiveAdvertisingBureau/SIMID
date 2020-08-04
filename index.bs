@@ -510,14 +510,15 @@ The SIMID standard is geared toward the digital media advertising community. Any
 
 SIMID version 1.1 introduces the following enhancements:
 1. Nonlinear ads support. SIMID offers:
-  * New messages [[#simid-creative-expandNonlinear]], [[#simid-creative-collapseNonlinear]], and Player:collapseNonlinear.
+  * New messages [[#simid-creative-expandNonlinear]], [[#simid-creative-collapseNonlinear]], and [[#simid-player-collapseNonlinear]].
   * Related to nonlinear ads data.
-  * Additional error codes.
+  * Additional [[#error-codes]].
+  * Workflow for nonlinear playback.
+  * New sample code for nonlinear ads.
 1. Player handling user navigation to external landing pages for the in-mobile apps servings. For this purpose, SIMID 
-  * Introduces a message Creative:requestNavigation.
-  * Upgrades Creative:clickThru message.
+  * Introduces a message [[#simid-creative-requestNavigation]].
   * Offers corresponding data.
-  * Includes related error codes.
+  * Includes related [[#error-codes]].
 
 
 # Introduction # {#intro}
