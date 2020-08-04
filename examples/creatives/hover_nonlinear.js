@@ -77,15 +77,8 @@ class HoverNonLinear extends BaseSimidCreative {
 
     onMouseOut_(elementName, event) {
         const collpaseOnMouseOutFunction = () => {
-            const restoreDimensions = {};
-
-            restoreDimensions.x = this.initialDimensions_.x;
-            restoreDimensions.y = this.initialDimensions_.y;
-            restoreDimensions.width = this.initialDimensions_.width;
-            restoreDimensions.height = this.initialDimensions_.height;
-        
             const restoreParams = {
-                creativeDimensions: restoreDimensions,
+                creativeDimensions: this.initialDimensions_,
             };
         
             this.requestResize(restoreParams);
