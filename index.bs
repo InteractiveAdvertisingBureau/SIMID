@@ -506,6 +506,19 @@ primary use case of interactivity.
 
 The SIMID standard is geared toward the digital media advertising community. Anyone who works with digital media advertising products or services can benefit from reading the Introduction sections of this document. The Messaging Protocol, API Reference, and later sections predominantly target software engineers.
 
+## Changes In SIMID 1.1 ## {#simid-11-changes}
+
+SIMID version 1.1 introduces the following enhancements:
+1. Nonlinear ads support. SIMID offers:
+  * New messages [[#simid-creative-expandNonlinear]], [[#simid-creative-collapseNonlinear]], and [[#simid-player-collapseNonlinear]].
+  * Related to nonlinear ads data.
+  * Additional [[#error-codes]].
+  * Workflow for nonlinear playback.
+  * New sample code for nonlinear ads.
+1. Player handling user navigation to external landing pages for the in-mobile apps servings. For this purpose, SIMID:
+  * Introduces a message [[#simid-creative-requestNavigation]].
+  * Offers corresponding data.
+  * Includes related [[#error-codes]].
 
 # Introduction # {#intro}
 
@@ -689,6 +702,11 @@ SIMID API is a set of messages and data structures that ad-rendering parties exc
     </tr>
     <tr>
       <td>[[#simid-player-app-foregrounded]]</td>
+      <td>n/a</td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>[[#simid-player-collapseNonlinear]]</td>
       <td>n/a</td>
       <td>n/a</td>
     </tr>
@@ -1059,6 +1077,14 @@ The creative resonds to `appBackgrounded` with `resolve` message.
 
 ### SIMID:Player:appForegrounded ### {#simid-player-app-foregrounded}
 Within mobile in-app ad executions, when the app moves from the background to the foreground, the player posts a `SIMID:Player:appForegrounded` message.
+
+### SIMID:Player:collapseNonlinear ###  {#simid-player-collapseNonlinear}
+
+The player may resize the ad to its default dimensions without the creative requesting a collapse. The player may collapse the ad based on its internal logic or in response to the user resuming media playback.
+
+The player posts the [[#simid-player-collapseNonlinear]] message before it resizes the creative iframe.
+
+The [[#simid-player-collapseNonlinear]] is an information-only message; there are no associated resolution responses.
 
 ### SIMID:Player:fatalError ### {#simid-player-fatalError}
 The player posts a `SIMID:Player:fatalError` message when it encounters exceptions that disqualify the ad from displaying any longer. If feasible, the player stops the ad media. 

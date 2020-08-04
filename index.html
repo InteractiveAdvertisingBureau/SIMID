@@ -1221,7 +1221,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 40de15f9, updated Thu Jun 11 17:47:04 2020 -0700" name="generator">
+  <meta content="Bikeshed version c05ebec3, updated Fri Jul 31 13:58:05 2020 -0700" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
 
@@ -1834,7 +1834,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-07-16">16 July 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-08-04">4 August 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1853,7 +1853,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 16 July 2020,
+In addition, as of 4 August 2020,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1873,6 +1873,7 @@ Parts of this work may be from another specification document.  If so, those par
      <ol class="toc">
       <li><a href="#simid-vs-vpaid"><span class="secno">2.1</span> <span class="content">SIMID vs. VPAID Comparison</span></a>
       <li><a href="#intended-audience"><span class="secno">2.2</span> <span class="content">Intended Audience</span></a>
+      <li><a href="#simid-11-changes"><span class="secno">2.3</span> <span class="content">Changes In SIMID 1.1</span></a>
      </ol>
     <li>
      <a href="#intro"><span class="secno">3</span> <span class="content">Introduction</span></a>
@@ -1881,6 +1882,7 @@ Parts of this work may be from another specification document.  If so, those par
       <li><a href="#video-ad-flow"><span class="secno">3.2</span> <span class="content">SIMID Ad Serving Flow</span></a>
       <li><a href="#player-creative-communication"><span class="secno">3.3</span> <span class="content">Player and Creative Communication</span></a>
       <li><a href="#scope"><span class="secno">3.4</span> <span class="content">Scope and Limitations</span></a>
+      <li><a href="#nonlinear-intro"><span class="secno">3.5</span> <span class="content">Introduction to Nonlinear</span></a>
      </ol>
     <li>
      <a href="#api"><span class="secno">4</span> <span class="content">API Reference</span></a>
@@ -1920,96 +1922,114 @@ Parts of this work may be from another specification document.  If so, those par
           <li><a href="#simid-player-app-backgrounded-resolve"><span class="secno">4.3.3.1</span> <span class="content">resolve</span></a>
          </ol>
         <li><a href="#simid-player-app-foregrounded"><span class="secno">4.3.4</span> <span class="content">SIMID:Player:appForegrounded</span></a>
+        <li><a href="#simid-player-collapseNonlinear"><span class="secno">4.3.5</span> <span class="content">SIMID:Player:collapseNonlinear</span></a>
         <li>
-         <a href="#simid-player-fatalError"><span class="secno">4.3.5</span> <span class="content">SIMID:Player:fatalError</span></a>
+         <a href="#simid-player-fatalError"><span class="secno">4.3.6</span> <span class="content">SIMID:Player:fatalError</span></a>
          <ol class="toc">
-          <li><a href="#simid-player-fatalError-resolve"><span class="secno">4.3.5.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-player-fatalError-resolve"><span class="secno">4.3.6.1</span> <span class="content">resolve</span></a>
          </ol>
         <li>
-         <a href="#simid-player-init"><span class="secno">4.3.6</span> <span class="content">SIMID:Player:init</span></a>
+         <a href="#simid-player-init"><span class="secno">4.3.7</span> <span class="content">SIMID:Player:init</span></a>
          <ol class="toc">
-          <li><a href="#simid-player-init-resolve"><span class="secno">4.3.6.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-player-init-reject"><span class="secno">4.3.6.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-player-init-resolve"><span class="secno">4.3.7.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-player-init-reject"><span class="secno">4.3.7.2</span> <span class="content">reject</span></a>
          </ol>
-        <li><a href="#simid-player-log"><span class="secno">4.3.7</span> <span class="content">SIMID:Player:log</span></a>
-        <li><a href="#simid-player-resize"><span class="secno">4.3.8</span> <span class="content">SIMID:Player:resize</span></a>
+        <li><a href="#simid-player-log"><span class="secno">4.3.8</span> <span class="content">SIMID:Player:log</span></a>
+        <li><a href="#simid-player-resize"><span class="secno">4.3.9</span> <span class="content">SIMID:Player:resize</span></a>
         <li>
-         <a href="#simid-player-startCreative"><span class="secno">4.3.9</span> <span class="content">SIMID:Player:startCreative</span></a>
+         <a href="#simid-player-startCreative"><span class="secno">4.3.10</span> <span class="content">SIMID:Player:startCreative</span></a>
          <ol class="toc">
-          <li><a href="#simid-player-startCreative-resolve"><span class="secno">4.3.9.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-player-startCreative-reject"><span class="secno">4.3.9.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-player-startCreative-resolve"><span class="secno">4.3.10.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-player-startCreative-reject"><span class="secno">4.3.10.2</span> <span class="content">reject</span></a>
          </ol>
        </ol>
       <li>
        <a href="#creative-messages"><span class="secno">4.4</span> <span class="content">Messages from the Creative to the Player</span></a>
        <ol class="toc">
         <li><a href="#simid-creative-clickThru"><span class="secno">4.4.1</span> <span class="content">SIMID:Creative:clickThru</span></a>
-        <li><a href="#simid-creative-fatalError"><span class="secno">4.4.2</span> <span class="content">SIMID:Creative:fatalError</span></a>
         <li>
-         <a href="#simid-creative-getMediaState"><span class="secno">4.4.3</span> <span class="content">SIMID:Creative:getMediaState</span></a>
+         <a href="#simid-creative-collapseNonlinear"><span class="secno">4.4.2</span> <span class="content">SIMID:Creative:collapseNonlinear</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-getMediaState-resolve"><span class="secno">4.4.3.1</span> <span class="content">resolve</span></a>
-         </ol>
-        <li><a href="#simid-creative-log"><span class="secno">4.4.4</span> <span class="content">SIMID:Creative:log</span></a>
-        <li>
-         <a href="#simid-creative-reportTracking"><span class="secno">4.4.5</span> <span class="content">SIMID:Creative:reportTracking</span></a>
-         <ol class="toc">
-          <li><a href="#simid-creative-reportTracking-resolve"><span class="secno">4.4.5.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-reportTracking-reject"><span class="secno">4.4.5.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-collapseNonlinear-resolve"><span class="secno">4.4.2.1</span> <span class="content">resolve</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestChangeAdDuration"><span class="secno">4.4.6</span> <span class="content">SIMID:Creative:requestChangeAdDuration</span></a>
+         <a href="#simid-creative-expandNonlinear"><span class="secno">4.4.3</span> <span class="content">SIMID:Creative:expandNonlinear</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestChangeAdDuration-resolve"><span class="secno">4.4.6.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestChangeAdDuration-reject"><span class="secno">4.4.6.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-expandNonlinear-resolve"><span class="secno">4.4.3.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-expandNonlinear-reject"><span class="secno">4.4.3.2</span> <span class="content">reject</span></a>
+         </ol>
+        <li><a href="#simid-creative-fatalError"><span class="secno">4.4.4</span> <span class="content">SIMID:Creative:fatalError</span></a>
+        <li>
+         <a href="#simid-creative-getMediaState"><span class="secno">4.4.5</span> <span class="content">SIMID:Creative:getMediaState</span></a>
+         <ol class="toc">
+          <li><a href="#simid-creative-getMediaState-resolve"><span class="secno">4.4.5.1</span> <span class="content">resolve</span></a>
+         </ol>
+        <li><a href="#simid-creative-log"><span class="secno">4.4.6</span> <span class="content">SIMID:Creative:log</span></a>
+        <li>
+         <a href="#simid-creative-reportTracking"><span class="secno">4.4.7</span> <span class="content">SIMID:Creative:reportTracking</span></a>
+         <ol class="toc">
+          <li><a href="#simid-creative-reportTracking-resolve"><span class="secno">4.4.7.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-reportTracking-reject"><span class="secno">4.4.7.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestChangeVolume"><span class="secno">4.4.7</span> <span class="content">SIMID:Creative:requestChangeVolume</span></a>
+         <a href="#simid-creative-requestChangeAdDuration"><span class="secno">4.4.8</span> <span class="content">SIMID:Creative:requestChangeAdDuration</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestChangeVolume-resolve"><span class="secno">4.4.7.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestChangeVolume-reject"><span class="secno">4.4.7.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestChangeAdDuration-resolve"><span class="secno">4.4.8.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestChangeAdDuration-reject"><span class="secno">4.4.8.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestFullscreen"><span class="secno">4.4.8</span> <span class="content">SIMID:Creative:requestFullscreen</span></a>
+         <a href="#simid-creative-requestChangeVolume"><span class="secno">4.4.9</span> <span class="content">SIMID:Creative:requestChangeVolume</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestFullscreen-resolve"><span class="secno">4.4.8.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestFullscreen-reject"><span class="secno">4.4.8.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestChangeVolume-resolve"><span class="secno">4.4.9.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestChangeVolume-reject"><span class="secno">4.4.9.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestExitFullscreen"><span class="secno">4.4.9</span> <span class="content">SIMID:Creative:requestExitFullscreen</span></a>
+         <a href="#simid-creative-requestFullscreen"><span class="secno">4.4.10</span> <span class="content">SIMID:Creative:requestFullscreen</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestExitFullscreen-resolve"><span class="secno">4.4.9.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestExitFullscreen-reject"><span class="secno">4.4.9.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestFullscreen-resolve"><span class="secno">4.4.10.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestFullscreen-reject"><span class="secno">4.4.10.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestPause"><span class="secno">4.4.10</span> <span class="content">SIMID:Creative:requestPause</span></a>
+         <a href="#simid-creative-requestExitFullscreen"><span class="secno">4.4.11</span> <span class="content">SIMID:Creative:requestExitFullscreen</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestPause-resolve"><span class="secno">4.4.10.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestPause-reject"><span class="secno">4.4.10.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestExitFullscreen-resolve"><span class="secno">4.4.11.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestExitFullscreen-reject"><span class="secno">4.4.11.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestPlay"><span class="secno">4.4.11</span> <span class="content">SIMID:Creative:requestPlay</span></a>
+         <a href="#simid-creative-requestNavigation"><span class="secno">4.4.12</span> <span class="content">SIMID:Creative:requestNavigation</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestPlay-resolve"><span class="secno">4.4.11.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestPlay-reject"><span class="secno">4.4.11.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestNavigation-resolve"><span class="secno">4.4.12.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestNavigation-reject"><span class="secno">4.4.12.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestResize"><span class="secno">4.4.12</span> <span class="content">SIMID:Creative:requestResize</span></a>
+         <a href="#simid-creative-requestPause"><span class="secno">4.4.13</span> <span class="content">SIMID:Creative:requestPause</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestResize-resolve"><span class="secno">4.4.12.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestResize-reject"><span class="secno">4.4.12.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestPause-resolve"><span class="secno">4.4.13.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestPause-reject"><span class="secno">4.4.13.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestSkip"><span class="secno">4.4.13</span> <span class="content">SIMID:Creative:requestSkip</span></a>
+         <a href="#simid-creative-requestPlay"><span class="secno">4.4.14</span> <span class="content">SIMID:Creative:requestPlay</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestSkip-resolve"><span class="secno">4.4.13.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestSkip-reject"><span class="secno">4.4.13.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestPlay-resolve"><span class="secno">4.4.14.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestPlay-reject"><span class="secno">4.4.14.2</span> <span class="content">reject</span></a>
          </ol>
         <li>
-         <a href="#simid-creative-requestStop"><span class="secno">4.4.14</span> <span class="content">SIMID:Creative:requestStop</span></a>
+         <a href="#simid-creative-requestResize"><span class="secno">4.4.15</span> <span class="content">SIMID:Creative:requestResize</span></a>
          <ol class="toc">
-          <li><a href="#simid-creative-requestStop-resolve"><span class="secno">4.4.14.1</span> <span class="content">resolve</span></a>
-          <li><a href="#simid-creative-requestStop-reject"><span class="secno">4.4.14.2</span> <span class="content">reject</span></a>
+          <li><a href="#simid-creative-requestResize-resolve"><span class="secno">4.4.15.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestResize-reject"><span class="secno">4.4.15.2</span> <span class="content">reject</span></a>
+         </ol>
+        <li>
+         <a href="#simid-creative-requestSkip"><span class="secno">4.4.16</span> <span class="content">SIMID:Creative:requestSkip</span></a>
+         <ol class="toc">
+          <li><a href="#simid-creative-requestSkip-resolve"><span class="secno">4.4.16.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestSkip-reject"><span class="secno">4.4.16.2</span> <span class="content">reject</span></a>
+         </ol>
+        <li>
+         <a href="#simid-creative-requestStop"><span class="secno">4.4.17</span> <span class="content">SIMID:Creative:requestStop</span></a>
+         <ol class="toc">
+          <li><a href="#simid-creative-requestStop-resolve"><span class="secno">4.4.17.1</span> <span class="content">resolve</span></a>
+          <li><a href="#simid-creative-requestStop-reject"><span class="secno">4.4.17.2</span> <span class="content">reject</span></a>
          </ol>
        </ol>
      </ol>
@@ -2023,30 +2043,31 @@ Parts of this work may be from another specification document.  If so, those par
       <li><a href="#workflow-uninterupted-initialization"><span class="secno">6.4</span> <span class="content">Uninterrupted Initialization WorkFlow</span></a>
       <li><a href="#workflow-delayed-init-resolve"><span class="secno">6.5</span> <span class="content">Creative Delays Resolving Init</span></a>
       <li><a href="#workflow-reject-initialization"><span class="secno">6.6</span> <span class="content">Creative Rejects Init</span></a>
+      <li><a href="#workflow-initialization-nonlinear"><span class="secno">6.7</span> <span class="content">Nonlinear Initialization and Start WorkFlow</span></a>
       <li>
-       <a href="#workflow-ad-playback"><span class="secno">6.7</span> <span class="content">How to Handle Ad Playback</span></a>
+       <a href="#workflow-ad-playback"><span class="secno">6.8</span> <span class="content">How to Handle Ad Playback</span></a>
        <ol class="toc">
-        <li><a href="#workflow-ad-pause"><span class="secno">6.7.1</span> <span class="content">Ad Pause</span></a>
-        <li><a href="#workflow-resizing"><span class="secno">6.7.2</span> <span class="content">Ad Resizing and Fullscreen</span></a>
+        <li><a href="#workflow-ad-pause"><span class="secno">6.8.1</span> <span class="content">Ad Pause</span></a>
+        <li><a href="#workflow-resizing"><span class="secno">6.8.2</span> <span class="content">Ad Resizing and Fullscreen</span></a>
        </ol>
       <li>
-       <a href="#workflow-end"><span class="secno">6.8</span> <span class="content">How to Handle Ad End and Unload</span></a>
+       <a href="#workflow-end"><span class="secno">6.9</span> <span class="content">How to Handle Ad End and Unload</span></a>
        <ol class="toc">
-        <li><a href="#workflow-player-skips"><span class="secno">6.8.1</span> <span class="content">Player Skips Ad</span></a>
-        <li><a href="#workflow-creative-skips"><span class="secno">6.8.2</span> <span class="content">Creative Skips Ad</span></a>
-        <li><a href="#workflow-end-before-complete"><span class="secno">6.8.3</span> <span class="content">Ad Ends Before Media Completion</span></a>
-        <li><a href="#workflow-complete"><span class="secno">6.8.4</span> <span class="content">Ad Completes at Media Completion</span></a>
-        <li><a href="#workflow-error"><span class="secno">6.8.5</span> <span class="content">Ad Errors Out</span></a>
-        <li><a href="#workflow-request-stop"><span class="secno">6.8.6</span> <span class="content">Ad Requests Stop</span></a>
+        <li><a href="#workflow-player-skips"><span class="secno">6.9.1</span> <span class="content">Player Skips Ad</span></a>
+        <li><a href="#workflow-creative-skips"><span class="secno">6.9.2</span> <span class="content">Creative Skips Ad</span></a>
+        <li><a href="#workflow-end-before-complete"><span class="secno">6.9.3</span> <span class="content">Ad Ends Before Media Completion</span></a>
+        <li><a href="#workflow-complete"><span class="secno">6.9.4</span> <span class="content">Ad Completes at Media Completion</span></a>
+        <li><a href="#workflow-error"><span class="secno">6.9.5</span> <span class="content">Ad Errors Out</span></a>
+        <li><a href="#workflow-request-stop"><span class="secno">6.9.6</span> <span class="content">Ad Requests Stop</span></a>
        </ol>
       <li>
-       <a href="#workflow-change-duration"><span class="secno">6.9</span> <span class="content">Ad Duration Changed Workflow</span></a>
+       <a href="#workflow-change-duration"><span class="secno">6.10</span> <span class="content">Ad Duration Changed Workflow</span></a>
        <ol class="toc">
-        <li><a href="#workflow-extend"><span class="secno">6.9.1</span> <span class="content">Ad Extends Beyond Media Completion</span></a>
-        <li><a href="#workflow-ad-duartion-changed-known"><span class="secno">6.9.2</span> <span class="content">Ad Duration Changed Workflow - Known Time</span></a>
-        <li><a href="#workflow-ad-duartion-changed-unknown"><span class="secno">6.9.3</span> <span class="content">Ad Duration Changed Workflow - Unknown Time</span></a>
+        <li><a href="#workflow-extend"><span class="secno">6.10.1</span> <span class="content">Ad Extends Beyond Media Completion</span></a>
+        <li><a href="#workflow-ad-duartion-changed-known"><span class="secno">6.10.2</span> <span class="content">Ad Duration Changed Workflow - Known Time</span></a>
+        <li><a href="#workflow-ad-duartion-changed-unknown"><span class="secno">6.10.3</span> <span class="content">Ad Duration Changed Workflow - Unknown Time</span></a>
        </ol>
-      <li><a href="#user-experience"><span class="secno">6.10</span> <span class="content">User Experience</span></a>
+      <li><a href="#user-experience"><span class="secno">6.11</span> <span class="content">User Experience</span></a>
      </ol>
     <li><a href="#errors"><span class="secno">7</span> <span class="content">Error Handling and Timeouts</span></a>
     <li>
@@ -2095,7 +2116,7 @@ Parts of this work may be from another specification document.  If so, those par
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="version-number"><span class="secno">1. </span><span class="content">Version</span><a class="self-link" href="#version-number"></a></h2>
-    1.0.1 
+    1.1.0 
    <h2 class="heading settled" data-level="2" id="exec-summary"><span class="secno">2. </span><span class="content">Executive Summary</span><a class="self-link" href="#exec-summary"></a></h2>
    <p>Secure Interactive Media Interface Definition (SIMID) is a standard for providing rich interactivity in the context of
 streaming audio and video (media) ads. While the Video Ad Serving Template (VAST) standard addresses how publishers
@@ -2191,6 +2212,34 @@ primary use case of interactivity.</p>
    </table>
    <h3 class="heading settled" data-level="2.2" id="intended-audience"><span class="secno">2.2. </span><span class="content">Intended Audience</span><a class="self-link" href="#intended-audience"></a></h3>
    <p>The SIMID standard is geared toward the digital media advertising community. Anyone who works with digital media advertising products or services can benefit from reading the Introduction sections of this document. The Messaging Protocol, API Reference, and later sections predominantly target software engineers.</p>
+   <h3 class="heading settled" data-level="2.3" id="simid-11-changes"><span class="secno">2.3. </span><span class="content">Changes In SIMID 1.1</span><a class="self-link" href="#simid-11-changes"></a></h3>
+   <p>SIMID version 1.1 introduces the following enhancements:</p>
+   <ol>
+    <li data-md>
+     <p>Nonlinear ads support. SIMID offers:</p>
+     <ul>
+      <li data-md>
+       <p>New messages <a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a>, <a href="#simid-creative-collapseNonlinear">§ 4.4.2 SIMID:Creative:collapseNonlinear</a>, and <a href="#simid-player-collapseNonlinear">§ 4.3.5 SIMID:Player:collapseNonlinear</a>.</p>
+      <li data-md>
+       <p>Related to nonlinear ads data.</p>
+      <li data-md>
+       <p>Additional <a href="#error-codes">§ 9 Error Codes</a>.</p>
+      <li data-md>
+       <p>Workflow for nonlinear playback.</p>
+      <li data-md>
+       <p>New sample code for nonlinear ads.</p>
+     </ul>
+    <li data-md>
+     <p>Player handling user navigation to external landing pages for the in-mobile apps servings. For this purpose, SIMID:</p>
+     <ul>
+      <li data-md>
+       <p>Introduces a message <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a>.</p>
+      <li data-md>
+       <p>Offers corresponding data.</p>
+      <li data-md>
+       <p>Includes related <a href="#error-codes">§ 9 Error Codes</a>.</p>
+     </ul>
+   </ol>
    <h2 class="heading settled" data-level="3" id="intro"><span class="secno">3. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
    <p>Throughout this document, the SIMID interactive component is referred to
 as a “SIMID creative” or “creative”.</p>
@@ -2246,6 +2295,12 @@ the SIMID creative and delivered via the VAST <code>MediaFile</code> node.</p>
    <p>SIMID should not be set up to measure viewability.</p>
    <p>Any use of the SIMID spec to support something other than interactive or
 dynamic content within the ad unit is counter to the intentions of this spec.</p>
+   <h3 class="heading settled" data-level="3.5" id="nonlinear-intro"><span class="secno">3.5. </span><span class="content">Introduction to Nonlinear</span><a class="self-link" href="#nonlinear-intro"></a></h3>
+   <p><img alt="Examples of how nonlinear video ads look" src="images/non-linear-intro.png" style="margin-left: -10px;"><br></p>
+   <p>Non-linear ads are units that media (video or audio) players serve concurrently with the primary media content. In video players, nonlinear ads overlay a portion of the video.</p>
+   <p>Non-linear ads implement two states: collapsed and expanded. The player renders the ad in the collapsed (original) state while media content progresses uninterrupted. The expanded ad state typically occupies the entire player viewport and requires the media content to be paused. Users are able to toggle the state of the ad.</p>
+   <p>Unlike the linear ads, there is no media asset that the player needs to render with a non-linear ad.</p>
+   <p>SIMID supports non-linear ads by providing a non-linear specific API. Both linear and non-linear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe.</p>
    <h2 class="heading settled" data-level="4" id="api"><span class="secno">4. </span><span class="content">API Reference</span><a class="self-link" href="#api"></a></h2>
    <p>SIMID API is a set of messages and data structures that ad-rendering parties exchange via <a href="#msg-proto">§ 8 Messaging Protocol</a>.</p>
    <h3 class="heading settled" data-level="4.1" id="reference-table"><span class="secno">4.1. </span><span class="content">Reference Table</span><a class="self-link" href="#reference-table"></a></h3>
@@ -2316,81 +2371,93 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#simid-player-fatalError">§ 4.3.5 SIMID:Player:fatalError</a>
-      <td><a href="#simid-player-fatalError-resolve">§ 4.3.5.1 resolve</a>
-      <td>n/a
-     <tr>
-      <td><a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a>
-      <td><a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a>
-      <td><a href="#simid-player-init-reject">§ 4.3.6.2 reject</a>
-     <tr>
-      <td><a href="#simid-player-log">§ 4.3.7 SIMID:Player:log</a>
+      <td><a href="#simid-player-collapseNonlinear">§ 4.3.5 SIMID:Player:collapseNonlinear</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#simid-player-resize">§ 4.3.8 SIMID:Player:resize</a>
+      <td><a href="#simid-player-fatalError">§ 4.3.6 SIMID:Player:fatalError</a>
+      <td><a href="#simid-player-fatalError-resolve">§ 4.3.6.1 resolve</a>
+      <td>n/a
+     <tr>
+      <td><a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a>
+      <td><a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a>
+      <td><a href="#simid-player-init-reject">§ 4.3.7.2 reject</a>
+     <tr>
+      <td><a href="#simid-player-log">§ 4.3.8 SIMID:Player:log</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a>
-      <td><a href="#simid-player-startCreative-resolve">§ 4.3.9.1 resolve</a>
-      <td><a href="#simid-player-startCreative-reject">§ 4.3.9.2 reject</a>
+      <td><a href="#simid-player-resize">§ 4.3.9 SIMID:Player:resize</a>
+      <td>n/a
+      <td>n/a
+     <tr>
+      <td><a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a>
+      <td><a href="#simid-player-startCreative-resolve">§ 4.3.10.1 resolve</a>
+      <td><a href="#simid-player-startCreative-reject">§ 4.3.10.2 reject</a>
      <tr>
       <td><a href="#simid-creative-clickThru">§ 4.4.1 SIMID:Creative:clickThru</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#simid-creative-fatalError">§ 4.4.2 SIMID:Creative:fatalError</a>
+      <td><a href="#simid-creative-collapseNonlinear">§ 4.4.2 SIMID:Creative:collapseNonlinear</a>
+      <td><a href="#simid-creative-collapseNonlinear-resolve">§ 4.4.2.1 resolve</a>
+      <td>n/a
+     <tr>
+      <td><a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a>
+      <td><a href="#simid-creative-expandNonlinear-resolve">§ 4.4.3.1 resolve</a>
+      <td><a href="#simid-creative-expandNonlinear-reject">§ 4.4.3.2 reject</a>
+     <tr>
+      <td><a href="#simid-creative-fatalError">§ 4.4.4 SIMID:Creative:fatalError</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#simid-creative-getMediaState">§ 4.4.3 SIMID:Creative:getMediaState</a>
-      <td><a href="#simid-creative-getMediaState-resolve">§ 4.4.3.1 resolve</a>
+      <td><a href="#simid-creative-getMediaState">§ 4.4.5 SIMID:Creative:getMediaState</a>
+      <td><a href="#simid-creative-getMediaState-resolve">§ 4.4.5.1 resolve</a>
       <td>n/a
      <tr>
-      <td><a href="#simid-creative-log">§ 4.4.4 SIMID:Creative:log</a>
+      <td><a href="#simid-creative-log">§ 4.4.6 SIMID:Creative:log</a>
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#simid-creative-reportTracking">§ 4.4.5 SIMID:Creative:reportTracking</a>
-      <td><a href="#simid-creative-reportTracking-resolve">§ 4.4.5.1 resolve</a>
-      <td><a href="#simid-creative-reportTracking-reject">§ 4.4.5.2 reject</a>
+      <td><a href="#simid-creative-reportTracking">§ 4.4.7 SIMID:Creative:reportTracking</a>
+      <td><a href="#simid-creative-reportTracking-resolve">§ 4.4.7.1 resolve</a>
+      <td><a href="#simid-creative-reportTracking-reject">§ 4.4.7.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestChangeAdDuration">§ 4.4.6 SIMID:Creative:requestChangeAdDuration</a>
-      <td><a href="#simid-creative-requestChangeAdDuration-resolve">§ 4.4.6.1 resolve</a>
-      <td><a href="#simid-creative-requestChangeAdDuration-reject">§ 4.4.6.2 reject</a>
+      <td><a href="#simid-creative-requestChangeAdDuration">§ 4.4.8 SIMID:Creative:requestChangeAdDuration</a>
+      <td><a href="#simid-creative-requestChangeAdDuration-resolve">§ 4.4.8.1 resolve</a>
+      <td><a href="#simid-creative-requestChangeAdDuration-reject">§ 4.4.8.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestChangeVolume">§ 4.4.7 SIMID:Creative:requestChangeVolume</a>
-      <td><a href="#simid-creative-requestChangeVolume-resolve">§ 4.4.7.1 resolve</a>
-      <td><a href="#simid-creative-requestChangeVolume-reject">§ 4.4.7.2 reject</a>
+      <td><a href="#simid-creative-requestChangeVolume">§ 4.4.9 SIMID:Creative:requestChangeVolume</a>
+      <td><a href="#simid-creative-requestChangeVolume-resolve">§ 4.4.9.1 resolve</a>
+      <td><a href="#simid-creative-requestChangeVolume-reject">§ 4.4.9.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestFullscreen">§ 4.4.8 SIMID:Creative:requestFullscreen</a>
-      <td><a href="#simid-creative-requestFullscreen-resolve">§ 4.4.8.1 resolve</a>
-      <td><a href="#simid-creative-requestFullscreen-reject">§ 4.4.8.2 reject</a>
+      <td><a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a>
+      <td><a href="#simid-creative-requestFullscreen-resolve">§ 4.4.10.1 resolve</a>
+      <td><a href="#simid-creative-requestFullscreen-reject">§ 4.4.10.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestExitFullscreen">§ 4.4.9 SIMID:Creative:requestExitFullscreen</a>
-      <td><a href="#simid-creative-requestExitFullscreen-resolve">§ 4.4.9.1 resolve</a>
-      <td><a href="#simid-creative-requestExitFullscreen-reject">§ 4.4.9.2 reject</a>
+      <td><a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a>
+      <td><a href="#simid-creative-requestExitFullscreen-resolve">§ 4.4.11.1 resolve</a>
+      <td><a href="#simid-creative-requestExitFullscreen-reject">§ 4.4.11.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestPause">§ 4.4.10 SIMID:Creative:requestPause</a>
-      <td><a href="#simid-creative-requestPause-resolve">§ 4.4.10.1 resolve</a>
-      <td><a href="#simid-creative-requestPause-reject">§ 4.4.10.2 reject</a>
+      <td><a href="#simid-creative-requestPause">§ 4.4.13 SIMID:Creative:requestPause</a>
+      <td><a href="#simid-creative-requestPause-resolve">§ 4.4.13.1 resolve</a>
+      <td><a href="#simid-creative-requestPause-reject">§ 4.4.13.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestPlay">§ 4.4.11 SIMID:Creative:requestPlay</a>
-      <td><a href="#simid-creative-requestPlay-resolve">§ 4.4.11.1 resolve</a>
-      <td><a href="#simid-creative-requestPlay-reject">§ 4.4.11.2 reject</a>
+      <td><a href="#simid-creative-requestPlay">§ 4.4.14 SIMID:Creative:requestPlay</a>
+      <td><a href="#simid-creative-requestPlay-resolve">§ 4.4.14.1 resolve</a>
+      <td><a href="#simid-creative-requestPlay-reject">§ 4.4.14.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestResize">§ 4.4.12 SIMID:Creative:requestResize</a>
-      <td><a href="#simid-creative-requestResize-resolve">§ 4.4.12.1 resolve</a>
-      <td><a href="#simid-creative-requestResize-reject">§ 4.4.12.2 reject</a>
+      <td><a href="#simid-creative-requestResize">§ 4.4.15 SIMID:Creative:requestResize</a>
+      <td><a href="#simid-creative-requestResize-resolve">§ 4.4.15.1 resolve</a>
+      <td><a href="#simid-creative-requestResize-reject">§ 4.4.15.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestSkip">§ 4.4.13 SIMID:Creative:requestSkip</a>
-      <td><a href="#simid-creative-requestSkip-resolve">§ 4.4.13.1 resolve</a>
-      <td><a href="#simid-creative-requestSkip-reject">§ 4.4.13.2 reject</a>
+      <td><a href="#simid-creative-requestSkip">§ 4.4.16 SIMID:Creative:requestSkip</a>
+      <td><a href="#simid-creative-requestSkip-resolve">§ 4.4.16.1 resolve</a>
+      <td><a href="#simid-creative-requestSkip-reject">§ 4.4.16.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a>
-      <td><a href="#simid-creative-requestStop-resolve">§ 4.4.14.1 resolve</a>
-      <td><a href="#simid-creative-requestStop-reject">§ 4.4.14.2 reject</a>
+      <td><a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a>
+      <td><a href="#simid-creative-requestStop-resolve">§ 4.4.17.1 resolve</a>
+      <td><a href="#simid-creative-requestStop-reject">§ 4.4.17.2 reject</a>
    </table>
    <h3 class="heading settled" data-level="4.2" id="media-messages"><span class="secno">4.2. </span><span class="content">Messages Triggered by Media Element Events</span><a class="self-link" href="#media-messages"></a></h3>
    <p>SIMID specifies a group of messages that describe ad media states. The player prepends such messages with the <code>SIMID:Media namespace</code>.</p>
@@ -2618,25 +2685,25 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
       <td>n/a
       <td>n/a
      <tr>
-      <td><a href="#simid-player-fatalError">§ 4.3.5 SIMID:Player:fatalError</a>
+      <td><a href="#simid-player-fatalError">§ 4.3.6 SIMID:Player:fatalError</a>
       <td><code>errorCode</code><br><code>errorMessage</code>
-      <td><a href="#simid-player-fatalError-resolve">§ 4.3.5.1 resolve</a>
+      <td><a href="#simid-player-fatalError-resolve">§ 4.3.6.1 resolve</a>
      <tr>
-      <td><a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a>
+      <td><a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a>
       <td><code>environmentData</code><br><code>creativeData</code>
-      <td><a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a><br><a href="#simid-player-init-reject">§ 4.3.6.2 reject</a>
+      <td><a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a><br><a href="#simid-player-init-reject">§ 4.3.7.2 reject</a>
      <tr>
-      <td><a href="#simid-player-log">§ 4.3.7 SIMID:Player:log</a>
+      <td><a href="#simid-player-log">§ 4.3.8 SIMID:Player:log</a>
       <td><code>message</code>
       <td>n/a
      <tr>
-      <td><a href="#simid-player-resize">§ 4.3.8 SIMID:Player:resize</a>
+      <td><a href="#simid-player-resize">§ 4.3.9 SIMID:Player:resize</a>
       <td><code>mediaDimensions</code><br><code>creativeDimensions</code><br><code>fullscreen</code>
       <td>n/a
      <tr>
-      <td><a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a>
+      <td><a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a>
       <td>n/a
-      <td><a href="#simid-player-startCreative-resolve">§ 4.3.9.1 resolve</a><br><a href="#simid-player-startCreative-reject">§ 4.3.9.2 reject</a>
+      <td><a href="#simid-player-startCreative-resolve">§ 4.3.10.1 resolve</a><br><a href="#simid-player-startCreative-reject">§ 4.3.10.2 reject</a>
    </table>
    <h4 class="heading settled" data-level="4.3.1" id="simid-player-adSkipped"><span class="secno">4.3.1. </span><span class="content">SIMID:Player:adSkipped</span><a class="self-link" href="#simid-player-adSkipped"></a></h4>
     The player posts a <code>SIMID:Player:adSkipped</code> message immediately after the user ends ad experience. For example, by clicking on the player-owned 
@@ -2672,10 +2739,14 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The creative resonds to <code>appBackgrounded</code> with <code>resolve</code> message. 
    <h4 class="heading settled" data-level="4.3.4" id="simid-player-app-foregrounded"><span class="secno">4.3.4. </span><span class="content">SIMID:Player:appForegrounded</span><a class="self-link" href="#simid-player-app-foregrounded"></a></h4>
     Within mobile in-app ad executions, when the app moves from the background to the foreground, the player posts a <code>SIMID:Player:appForegrounded</code> message. 
-   <h4 class="heading settled" data-level="4.3.5" id="simid-player-fatalError"><span class="secno">4.3.5. </span><span class="content">SIMID:Player:fatalError</span><a class="self-link" href="#simid-player-fatalError"></a></h4>
+   <h4 class="heading settled" data-level="4.3.5" id="simid-player-collapseNonlinear"><span class="secno">4.3.5. </span><span class="content">SIMID:Player:collapseNonlinear</span><a class="self-link" href="#simid-player-collapseNonlinear"></a></h4>
+   <p>The player may resize the ad to its default dimensions without the creative requesting a collapse. The player may collapse the ad based on its internal logic or in response to the user resuming media playback.</p>
+   <p>The player posts the <a href="#simid-player-collapseNonlinear">§ 4.3.5 SIMID:Player:collapseNonlinear</a> message before it resizes the creative iframe.</p>
+   <p>The <a href="#simid-player-collapseNonlinear">§ 4.3.5 SIMID:Player:collapseNonlinear</a> is an information-only message; there are no associated resolution responses.</p>
+   <h4 class="heading settled" data-level="4.3.6" id="simid-player-fatalError"><span class="secno">4.3.6. </span><span class="content">SIMID:Player:fatalError</span><a class="self-link" href="#simid-player-fatalError"></a></h4>
     The player posts a <code>SIMID:Player:fatalError</code> message when it encounters exceptions that disqualify the ad from displaying any longer. If feasible, the player stops the ad media. 
    <p>Regardless of the player’s ability to terminate playback, the player should hide creative iframe and wait for <code>resolve</code> response before unloading iframe.</p>
-   <p>See <a href="#workflow-error">§ 6.8.5 Ad Errors Out</a></p>
+   <p>See <a href="#workflow-error">§ 6.9.5 Ad Errors Out</a></p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑤"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑤"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short②"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage"></a></dfn>;
@@ -2687,12 +2758,12 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errormessage"><code>errorMessage</code><a class="self-link" href="#dom-foointerface-errormessage"></a></dfn>, <span></span>
     <dd>Additional information 
    </dl>
-   <h5 class="heading settled" data-level="4.3.5.1" id="simid-player-fatalError-resolve"><span class="secno">4.3.5.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-player-fatalError-resolve"></a></h5>
+   <h5 class="heading settled" data-level="4.3.6.1" id="simid-player-fatalError-resolve"><span class="secno">4.3.6.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-player-fatalError-resolve"></a></h5>
     The creative must respond to <code>Player:fatalError</code> with <code>resolve</code>. After <code>resolve</code> arrives, the player should remove the iframe. 
-   <p>See <a href="#workflow-error">§ 6.8.5 Ad Errors Out</a></p>
-   <h4 class="heading settled" data-level="4.3.6" id="simid-player-init"><span class="secno">4.3.6. </span><span class="content">SIMID:Player:init</span><a class="self-link" href="#simid-player-init"></a></h4>
+   <p>See <a href="#workflow-error">§ 6.9.5 Ad Errors Out</a></p>
+   <h4 class="heading settled" data-level="4.3.7" id="simid-player-init"><span class="secno">4.3.7. </span><span class="content">SIMID:Player:init</span><a class="self-link" href="#simid-player-init"></a></h4>
     The purpose of the <code>SIMID:player:init</code> message is to transport data to assist with the interactive component initialization. See <a href="#workflow-initialization">§ 6.2 Typical Initialization WorkFlow</a> and <a href="#workflow-uninterupted-initialization">§ 6.4 Uninterrupted Initialization WorkFlow</a>. 
-   <p>The creative must respond to <code>Player:init</code> with either <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a> or <a href="#simid-player-init-reject">§ 4.3.6.2 reject</a>.</p>
+   <p>The creative must respond to <code>Player:init</code> with either <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a> or <a href="#simid-player-init-reject">§ 4.3.7.2 reject</a>.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑥"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑥"></a></dfn> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata"><c- n>EnvironmentData</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="EnvironmentData " id="dom-messageargs-environmentdata"><code><c- g>environmentData</c-></code><a class="self-link" href="#dom-messageargs-environmentdata"></a></dfn>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata"><c- n>CreativeData</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="CreativeData " id="dom-messageargs-creativedata"><code><c- g>creativeData</c-></code><a class="self-link" href="#dom-messageargs-creativedata"></a></dfn>;
@@ -2796,7 +2867,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
        <button skip-ad>Skip Ad</button>
         button;
       <li>disregards VAST skippability directives;
-      <li>will skip the ad in response to <a href="#simid-creative-requestSkip">§ 4.4.13 SIMID:Creative:requestSkip</a> message.§
+      <li>will skip the ad in response to <a href="#simid-creative-requestSkip">§ 4.4.16 SIMID:Creative:requestSkip</a> message.§
      </ul>
       The value <code>notSkippable</code> declares that the player: 
      <ul collapse>
@@ -2823,16 +2894,16 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dd>IDFA or AAID 
    </dl>
    <ul class="footnote">
-    <li>see <a href="#simid-creative-requestFullscreen">§ 4.4.8 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.9 SIMID:Creative:requestExitFullscreen</a> messages.
+    <li>see <a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a> messages.
     <li>In SSAI, live broadcast, and other time-constrained environments, the player must support uninterrupted media (both content and ads) playback progress. Specifically, the player may not be able to pause the media, shorten ad, or extend user ad experience.
-    <li>see <a href="#simid-creative-requestPause">§ 4.4.10 SIMID:Creative:requestPause</a>, <a href="#simid-creative-requestPlay">§ 4.4.11 SIMID:Creative:requestPlay</a>, <a href="#simid-creative-requestChangeAdDuration">§ 4.4.6 SIMID:Creative:requestChangeAdDuration</a>, and <a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a>.
+    <li>see <a href="#simid-creative-requestPause">§ 4.4.13 SIMID:Creative:requestPause</a>, <a href="#simid-creative-requestPlay">§ 4.4.14 SIMID:Creative:requestPlay</a>, <a href="#simid-creative-requestChangeAdDuration">§ 4.4.8 SIMID:Creative:requestChangeAdDuration</a>, and <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a>.
     <li>SIMID does not expect device audio state information.
     <li>Values of <code>muted</code> and <code>volume</code> are independent. While the player is muted, <code>volume</code> can be greater than zero; the <code>volume</code> zero does not mean the player is muted.
    </ul>
-   <h5 class="heading settled" data-level="4.3.6.1" id="simid-player-init-resolve"><span class="secno">4.3.6.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-player-init-resolve"></a></h5>
+   <h5 class="heading settled" data-level="4.3.7.1" id="simid-player-init-resolve"><span class="secno">4.3.7.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-player-init-resolve"></a></h5>
    <p>The creative acknowledges the initialization parameters.</p>
    <p>If the creative delays calling resolve, see <a href="#workflow-delayed-init-resolve">§ 6.5 Creative Delays Resolving Init</a>.</p>
-   <h5 class="heading settled" data-level="4.3.6.2" id="simid-player-init-reject"><span class="secno">4.3.6.2. </span><span class="content">reject</span><a class="self-link" href="#simid-player-init-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.3.7.2" id="simid-player-init-reject"><span class="secno">4.3.7.2. </span><span class="content">reject</span><a class="self-link" href="#simid-player-init-reject"></a></h5>
    <p>The creative may respond with a reject based on its internal logic.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑦"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑦"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short③"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode①"></a></dfn>;
@@ -2846,7 +2917,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dd>Optional information about rejection cause. 
    </dl>
    <p>The player then will follow the rejection workflow. See <a href="#workflow-reject-initialization">§ 6.6 Creative Rejects Init</a>.</p>
-   <h4 class="heading settled" data-level="4.3.7" id="simid-player-log"><span class="secno">4.3.7. </span><span class="content">SIMID:Player:log</span><a class="self-link" href="#simid-player-log"></a></h4>
+   <h4 class="heading settled" data-level="4.3.8" id="simid-player-log"><span class="secno">4.3.8. </span><span class="content">SIMID:Player:log</span><a class="self-link" href="#simid-player-log"></a></h4>
     The purpose of the Player:log message is to convey optional, primarily debugging, information to the creative. 
    <p class="note" role="note"><span>Note:</span> In SIMID prefixing log messages with “WARNING:” has a specific meaning. The player is communicating performance inefficiencies or specification deviations aimed at creative developers. For example, if the creative sends the requestChangeVolume message but does not use the correct parameters, a “WARNING:” message is appropriate.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑧"></a></dfn> {
@@ -2857,7 +2928,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-message①"><code>message</code><a class="self-link" href="#dom-foointerface-message①"></a></dfn>, <span></span>
     <dd>Logging information. 
    </dl>
-   <h4 class="heading settled" data-level="4.3.8" id="simid-player-resize"><span class="secno">4.3.8. </span><span class="content">SIMID:Player:resize</span><a class="self-link" href="#simid-player-resize"></a></h4>
+   <h4 class="heading settled" data-level="4.3.9" id="simid-player-resize"><span class="secno">4.3.9. </span><span class="content">SIMID:Player:resize</span><a class="self-link" href="#simid-player-resize"></a></h4>
     When the player changes any of ad components’ size, it posts the <code>SIMID:Player:resize</code> message. The message describes the media and creative sizes, independently, even if the dimensions are identical. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑨"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑨"></a></dfn> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions②"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-videodimensions"><code><c- g>videoDimensions</c-></code><a class="self-link" href="#dom-messageargs-videodimensions"></a></dfn>;
@@ -2883,15 +2954,15 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <ul class="footnote">
     <li>If the  iframe is invisible at the time the player posts <code>resize</code> message, the parameter <code>creativeDimensions</code> communicates forthcoming values: iframe’s size, and coordinates once it is displayed.
    </ul>
-   <h4 class="heading settled" data-level="4.3.9" id="simid-player-startCreative"><span class="secno">4.3.9. </span><span class="content">SIMID:Player:startCreative</span><a class="self-link" href="#simid-player-startCreative"></a></h4>
+   <h4 class="heading settled" data-level="4.3.10" id="simid-player-startCreative"><span class="secno">4.3.10. </span><span class="content">SIMID:Player:startCreative</span><a class="self-link" href="#simid-player-startCreative"></a></h4>
    <p>See <a href="#workflow-startCreative">§ 6.3 Typical Start Creative WorkFlow</a></p>
-   <p>The player posts <code>SIMID:Player:startCreative</code> message when it is ready to make the iframe visible. The player must transmit <code>Player:startCreative</code> as close to the first media frame rendering as possible. The player waits for a <a href="#simid-player-startCreative-resolve">§ 4.3.9.1 resolve</a> response to display the SIMID iframe. The interactive creative should be ready to reply to <code>Player:startCreative</code> immediately.</p>
-   <p><a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> section describes the flow that precedes the instant the player emits a <code>Player:startCreative</code> message.</p>
-   <h5 class="heading settled" data-level="4.3.9.1" id="simid-player-startCreative-resolve"><span class="secno">4.3.9.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-player-startCreative-resolve"></a></h5>
+   <p>The player posts <code>SIMID:Player:startCreative</code> message when it is ready to make the iframe visible. The player must transmit <code>Player:startCreative</code> as close to the first media frame rendering as possible. The player waits for a <a href="#simid-player-startCreative-resolve">§ 4.3.10.1 resolve</a> response to display the SIMID iframe. The interactive creative should be ready to reply to <code>Player:startCreative</code> immediately.</p>
+   <p><a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> section describes the flow that precedes the instant the player emits a <code>Player:startCreative</code> message.</p>
+   <h5 class="heading settled" data-level="4.3.10.1" id="simid-player-startCreative-resolve"><span class="secno">4.3.10.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-player-startCreative-resolve"></a></h5>
     By posting <code>resolve</code>, the interactive creative acknowledges that it is ready for display. The creative should be ready to respond immediately. The player makes the iframe visible upon a resolve receipt 
    <p>Refer to <a href="#workflow-startCreative">§ 6.3 Typical Start Creative WorkFlow</a> <span step><b>2</b></span>.</p>
    <p>If the creative fails to reply with a <code>resolve</code> by the time ad media playback completes, the player reports VAST error tracker with the errorCode 1213. See <a href="#error-codes">§ 9 Error Codes</a>.</p>
-   <h5 class="heading settled" data-level="4.3.9.2" id="simid-player-startCreative-reject"><span class="secno">4.3.9.2. </span><span class="content">reject</span><a class="self-link" href="#simid-player-startCreative-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.3.10.2" id="simid-player-startCreative-reject"><span class="secno">4.3.10.2. </span><span class="content">reject</span><a class="self-link" href="#simid-player-startCreative-reject"></a></h5>
     When the creative responds with a reject, the player may unload the iframe. The player reports VAST error tracker with the <code>errorCode</code> the creative supplied. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⓪"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⓪"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short④"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode②"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode②"></a></dfn>;
@@ -2920,57 +2991,57 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
       <td><code>x</code><br><code>y</code>
       <td>n/a
      <tr>
-      <td><a href="#simid-creative-fatalError">§ 4.4.2 SIMID:Creative:fatalError</a>
+      <td><a href="#simid-creative-fatalError">§ 4.4.4 SIMID:Creative:fatalError</a>
       <td><code>errorCode</code><br><code>errorMessage</code>
       <td>n/a
      <tr>
-      <td><a href="#simid-creative-getMediaState">§ 4.4.3 SIMID:Creative:getMediaState</a>
+      <td><a href="#simid-creative-getMediaState">§ 4.4.5 SIMID:Creative:getMediaState</a>
       <td>n/a
-      <td><a href="#simid-creative-getMediaState-resolve">§ 4.4.3.1 resolve</a>
+      <td><a href="#simid-creative-getMediaState-resolve">§ 4.4.5.1 resolve</a>
      <tr>
-      <td><a href="#simid-creative-log">§ 4.4.4 SIMID:Creative:log</a>
+      <td><a href="#simid-creative-log">§ 4.4.6 SIMID:Creative:log</a>
       <td><code>message</code>
       <td>n/a
      <tr>
-      <td><a href="#simid-creative-reportTracking">§ 4.4.5 SIMID:Creative:reportTracking</a>
+      <td><a href="#simid-creative-reportTracking">§ 4.4.7 SIMID:Creative:reportTracking</a>
       <td><code>trackingUrls</code>
-      <td><a href="#simid-creative-reportTracking-resolve">§ 4.4.5.1 resolve</a><br><a href="#simid-creative-reportTracking-reject">§ 4.4.5.2 reject</a>
+      <td><a href="#simid-creative-reportTracking-resolve">§ 4.4.7.1 resolve</a><br><a href="#simid-creative-reportTracking-reject">§ 4.4.7.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestChangeAdDuration">§ 4.4.6 SIMID:Creative:requestChangeAdDuration</a>
+      <td><a href="#simid-creative-requestChangeAdDuration">§ 4.4.8 SIMID:Creative:requestChangeAdDuration</a>
       <td><code>duration</code>
-      <td><a href="#simid-creative-requestChangeAdDuration-resolve">§ 4.4.6.1 resolve</a><br><a href="#simid-creative-requestChangeAdDuration-reject">§ 4.4.6.2 reject</a>
+      <td><a href="#simid-creative-requestChangeAdDuration-resolve">§ 4.4.8.1 resolve</a><br><a href="#simid-creative-requestChangeAdDuration-reject">§ 4.4.8.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestChangeVolume">§ 4.4.7 SIMID:Creative:requestChangeVolume</a>
+      <td><a href="#simid-creative-requestChangeVolume">§ 4.4.9 SIMID:Creative:requestChangeVolume</a>
       <td><code>volume</code><br><code>muted</code>
-      <td><a href="#simid-creative-requestChangeVolume-resolve">§ 4.4.7.1 resolve</a><br><a href="#simid-creative-requestChangeVolume-reject">§ 4.4.7.2 reject</a>
+      <td><a href="#simid-creative-requestChangeVolume-resolve">§ 4.4.9.1 resolve</a><br><a href="#simid-creative-requestChangeVolume-reject">§ 4.4.9.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestExitFullscreen">§ 4.4.9 SIMID:Creative:requestExitFullscreen</a>
+      <td><a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a>
       <td>n/a
-      <td><a href="#simid-creative-requestExitFullscreen-resolve">§ 4.4.9.1 resolve</a><br><a href="#simid-creative-requestExitFullscreen-reject">§ 4.4.9.2 reject</a>
+      <td><a href="#simid-creative-requestExitFullscreen-resolve">§ 4.4.11.1 resolve</a><br><a href="#simid-creative-requestExitFullscreen-reject">§ 4.4.11.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestFullscreen">§ 4.4.8 SIMID:Creative:requestFullscreen</a>
+      <td><a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a>
       <td>n/a
-      <td><a href="#simid-creative-requestFullscreen-resolve">§ 4.4.8.1 resolve</a><br><a href="#simid-creative-requestFullscreen-reject">§ 4.4.8.2 reject</a>
+      <td><a href="#simid-creative-requestFullscreen-resolve">§ 4.4.10.1 resolve</a><br><a href="#simid-creative-requestFullscreen-reject">§ 4.4.10.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestPause">§ 4.4.10 SIMID:Creative:requestPause</a>
+      <td><a href="#simid-creative-requestPause">§ 4.4.13 SIMID:Creative:requestPause</a>
       <td>n/a
-      <td><a href="#simid-creative-requestPause-resolve">§ 4.4.10.1 resolve</a><br><a href="#simid-creative-requestPause-reject">§ 4.4.10.2 reject</a>
+      <td><a href="#simid-creative-requestPause-resolve">§ 4.4.13.1 resolve</a><br><a href="#simid-creative-requestPause-reject">§ 4.4.13.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestPlay">§ 4.4.11 SIMID:Creative:requestPlay</a>
+      <td><a href="#simid-creative-requestPlay">§ 4.4.14 SIMID:Creative:requestPlay</a>
       <td>n/a
-      <td><a href="#simid-creative-requestPlay-resolve">§ 4.4.11.1 resolve</a><br><a href="#simid-creative-requestPlay-reject">§ 4.4.11.2 reject</a>
+      <td><a href="#simid-creative-requestPlay-resolve">§ 4.4.14.1 resolve</a><br><a href="#simid-creative-requestPlay-reject">§ 4.4.14.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestResize">§ 4.4.12 SIMID:Creative:requestResize</a>
+      <td><a href="#simid-creative-requestResize">§ 4.4.15 SIMID:Creative:requestResize</a>
       <td>n/a
-      <td><a href="#simid-creative-requestResize-resolve">§ 4.4.12.1 resolve</a><br><a href="#simid-creative-requestResize-reject">§ 4.4.12.2 reject</a>
+      <td><a href="#simid-creative-requestResize-resolve">§ 4.4.15.1 resolve</a><br><a href="#simid-creative-requestResize-reject">§ 4.4.15.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestSkip">§ 4.4.13 SIMID:Creative:requestSkip</a>
+      <td><a href="#simid-creative-requestSkip">§ 4.4.16 SIMID:Creative:requestSkip</a>
       <td>n/a
-      <td><a href="#simid-creative-requestSkip-resolve">§ 4.4.13.1 resolve</a><br><a href="#simid-creative-requestSkip-reject">§ 4.4.13.2 reject</a>
+      <td><a href="#simid-creative-requestSkip-resolve">§ 4.4.16.1 resolve</a><br><a href="#simid-creative-requestSkip-reject">§ 4.4.16.2 reject</a>
      <tr>
-      <td><a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a>
+      <td><a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a>
       <td>n/a
-      <td><a href="#simid-creative-requestStop-resolve">§ 4.4.14.1 resolve</a><br><a href="#simid-creative-requestStop-reject">§ 4.4.14.2 reject</a>
+      <td><a href="#simid-creative-requestStop-resolve">§ 4.4.17.1 resolve</a><br><a href="#simid-creative-requestStop-reject">§ 4.4.17.2 reject</a>
    </table>
    <h4 class="heading settled" data-level="4.4.1" id="simid-creative-clickThru"><span class="secno">4.4.1. </span><span class="content">SIMID:Creative:clickThru</span><a class="self-link" href="#simid-creative-clickThru"></a></h4>
    <p>The <code>SIMID:Creative:clickThru</code> message notifies the player of a <code>clickthrough</code> for event tracking. SIMID delegates clickthrough execution to the creative, including redirecting the user to the landing page. The interactive component posts <code>clickThru</code> only when the creative classifies a user interaction as a clickthrough.</p>
@@ -2986,7 +3057,36 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-y"><code>y</code><a class="self-link" href="#dom-foointerface-y"></a></dfn>, <span></span>
     <dd>The click top offset in the creative’s coordinate system. 
    </dl>
-   <h4 class="heading settled" data-level="4.4.2" id="simid-creative-fatalError"><span class="secno">4.4.2. </span><span class="content">SIMID:Creative:fatalError</span><a class="self-link" href="#simid-creative-fatalError"></a></h4>
+   <h4 class="heading settled" data-level="4.4.2" id="simid-creative-collapseNonlinear"><span class="secno">4.4.2. </span><span class="content">SIMID:Creative:collapseNonlinear</span><a class="self-link" href="#simid-creative-collapseNonlinear"></a></h4>
+    When the creative is ready to collapse, it posts a Creative:collapseNonlinear message. In response to collapseNonlinear, the player resizes the ad to its original state and resumes the media content. 
+   <p><img alt="Normal Creative Initilaizatioin Sequence" src="images/collapse-non-linear-workflow.png" style="margin-left: -10px;"></p>
+   <h5 class="heading settled" data-level="4.4.2.1" id="simid-creative-collapseNonlinear-resolve"><span class="secno">4.4.2.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-collapseNonlinear-resolve"></a></h5>
+    When the player resizes the ad, it posts a resolve message. 
+   <h4 class="heading settled" data-level="4.4.3" id="simid-creative-expandNonlinear"><span class="secno">4.4.3. </span><span class="content">SIMID:Creative:expandNonlinear</span><a class="self-link" href="#simid-creative-expandNonlinear"></a></h4>
+   <p>The creative posts Creative:expandNonlinear when a user indicates they want to see the expanded ad portion (by clicking expand control/button that default banner provides).</p>
+   <p>Auto-expand is strongly discouraged and goes against industry guidelines. Under normal circumstances, the player pauses the media content and resizes the creative iframe to the dimensions of the media content and places the expanded creative at video zero coordinates.</p>
+   <p>If the player communicates to the creative that it has no capacity to expand the ad (with Player:init message), the creative does not provide an expand button or post an expandNonlinear message.</p>
+   <p><img alt="Normal Creative Initilaizatioin Sequence" src="images/expand-non-linear-workflow.png" style="margin-left: -10px;"></p>
+   <p>Flow:</p>
+   <ol>
+    <li data-md>
+     <p>User requests ad expand.</p>
+    <li data-md>
+     <p>The creative posts expandNonlinear.</p>
+    <li data-md>
+     <p>The player pauses content media.</p>
+    <li data-md>
+     <p>The player resizes the creative iframe.</p>
+    <li data-md>
+     <p>The player posts resolve response.</p>
+   </ol>
+   <h5 class="heading settled" data-level="4.4.3.1" id="simid-creative-expandNonlinear-resolve"><span class="secno">4.4.3.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-expandNonlinear-resolve"></a></h5>
+    Once the player resizes the ad, it posts a resolve message. The player provides the expanded size dimensions and position with the resolve message.args 
+   <p>Message.arg:
+Dimensions {x ,y, width, height}</p>
+   <h5 class="heading settled" data-level="4.4.3.2" id="simid-creative-expandNonlinear-reject"><span class="secno">4.4.3.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-expandNonlinear-reject"></a></h5>
+    If the player declines the expansion request, it posts a reject message. 
+   <h4 class="heading settled" data-level="4.4.4" id="simid-creative-fatalError"><span class="secno">4.4.4. </span><span class="content">SIMID:Creative:fatalError</span><a class="self-link" href="#simid-creative-fatalError"></a></h4>
     The creative posts <code>SIMID:Creative:fatalError</code> in cases when its internal exceptions prevent the interactive component from further execution. In response to the <code>Creative:fatalError</code> message, the player unloads the SIMID iframe and reports VAST error tracker with the <code>errorCode</code> specified by the creative. The ad media playback must stop, if possible. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①②"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①②"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑤"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode③"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode③"></a></dfn>;
@@ -2999,9 +3099,9 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errormessage①"><code>errorMessage</code><a class="self-link" href="#dom-foointerface-errormessage①"></a></dfn>, <span></span>
     <dd>Additional information. 
    </dl>
-   <h4 class="heading settled" data-level="4.4.3" id="simid-creative-getMediaState"><span class="secno">4.4.3. </span><span class="content">SIMID:Creative:getMediaState</span><a class="self-link" href="#simid-creative-getMediaState"></a></h4>
+   <h4 class="heading settled" data-level="4.4.5" id="simid-creative-getMediaState"><span class="secno">4.4.5. </span><span class="content">SIMID:Creative:getMediaState</span><a class="self-link" href="#simid-creative-getMediaState"></a></h4>
     The creative posts a <code>SIMID:Creative:getMediaState</code> message to request the current ad media states values. 
-   <h5 class="heading settled" data-level="4.4.3.1" id="simid-creative-getMediaState-resolve"><span class="secno">4.4.3.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-getMediaState-resolve"></a></h5>
+   <h5 class="heading settled" data-level="4.4.5.1" id="simid-creative-getMediaState-resolve"><span class="secno">4.4.5.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-getMediaState-resolve"></a></h5>
     The player should always respond  to <code>Creative:getMediaState</code> with a <code>resolve</code>, including situations when the player is unable to provide all expected values. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①③"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①③"></a></dfn> {
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
@@ -3032,7 +3132,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-fullscreen②"><code>fullscreen</code><a class="self-link" href="#dom-foointerface-fullscreen②"></a></dfn>, <span></span>
     <dd>he value is <code>true</code> if the media element is in full screen.. 
    </dl>
-   <h4 class="heading settled" data-level="4.4.4" id="simid-creative-log"><span class="secno">4.4.4. </span><span class="content">SIMID:Creative:log</span><a class="self-link" href="#simid-creative-log"></a></h4>
+   <h4 class="heading settled" data-level="4.4.6" id="simid-creative-log"><span class="secno">4.4.6. </span><span class="content">SIMID:Creative:log</span><a class="self-link" href="#simid-creative-log"></a></h4>
     The message <code>SIMID:Creative:log</code> enables the creative to communicate arbitrary information to the player. 
    <p class="note" role="note"><span>Note:</span> If the <code>log</code> message purpose is to notify the player about the player’s non-standard behavior, the creative prepends <code>Message.args.message</code> value with “WARNING:” <code>string</code>. Warning messages are used to inform player developers about occurances of non-fatal issues.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①④"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①④"></a></dfn> {
@@ -3043,7 +3143,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-message②"><code>message</code><a class="self-link" href="#dom-foointerface-message②"></a></dfn>, <span></span>
     <dd>Logging information. 
    </dl>
-   <h4 class="heading settled" data-level="4.4.5" id="simid-creative-reportTracking"><span class="secno">4.4.5. </span><span class="content">SIMID:Creative:reportTracking</span><a class="self-link" href="#simid-creative-reportTracking"></a></h4>
+   <h4 class="heading settled" data-level="4.4.7" id="simid-creative-reportTracking"><span class="secno">4.4.7. </span><span class="content">SIMID:Creative:reportTracking</span><a class="self-link" href="#simid-creative-reportTracking"></a></h4>
    <p>The <code>SIMID:Creative:reportTracking</code> message enables a creative to delegate arbitrary metrics reporting to the player.</p>
    <p>The creative may inject macros into trackers URIs.</p>
    <p>In response to the <code>reportTracking</code> message, the player must:</p>
@@ -3060,9 +3160,9 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-trackingurls"><code>trackingUrls</code><a class="self-link" href="#dom-foointerface-trackingurls"></a></dfn>, <span></span>
     <dd><code>Array</code> of URIs. 
    </dl>
-   <h5 class="heading settled" data-level="4.4.5.1" id="simid-creative-reportTracking-resolve"><span class="secno">4.4.5.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-reportTracking-resolve"></a></h5>
+   <h5 class="heading settled" data-level="4.4.7.1" id="simid-creative-reportTracking-resolve"><span class="secno">4.4.7.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-reportTracking-resolve"></a></h5>
     The player posts a <code>resolve</code> after it sends the trackers. 
-   <h5 class="heading settled" data-level="4.4.5.2" id="simid-creative-reportTracking-reject"><span class="secno">4.4.5.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-reportTracking-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.7.2" id="simid-creative-reportTracking-reject"><span class="secno">4.4.7.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-reportTracking-reject"></a></h5>
     The player posts a <code>reject</code> if it did not send the trackers. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑥"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑥"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode④"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode④"></a></dfn>;
@@ -3075,12 +3175,12 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-reason②"><code>reason</code><a class="self-link" href="#dom-foointerface-reason②"></a></dfn>, <span></span>
     <dd>Additional information. 
    </dl>
-   <h4 class="heading settled" data-level="4.4.6" id="simid-creative-requestChangeAdDuration"><span class="secno">4.4.6. </span><span class="content">SIMID:Creative:requestChangeAdDuration</span><a class="self-link" href="#simid-creative-requestChangeAdDuration"></a></h4>
+   <h4 class="heading settled" data-level="4.4.8" id="simid-creative-requestChangeAdDuration"><span class="secno">4.4.8. </span><span class="content">SIMID:Creative:requestChangeAdDuration</span><a class="self-link" href="#simid-creative-requestChangeAdDuration"></a></h4>
    <p>In response to user interaction, the creative is requesting a new ad duration.</p>
    <p>In SIMID, ad’s media determines the initial ad duration. The ad span may change due to user interaction. When ad duration changes, the creative posts <code>Creative:requestChangeAdDuration</code> message that communicates an updated value. In response to the <code>requestChangeAdDuration</code> message, the player adjusts ad-end timing and updates its ad progress UI (eg., countdown).</p>
-   <p>The creative expresses a known duration value in seconds. In cases where the duration is unknown (typically due to user interaction), the value is <code>-2</code>. With a known duration, the player unloads the ad automatically once the countdown (ad remaining time) reaches zero. See <a href="#workflow-extend">§ 6.9.1 Ad Extends Beyond Media Completion</a> <span steps><b>4</b><b>5</b><b>6</b></span>).</p>
-   <p>When the duration value is <code>-2</code>, the player displays the ad indefinitely until the creative posts <a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a>. See <a href="#workflow-ad-duartion-changed-unknown">§ 6.9.3 Ad Duration Changed Workflow - Unknown Time</a> step <span step><b>4</b></span>).</p>
-   <p class="note" role="note"><span>Note:</span> The player communicates its capacities to modify the ad duration with <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message args parameter <code>variableDurationAllowed</code>. If the value of <code>variableDurationAllowed</code> is <code>false</code>, the creative refrains from posting <code>requestChangeAdDuration</code> message.</p>
+   <p>The creative expresses a known duration value in seconds. In cases where the duration is unknown (typically due to user interaction), the value is <code>-2</code>. With a known duration, the player unloads the ad automatically once the countdown (ad remaining time) reaches zero. See <a href="#workflow-extend">§ 6.10.1 Ad Extends Beyond Media Completion</a> <span steps><b>4</b><b>5</b><b>6</b></span>).</p>
+   <p>When the duration value is <code>-2</code>, the player displays the ad indefinitely until the creative posts <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a>. See <a href="#workflow-ad-duartion-changed-unknown">§ 6.10.3 Ad Duration Changed Workflow - Unknown Time</a> step <span step><b>4</b></span>).</p>
+   <p class="note" role="note"><span>Note:</span> The player communicates its capacities to modify the ad duration with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message args parameter <code>variableDurationAllowed</code>. If the value of <code>variableDurationAllowed</code> is <code>false</code>, the creative refrains from posting <code>requestChangeAdDuration</code> message.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑦"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑦"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration②"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration②"></a></dfn>;
 };
@@ -3089,11 +3189,11 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-duration②"><code>duration</code><a class="self-link" href="#dom-foointerface-duration②"></a></dfn>, <span></span>
     <dd>Value in seconds for a known duration.<br> The value <code>-2</code> indicates an unknown duration. 
    </dl>
-   <p>See <a href="#workflow-change-duration">§ 6.9 Ad Duration Changed Workflow</a>.</p>
-   <h5 class="heading settled" data-level="4.4.6.1" id="simid-creative-requestChangeAdDuration-resolve"><span class="secno">4.4.6.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestChangeAdDuration-resolve"></a></h5>
+   <p>See <a href="#workflow-change-duration">§ 6.10 Ad Duration Changed Workflow</a>.</p>
+   <h5 class="heading settled" data-level="4.4.8.1" id="simid-creative-requestChangeAdDuration-resolve"><span class="secno">4.4.8.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestChangeAdDuration-resolve"></a></h5>
     By posting <code>resolve</code> response to <code>requestChangeAdDuration</code> message, the player signals that it will respect requested duration by modifying the ad duration-dependent behaviors. 
-   <p class="note" role="note"><span>Note:</span> The player must accommodate an ad duration change directive if the value of the <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message parameter <code>variableDurationAllowed</code> is <code>true</code>.</p>
-   <h5 class="heading settled" data-level="4.4.6.2" id="simid-creative-requestChangeAdDuration-reject"><span class="secno">4.4.6.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestChangeAdDuration-reject"></a></h5>
+   <p class="note" role="note"><span>Note:</span> The player must accommodate an ad duration change directive if the value of the <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message parameter <code>variableDurationAllowed</code> is <code>true</code>.</p>
+   <h5 class="heading settled" data-level="4.4.8.2" id="simid-creative-requestChangeAdDuration-reject"><span class="secno">4.4.8.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestChangeAdDuration-reject"></a></h5>
     By posting <code>reject</code> response to <code>requestChangeAdDuration</code> message, the player states that: 
    <ul collapse>
     <li>It ignored the duration change request;
@@ -3101,7 +3201,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <li>The player will stop and unload the ad once any of the prescribed player-side ad-end triggers arise.
    </ul>
    <p class="note" role="note"><span>Note:</span> The single SIMID-supported reason for a <code>reject</code> in response to <code>requestChangeAdDuration</code> is the player’s inability to alter media progress.</p>
-   <h4 class="heading settled" data-level="4.4.7" id="simid-creative-requestChangeVolume"><span class="secno">4.4.7. </span><span class="content">SIMID:Creative:requestChangeVolume</span><a class="self-link" href="#simid-creative-requestChangeVolume"></a></h4>
+   <h4 class="heading settled" data-level="4.4.9" id="simid-creative-requestChangeVolume"><span class="secno">4.4.9. </span><span class="content">SIMID:Creative:requestChangeVolume</span><a class="self-link" href="#simid-creative-requestChangeVolume"></a></h4>
     The creative requests ad volume change by posting a <code>SIMID:Creative:requestChangeVolume</code> message. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑧"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume②"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume②"></a></dfn>;
@@ -3117,52 +3217,89 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <ul class="footnote">
     <li>Properties <code>volume</code> and <code>muted</code> describe two independent audio states. While media is muted, its volume may be greater than zero; at the same time with zero volume, media may be unmuted. 
    </ul>
-   <h5 class="heading settled" data-level="4.4.7.1" id="simid-creative-requestChangeVolume-resolve"><span class="secno">4.4.7.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestChangeVolume-resolve"></a></h5>
+   <h5 class="heading settled" data-level="4.4.9.1" id="simid-creative-requestChangeVolume-resolve"><span class="secno">4.4.9.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestChangeVolume-resolve"></a></h5>
     By posting <code>resolve</code> message, the player signals it has changed the media audio states to the requested values. 
-   <h5 class="heading settled" data-level="4.4.7.2" id="simid-creative-requestChangeVolume-reject"><span class="secno">4.4.7.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestChangeVolume-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.9.2" id="simid-creative-requestChangeVolume-reject"><span class="secno">4.4.9.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestChangeVolume-reject"></a></h5>
     By posting <code>reject</code> message, the player signals that it did not change the audio state. 
-   <h4 class="heading settled" data-level="4.4.8" id="simid-creative-requestFullscreen"><span class="secno">4.4.8. </span><span class="content">SIMID:Creative:requestFullscreen</span><a class="self-link" href="#simid-creative-requestFullscreen"></a></h4>
+   <h4 class="heading settled" data-level="4.4.10" id="simid-creative-requestFullscreen"><span class="secno">4.4.10. </span><span class="content">SIMID:Creative:requestFullscreen</span><a class="self-link" href="#simid-creative-requestFullscreen"></a></h4>
     The creative requests the player to transition the ad into fullscreen mode by posting a <code>SIMID:Creative:requestFullscreen</code> message. 
-   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to toggle screen modes with <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message parameter <code>fullscreenAllowed</code>. When the value of <code>fullscreenAllowed</code> is <code>false</code>, the creative refrains from posting <code>Creative:requestFullscreen</code> message.</p>
-   <h5 class="heading settled" data-level="4.4.8.1" id="simid-creative-requestFullscreen-resolve"><span class="secno">4.4.8.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestFullscreen-resolve"></a></h5>
+   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to toggle screen modes with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message parameter <code>fullscreenAllowed</code>. When the value of <code>fullscreenAllowed</code> is <code>false</code>, the creative refrains from posting <code>Creative:requestFullscreen</code> message.</p>
+   <h5 class="heading settled" data-level="4.4.10.1" id="simid-creative-requestFullscreen-resolve"><span class="secno">4.4.10.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestFullscreen-resolve"></a></h5>
     By posting <code>resolve</code> response to <code>requestFullscreen</code> message, the player signals that it moved both the media element and the SIMID iframe into fullscreen mode. 
-   <h5 class="heading settled" data-level="4.4.8.2" id="simid-creative-requestFullscreen-reject"><span class="secno">4.4.8.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestFullscreen-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.10.2" id="simid-creative-requestFullscreen-reject"><span class="secno">4.4.10.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestFullscreen-reject"></a></h5>
     By posting <code>reject</code> response to <code>requestFullscreen</code> message, the player signals that it did not change the screen mode because it is either: 
    <ul collapse>
     <li>Incapable of toggling between screen modes.
     <li>Already in the fullscreen mode.
     <li>Disallows fullscreen mode.
    </ul>
-   <h4 class="heading settled" data-level="4.4.9" id="simid-creative-requestExitFullscreen"><span class="secno">4.4.9. </span><span class="content">SIMID:Creative:requestExitFullscreen</span><a class="self-link" href="#simid-creative-requestExitFullscreen"></a></h4>
+   <h4 class="heading settled" data-level="4.4.11" id="simid-creative-requestExitFullscreen"><span class="secno">4.4.11. </span><span class="content">SIMID:Creative:requestExitFullscreen</span><a class="self-link" href="#simid-creative-requestExitFullscreen"></a></h4>
     The creative requests the player to transition the ad into normal-screen mode by posting a <code>SIMID:Creative:requestExitFullscreen</code> message. 
-   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to toggle screen modes with <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message parameter <code>fullscreenAllowed</code>. When the value of <code>fullscreenAllowed</code> is false, the creative refrains from posting <code>Creative:requestExitFullscreen</code> message.</p>
-   <h5 class="heading settled" data-level="4.4.9.1" id="simid-creative-requestExitFullscreen-resolve"><span class="secno">4.4.9.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestExitFullscreen-resolve"></a></h5>
+   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to toggle screen modes with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message parameter <code>fullscreenAllowed</code>. When the value of <code>fullscreenAllowed</code> is false, the creative refrains from posting <code>Creative:requestExitFullscreen</code> message.</p>
+   <h5 class="heading settled" data-level="4.4.11.1" id="simid-creative-requestExitFullscreen-resolve"><span class="secno">4.4.11.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestExitFullscreen-resolve"></a></h5>
     By posting <code>resolve</code> response to <code>requestExitFullscreen</code> message, the player signals that it moved both the media element and the SIMID iframe into normal-screen mode. 
-   <h5 class="heading settled" data-level="4.4.9.2" id="simid-creative-requestExitFullscreen-reject"><span class="secno">4.4.9.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestExitFullscreen-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.11.2" id="simid-creative-requestExitFullscreen-reject"><span class="secno">4.4.11.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestExitFullscreen-reject"></a></h5>
     The player responds to <code>requestExitFullscreen</code> message with a <code>reject</code> when it did not change the screen mode because it is either: 
    <ul collapse>
     <li>Incapable of toggling between screen modes or
     <li>Already in the normal-screen mode.
    </ul>
-   <h4 class="heading settled" data-level="4.4.10" id="simid-creative-requestPause"><span class="secno">4.4.10. </span><span class="content">SIMID:Creative:requestPause</span><a class="self-link" href="#simid-creative-requestPause"></a></h4>
+   <h4 class="heading settled" data-level="4.4.12" id="simid-creative-requestNavigation"><span class="secno">4.4.12. </span><span class="content">SIMID:Creative:requestNavigation</span><a class="self-link" href="#simid-creative-requestNavigation"></a></h4>
+   <p>In environments like mobile apps, the player manages redirections of the user to external landing pages. In response to <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a>, the player opens a browser window with the location the creative provides with the message.args.uri parameter.</p>
+   <p>In web environments, the creative manages navigation.</p>
+   <p>The creative sends <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a> in response to the user’s interaction. The creative does not request navigation without user interaction.</p>
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑨"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑨"></a></dfn> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="string " id="dom-messageargs-uri"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri"></a></dfn>;
+};
+</pre>
+   <dl class="idl highlight def">
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-uri"><code>uri</code><a class="self-link" href="#dom-foointerface-uri"></a></dfn>, <span></span>
+    <dd>The address of the landing page. 
+   </dl>
+   <p><img alt="SIMID Request Navigation." src="images/dgrm-creative-requestNavigation.png"></p>
+   <ol>
+    <li data-md>
+     <p>The user interacts with navigation control.</p>
+    <li data-md>
+     <p>The creative posts <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a>.</p>
+    <li data-md>
+     <p>The player receives <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a> message.</p>
+    <li data-md>
+     <p>If the player cannot redirect the user - it responds with reject.</p>
+    <li data-md>
+     <p>If the player can redirect the user:</p>
+     <ul>
+      <li data-md>
+       <p>The player responds with resolve.</p>
+      <li data-md>
+       <p>The player pauses the media (if feasible).</p>
+      <li data-md>
+       <p>The player opens the landing page.</p>
+     </ul>
+   </ol>
+   <h5 class="heading settled" data-level="4.4.12.1" id="simid-creative-requestNavigation-resolve"><span class="secno">4.4.12.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestNavigation-resolve"></a></h5>
+   <p>The player posts resolve before it opens the window to assure the creative receives the message prior to app backgrounding.</p>
+   <h5 class="heading settled" data-level="4.4.12.2" id="simid-creative-requestNavigation-reject"><span class="secno">4.4.12.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestNavigation-reject"></a></h5>
+   <p>The player did not navigate to a new window.</p>
+   <h4 class="heading settled" data-level="4.4.13" id="simid-creative-requestPause"><span class="secno">4.4.13. </span><span class="content">SIMID:Creative:requestPause</span><a class="self-link" href="#simid-creative-requestPause"></a></h4>
     The creative requests the player to pause media playback by posting a <code>SIMID:Creative:requestPause</code> message. 
-   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to interrupt media playback with <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message, parameter <code>variableDurationAllowed</code>. The creative must not post <code>requestPause</code> if the player sets <code>variableDurationAllowed</code> value to <code>false</code>.</p>
-   <h5 class="heading settled" data-level="4.4.10.1" id="simid-creative-requestPause-resolve"><span class="secno">4.4.10.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestPause-resolve"></a></h5>
+   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to interrupt media playback with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message, parameter <code>variableDurationAllowed</code>. The creative must not post <code>requestPause</code> if the player sets <code>variableDurationAllowed</code> value to <code>false</code>.</p>
+   <h5 class="heading settled" data-level="4.4.13.1" id="simid-creative-requestPause-resolve"><span class="secno">4.4.13.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestPause-resolve"></a></h5>
     The player replies to <code>Creative:requestPause</code> with a <code>resolve</code> if it paused the media. 
-   <h5 class="heading settled" data-level="4.4.10.2" id="simid-creative-requestPause-reject"><span class="secno">4.4.10.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestPause-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.13.2" id="simid-creative-requestPause-reject"><span class="secno">4.4.13.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestPause-reject"></a></h5>
     The player replies to <code>Creative:requestPause</code> with a <code>reject</code> if it did not pause the media or the playback is already paused. 
-   <h4 class="heading settled" data-level="4.4.11" id="simid-creative-requestPlay"><span class="secno">4.4.11. </span><span class="content">SIMID:Creative:requestPlay</span><a class="self-link" href="#simid-creative-requestPlay"></a></h4>
+   <h4 class="heading settled" data-level="4.4.14" id="simid-creative-requestPlay"><span class="secno">4.4.14. </span><span class="content">SIMID:Creative:requestPlay</span><a class="self-link" href="#simid-creative-requestPlay"></a></h4>
     The creative requests the player to resume media playback by posting a <code>SIMID:Creative:requestPlay</code> message. 
-   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to interrupt media playback with <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message, parameter <code>variableDurationAllowed</code>. The creative must not post <code>requestPlay</code> if the player sets <code>variableDurationAllowed</code> value to <code>false</code>.</p>
-   <h5 class="heading settled" data-level="4.4.11.1" id="simid-creative-requestPlay-resolve"><span class="secno">4.4.11.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestPlay-resolve"></a></h5>
+   <p class="note" role="note"><span>Note:</span> the player communicates its capacity to interrupt media playback with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message, parameter <code>variableDurationAllowed</code>. The creative must not post <code>requestPlay</code> if the player sets <code>variableDurationAllowed</code> value to <code>false</code>.</p>
+   <h5 class="heading settled" data-level="4.4.14.1" id="simid-creative-requestPlay-resolve"><span class="secno">4.4.14.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestPlay-resolve"></a></h5>
     The player replies to <code>Creative:requestPlay</code> with a <code>resolve</code> if it resumed media playback. 
-   <h5 class="heading settled" data-level="4.4.11.2" id="simid-creative-requestPlay-reject"><span class="secno">4.4.11.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestPlay-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.14.2" id="simid-creative-requestPlay-reject"><span class="secno">4.4.14.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestPlay-reject"></a></h5>
     The player replies to <code>Creative:requestPlay</code> with a <code>reject</code> if it did not resume the media or the playback is already in progress. 
-   <h4 class="heading settled" data-level="4.4.12" id="simid-creative-requestResize"><span class="secno">4.4.12. </span><span class="content">SIMID:Creative:requestResize</span><a class="self-link" href="#simid-creative-requestResize"></a></h4>
+   <h4 class="heading settled" data-level="4.4.15" id="simid-creative-requestResize"><span class="secno">4.4.15. </span><span class="content">SIMID:Creative:requestResize</span><a class="self-link" href="#simid-creative-requestResize"></a></h4>
    <p>The creative requests ad resize by posting a <code>SIMID:Creative:requestResize</code> message.</p>
    <p>The player must not resize the ad unless it can change the dimensions of both media element and SIMID iframe to the values specified by the <code>Creative:requestResize</code> message.</p>
-   <p class="note" role="note"><span>Note:</span> the message <code>requestResize</code> must not be used to change screen mode. See the <a href="#simid-creative-requestFullscreen">§ 4.4.8 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.9 SIMID:Creative:requestExitFullscreen</a> messages.</p>
-<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑨"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑨"></a></dfn> {
+   <p class="note" role="note"><span>Note:</span> the message <code>requestResize</code> must not be used to change screen mode. See the <a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a> messages.</p>
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs②⓪"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs②⓪"></a></dfn> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions④"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-mediadimensions"><code><c- g>mediaDimensions</c-></code><a class="self-link" href="#dom-messageargs-mediadimensions"></a></dfn>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions⑤"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions①"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions①"></a></dfn>;
 };
@@ -3180,16 +3317,16 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-creativedimensions②"><code>creativeDimensions</code><a class="self-link" href="#dom-foointerface-creativedimensions②"></a></dfn>, <span></span>
     <dd>SIMID iframe size and coordinates. 
    </dl>
-   <h5 class="heading settled" data-level="4.4.12.1" id="simid-creative-requestResize-resolve"><span class="secno">4.4.12.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestResize-resolve"></a></h5>
+   <h5 class="heading settled" data-level="4.4.15.1" id="simid-creative-requestResize-resolve"><span class="secno">4.4.15.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestResize-resolve"></a></h5>
     The player replies to <code>requestResize</code> with a <code>resolve</code> if it has resized the ad and set the dimensions to the values specified by the <code>requestResize</code> message. 
-   <h5 class="heading settled" data-level="4.4.12.2" id="simid-creative-requestResize-reject"><span class="secno">4.4.12.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestResize-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.15.2" id="simid-creative-requestResize-reject"><span class="secno">4.4.15.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestResize-reject"></a></h5>
     The player responds to <code>requestResize</code> with <code>reject</code> when it ignores the message or is unable to complete the resizing. 
-   <h4 class="heading settled" data-level="4.4.13" id="simid-creative-requestSkip"><span class="secno">4.4.13. </span><span class="content">SIMID:Creative:requestSkip</span><a class="self-link" href="#simid-creative-requestSkip"></a></h4>
+   <h4 class="heading settled" data-level="4.4.16" id="simid-creative-requestSkip"><span class="secno">4.4.16. </span><span class="content">SIMID:Creative:requestSkip</span><a class="self-link" href="#simid-creative-requestSkip"></a></h4>
    <p>The creative requests the player skip ad playback if possible.</p>
-   <p>See <a href="#workflow-creative-skips">§ 6.8.2 Creative Skips Ad</a></p>
-   <h5 class="heading settled" data-level="4.4.13.1" id="simid-creative-requestSkip-resolve"><span class="secno">4.4.13.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestSkip-resolve"></a></h5>
+   <p>See <a href="#workflow-creative-skips">§ 6.9.2 Creative Skips Ad</a></p>
+   <h5 class="heading settled" data-level="4.4.16.1" id="simid-creative-requestSkip-resolve"><span class="secno">4.4.16.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestSkip-resolve"></a></h5>
     If the player skips the ad, it responds with a <code>resolve</code>. The player then goes through its skip workflow. See <a href="#simid-player-adSkipped">§ 4.3.1 SIMID:Player:adSkipped</a> <span steps><b>5</b><b>6</b><b>7</b></span> 
-   <h5 class="heading settled" data-level="4.4.13.2" id="simid-creative-requestSkip-reject"><span class="secno">4.4.13.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestSkip-reject"></a></h5>
+   <h5 class="heading settled" data-level="4.4.16.2" id="simid-creative-requestSkip-reject"><span class="secno">4.4.16.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestSkip-reject"></a></h5>
     The player replies with a <code>reject</code> if it cannot skip the ad. With the skip rejection: 
    <ul collapse>
     <li>The media playback continues.
@@ -3197,12 +3334,12 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <li>The player continues posting <code>SIMID:Media</code> and <code>SIMID:Player</code> messages to the SIMID iframe.
     <li>The creative maintains two-way communication with the player; it waits for, and responds to, the player transmitting ad completion related messages.
    </ul>
-   <h4 class="heading settled" data-level="4.4.14" id="simid-creative-requestStop"><span class="secno">4.4.14. </span><span class="content">SIMID:Creative:requestStop</span><a class="self-link" href="#simid-creative-requestStop"></a></h4>
+   <h4 class="heading settled" data-level="4.4.17" id="simid-creative-requestStop"><span class="secno">4.4.17. </span><span class="content">SIMID:Creative:requestStop</span><a class="self-link" href="#simid-creative-requestStop"></a></h4>
    <p>The creative requests the player stop video playback if possible.</p>
-   <p>See <a href="#workflow-request-stop">§ 6.8.6 Ad Requests Stop</a></p>
-   <h5 class="heading settled" data-level="4.4.14.1" id="simid-creative-requestStop-resolve"><span class="secno">4.4.14.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestStop-resolve"></a></h5>
-    If the player can stop the ad, it responds with a <code>resolve</code> (<a href="#diagram-requestStop">diagram 13</a>, <span step><b>4</b></span>). The player then goes through <a href="#workflow-request-stop">§ 6.8.6 Ad Requests Stop</a> workflow (<a href="#diagram-requestStop">diagram 13</a>, <span steps><b>5</b><b>6</b><b>7</b></span>). 
-   <h5 class="heading settled" data-level="4.4.14.2" id="simid-creative-requestStop-reject"><span class="secno">4.4.14.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestStop-reject"></a></h5>
+   <p>See <a href="#workflow-request-stop">§ 6.9.6 Ad Requests Stop</a></p>
+   <h5 class="heading settled" data-level="4.4.17.1" id="simid-creative-requestStop-resolve"><span class="secno">4.4.17.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-requestStop-resolve"></a></h5>
+    If the player can stop the ad, it responds with a <code>resolve</code> (<a href="#diagram-requestStop">diagram 13</a>, <span step><b>4</b></span>). The player then goes through <a href="#workflow-request-stop">§ 6.9.6 Ad Requests Stop</a> workflow (<a href="#diagram-requestStop">diagram 13</a>, <span steps><b>5</b><b>6</b><b>7</b></span>). 
+   <h5 class="heading settled" data-level="4.4.17.2" id="simid-creative-requestStop-reject"><span class="secno">4.4.17.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-requestStop-reject"></a></h5>
     If the player cannot stop the ad, it responds with a <code>reject</code>. With the requestStop rejection: 
    <ul collapse>
     <li>The media playback continues - if not previously ended;
@@ -3243,11 +3380,11 @@ on to the next ad in the current ad pod).</p>
     <li data-md>
      <p>The player waits until the creative initializes a session and posts <code>createSession</code> message (see <a href="#protocol-session-layer">§ 8.4 Session Layer</a>). The player responds to the session initialization with a <code>resolve</code> message.</p>
     <li data-md>
-     <p>The player sends a <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message with relevant parameters. The player waits until the creative responds with <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a>. If the creative responds with <a href="#simid-player-init-reject">§ 4.3.6.2 reject</a>, the player should unload the creative’s iframe.</p>
+     <p>The player sends a <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message with relevant parameters. The player waits until the creative responds with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a>. If the creative responds with <a href="#simid-player-init-reject">§ 4.3.7.2 reject</a>, the player should unload the creative’s iframe.</p>
     <li data-md>
-     <p>Where possible, to synchronize media playback and the creative UI, the player should wait until both the creative has responded to the <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> with <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a> and the media is ready to play. Media readiness means sufficient payload arrived, and the first frame shows.</p>
+     <p>Where possible, to synchronize media playback and the creative UI, the player should wait until both the creative has responded to the <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a> and the media is ready to play. Media readiness means sufficient payload arrived, and the first frame shows.</p>
     <li data-md>
-     <p>When the media starts, the player sends a <a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a> message. The creative should respond to <a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a> message with <a href="#simid-player-startCreative-resolve">§ 4.3.9.1 resolve</a> immediately.</p>
+     <p>When the media starts, the player sends a <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> message. The creative should respond to <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> message with <a href="#simid-player-startCreative-resolve">§ 4.3.10.1 resolve</a> immediately.</p>
     <li data-md>
      <p>The player makes the iframe visible. With video ads, the player must position the iframe over media element at player’s upper-left corner and set iframe dimensions to media’s width and height.</p>
    </ol>
@@ -3268,13 +3405,13 @@ on to the next ad in the current ad pod).</p>
        <li>Player responds with <code>resolve</code> immediately.
       </ol>
      <li>
-       Player posts <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> immediately. 
+       Player posts <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> immediately. 
       <ol>
-       <li>Creative responds with <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a> as soon as possible.
+       <li>Creative responds with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a> as soon as possible.
        <li>
         Alternatively, the creative may reject <code>Player:init</code>. In such cases: 
         <ol>
-         <li>Creative posts <a href="#simid-player-init-reject">§ 4.3.6.2 reject</a>.
+         <li>Creative posts <a href="#simid-player-init-reject">§ 4.3.7.2 reject</a>.
          <li>Player unloads creative.
         </ol>
       </ol>
@@ -3284,17 +3421,17 @@ on to the next ad in the current ad pod).</p>
        <li>Media playback begins.
       </ol>
      <li>
-      Player posts <a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a> immediately. 
+      Player posts <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> immediately. 
       <ol>
-       <li>Creative should respond to <code>Player:startCreative</code> with <a href="#simid-player-startCreative-resolve">§ 4.3.9.1 resolve</a> immediately.
+       <li>Creative should respond to <code>Player:startCreative</code> with <a href="#simid-player-startCreative-resolve">§ 4.3.10.1 resolve</a> immediately.
       </ol>
      <li>Player makes SIMID iframe visible.
     </ol>
    </div>
    <h3 class="heading settled" data-level="6.2" id="workflow-initialization"><span class="secno">6.2. </span><span class="content">Typical Initialization WorkFlow</span><a class="self-link" href="#workflow-initialization"></a></h3>
-   <p>The ideal user ad experience has the simultaneous start of media playback and display of the  interactive overlay (the SIMID creative). Once the SIMID creative recieves the <code>Player:init</code> message, its may not yet be ready to display (for example it maybe be loading assets). To accommodate this latency, the player posts a <code>Player:init</code> message before ad media playback begins and waits for the SIMID iframe to respond with <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a>.</p>
+   <p>The ideal user ad experience has the simultaneous start of media playback and display of the  interactive overlay (the SIMID creative). Once the SIMID creative recieves the <code>Player:init</code> message, its may not yet be ready to display (for example it maybe be loading assets). To accommodate this latency, the player posts a <code>Player:init</code> message before ad media playback begins and waits for the SIMID iframe to respond with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a>.</p>
    <p>The player should post <code>Player:init</code> as soon as the creative dispatches a <code>createSession</code> message (section <a href="#protocol-establish-session">§ 8.4.1 Establishing a New Session</a>) <a href="#diagram-player-init-normal">Normal Ad Initilaizatioin Sequence</a>, <span steps><b>1</b><b>2</b></span>. SIMID creative code must be ready to process the <code>Player:init</code> message immediately <span step><b>3</b></span>).</p>
-   <p>After the player gets a resolve message <a href="#diagram-player-init-normal">Normal Ad Initilaizatioin Sequence</a>, <span step><b>4</b></span>, it initializes media playback at its discretion <span step><b>5</b></span>. Once media rendering begins <span step><b>6</b></span>, the player reports impression <span step><b>7</b></span> and posts <a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a> <span step><b>8</b></span>.</p>
+   <p>After the player gets a resolve message <a href="#diagram-player-init-normal">Normal Ad Initilaizatioin Sequence</a>, <span step><b>4</b></span>, it initializes media playback at its discretion <span step><b>5</b></span>. Once media rendering begins <span step><b>6</b></span>, the player reports impression <span step><b>7</b></span> and posts <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> <span step><b>8</b></span>.</p>
    <div diagram id="diagram-player-init-normal">
     <p>Normal Ad Initilaization Sequence</p>
      <img alt="Normal Ad Initilaizatioin Sequence" src="images/dgrm-init-normal.png"> 
@@ -3302,11 +3439,11 @@ on to the next ad in the current ad pod).</p>
      <li>Creative initializes the session.
      <li>Player posts <code>Player:init</code> message immediately upon session creation.
      <li>Creative proccesses initialization data and finalizes assets loading.
-     <li>Creative responds with <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a>.
+     <li>Creative responds with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a>.
      <li>Player starts media playback at its discretion.
      <li>Media renders.
      <li>Player reports impression.
-     <li>Player posts <a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a> immediately.
+     <li>Player posts <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> immediately.
     </ol>
    </div>
    <h3 class="heading settled" data-level="6.3" id="workflow-startCreative"><span class="secno">6.3. </span><span class="content">Typical Start Creative WorkFlow</span><a class="self-link" href="#workflow-startCreative"></a></h3>
@@ -3330,8 +3467,8 @@ on to the next ad in the current ad pod).</p>
      <li>Player initializes ad media playback.
      <li>Player posts <code>Player:init</code> message after ad media playback started.
      <li>Creative proccesses initialization data and finalizes assets loading. Sub-loading routines may cause latencies.
-     <li>Creative responds with <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a>.
-     <li>Player posts <a href="#simid-player-startCreative">§ 4.3.9 SIMID:Player:startCreative</a> immediately.
+     <li>Creative responds with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a>.
+     <li>Player posts <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> immediately.
     </ol>
    </div>
    <h3 class="heading settled" data-level="6.5" id="workflow-delayed-init-resolve"><span class="secno">6.5. </span><span class="content">Creative Delays Resolving Init</span><a class="self-link" href="#workflow-delayed-init-resolve"></a></h3>
@@ -3364,9 +3501,30 @@ on to the next ad in the current ad pod).</p>
      <li>Player starts media.
     </ol>
    </div>
-   <h3 class="heading settled" data-level="6.7" id="workflow-ad-playback"><span class="secno">6.7. </span><span class="content">How to Handle Ad Playback</span><a class="self-link" href="#workflow-ad-playback"></a></h3>
+   <h3 class="heading settled" data-level="6.7" id="workflow-initialization-nonlinear"><span class="secno">6.7. </span><span class="content">Nonlinear Initialization and Start WorkFlow</span><a class="self-link" href="#workflow-initialization-nonlinear"></a></h3>
+   <ol>
+    <li data-md>
+     <p>The player creates a hidden iframe and loads the creative.  This can happen before the ad display time to preload the ad.</p>
+    <li data-md>
+     <p>The creative will initialize a session.</p>
+    <li data-md>
+     <p>If the creative doesn’t initialize a session within a reasonable timeout the player drops the creative and reports an error.</p>
+    <li data-md>
+     <p>The player sends a <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message with relevant parameters.</p>
+    <li data-md>
+     <p>If the player can initialize the creative responds with resolve.</p>
+    <li data-md>
+     <p>If the creative responds with reject or doesn’t respond in time the player drops the creatives iframe and reports an error.</p>
+    <li data-md>
+     <p>When the player is ready to show the iframe the player sends a <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> message.</p>
+    <li data-md>
+     <p>If the creative responds with reject or doesn’t respond in time the player drops the creatives iframe and reports an error.</p>
+    <li data-md>
+     <p>When the creative responds with resolve, the player makes the iframe visible.</p>
+   </ol>
+   <h3 class="heading settled" data-level="6.8" id="workflow-ad-playback"><span class="secno">6.8. </span><span class="content">How to Handle Ad Playback</span><a class="self-link" href="#workflow-ad-playback"></a></h3>
    <p>The media player is responsible for ad media playback handling as well as tracking media related events. The SIMID creative manages interactive content and internal tracking related to interactivity.</p>
-   <h4 class="heading settled" data-level="6.7.1" id="workflow-ad-pause"><span class="secno">6.7.1. </span><span class="content">Ad Pause</span><a class="self-link" href="#workflow-ad-pause"></a></h4>
+   <h4 class="heading settled" data-level="6.8.1" id="workflow-ad-pause"><span class="secno">6.8.1. </span><span class="content">Ad Pause</span><a class="self-link" href="#workflow-ad-pause"></a></h4>
    <p>If the <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed">variableDurationAllowed</a></code> flag is set to <code>true</code> then
 the player should enable media pause by the SIMID creative via the
 SIMID:Creative:requestPause message. The player must respond to
@@ -3374,28 +3532,28 @@ SIMID:Creative:requestPause with the <code>AdPaused</code> event.</p>
    <p>When the SIMID creative would like to resume media playback, it should send a
 SIMID:Creative:requestPlay message. The player must
 respond to SIMID:Creative:requestPlay message with resolve and play the media.</p>
-   <h4 class="heading settled" data-level="6.7.2" id="workflow-resizing"><span class="secno">6.7.2. </span><span class="content">Ad Resizing and Fullscreen</span><a class="self-link" href="#workflow-resizing"></a></h4>
-   <p>The player may resize the ad slot. The player must send a <a href="#simid-player-resize">§ 4.3.8 SIMID:Player:resize</a> message any time the ad slot size is changed.</p>
+   <h4 class="heading settled" data-level="6.8.2" id="workflow-resizing"><span class="secno">6.8.2. </span><span class="content">Ad Resizing and Fullscreen</span><a class="self-link" href="#workflow-resizing"></a></h4>
+   <p>The player may resize the ad slot. The player must send a <a href="#simid-player-resize">§ 4.3.9 SIMID:Player:resize</a> message any time the ad slot size is changed.</p>
    <p>If <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-fullscreenallowed" id="ref-for-dom-environmentdata-fullscreenallowed">fullscreenAllowed</a></code> is <code>true</code>, the SIMID creative may
-send a <a href="#simid-creative-requestFullscreen">§ 4.4.8 SIMID:Creative:requestFullscreen</a> message. The player must resize only the ad
+send a <a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a> message. The player must resize only the ad
 slot to fullscreen (not the video). The SIMID creative then will resize the
-video as it sees fit. The player must send a <a href="#simid-player-resize">§ 4.3.8 SIMID:Player:resize</a> message to the SIMID creative
+video as it sees fit. The player must send a <a href="#simid-player-resize">§ 4.3.9 SIMID:Player:resize</a> message to the SIMID creative
 with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl">creativeDimensions</a></code> set to the fullscreen dimensions.</p>
-   <p>If player goes fullscreen on its own. Then the player must send a <a href="#simid-player-resize">§ 4.3.8 SIMID:Player:resize</a> message to the SIMID creative
+   <p>If player goes fullscreen on its own. Then the player must send a <a href="#simid-player-resize">§ 4.3.9 SIMID:Player:resize</a> message to the SIMID creative
 with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <code>true</code> and <code class="idl"><a data-link-type="idl">videoDimensions</a></code> and <code class="idl"><a data-link-type="idl">creativeDimensions</a></code> set to the fullscreen dimensions.</p>
-   <h3 class="heading settled" data-level="6.8" id="workflow-end"><span class="secno">6.8. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#workflow-end"></a></h3>
+   <h3 class="heading settled" data-level="6.9" id="workflow-end"><span class="secno">6.9. </span><span class="content">How to Handle Ad End and Unload</span><a class="self-link" href="#workflow-end"></a></h3>
    <p>Following are cases where ad can end:</p>
    <ol>
     <li data-md>
-     <p>Ad was skipped, either by player (see <a href="#workflow-player-skips">§ 6.8.1 Player Skips Ad</a>) or creative (See <a href="#workflow-creative-skips">§ 6.8.2 Creative Skips Ad</a>).</p>
+     <p>Ad was skipped, either by player (see <a href="#workflow-player-skips">§ 6.9.1 Player Skips Ad</a>) or creative (See <a href="#workflow-creative-skips">§ 6.9.2 Creative Skips Ad</a>).</p>
     <li data-md>
-     <p>The creative has fired <a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
+     <p>The creative has fired <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a> message and the player has allowed the ad to stop.</p>
     <li data-md>
      <p>The player has fired <a href="#simid-player-adStopped">§ 4.3.2 SIMID:Player:adStopped</a> message and the creative resolved.</p>
     <li data-md>
-     <p>Ad errors out. See <a href="#workflow-error">§ 6.8.5 Ad Errors Out</a>.</p>
+     <p>Ad errors out. See <a href="#workflow-error">§ 6.9.5 Ad Errors Out</a>.</p>
    </ol>
-   <h4 class="heading settled" data-level="6.8.1" id="workflow-player-skips"><span class="secno">6.8.1. </span><span class="content">Player Skips Ad</span><a class="self-link" href="#workflow-player-skips"></a></h4>
+   <h4 class="heading settled" data-level="6.9.1" id="workflow-player-skips"><span class="secno">6.9.1. </span><span class="content">Player Skips Ad</span><a class="self-link" href="#workflow-player-skips"></a></h4>
    <p><strong>Skip Ad Handled by Player</strong></p>
    <ol>
     <li data-md>
@@ -3403,9 +3561,9 @@ with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <cod
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#simid-creative-reportTracking">§ 4.4.5 SIMID:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#simid-creative-reportTracking">§ 4.4.7 SIMID:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for <a href="#simid-creative-reportTracking-resolve">§ 4.4.5.1 resolve</a> from the reportTracking message.</p>
+     <p>The creative may wait for <a href="#simid-creative-reportTracking-resolve">§ 4.4.7.1 resolve</a> from the reportTracking message.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adSkipped</code> message <a href="#simid-player-adSkipped-resolve">§ 4.3.1.1 resolve</a>.</p>
     <li data-md>
@@ -3413,12 +3571,12 @@ with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <cod
     <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
-   <h4 class="heading settled" data-level="6.8.2" id="workflow-creative-skips"><span class="secno">6.8.2. </span><span class="content">Creative Skips Ad</span><a class="self-link" href="#workflow-creative-skips"></a></h4>
+   <h4 class="heading settled" data-level="6.9.2" id="workflow-creative-skips"><span class="secno">6.9.2. </span><span class="content">Creative Skips Ad</span><a class="self-link" href="#workflow-creative-skips"></a></h4>
     The creative requests ad skip by posting a <code>SIMID:Creative:requestSkip</code> message. If feasible, in response to <code>requestSkip</code>, the player terminates the ad and goes through the <a href="#simid-player-adSkipped">§ 4.3.1 SIMID:Player:adSkipped</a> message sequence. 
    <p class="note" role="note">
     <span>Note:</span> the SIMID interactive component implements skip related behavior and features (
     <button skip-ad>Skip Ad</button>
-     button) only if the player delegates skippability to the creative - the value of <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a> message <code>args.environmentData.skippableState</code> is <code>"adHandles"</code>.
+     button) only if the player delegates skippability to the creative - the value of <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message <code>args.environmentData.skippableState</code> is <code>"adHandles"</code>.
    </p>
    <div diagram id="diagram-requestSkip">
     <p><code>Creative:requestSkip</code> Sequence</p>
@@ -3427,21 +3585,21 @@ with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <cod
      <li>Creative posts <code>Creative:requestSkip</code> message.
      <li>Player hides the SIMID iframe.
      <li>Player stops the ad media playback.
-     <li>Player responds with <a href="#simid-creative-requestSkip-resolve">§ 4.4.13.1 resolve</a>.
+     <li>Player responds with <a href="#simid-creative-requestSkip-resolve">§ 4.4.16.1 resolve</a>.
      <li>Player posts <a href="#simid-player-adSkipped">§ 4.3.1 SIMID:Player:adSkipped</a> message.
      <li>Creative responds to <code>Player:adSkipped</code> with <a href="#simid-player-adSkipped-resolve">§ 4.3.1.1 resolve</a>.
      <li>Player unloads the SIMID iframe.
     </ol>
    </div>
-   <h4 class="heading settled" data-level="6.8.3" id="workflow-end-before-complete"><span class="secno">6.8.3. </span><span class="content">Ad Ends Before Media Completion</span><a class="self-link" href="#workflow-end-before-complete"></a></h4>
+   <h4 class="heading settled" data-level="6.9.3" id="workflow-end-before-complete"><span class="secno">6.9.3. </span><span class="content">Ad Ends Before Media Completion</span><a class="self-link" href="#workflow-end-before-complete"></a></h4>
    <p>This scenario applies when the creative signal to the player to dismiss the ad, typically at the prompting of the user. A good example is a survey that allows the viewer to skip immediately to content when completed.</p>
    <ol>
     <li data-md>
-     <p>The ad cleans up and dispatches <a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a>.</p>
+     <p>The ad cleans up and dispatches <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a>.</p>
     <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
-   <h4 class="heading settled" data-level="6.8.4" id="workflow-complete"><span class="secno">6.8.4. </span><span class="content">Ad Completes at Media Completion</span><a class="self-link" href="#workflow-complete"></a></h4>
+   <h4 class="heading settled" data-level="6.9.4" id="workflow-complete"><span class="secno">6.9.4. </span><span class="content">Ad Completes at Media Completion</span><a class="self-link" href="#workflow-complete"></a></h4>
    <p>When an ad finishes at the same time as its media.</p>
    <ol>
     <li data-md>
@@ -3449,39 +3607,39 @@ with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <cod
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#simid-creative-reportTracking">§ 4.4.5 SIMID:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#simid-creative-reportTracking">§ 4.4.7 SIMID:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for a <a href="#simid-creative-reportTracking-resolve">§ 4.4.5.1 resolve</a> response message from the reportTracking message.</p>
+     <p>The creative may wait for a <a href="#simid-creative-reportTracking-resolve">§ 4.4.7.1 resolve</a> response message from the reportTracking message.</p>
     <li data-md>
      <p>The creative dispatches <code>resolve</code> on the <code>adStopped</code> message <a href="#simid-player-adStopped-resolve">§ 4.3.2.1 resolve</a>.</p>
     <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
-   <h4 class="heading settled" data-level="6.8.5" id="workflow-error"><span class="secno">6.8.5. </span><span class="content">Ad Errors Out</span><a class="self-link" href="#workflow-error"></a></h4>
+   <h4 class="heading settled" data-level="6.9.5" id="workflow-error"><span class="secno">6.9.5. </span><span class="content">Ad Errors Out</span><a class="self-link" href="#workflow-error"></a></h4>
    <p>The SIMID creative or the player may terminate the ad unit with an error at any
 time. If the SIMID creative indicates an error, the player should try to stop ad
 unit playback. This might not be possible in server side stitched ads.</p>
-   <p>The player may error out if the ad does not respond with <a href="#simid-player-init-resolve">§ 4.3.6.1 resolve</a> in a reasonable amount of time.</p>
+   <p>The player may error out if the ad does not respond with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a> in a reasonable amount of time.</p>
    <p>When an player errors out it must follow these steps.</p>
    <ol>
     <li data-md>
-     <p>The player sends a <a href="#simid-player-fatalError">§ 4.3.5 SIMID:Player:fatalError</a> message to the ad.</p>
+     <p>The player sends a <a href="#simid-player-fatalError">§ 4.3.6 SIMID:Player:fatalError</a> message to the ad.</p>
     <li data-md>
      <p>The player hides the creative.</p>
     <li data-md>
-     <p>The creative may dispatch any tracking pixels via <a href="#simid-creative-reportTracking">§ 4.4.5 SIMID:Creative:reportTracking</a></p>
+     <p>The creative may dispatch any tracking pixels via <a href="#simid-creative-reportTracking">§ 4.4.7 SIMID:Creative:reportTracking</a></p>
     <li data-md>
-     <p>The creative may wait for a <a href="#simid-creative-reportTracking-resolve">§ 4.4.5.1 resolve</a> response from the reportTracking message.</p>
+     <p>The creative may wait for a <a href="#simid-creative-reportTracking-resolve">§ 4.4.7.1 resolve</a> response from the reportTracking message.</p>
     <li data-md>
-     <p>The creative dispatches <code>resolve</code> on the <code>fatalError</code> message <a href="#simid-player-fatalError-resolve">§ 4.3.5.1 resolve</a>.</p>
+     <p>The creative dispatches <code>resolve</code> on the <code>fatalError</code> message <a href="#simid-player-fatalError-resolve">§ 4.3.6.1 resolve</a>.</p>
     <li data-md>
      <p>The player unloads the ad.</p>
    </ol>
-   <h4 class="heading settled" data-level="6.8.6" id="workflow-request-stop"><span class="secno">6.8.6. </span><span class="content">Ad Requests Stop</span><a class="self-link" href="#workflow-request-stop"></a></h4>
+   <h4 class="heading settled" data-level="6.9.6" id="workflow-request-stop"><span class="secno">6.9.6. </span><span class="content">Ad Requests Stop</span><a class="self-link" href="#workflow-request-stop"></a></h4>
    <p>The creative stops the ad by posting a <code>SIMID:Creative:requestStop</code> message.</p>
-   <p>If feasible, the player hides the iframe, stops media playback that is still in progress, and responds with a <a href="#simid-creative-requestStop-resolve">§ 4.4.14.1 resolve</a>. Subsequently, the player proceeds with the <a href="#simid-player-adStopped">§ 4.3.2 SIMID:Player:adStopped</a>.</p>
-   <p>The SIMID interactive component engages ad stop functionality only if the player states its ability to vary ad duration. See <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a>, <code>Message.args.variableDurationAllowed</code> details. The interactive component logic must expect that the player will unload SIMID iframe immediately upon posting a <code>resolve</code> response under the SIMID-compliant circumstances.</p>
-   <p>In the event the interactive component disregards or fails to accommodate player’s ability to resolve <code>requestStop</code>, the iframe remains visible and the player continues sending <code>SIMID:Media</code> and <code>SIMID:Player</code> messages. The creative should maintain communication with the player. See <a href="#simid-creative-requestStop-reject">§ 4.4.14.2 reject</a>.</p>
+   <p>If feasible, the player hides the iframe, stops media playback that is still in progress, and responds with a <a href="#simid-creative-requestStop-resolve">§ 4.4.17.1 resolve</a>. Subsequently, the player proceeds with the <a href="#simid-player-adStopped">§ 4.3.2 SIMID:Player:adStopped</a>.</p>
+   <p>The SIMID interactive component engages ad stop functionality only if the player states its ability to vary ad duration. See <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a>, <code>Message.args.variableDurationAllowed</code> details. The interactive component logic must expect that the player will unload SIMID iframe immediately upon posting a <code>resolve</code> response under the SIMID-compliant circumstances.</p>
+   <p>In the event the interactive component disregards or fails to accommodate player’s ability to resolve <code>requestStop</code>, the iframe remains visible and the player continues sending <code>SIMID:Media</code> and <code>SIMID:Player</code> messages. The creative should maintain communication with the player. See <a href="#simid-creative-requestStop-reject">§ 4.4.17.2 reject</a>.</p>
    <div diagram id="diagram-requestStop">
     <p><code>Creative:requestStop</code> Sequence</p>
      <img alt="Creative:requestStop sequence." src="images/dgrm-requestStop.png"> 
@@ -3489,27 +3647,27 @@ unit playback. This might not be possible in server side stitched ads.</p>
      <li>Creative posts <code>Creative:requestStop</code> message.
      <li>Player hides the SIMID iframe.
      <li>Player stops the ad media playback.
-     <li>Player responds with <a href="#simid-creative-requestStop-resolve">§ 4.4.14.1 resolve</a>.
+     <li>Player responds with <a href="#simid-creative-requestStop-resolve">§ 4.4.17.1 resolve</a>.
      <li>Player posts <a href="#simid-player-adStopped">§ 4.3.2 SIMID:Player:adStopped</a> message.
      <li>Creative responds to <code>Player:adStopped</code> with <a href="#simid-player-adStopped-resolve">§ 4.3.2.1 resolve</a>.
      <li>Player unloads the SIMID iframe.
     </ol>
    </div>
-   <h3 class="heading settled" data-level="6.9" id="workflow-change-duration"><span class="secno">6.9. </span><span class="content">Ad Duration Changed Workflow</span><a class="self-link" href="#workflow-change-duration"></a></h3>
-   <h4 class="heading settled" data-level="6.9.1" id="workflow-extend"><span class="secno">6.9.1. </span><span class="content">Ad Extends Beyond Media Completion</span><a class="self-link" href="#workflow-extend"></a></h4>
+   <h3 class="heading settled" data-level="6.10" id="workflow-change-duration"><span class="secno">6.10. </span><span class="content">Ad Duration Changed Workflow</span><a class="self-link" href="#workflow-change-duration"></a></h3>
+   <h4 class="heading settled" data-level="6.10.1" id="workflow-extend"><span class="secno">6.10.1. </span><span class="content">Ad Extends Beyond Media Completion</span><a class="self-link" href="#workflow-extend"></a></h4>
    <p>This scenario is only possible when the <code class="idl"><a data-link-type="idl" href="#dom-environmentdata-variabledurationallowed" id="ref-for-dom-environmentdata-variabledurationallowed①">variableDurationAllowed</a></code> flag is set to <code>true</code>. Media
 duration must only be extended in response to user interaction.</p>
    <ol>
     <li data-md>
      <p>User interacts at any point during playback of the media, triggering extended ad portion.</p>
     <li data-md>
-     <p>The Creative dispatches <a href="#simid-creative-requestChangeAdDuration">§ 4.4.6 SIMID:Creative:requestChangeAdDuration</a> message with the new duration.</p>
+     <p>The Creative dispatches <a href="#simid-creative-requestChangeAdDuration">§ 4.4.8 SIMID:Creative:requestChangeAdDuration</a> message with the new duration.</p>
     <li data-md>
      <p>The ad enters its extended phase.</p>
     <li data-md>
-     <p>The creative dispatches <a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a> when extended phase is finished.</p>
+     <p>The creative dispatches <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a> when extended phase is finished.</p>
    </ol>
-   <h4 class="heading settled" data-level="6.9.2" id="workflow-ad-duartion-changed-known"><span class="secno">6.9.2. </span><span class="content">Ad Duration Changed Workflow - Known Time</span><a class="self-link" href="#workflow-ad-duartion-changed-known"></a></h4>
+   <h4 class="heading settled" data-level="6.10.2" id="workflow-ad-duartion-changed-known"><span class="secno">6.10.2. </span><span class="content">Ad Duration Changed Workflow - Known Time</span><a class="self-link" href="#workflow-ad-duartion-changed-known"></a></h4>
    <div diagram id="diagram-durationchange-known">
     <p>Known Ad Duration Change Sequence</p>
      <img alt="requestChangeAdDuration known duration change handling." src="images/dgrm-requestChangeAdDuration-known.png"> 
@@ -3522,7 +3680,7 @@ duration must only be extended in response to user interaction.</p>
      <li>Player posts <a href="#simid-player-adStopped">§ 4.3.2 SIMID:Player:adStopped</a> message.
     </ol>
    </div>
-   <h4 class="heading settled" data-level="6.9.3" id="workflow-ad-duartion-changed-unknown"><span class="secno">6.9.3. </span><span class="content">Ad Duration Changed Workflow - Unknown Time</span><a class="self-link" href="#workflow-ad-duartion-changed-unknown"></a></h4>
+   <h4 class="heading settled" data-level="6.10.3" id="workflow-ad-duartion-changed-unknown"><span class="secno">6.10.3. </span><span class="content">Ad Duration Changed Workflow - Unknown Time</span><a class="self-link" href="#workflow-ad-duartion-changed-unknown"></a></h4>
    <div diagram id="diagram-durationchange-unknown">
     <p>Unknown Ad Duration Change Sequence</p>
      <img alt="requestChangeAdDuration unknown duration change handling." src="images/dgrm-requestChangeAdDuration-unknown.png"> 
@@ -3530,10 +3688,10 @@ duration must only be extended in response to user interaction.</p>
      <li>Player starts countdown. Countdown depends on the media progress.
      <li>Creative posts <code>requestChangeAdDuration</code> with the <code>duration</code> value <code>-2</code>.
      <li>Player stops countdown.
-     <li>Creative posts <a href="#simid-creative-requestStop">§ 4.4.14 SIMID:Creative:requestStop</a> message.
+     <li>Creative posts <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a> message.
     </ol>
    </div>
-   <h3 class="heading settled" data-level="6.10" id="user-experience"><span class="secno">6.10. </span><span class="content">User Experience</span><a class="self-link" href="#user-experience"></a></h3>
+   <h3 class="heading settled" data-level="6.11" id="user-experience"><span class="secno">6.11. </span><span class="content">User Experience</span><a class="self-link" href="#user-experience"></a></h3>
    <p>Both ad creatives and media players should ensure that consumers are presented with a good ad experience.</p>
    <p>This specification does not define the user experience for a close control (close button) or other generic media interaction behavior by the ad creative or the media player. The publisher media player is in full control over its user experience and can present its controls (or hide them) as needed. The publisher media player may dismiss the ad creative at any point in time.  Some implementations may have a publisher provided close control, as well as various other controls, and others may not.</p>
    <p>The ad creative can also request to be dismissed at any point in time.  An ad creative may opt to show its own controls, including a close control.</p>
@@ -3668,7 +3826,7 @@ duration must only be extended in response to user interaction.</p>
    <p>Each session has a unique identifier. All messages that belong to a specific session must reference the same session id.</p>
    <h4 class="heading settled" data-level="8.4.1" id="protocol-establish-session"><span class="secno">8.4.1. </span><span class="content">Establishing a New Session</span><a class="self-link" href="#protocol-establish-session"></a></h4>
    <p>SIMID delegates the session initialization to the creative overlay. The creative generates a unique session id and posts the first session message with the <code>Message.type createSession</code>. By posting the <code>createSession</code> message, the creative acknowledges its readiness to receive messages from the player.</p>
-   <p class="note" role="note"><span>Note:</span> There is no expectation for the interactive component to be entirely able to participate in ad rendering at the time the creative signals <code>createSession</code> message. Full creative initialization may occur at later stages when the player provides complete data - see <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a>.</p>
+   <p class="note" role="note"><span>Note:</span> There is no expectation for the interactive component to be entirely able to participate in ad rendering at the time the creative signals <code>createSession</code> message. Full creative initialization may occur at later stages when the player provides complete data - see <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a>.</p>
    <div class="example" id="example-f62cc7db">
     <a class="self-link" href="#example-f62cc7db"></a> <b>Example of <code>createSession</code> Message data:</b> 
     <div class="js-highlight">
@@ -3693,7 +3851,7 @@ duration must only be extended in response to user interaction.</p>
      <li>Creative posts <code>createSession</code> message.
      <li>The player cancels the timeout.
      <li>The player responds with a <code>resolve</code> message.
-     <li>The player initializes creative. See <a href="#simid-player-init">§ 4.3.6 SIMID:Player:init</a>.
+     <li>The player initializes creative. See <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a>.
     </ol>
    </div>
    <h4 class="heading settled" data-level="8.4.2" id="session-establishing-delays-and-failures"><span class="secno">8.4.2. </span><span class="content">Session Establishing Delays and Failures</span><a class="self-link" href="#session-establishing-delays-and-failures"></a></h4>
@@ -3852,6 +4010,42 @@ If the creative does not post a <code>createSession</code> message on time, the 
       <td>1213
       <td>The SIMID creative did not reply to the start message.
       <td>
+     <tr>
+      <td>1214
+      <td>Environment does not support navigation.
+      <td>The creative asked to open a navigation window, but the environment doesn’t support it. The creative should be opening the navigation window.
+     <tr>
+      <td>1215
+      <td>Navigation not possible at all on this device.
+      <td>The creative asked for a navigation. However, navigation window opening is not possible at all on this device.
+     <tr>
+      <td>1216
+      <td>Too many calls to requestNavigation.
+      <td>The creative asked for request navigation too many times and call will be blocked.
+     <tr>
+      <td>1217
+      <td>Invalid navigation request URL.
+      <td>The creative requested navigation but the url was invalid.
+     <tr>
+      <td>1218
+      <td>Invalid navigation request app.
+      <td>The creative requested a play store/app store url but that is not valid on this device.
+     <tr>
+      <td>1219
+      <td>Extra clickthrough blocked.
+      <td>Clickthrough has been reported once, but the creative has requested clickthrough again. No click through will be reported.
+     <tr>
+      <td>1220
+      <td>Expand not possible due to problem pausing.
+      <td>Player is rejecting expandNonlinear because it cannot pause media. Player should have informed creative it cannot do this on init.
+     <tr>
+      <td>1221
+      <td>Expand ad rejected by user.
+      <td>User has indicated that the ad should be collapsed so the player will not allow expand.
+     <tr>
+      <td>1222
+      <td>Too many calls to RequestExpand.
+      <td>Player only allows a number of expands, and that limitation is exceeded.
    </table>
    <h2 class="heading settled" data-level="10" id="terminology"><span class="secno">10. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <dl>
@@ -4032,18 +4226,18 @@ primary media.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#dom-skippablestate-adhandles">"adHandles"</a><span>, in §4.3.6</span>
+   <li><a href="#dom-skippablestate-adhandles">"adHandles"</a><span>, in §4.3.7</span>
    <li>
     adParameters
     <ul>
-     <li><a href="#dom-foointerface-adparameters">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-creativedata-adparameters">dict-member for CreativeData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-adparameters">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-creativedata-adparameters">dict-member for CreativeData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     appId
     <ul>
-     <li><a href="#dom-foointerface-appid">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-appid">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-appid">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-appid">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     args
@@ -4054,8 +4248,8 @@ primary media.</p>
    <li>
     clickThruUrl
     <ul>
-     <li><a href="#dom-foointerface-clickthruurl">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-creativedata-clickthruurl">dict-member for CreativeData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-clickthruurl">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-creativedata-clickthruurl">dict-member for CreativeData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     code
@@ -4064,72 +4258,72 @@ primary media.</p>
      <li><a href="#dom-messageargs-code">dict-member for MessageArgs</a><span>, in §4.3.2</span>
     </ul>
    <li><a href="#content-media">Content Media</a><span>, in §10</span>
-   <li><a href="#dictdef-creativedata">CreativeData</a><span>, in §4.3.6</span>
+   <li><a href="#dictdef-creativedata">CreativeData</a><span>, in §4.3.7</span>
    <li>
     creativeData
     <ul>
-     <li><a href="#dom-foointerface-creativedata">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-messageargs-creativedata">dict-member for MessageArgs</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-creativedata">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-messageargs-creativedata">dict-member for MessageArgs</a><span>, in §4.3.7</span>
     </ul>
    <li>
     creativeDimensions
     <ul>
-     <li><a href="#dom-foointerface-creativedimensions">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-foointerface-creativedimensions①">attribute for FooInterface</a><span>, in §4.3.8</span>
-     <li><a href="#dom-foointerface-creativedimensions②">attribute for FooInterface</a><span>, in §4.4.12</span>
-     <li><a href="#dom-environmentdata-creativedimensions">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
-     <li><a href="#dom-messageargs-creativedimensions">dict-member for MessageArgs</a><span>, in §4.3.8</span>
-     <li><a href="#dom-messageargs-creativedimensions①">dict-member for MessageArgs</a><span>, in §4.4.12</span>
+     <li><a href="#dom-foointerface-creativedimensions">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-creativedimensions①">attribute for FooInterface</a><span>, in §4.3.9</span>
+     <li><a href="#dom-foointerface-creativedimensions②">attribute for FooInterface</a><span>, in §4.4.15</span>
+     <li><a href="#dom-environmentdata-creativedimensions">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-messageargs-creativedimensions">dict-member for MessageArgs</a><span>, in §4.3.9</span>
+     <li><a href="#dom-messageargs-creativedimensions①">dict-member for MessageArgs</a><span>, in §4.4.15</span>
     </ul>
    <li>
     currentSrc
     <ul>
-     <li><a href="#dom-foointerface-currentsrc">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-messageargs-currentsrc">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
+     <li><a href="#dom-foointerface-currentsrc">attribute for FooInterface</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-messageargs-currentsrc">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
     </ul>
    <li>
     currentTime
     <ul>
-     <li><a href="#dom-foointerface-currenttime">attribute for FooInterface</a><span>, in §4.4.3.1</span>
+     <li><a href="#dom-foointerface-currenttime">attribute for FooInterface</a><span>, in §4.4.5.1</span>
      <li><a href="#dom-messageargs-currenttime①">attribute for MessageArgs</a><span>, in §4.2.10</span>
      <li><a href="#dom-messageargs-currenttime">dict-member for MessageArgs</a><span>, in §4.2.10</span>
-     <li><a href="#dom-messageargs-currenttime②">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
+     <li><a href="#dom-messageargs-currenttime②">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
     </ul>
    <li>
     deviceId
     <ul>
-     <li><a href="#dom-foointerface-deviceid">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-deviceid">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-deviceid">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-deviceid">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     Dimensions
     <ul>
-     <li><a href="#dictdef-dimensions">(dictionary)</a><span>, in §4.3.6</span>
-     <li><a href="#dictdef-dimensions①">(dictionary)</a><span>, in §4.3.8</span>
-     <li><a href="#dictdef-dimensions②">(dictionary)</a><span>, in §4.4.12</span>
+     <li><a href="#dictdef-dimensions">(dictionary)</a><span>, in §4.3.7</span>
+     <li><a href="#dictdef-dimensions①">(dictionary)</a><span>, in §4.3.9</span>
+     <li><a href="#dictdef-dimensions②">(dictionary)</a><span>, in §4.4.15</span>
     </ul>
    <li>
     duration
     <ul>
      <li><a href="#dom-foointerface-duration">attribute for FooInterface</a><span>, in §4.2.1</span>
-     <li><a href="#dom-foointerface-duration①">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-foointerface-duration②">attribute for FooInterface</a><span>, in §4.4.6</span>
+     <li><a href="#dom-foointerface-duration①">attribute for FooInterface</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-duration②">attribute for FooInterface</a><span>, in §4.4.8</span>
      <li><a href="#dom-messageargs-duration">dict-member for MessageArgs</a><span>, in §4.2.1</span>
-     <li><a href="#dom-messageargs-duration①">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-messageargs-duration②">dict-member for MessageArgs</a><span>, in §4.4.6</span>
+     <li><a href="#dom-messageargs-duration①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-messageargs-duration②">dict-member for MessageArgs</a><span>, in §4.4.8</span>
     </ul>
    <li>
     ended
     <ul>
-     <li><a href="#dom-foointerface-ended">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-messageargs-ended">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
+     <li><a href="#dom-foointerface-ended">attribute for FooInterface</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-messageargs-ended">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
     </ul>
-   <li><a href="#dictdef-environmentdata">EnvironmentData</a><span>, in §4.3.6</span>
+   <li><a href="#dictdef-environmentdata">EnvironmentData</a><span>, in §4.3.7</span>
    <li>
     environmentData
     <ul>
-     <li><a href="#dom-foointerface-environmentdata">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-messageargs-environmentdata">dict-member for MessageArgs</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-environmentdata">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-messageargs-environmentdata">dict-member for MessageArgs</a><span>, in §4.3.7</span>
     </ul>
    <li>
     error
@@ -4140,68 +4334,68 @@ primary media.</p>
    <li>
     errorCode
     <ul>
-     <li><a href="#dom-foointerface-errorcode">attribute for FooInterface</a><span>, in §4.3.5</span>
-     <li><a href="#dom-foointerface-errorcode①">attribute for FooInterface</a><span>, in §4.3.6.2</span>
-     <li><a href="#dom-foointerface-errorcode②">attribute for FooInterface</a><span>, in §4.3.9.2</span>
-     <li><a href="#dom-foointerface-errorcode③">attribute for FooInterface</a><span>, in §4.4.2</span>
-     <li><a href="#dom-foointerface-errorcode④">attribute for FooInterface</a><span>, in §4.4.5.2</span>
+     <li><a href="#dom-foointerface-errorcode">attribute for FooInterface</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-errorcode①">attribute for FooInterface</a><span>, in §4.3.7.2</span>
+     <li><a href="#dom-foointerface-errorcode②">attribute for FooInterface</a><span>, in §4.3.10.2</span>
+     <li><a href="#dom-foointerface-errorcode③">attribute for FooInterface</a><span>, in §4.4.4</span>
+     <li><a href="#dom-foointerface-errorcode④">attribute for FooInterface</a><span>, in §4.4.7.2</span>
      <li><a href="#dom-foointerface-errorcode⑤">attribute for FooInterface</a><span>, in §8.2.2</span>
-     <li><a href="#dom-messageargs-errorcode">dict-member for MessageArgs</a><span>, in §4.3.5</span>
-     <li><a href="#dom-messageargs-errorcode①">dict-member for MessageArgs</a><span>, in §4.3.6.2</span>
-     <li><a href="#dom-messageargs-errorcode②">dict-member for MessageArgs</a><span>, in §4.3.9.2</span>
-     <li><a href="#dom-messageargs-errorcode③">dict-member for MessageArgs</a><span>, in §4.4.2</span>
-     <li><a href="#dom-messageargs-errorcode④">dict-member for MessageArgs</a><span>, in §4.4.5.2</span>
+     <li><a href="#dom-messageargs-errorcode">dict-member for MessageArgs</a><span>, in §4.3.6</span>
+     <li><a href="#dom-messageargs-errorcode①">dict-member for MessageArgs</a><span>, in §4.3.7.2</span>
+     <li><a href="#dom-messageargs-errorcode②">dict-member for MessageArgs</a><span>, in §4.3.10.2</span>
+     <li><a href="#dom-messageargs-errorcode③">dict-member for MessageArgs</a><span>, in §4.4.4</span>
+     <li><a href="#dom-messageargs-errorcode④">dict-member for MessageArgs</a><span>, in §4.4.7.2</span>
      <li><a href="#dom-rejectmessageargsvalue-errorcode">dict-member for RejectMessageArgsValue</a><span>, in §8.2.2</span>
     </ul>
    <li>
     errorMessage
     <ul>
-     <li><a href="#dom-foointerface-errormessage">attribute for FooInterface</a><span>, in §4.3.5</span>
-     <li><a href="#dom-foointerface-errormessage①">attribute for FooInterface</a><span>, in §4.4.2</span>
-     <li><a href="#dom-messageargs-errormessage">dict-member for MessageArgs</a><span>, in §4.3.5</span>
-     <li><a href="#dom-messageargs-errormessage①">dict-member for MessageArgs</a><span>, in §4.4.2</span>
+     <li><a href="#dom-foointerface-errormessage">attribute for FooInterface</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-errormessage①">attribute for FooInterface</a><span>, in §4.4.4</span>
+     <li><a href="#dom-messageargs-errormessage">dict-member for MessageArgs</a><span>, in §4.3.6</span>
+     <li><a href="#dom-messageargs-errormessage①">dict-member for MessageArgs</a><span>, in §4.4.4</span>
     </ul>
    <li>
     fullscreen
     <ul>
-     <li><a href="#dom-foointerface-fullscreen">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-foointerface-fullscreen①">attribute for FooInterface</a><span>, in §4.3.8</span>
-     <li><a href="#dom-foointerface-fullscreen②">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-environmentdata-fullscreen">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
-     <li><a href="#dom-messageargs-fullscreen">dict-member for MessageArgs</a><span>, in §4.3.8</span>
-     <li><a href="#dom-messageargs-fullscreen①">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
+     <li><a href="#dom-foointerface-fullscreen">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-fullscreen①">attribute for FooInterface</a><span>, in §4.3.9</span>
+     <li><a href="#dom-foointerface-fullscreen②">attribute for FooInterface</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-environmentdata-fullscreen">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-messageargs-fullscreen">dict-member for MessageArgs</a><span>, in §4.3.9</span>
+     <li><a href="#dom-messageargs-fullscreen①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
     </ul>
    <li>
     fullscreenAllowed
     <ul>
-     <li><a href="#dom-foointerface-fullscreenallowed">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-fullscreenallowed">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-fullscreenallowed">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-fullscreenallowed">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     height
     <ul>
-     <li><a href="#dom-dimensions-height">dict-member for Dimensions</a><span>, in §4.3.6</span>
-     <li><a href="#dom-dimensions-height①">dict-member for Dimensions</a><span>, in §4.3.8</span>
-     <li><a href="#dom-dimensions-height②">dict-member for Dimensions</a><span>, in §4.4.12</span>
+     <li><a href="#dom-dimensions-height">dict-member for Dimensions</a><span>, in §4.3.7</span>
+     <li><a href="#dom-dimensions-height①">dict-member for Dimensions</a><span>, in §4.3.9</span>
+     <li><a href="#dom-dimensions-height②">dict-member for Dimensions</a><span>, in §4.4.15</span>
     </ul>
    <li>
     mediaDimensions
     <ul>
-     <li><a href="#dom-foointerface-mediadimensions">attribute for FooInterface</a><span>, in §4.3.8</span>
-     <li><a href="#dom-foointerface-mediadimensions①">attribute for FooInterface</a><span>, in §4.4.12</span>
-     <li><a href="#dom-messageargs-mediadimensions">dict-member for MessageArgs</a><span>, in §4.4.12</span>
+     <li><a href="#dom-foointerface-mediadimensions">attribute for FooInterface</a><span>, in §4.3.9</span>
+     <li><a href="#dom-foointerface-mediadimensions①">attribute for FooInterface</a><span>, in §4.4.15</span>
+     <li><a href="#dom-messageargs-mediadimensions">dict-member for MessageArgs</a><span>, in §4.4.15</span>
     </ul>
    <li><a href="#dictdef-message">Message</a><span>, in §8.1.1</span>
    <li>
     message
     <ul>
      <li><a href="#dom-foointerface-message">attribute for FooInterface</a><span>, in §4.2.3</span>
-     <li><a href="#dom-foointerface-message①">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-foointerface-message②">attribute for FooInterface</a><span>, in §4.4.4</span>
+     <li><a href="#dom-foointerface-message①">attribute for FooInterface</a><span>, in §4.3.8</span>
+     <li><a href="#dom-foointerface-message②">attribute for FooInterface</a><span>, in §4.4.6</span>
      <li><a href="#dom-foointerface-message③">attribute for FooInterface</a><span>, in §8.2.2</span>
      <li><a href="#dom-messageargs-message">dict-member for MessageArgs</a><span>, in §4.2.3</span>
-     <li><a href="#dom-messageargs-message①">dict-member for MessageArgs</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-message②">dict-member for MessageArgs</a><span>, in §4.4.4</span>
+     <li><a href="#dom-messageargs-message①">dict-member for MessageArgs</a><span>, in §4.3.8</span>
+     <li><a href="#dom-messageargs-message②">dict-member for MessageArgs</a><span>, in §4.4.6</span>
      <li><a href="#dom-rejectmessageargsvalue-message">dict-member for RejectMessageArgsValue</a><span>, in §8.2.2</span>
     </ul>
    <li>
@@ -4212,21 +4406,22 @@ primary media.</p>
      <li><a href="#dictdef-messageargs②">(dictionary)</a><span>, in §4.2.10</span>
      <li><a href="#dictdef-messageargs③">(dictionary)</a><span>, in §4.2.11</span>
      <li><a href="#dictdef-messageargs④">(dictionary)</a><span>, in §4.3.2</span>
-     <li><a href="#dictdef-messageargs⑤">(dictionary)</a><span>, in §4.3.5</span>
-     <li><a href="#dictdef-messageargs⑥">(dictionary)</a><span>, in §4.3.6</span>
-     <li><a href="#dictdef-messageargs⑦">(dictionary)</a><span>, in §4.3.6.2</span>
-     <li><a href="#dictdef-messageargs⑧">(dictionary)</a><span>, in §4.3.7</span>
-     <li><a href="#dictdef-messageargs⑨">(dictionary)</a><span>, in §4.3.8</span>
-     <li><a href="#dictdef-messageargs①⓪">(dictionary)</a><span>, in §4.3.9.2</span>
+     <li><a href="#dictdef-messageargs⑤">(dictionary)</a><span>, in §4.3.6</span>
+     <li><a href="#dictdef-messageargs⑥">(dictionary)</a><span>, in §4.3.7</span>
+     <li><a href="#dictdef-messageargs⑦">(dictionary)</a><span>, in §4.3.7.2</span>
+     <li><a href="#dictdef-messageargs⑧">(dictionary)</a><span>, in §4.3.8</span>
+     <li><a href="#dictdef-messageargs⑨">(dictionary)</a><span>, in §4.3.9</span>
+     <li><a href="#dictdef-messageargs①⓪">(dictionary)</a><span>, in §4.3.10.2</span>
      <li><a href="#dictdef-messageargs①①">(dictionary)</a><span>, in §4.4.1</span>
-     <li><a href="#dictdef-messageargs①②">(dictionary)</a><span>, in §4.4.2</span>
-     <li><a href="#dictdef-messageargs①③">(dictionary)</a><span>, in §4.4.3.1</span>
-     <li><a href="#dictdef-messageargs①④">(dictionary)</a><span>, in §4.4.4</span>
-     <li><a href="#dictdef-messageargs①⑤">(dictionary)</a><span>, in §4.4.5</span>
-     <li><a href="#dictdef-messageargs①⑥">(dictionary)</a><span>, in §4.4.5.2</span>
-     <li><a href="#dictdef-messageargs①⑦">(dictionary)</a><span>, in §4.4.6</span>
-     <li><a href="#dictdef-messageargs①⑧">(dictionary)</a><span>, in §4.4.7</span>
+     <li><a href="#dictdef-messageargs①②">(dictionary)</a><span>, in §4.4.4</span>
+     <li><a href="#dictdef-messageargs①③">(dictionary)</a><span>, in §4.4.5.1</span>
+     <li><a href="#dictdef-messageargs①④">(dictionary)</a><span>, in §4.4.6</span>
+     <li><a href="#dictdef-messageargs①⑤">(dictionary)</a><span>, in §4.4.7</span>
+     <li><a href="#dictdef-messageargs①⑥">(dictionary)</a><span>, in §4.4.7.2</span>
+     <li><a href="#dictdef-messageargs①⑦">(dictionary)</a><span>, in §4.4.8</span>
+     <li><a href="#dictdef-messageargs①⑧">(dictionary)</a><span>, in §4.4.9</span>
      <li><a href="#dictdef-messageargs①⑨">(dictionary)</a><span>, in §4.4.12</span>
+     <li><a href="#dictdef-messageargs②⓪">(dictionary)</a><span>, in §4.4.15</span>
     </ul>
    <li>
     messageId
@@ -4240,31 +4435,31 @@ primary media.</p>
     muted
     <ul>
      <li><a href="#dom-foointerface-muted">attribute for FooInterface</a><span>, in §4.2.11</span>
-     <li><a href="#dom-foointerface-muted①">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-foointerface-muted②">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-foointerface-muted③">attribute for FooInterface</a><span>, in §4.4.7</span>
-     <li><a href="#dom-environmentdata-muted">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-muted①">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-muted②">attribute for FooInterface</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-muted③">attribute for FooInterface</a><span>, in §4.4.9</span>
+     <li><a href="#dom-environmentdata-muted">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
      <li><a href="#dom-messageargs-muted">dict-member for MessageArgs</a><span>, in §4.2.11</span>
-     <li><a href="#dom-messageargs-muted①">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-messageargs-muted②">dict-member for MessageArgs</a><span>, in §4.4.7</span>
+     <li><a href="#dom-messageargs-muted①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-messageargs-muted②">dict-member for MessageArgs</a><span>, in §4.4.9</span>
     </ul>
-   <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §4.3.6</span>
+   <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §4.3.7</span>
    <li>
     paused
     <ul>
-     <li><a href="#dom-foointerface-paused">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-messageargs-paused">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
+     <li><a href="#dom-foointerface-paused">attribute for FooInterface</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-messageargs-paused">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
     </ul>
-   <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §4.3.6</span>
+   <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §4.3.7</span>
    <li>
     reason
     <ul>
-     <li><a href="#dom-foointerface-reason">attribute for FooInterface</a><span>, in §4.3.6.2</span>
-     <li><a href="#dom-foointerface-reason①">attribute for FooInterface</a><span>, in §4.3.9.2</span>
-     <li><a href="#dom-foointerface-reason②">attribute for FooInterface</a><span>, in §4.4.5.2</span>
-     <li><a href="#dom-messageargs-reason">dict-member for MessageArgs</a><span>, in §4.3.6.2</span>
-     <li><a href="#dom-messageargs-reason①">dict-member for MessageArgs</a><span>, in §4.3.9.2</span>
-     <li><a href="#dom-messageargs-reason②">dict-member for MessageArgs</a><span>, in §4.4.5.2</span>
+     <li><a href="#dom-foointerface-reason">attribute for FooInterface</a><span>, in §4.3.7.2</span>
+     <li><a href="#dom-foointerface-reason①">attribute for FooInterface</a><span>, in §4.3.10.2</span>
+     <li><a href="#dom-foointerface-reason②">attribute for FooInterface</a><span>, in §4.4.7.2</span>
+     <li><a href="#dom-messageargs-reason">dict-member for MessageArgs</a><span>, in §4.3.7.2</span>
+     <li><a href="#dom-messageargs-reason①">dict-member for MessageArgs</a><span>, in §4.3.10.2</span>
+     <li><a href="#dom-messageargs-reason②">dict-member for MessageArgs</a><span>, in §4.4.7.2</span>
     </ul>
    <li><a href="#dictdef-rejectmessageargsvalue">RejectMessageArgsValue</a><span>, in §8.2.2</span>
    <li><a href="#dictdef-resolvemessageargs">ResolveMessageArgs</a><span>, in §8.2.1</span>
@@ -4284,15 +4479,15 @@ primary media.</p>
    <li>
     siteUrl
     <ul>
-     <li><a href="#dom-foointerface-siteurl">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-siteurl">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-siteurl">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-siteurl">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
-   <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §4.3.6</span>
+   <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §4.3.7</span>
    <li>
     skippableState
     <ul>
-     <li><a href="#dom-foointerface-skippablestate">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-skippablestate">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-skippablestate">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-skippablestate">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     timestamp
@@ -4303,8 +4498,8 @@ primary media.</p>
    <li>
     trackingUrls
     <ul>
-     <li><a href="#dom-foointerface-trackingurls">attribute for FooInterface</a><span>, in §4.4.5</span>
-     <li><a href="#dom-messageargs-trackingurls">dict-member for MessageArgs</a><span>, in §4.4.5</span>
+     <li><a href="#dom-foointerface-trackingurls">attribute for FooInterface</a><span>, in §4.4.7</span>
+     <li><a href="#dom-messageargs-trackingurls">dict-member for MessageArgs</a><span>, in §4.4.7</span>
     </ul>
    <li>
     type
@@ -4313,10 +4508,16 @@ primary media.</p>
      <li><a href="#dom-message-type">dict-member for Message</a><span>, in §8.1.1</span>
     </ul>
    <li>
+    uri
+    <ul>
+     <li><a href="#dom-foointerface-uri">attribute for FooInterface</a><span>, in §4.4.12</span>
+     <li><a href="#dom-messageargs-uri">dict-member for MessageArgs</a><span>, in §4.4.12</span>
+    </ul>
+   <li>
     useragent
     <ul>
-     <li><a href="#dom-foointerface-useragent">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-useragent">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-useragent">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-useragent">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     value
@@ -4327,57 +4528,57 @@ primary media.</p>
    <li>
     variableDurationAllowed
     <ul>
-     <li><a href="#dom-foointerface-variabledurationallowed">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-variabledurationallowed">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-variabledurationallowed">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-variabledurationallowed">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     version
     <ul>
-     <li><a href="#dom-foointerface-version">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-version">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-version">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-version">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
    <li>
     videoDimensions
     <ul>
-     <li><a href="#dom-foointerface-videodimensions">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-environmentdata-videodimensions">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
-     <li><a href="#dom-messageargs-videodimensions">dict-member for MessageArgs</a><span>, in §4.3.8</span>
+     <li><a href="#dom-foointerface-videodimensions">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-videodimensions">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-messageargs-videodimensions">dict-member for MessageArgs</a><span>, in §4.3.9</span>
     </ul>
    <li>
     volume
     <ul>
      <li><a href="#dom-foointerface-volume">attribute for FooInterface</a><span>, in §4.2.11</span>
-     <li><a href="#dom-foointerface-volume①">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-foointerface-volume②">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-foointerface-volume③">attribute for FooInterface</a><span>, in §4.4.7</span>
-     <li><a href="#dom-environmentdata-volume">dict-member for EnvironmentData</a><span>, in §4.3.6</span>
+     <li><a href="#dom-foointerface-volume①">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-volume②">attribute for FooInterface</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-volume③">attribute for FooInterface</a><span>, in §4.4.9</span>
+     <li><a href="#dom-environmentdata-volume">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
      <li><a href="#dom-messageargs-volume">dict-member for MessageArgs</a><span>, in §4.2.11</span>
-     <li><a href="#dom-messageargs-volume①">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-messageargs-volume②">dict-member for MessageArgs</a><span>, in §4.4.7</span>
+     <li><a href="#dom-messageargs-volume①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-messageargs-volume②">dict-member for MessageArgs</a><span>, in §4.4.9</span>
     </ul>
    <li>
     width
     <ul>
-     <li><a href="#dom-dimensions-width">dict-member for Dimensions</a><span>, in §4.3.6</span>
-     <li><a href="#dom-dimensions-width①">dict-member for Dimensions</a><span>, in §4.3.8</span>
-     <li><a href="#dom-dimensions-width②">dict-member for Dimensions</a><span>, in §4.4.12</span>
+     <li><a href="#dom-dimensions-width">dict-member for Dimensions</a><span>, in §4.3.7</span>
+     <li><a href="#dom-dimensions-width①">dict-member for Dimensions</a><span>, in §4.3.9</span>
+     <li><a href="#dom-dimensions-width②">dict-member for Dimensions</a><span>, in §4.4.15</span>
     </ul>
    <li>
     x
     <ul>
      <li><a href="#dom-foointerface-x">attribute for FooInterface</a><span>, in §4.4.1</span>
-     <li><a href="#dom-dimensions-x">dict-member for Dimensions</a><span>, in §4.3.6</span>
-     <li><a href="#dom-dimensions-x①">dict-member for Dimensions</a><span>, in §4.3.8</span>
-     <li><a href="#dom-dimensions-x②">dict-member for Dimensions</a><span>, in §4.4.12</span>
+     <li><a href="#dom-dimensions-x">dict-member for Dimensions</a><span>, in §4.3.7</span>
+     <li><a href="#dom-dimensions-x①">dict-member for Dimensions</a><span>, in §4.3.9</span>
+     <li><a href="#dom-dimensions-x②">dict-member for Dimensions</a><span>, in §4.4.15</span>
      <li><a href="#dom-messageargs-x">dict-member for MessageArgs</a><span>, in §4.4.1</span>
     </ul>
    <li>
     y
     <ul>
      <li><a href="#dom-foointerface-y">attribute for FooInterface</a><span>, in §4.4.1</span>
-     <li><a href="#dom-dimensions-y">dict-member for Dimensions</a><span>, in §4.3.6</span>
-     <li><a href="#dom-dimensions-y①">dict-member for Dimensions</a><span>, in §4.3.8</span>
-     <li><a href="#dom-dimensions-y②">dict-member for Dimensions</a><span>, in §4.4.12</span>
+     <li><a href="#dom-dimensions-y">dict-member for Dimensions</a><span>, in §4.3.7</span>
+     <li><a href="#dom-dimensions-y①">dict-member for Dimensions</a><span>, in §4.3.9</span>
+     <li><a href="#dom-dimensions-y②">dict-member for Dimensions</a><span>, in §4.4.15</span>
      <li><a href="#dom-messageargs-y">dict-member for MessageArgs</a><span>, in §4.4.1</span>
     </ul>
   </ul>
@@ -4385,15 +4586,15 @@ primary media.</p>
    <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-DOMString">4.2.3. SIMID:Media:error</a>
-    <li><a href="#ref-for-idl-DOMString①">4.3.5. SIMID:Player:fatalError</a>
-    <li><a href="#ref-for-idl-DOMString②">4.3.6. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a>
-    <li><a href="#ref-for-idl-DOMString⑨">4.3.6.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⓪">4.3.7. SIMID:Player:log</a>
-    <li><a href="#ref-for-idl-DOMString①①">4.3.9.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①②">4.4.2. SIMID:Creative:fatalError</a>
-    <li><a href="#ref-for-idl-DOMString①③">4.4.3.1. resolve</a>
-    <li><a href="#ref-for-idl-DOMString①④">4.4.4. SIMID:Creative:log</a>
-    <li><a href="#ref-for-idl-DOMString①⑤">4.4.5.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①">4.3.6. SIMID:Player:fatalError</a>
+    <li><a href="#ref-for-idl-DOMString②">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a>
+    <li><a href="#ref-for-idl-DOMString⑨">4.3.7.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①⓪">4.3.8. SIMID:Player:log</a>
+    <li><a href="#ref-for-idl-DOMString①①">4.3.10.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①②">4.4.4. SIMID:Creative:fatalError</a>
+    <li><a href="#ref-for-idl-DOMString①③">4.4.5.1. resolve</a>
+    <li><a href="#ref-for-idl-DOMString①④">4.4.6. SIMID:Creative:log</a>
+    <li><a href="#ref-for-idl-DOMString①⑤">4.4.7.2. reject</a>
     <li><a href="#ref-for-idl-DOMString①⑥">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString①⑦">(2)</a>
     <li><a href="#ref-for-idl-DOMString①⑧">8.2.2. reject Messages</a>
    </ul>
@@ -4402,10 +4603,10 @@ primary media.</p>
    <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-boolean">4.2.11. SIMID:Media:volumechange</a>
-    <li><a href="#ref-for-idl-boolean①">4.3.6. SIMID:Player:init</a> <a href="#ref-for-idl-boolean②">(2)</a> <a href="#ref-for-idl-boolean③">(3)</a> <a href="#ref-for-idl-boolean④">(4)</a>
-    <li><a href="#ref-for-idl-boolean⑤">4.3.8. SIMID:Player:resize</a>
-    <li><a href="#ref-for-idl-boolean⑥">4.4.3.1. resolve</a> <a href="#ref-for-idl-boolean⑦">(2)</a> <a href="#ref-for-idl-boolean⑧">(3)</a> <a href="#ref-for-idl-boolean⑨">(4)</a>
-    <li><a href="#ref-for-idl-boolean①⓪">4.4.7. SIMID:Creative:requestChangeVolume</a>
+    <li><a href="#ref-for-idl-boolean①">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-boolean②">(2)</a> <a href="#ref-for-idl-boolean③">(3)</a> <a href="#ref-for-idl-boolean④">(4)</a>
+    <li><a href="#ref-for-idl-boolean⑤">4.3.9. SIMID:Player:resize</a>
+    <li><a href="#ref-for-idl-boolean⑥">4.4.5.1. resolve</a> <a href="#ref-for-idl-boolean⑦">(2)</a> <a href="#ref-for-idl-boolean⑧">(3)</a> <a href="#ref-for-idl-boolean⑨">(4)</a>
+    <li><a href="#ref-for-idl-boolean①⓪">4.4.9. SIMID:Creative:requestChangeVolume</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-float">
@@ -4414,18 +4615,18 @@ primary media.</p>
     <li><a href="#ref-for-idl-float">4.2.1. SIMID:Media:durationchange</a>
     <li><a href="#ref-for-idl-float①">4.2.10. SIMID:Media:timeupdate</a>
     <li><a href="#ref-for-idl-float②">4.2.11. SIMID:Media:volumechange</a>
-    <li><a href="#ref-for-idl-float③">4.3.6. SIMID:Player:init</a>
-    <li><a href="#ref-for-idl-float④">4.4.3.1. resolve</a> <a href="#ref-for-idl-float⑤">(2)</a> <a href="#ref-for-idl-float⑥">(3)</a>
-    <li><a href="#ref-for-idl-float⑦">4.4.6. SIMID:Creative:requestChangeAdDuration</a>
-    <li><a href="#ref-for-idl-float⑧">4.4.7. SIMID:Creative:requestChangeVolume</a>
+    <li><a href="#ref-for-idl-float③">4.3.7. SIMID:Player:init</a>
+    <li><a href="#ref-for-idl-float④">4.4.5.1. resolve</a> <a href="#ref-for-idl-float⑤">(2)</a> <a href="#ref-for-idl-float⑥">(3)</a>
+    <li><a href="#ref-for-idl-float⑦">4.4.8. SIMID:Creative:requestChangeAdDuration</a>
+    <li><a href="#ref-for-idl-float⑧">4.4.9. SIMID:Creative:requestChangeVolume</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-long">
    <a href="https://heycam.github.io/webidl/#idl-long">https://heycam.github.io/webidl/#idl-long</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-long">4.3.6. SIMID:Player:init</a> <a href="#ref-for-idl-long①">(2)</a> <a href="#ref-for-idl-long②">(3)</a> <a href="#ref-for-idl-long③">(4)</a>
-    <li><a href="#ref-for-idl-long④">4.3.8. SIMID:Player:resize</a> <a href="#ref-for-idl-long⑤">(2)</a> <a href="#ref-for-idl-long⑥">(3)</a> <a href="#ref-for-idl-long⑦">(4)</a>
-    <li><a href="#ref-for-idl-long⑧">4.4.12. SIMID:Creative:requestResize</a> <a href="#ref-for-idl-long⑨">(2)</a> <a href="#ref-for-idl-long①⓪">(3)</a> <a href="#ref-for-idl-long①①">(4)</a>
+    <li><a href="#ref-for-idl-long">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-long①">(2)</a> <a href="#ref-for-idl-long②">(3)</a> <a href="#ref-for-idl-long③">(4)</a>
+    <li><a href="#ref-for-idl-long④">4.3.9. SIMID:Player:resize</a> <a href="#ref-for-idl-long⑤">(2)</a> <a href="#ref-for-idl-long⑥">(3)</a> <a href="#ref-for-idl-long⑦">(4)</a>
+    <li><a href="#ref-for-idl-long⑧">4.4.15. SIMID:Creative:requestResize</a> <a href="#ref-for-idl-long⑨">(2)</a> <a href="#ref-for-idl-long①⓪">(3)</a> <a href="#ref-for-idl-long①①">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-short">
@@ -4447,11 +4648,11 @@ primary media.</p>
    <ul>
     <li><a href="#ref-for-idl-unsigned-short">4.2.3. SIMID:Media:error</a>
     <li><a href="#ref-for-idl-unsigned-short①">4.3.2. SIMID:Player:adStopped</a>
-    <li><a href="#ref-for-idl-unsigned-short②">4.3.5. SIMID:Player:fatalError</a>
-    <li><a href="#ref-for-idl-unsigned-short③">4.3.6.2. reject</a>
-    <li><a href="#ref-for-idl-unsigned-short④">4.3.9.2. reject</a>
-    <li><a href="#ref-for-idl-unsigned-short⑤">4.4.2. SIMID:Creative:fatalError</a>
-    <li><a href="#ref-for-idl-unsigned-short⑥">4.4.5.2. reject</a>
+    <li><a href="#ref-for-idl-unsigned-short②">4.3.6. SIMID:Player:fatalError</a>
+    <li><a href="#ref-for-idl-unsigned-short③">4.3.7.2. reject</a>
+    <li><a href="#ref-for-idl-unsigned-short④">4.3.10.2. reject</a>
+    <li><a href="#ref-for-idl-unsigned-short⑤">4.4.4. SIMID:Creative:fatalError</a>
+    <li><a href="#ref-for-idl-unsigned-short⑥">4.4.7.2. reject</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -4610,6 +4811,10 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑨"><code><c- g>MessageArgs</c-></code></a> {
+  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-messageargs-uri"><code><c- g>uri</c-></code></a>;
+};
+
+<c- b>dictionary</c-> <a href="#dictdef-messageargs②⓪"><code><c- g>MessageArgs</c-></code></a> {
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-mediadimensions"><code><c- g>mediaDimensions</c-></code></a>;
   <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions①"><code><c- g>creativeDimensions</c-></code></a>;
 };
@@ -4643,40 +4848,40 @@ primary media.</p>
   <aside class="dfn-panel" data-for="dictdef-creativedata">
    <b><a href="#dictdef-creativedata">#dictdef-creativedata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-creativedata">4.3.6. SIMID:Player:init</a>
+    <li><a href="#ref-for-dictdef-creativedata">4.3.7. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-environmentdata">
    <b><a href="#dictdef-environmentdata">#dictdef-environmentdata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-environmentdata">4.3.6. SIMID:Player:init</a>
+    <li><a href="#ref-for-dictdef-environmentdata">4.3.7. SIMID:Player:init</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-fullscreenallowed">
    <b><a href="#dom-environmentdata-fullscreenallowed">#dom-environmentdata-fullscreenallowed</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-fullscreenallowed">6.7.2. Ad Resizing and Fullscreen</a>
+    <li><a href="#ref-for-dom-environmentdata-fullscreenallowed">6.8.2. Ad Resizing and Fullscreen</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-environmentdata-variabledurationallowed">
    <b><a href="#dom-environmentdata-variabledurationallowed">#dom-environmentdata-variabledurationallowed</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed">6.7.1. Ad Pause</a>
-    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed①">6.9.1. Ad Extends Beyond Media Completion</a>
+    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed">6.8.1. Ad Pause</a>
+    <li><a href="#ref-for-dom-environmentdata-variabledurationallowed①">6.10.1. Ad Extends Beyond Media Completion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-dimensions">
    <b><a href="#dictdef-dimensions">#dictdef-dimensions</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-dimensions">4.3.6. SIMID:Player:init</a> <a href="#ref-for-dictdef-dimensions①">(2)</a>
-    <li><a href="#ref-for-dictdef-dimensions②">4.3.8. SIMID:Player:resize</a> <a href="#ref-for-dictdef-dimensions③">(2)</a>
-    <li><a href="#ref-for-dictdef-dimensions④">4.4.12. SIMID:Creative:requestResize</a> <a href="#ref-for-dictdef-dimensions⑤">(2)</a>
+    <li><a href="#ref-for-dictdef-dimensions">4.3.7. SIMID:Player:init</a> <a href="#ref-for-dictdef-dimensions①">(2)</a>
+    <li><a href="#ref-for-dictdef-dimensions②">4.3.9. SIMID:Player:resize</a> <a href="#ref-for-dictdef-dimensions③">(2)</a>
+    <li><a href="#ref-for-dictdef-dimensions④">4.4.15. SIMID:Creative:requestResize</a> <a href="#ref-for-dictdef-dimensions⑤">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumdef-skippablestate">
    <b><a href="#enumdef-skippablestate">#enumdef-skippablestate</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-enumdef-skippablestate">4.3.6. SIMID:Player:init</a>
+    <li><a href="#ref-for-enumdef-skippablestate">4.3.7. SIMID:Player:init</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
