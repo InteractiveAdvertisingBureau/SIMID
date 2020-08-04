@@ -29,7 +29,7 @@ class HoverNonLinear extends BaseSimidCreative {
      */
     addActions_() {
         this.sendMessageOnEvent_("close_ad", 'click', CreativeMessage.REQUEST_STOP);
-        this.onHover_("content_container", 'mouseover', this.requestResizeOnHover_());
+        this.onHover_("content_container", 'mouseover');
         this.sendMessageOnEvent_("content_container", 'mouseout', CreativeMessage.REQUEST_COLLAPSE);
     }
 
@@ -58,23 +58,21 @@ class HoverNonLinear extends BaseSimidCreative {
         return creativeDimensions;
     }
 
-    onHover_(elementName, event, method) {
-        document.getElementById(elementName).addEventListener(event, method);
-        console.log("Added listener");
+    onHover_(elementName, event) {
+        const expandOnHoverFunction = () => {
+            const newDimensions = {};
+
+            newDimensions.x = this.initialDimensions_.x * X_OFFSET_PERCENTAGE;
+            newDimensions.y = this.initialDimensions_.y * Y_OFFSET_PERCENTAGE;
+            newDimensions.width = this.initialDimensions_.width * WIDTH_PERCENTAGE;
+            newDimensions.height = this.initialDimensions_.height * HEIGHT_PERCENTAGE;
+        
+            const resizeParams = {
+            creativeDimensions: newDimensions,
+            };
+        
+            this.requestResize(resizeParams);
+        }
+        document.getElementById(elementName).addEventListener(event, expandOnHoverFunction);
     }
-
-    requestResizeOnHover_() {
-        const newDimensions = {};
-
-        newDimensions.x = this.initialDimensions_.x * X_OFFSET_PERCENTAGE;
-        newDimensions.y = this.initialDimensions_.y * Y_OFFSET_PERCENTAGE;
-        newDimensions.width = this.initialDimensions_.width * WIDTH_PERCENTAGE;
-        newDimensions.height = this.initialDimensions_.height * HEIGHT_PERCENTAGE;
-    
-        const resizeParams = {
-          creativeDimensions: newDimensions,
-        };
-    
-        this.requestResize(resizeParams);
-      }
 }
