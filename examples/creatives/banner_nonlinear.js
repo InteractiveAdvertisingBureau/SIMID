@@ -61,14 +61,14 @@ class BannerNonLinear extends BaseSimidCreative {
             });
             return;
         }
-        
+
         this.bannerText_ = adParams['bannerText']; 
         this.webUrl_ = adParams['webUrl'];
 
         if (!this.webUrl_) {
             this.simidProtocol.reject(eventData, {
               errorCode: CreativeErrorCode.UNSPECIFIED, 
-              message: `Required field webUrl not found`
+              message: 'Required field webUrl not found'
             });
             return;
         }
@@ -77,8 +77,8 @@ class BannerNonLinear extends BaseSimidCreative {
     }
 
     updateCreativeWithParams_() {
-        document.getElementById("ad_text").textContent = this.bannerText_;
-        document.getElementById("webpage_container").src = this.webUrl_;
+        document.getElementById('ad_text').textContent = this.bannerText_;
+        document.getElementById('webpage_container').src = this.webUrl_;
     }
 
     /**
@@ -86,21 +86,21 @@ class BannerNonLinear extends BaseSimidCreative {
      * @private
      */
     addButtonClickActions_() {
-        this.sendMessageOnButtonClick_("close_ad", CreativeMessage.REQUEST_STOP);
+        this.sendMessageOnButtonClick_('close_ad', CreativeMessage.REQUEST_STOP);
         
-        this.sendMessageOnButtonClick_("ad_text", CreativeMessage.REQUEST_EXPAND, () => {
-            document.getElementById("ad_text").classList.add("hidden");
-            document.getElementById("content_box").classList.remove("hidden");
+        this.sendMessageOnButtonClick_('ad_text', CreativeMessage.REQUEST_EXPAND, () => {
+            document.getElementById('ad_text').classList.add('hidden');
+            document.getElementById('content_box').classList.remove('hidden');
         });
 
-        this.sendMessageOnButtonClick_("minimize_ad", CreativeMessage.REQUEST_COLLAPSE, () => {
-            document.getElementById("ad_text").classList.remove("hidden");
-            document.getElementById("content_box").classList.add("hidden");
+        this.sendMessageOnButtonClick_('minimize_ad', CreativeMessage.REQUEST_COLLAPSE, () => {
+            document.getElementById('ad_text').classList.remove('hidden');
+            document.getElementById('content_box').classList.add('hidden');
         });
     }
 
     /**
-     * Listens for a click event on a button
+     * Sends a SIMID message whenever an element is clicked.
      * @param {String} elementName The name of the element.
      * @param {String} message The message to send to the player.
      * @param {?Function} callback This gets executed after the message to the player is sent.
