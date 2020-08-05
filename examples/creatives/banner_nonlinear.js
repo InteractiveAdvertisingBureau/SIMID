@@ -38,12 +38,12 @@ class BannerNonLinear extends BaseSimidCreative {
 
     /**
      * Checks validity of ad parameters and rejects with proper message if invalid.
-     * @param eventData an object that contains information details for a particular event
+     * @param {!Object} eventData an object that contains information details for a particular event
      *   such as event type, unique Ids, creativeData and environmentData.
      * @private 
      */ 
     validateAndParseAdParams_(eventData) {
-        if (this.creativeData.adParameters == "") {
+        if (!this.creativeData.adParameters) {
             this.simidProtocol.reject(eventData, {
                 errorCode: CreativeErrorCode.UNSPECIFIED, 
                 message: 'Ad parameters not found'
