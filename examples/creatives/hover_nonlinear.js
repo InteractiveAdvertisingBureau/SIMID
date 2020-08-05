@@ -15,6 +15,8 @@ class HoverNonLinear extends BaseSimidCreative {
     onInit(eventData) {
         super.onInit(eventData);
         this.initialDimensions_ = this.environmentData.creativeDimensions;
+        this.videoDimensionHeight = this.environmentData.videoDimensions.height;
+        this.videoDimensionWidth = this.environmentData.videoDimensions.width;
     }
 
     /** @override */
@@ -56,11 +58,11 @@ class HoverNonLinear extends BaseSimidCreative {
             let resizeParams = {};
 
             //if ad is at the top quarter of the player
-            if (this.initialDimensions_.y < (this.environmentData.videoDimensions.height * QUARTER_THE_SIZE)) {
-                newDimensions.height = (this.environmentData.videoDimensions.height * THIRTY_FIVE_PERCENT);
+            if (this.initialDimensions_.y < (this.videoDimensionHeight * QUARTER_THE_SIZE)) {
+                newDimensions.height = (this.videoDimensionHeight * THIRTY_FIVE_PERCENT);
                 newDimensions.x = 0;
                 newDimensions.y = this.initialDimensions_.y;
-                newDimensions.width = this.environmentData.videoDimensions.width;
+                newDimensions.width = this.videoDimensionWidth;
 
                 resizeParams = {
                     creativeDimensions: newDimensions,
@@ -71,12 +73,12 @@ class HoverNonLinear extends BaseSimidCreative {
             }
 
             //if ad is between the top quarter and half of the player
-            else if (this.initialDimensions_.y > (this.environmentData.videoDimensions.height * QUARTER_THE_SIZE) && 
-                this.initialDimensions_.y < (this.environmentData.videoDimensions.height * HALF_THE_SIZE)) {
-                    newDimensions.height = (this.environmentData.videoDimensions.height * THIRTY_FIVE_PERCENT);
+            else if (this.initialDimensions_.y > (this.videoDimensionHeight * QUARTER_THE_SIZE) && 
+                this.initialDimensions_.y < (this.videoDimensionHeight * HALF_THE_SIZE)) {
+                    newDimensions.height = (this.videoDimensionHeight * THIRTY_FIVE_PERCENT);
                     newDimensions.x = 0;
-                    newDimensions.y = this.environmentData.videoDimensions.height * QUARTER_THE_SIZE;
-                    newDimensions.width = this.environmentData.videoDimensions.width;
+                    newDimensions.y = this.videoDimensionHeight * QUARTER_THE_SIZE;
+                    newDimensions.width = this.videoDimensionWidth;
 
                     resizeParams = {
                         creativeDimensions: newDimensions,
@@ -87,12 +89,12 @@ class HoverNonLinear extends BaseSimidCreative {
             }
 
             //if ad is between the top half and three quarters of the player
-            else if (this.initialDimensions_.y > (this.environmentData.videoDimensions.height * HALF_THE_SIZE) && 
-            this.initialDimensions_.y < (this.environmentData.videoDimensions.height * THREE_QUARTERS_THE_SIZE)) {
-                newDimensions.height = (this.environmentData.videoDimensions.height * THIRTY_FIVE_PERCENT);
+            else if (this.initialDimensions_.y > (this.videoDimensionHeight * HALF_THE_SIZE) && 
+            this.initialDimensions_.y < (this.videoDimensionHeight * THREE_QUARTERS_THE_SIZE)) {
+                newDimensions.height = (this.videoDimensionHeight * THIRTY_FIVE_PERCENT);
                 newDimensions.x = 0;
-                newDimensions.y = (this.environmentData.videoDimensions.height * HALF_THE_SIZE);
-                newDimensions.width = this.environmentData.videoDimensions.width;
+                newDimensions.y = (this.videoDimensionHeight * HALF_THE_SIZE);
+                newDimensions.width = this.videoDimensionWidth;
 
                 resizeParams = {
                     creativeDimensions: newDimensions,
@@ -103,11 +105,11 @@ class HoverNonLinear extends BaseSimidCreative {
             }
 
             //if ad is at bottom quarter of the player
-            else if (this.initialDimensions_.y >= (this.environmentData.videoDimensions.height * THREE_QUARTERS_THE_SIZE)) {
-                newDimensions.height = (this.environmentData.videoDimensions.height * QUARTER_THE_SIZE);
+            else if (this.initialDimensions_.y >= (this.videoDimensionHeight * THREE_QUARTERS_THE_SIZE)) {
+                newDimensions.height = (this.videoDimensionHeight * QUARTER_THE_SIZE);
                 newDimensions.x = 0;
-                newDimensions.y = (this.environmentData.videoDimensions.height * THREE_QUARTERS_THE_SIZE);
-                newDimensions.width = this.environmentData.videoDimensions.width;
+                newDimensions.y = (this.videoDimensionHeight * THREE_QUARTERS_THE_SIZE);
+                newDimensions.width = this.videoDimensionWidth;
 
                 resizeParams = {
                     creativeDimensions: newDimensions,
