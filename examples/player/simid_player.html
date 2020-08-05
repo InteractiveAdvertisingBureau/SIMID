@@ -160,6 +160,12 @@
         case 'banner_nonlinear.html':
           document.getElementById("nonlinear_ad").checked = true;
           document.getElementById("duration").value = 10;
+          adParamsObj = {
+           "bannerText": "Click here to draw!",
+           "webUrl": "https://quickdraw.withgoogle.com/",
+          };
+          
+          adParams = JSON.stringify(adParamsObj);
           break;
       }
       setInputsForAdType();
