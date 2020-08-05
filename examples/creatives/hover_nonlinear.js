@@ -48,6 +48,7 @@ class HoverNonLinear extends BaseSimidCreative {
 
     /**
      * Adds a hover event listener to the contents of the iframe that expands the iframe.
+     * DISCLAIMER: Only works for horizontal ads.
      * @param {String} elementName The name of the element.
      * @param {Event} event The event performed on the element.
      * @private
