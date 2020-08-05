@@ -1834,7 +1834,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-08-04">4 August 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-08-05">5 August 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1853,7 +1853,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 4 August 2020,
+In addition, as of 5 August 2020,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2800,6 +2800,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code><a class="self-link" href="#dom-environmentdata-deviceid"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-environmentdata-muted"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-environmentdata-volume"></a></dfn>;
+  <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport" id="ref-for-enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="NavigationSupport " id="dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code><a class="self-link" href="#dom-environmentdata-navigationsupport"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions"><code><c- g>Dimensions</c-></code></dfn> {
@@ -2810,6 +2811,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 };
 
 <c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-skippablestate"><code><c- g>SkippableState</c-></code></dfn> {<dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code><a class="self-link" href="#dom-skippablestate-playerhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code><a class="self-link" href="#dom-skippablestate-adhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code><a class="self-link" href="#dom-skippablestate-notskippable"></a></dfn>};
+<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-navigationsupport"><code><c- g>NavigationSupport</c-></code></dfn> {<dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-creativehandles"><code><c- s>"creativeHandles"</c-></code><a class="self-link" href="#dom-navigationsupport-creativehandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-playerhandles"><code><c- s>"playerHandles"</c-></code><a class="self-link" href="#dom-navigationsupport-playerhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-notsupported"><code><c- s>"notSupported"</c-></code><a class="self-link" href="#dom-navigationsupport-notsupported"></a></dfn>};
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-videodimensions"><code>videoDimensions</code><a class="self-link" href="#dom-foointerface-videodimensions"></a></dfn>, <span></span>
@@ -4275,6 +4277,7 @@ primary media.</p>
      <li><a href="#dom-messageargs-creativedimensions">dict-member for MessageArgs</a><span>, in §4.3.9</span>
      <li><a href="#dom-messageargs-creativedimensions①">dict-member for MessageArgs</a><span>, in §4.4.15</span>
     </ul>
+   <li><a href="#dom-navigationsupport-creativehandles">"creativeHandles"</a><span>, in §4.3.7</span>
    <li>
     currentSrc
     <ul>
@@ -4443,14 +4446,22 @@ primary media.</p>
      <li><a href="#dom-messageargs-muted①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
      <li><a href="#dom-messageargs-muted②">dict-member for MessageArgs</a><span>, in §4.4.9</span>
     </ul>
+   <li><a href="#enumdef-navigationsupport">NavigationSupport</a><span>, in §4.3.7</span>
+   <li><a href="#dom-environmentdata-navigationsupport">navigationSupport</a><span>, in §4.3.7</span>
    <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §4.3.7</span>
+   <li><a href="#dom-navigationsupport-notsupported">"notSupported"</a><span>, in §4.3.7</span>
    <li>
     paused
     <ul>
      <li><a href="#dom-foointerface-paused">attribute for FooInterface</a><span>, in §4.4.5.1</span>
      <li><a href="#dom-messageargs-paused">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
     </ul>
-   <li><a href="#dom-skippablestate-playerhandles">"playerHandles"</a><span>, in §4.3.7</span>
+   <li>
+    "playerHandles"
+    <ul>
+     <li><a href="#dom-navigationsupport-playerhandles">enum-value for NavigationSupport</a><span>, in §4.3.7</span>
+     <li><a href="#dom-skippablestate-playerhandles">enum-value for SkippableState</a><span>, in §4.3.7</span>
+    </ul>
    <li>
     reason
     <ul>
@@ -4729,6 +4740,7 @@ primary media.</p>
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-muted"><code><c- g>muted</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-volume"><code><c- g>volume</c-></code></a>;
+  <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <a data-type="NavigationSupport " href="#dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-dimensions"><code><c- g>Dimensions</c-></code></a> {
@@ -4739,6 +4751,7 @@ primary media.</p>
 };
 
 <c- b>enum</c-> <a href="#enumdef-skippablestate"><code><c- g>SkippableState</c-></code></a> {<a href="#dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code></a>, <a href="#dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code></a>, <a href="#dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code></a>};
+<c- b>enum</c-> <a href="#enumdef-navigationsupport"><code><c- g>NavigationSupport</c-></code></a> {<a href="#dom-navigationsupport-creativehandles"><code><c- s>"creativeHandles"</c-></code></a>, <a href="#dom-navigationsupport-playerhandles"><code><c- s>"playerHandles"</c-></code></a>, <a href="#dom-navigationsupport-notsupported"><code><c- s>"notSupported"</c-></code></a>};
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑦"><code><c- g>MessageArgs</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code></a>;
@@ -4882,6 +4895,12 @@ primary media.</p>
    <b><a href="#enumdef-skippablestate">#enumdef-skippablestate</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-enumdef-skippablestate">4.3.7. SIMID:Player:init</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="enumdef-navigationsupport">
+   <b><a href="#enumdef-navigationsupport">#enumdef-navigationsupport</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-navigationsupport">4.3.7. SIMID:Player:init</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
