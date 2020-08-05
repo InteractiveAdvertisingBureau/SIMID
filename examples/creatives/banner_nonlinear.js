@@ -3,6 +3,12 @@ const X_OFFSET_PERCENTAGE = .15;
 const WIDTH_PERCENTAGE = .7;
 const HEIGHT_PERCENTAGE = .15;
 
+/**
+ * A sample SIMID non-linear ad for a banner ad that shows a website when clicked on.
+ * P.S: Not all websites can be shown and they would need to allow the x-frame-options
+ *      header to sameorigin for the ad to display correctly. More information here:
+ *      https://web.dev/samesite-cookies-explained/
+ */
 class BannerNonLinear extends BaseSimidCreative {
     constructor() {
         super();
@@ -26,6 +32,7 @@ class BannerNonLinear extends BaseSimidCreative {
     onInit(eventData) {
         this.updateInternalOnInit(eventData);
         this.validateAndParseAdParams_(eventData);
+        this.updateCreativeWithParams_();
         this.dynamicResize_();
     }
 
@@ -54,6 +61,11 @@ class BannerNonLinear extends BaseSimidCreative {
         this.webUrl_ = adParams['webUrl'];
 
         this.simidProtocol.resolve(eventData, {});
+    }
+
+    updateCreativeWithParams_() {
+        document.getElementById("ad_text").textContent = this.bannerText_;
+        document.getElementById("webpage_container").src = this.webUrl_;
     }
 
     /**
