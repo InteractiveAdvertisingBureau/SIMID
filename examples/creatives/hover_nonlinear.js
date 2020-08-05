@@ -1,4 +1,5 @@
 const QUARTER_THE_SIZE = .25;
+const THIRTY_FIVE_PERCENT = .35;
 const HALF_THE_SIZE = .5;
 const THREE_QUARTERS_THE_SIZE = .75;
 
@@ -54,16 +55,11 @@ class HoverNonLinear extends BaseSimidCreative {
             const newDimensions = {};
             let resizeParams = {};
 
-            console.log("video height: " + this.environmentData.videoDimensions.height);
-            console.log("half video height: " + this.environmentData.videoDimensions.height * HALF_THE_SIZE);
-
-             //if ad is at the top of the player
-            if (this.initialDimensions_.y < (this.environmentData.videoDimensions.height * HALF_THE_SIZE)) {
-                console.log(this.initialDimensions_.width);
-                console.log("video width: " + this.environmentData.videoDimensions.width);
-                newDimensions.height = (this.environmentData.videoDimensions.height * HALF_THE_SIZE);
+            //if ad is at the top quarter of the player
+            if (this.initialDimensions_.y < (this.environmentData.videoDimensions.height * QUARTER_THE_SIZE)) {
+                newDimensions.height = (this.environmentData.videoDimensions.height * THIRTY_FIVE_PERCENT);
                 newDimensions.x = 0;
-                newDimensions.y = 0;
+                newDimensions.y = this.initialDimensions_.y;
                 newDimensions.width = this.environmentData.videoDimensions.width;
 
                 resizeParams = {
@@ -73,12 +69,27 @@ class HoverNonLinear extends BaseSimidCreative {
             
                 this.requestResize(resizeParams);
             }
-            
-            //if ad is at bottom of the player
-            else if (this.initialDimensions_.y >= (this.environmentData.videoDimensions.height * HALF_THE_SIZE)) {
-                console.log("height: " + this.environmentData.videoDimensions.height + "y: " + this.environmentData.videoDimensions.y)
 
-                newDimensions.height = (this.environmentData.videoDimensions.height * HALF_THE_SIZE);
+            //if ad is between the top quarter and half of the player
+            else if (this.initialDimensions_.y > (this.environmentData.videoDimensions.height * QUARTER_THE_SIZE) && 
+                this.initialDimensions_.y < (this.environmentData.videoDimensions.height * HALF_THE_SIZE)) {
+                    newDimensions.height = (this.environmentData.videoDimensions.height * THIRTY_FIVE_PERCENT);
+                    newDimensions.x = 0;
+                    newDimensions.y = this.environmentData.videoDimensions.height * QUARTER_THE_SIZE;
+                    newDimensions.width = this.environmentData.videoDimensions.width;
+
+                    resizeParams = {
+                        creativeDimensions: newDimensions,
+                        videoDimensions: this.environmentData.videoDimensions,
+                    };
+                
+                    this.requestResize(resizeParams);
+            }
+
+            //if ad is between the top half and three quarters of the player
+            else if (this.initialDimensions_.y > (this.environmentData.videoDimensions.height * HALF_THE_SIZE) && 
+            this.initialDimensions_.y < (this.environmentData.videoDimensions.height * THREE_QUARTERS_THE_SIZE)) {
+                newDimensions.height = (this.environmentData.videoDimensions.height * THIRTY_FIVE_PERCENT);
                 newDimensions.x = 0;
                 newDimensions.y = (this.environmentData.videoDimensions.height * HALF_THE_SIZE);
                 newDimensions.width = this.environmentData.videoDimensions.width;
@@ -90,23 +101,21 @@ class HoverNonLinear extends BaseSimidCreative {
             
                 this.requestResize(resizeParams);
             }
-           
 
-            //if ad is on the right side of the player
+            //if ad is at bottom quarter of the player
+            else if (this.initialDimensions_.y >= (this.environmentData.videoDimensions.height * THREE_QUARTERS_THE_SIZE)) {
+                newDimensions.height = (this.environmentData.videoDimensions.height * QUARTER_THE_SIZE);
+                newDimensions.x = 0;
+                newDimensions.y = (this.environmentData.videoDimensions.height * THREE_QUARTERS_THE_SIZE);
+                newDimensions.width = this.environmentData.videoDimensions.width;
 
-            //if ad is on the left side of the player
-
-            // newDimensions.x = this.initialDimensions_.x;
-            // newDimensions.y = this.initialDimensions_.y * Y_OFFSET_PERCENTAGE;
-            // newDimensions.width = this.initialDimensions_.width * WIDTH_PERCENTAGE;
-            // newDimensions.height = this.initialDimensions_.height * HEIGHT_PERCENTAGE;
-        
-            // const resizeParams = {
-            //     creativeDimensions: newDimensions,
-            //     videoDimensions: this.environmentData.videoDimensions,
-            // };
-        
-            // this.requestResize(resizeParams);
+                resizeParams = {
+                    creativeDimensions: newDimensions,
+                    videoDimensions: this.environmentData.videoDimensions,
+                };
+            
+                this.requestResize(resizeParams);
+            }
         }
         document.getElementById(elementName).addEventListener(event, expandOnHoverFunction);
     }
