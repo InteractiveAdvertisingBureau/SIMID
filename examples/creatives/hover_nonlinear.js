@@ -3,6 +3,7 @@ const X_OFFSET_PERCENTAGE = 8;
 const WIDTH_PERCENTAGE = 1.1;
 const HEIGHT_PERCENTAGE = 2;
 
+/* This creative expands and collapses when the user hovers over the banner. */
 class HoverNonLinear extends BaseSimidCreative {
     constructor() {
         super();
@@ -27,13 +28,13 @@ class HoverNonLinear extends BaseSimidCreative {
      * @private
      */
     addActions_() {
-        this.sendMessageOnClick_("close_ad", CreativeMessage.REQUEST_STOP);
-        this.onHover_("content_container", 'mouseover');
-        this.onMouseOut_("content_container", 'mouseout');
+        this.sendMessageOnClick_('close_ad', CreativeMessage.REQUEST_STOP);
+        this.onHover_('content_container', 'mouseover');
+        this.onMouseOut_('content_container', 'mouseout');
     }
 
     /**
-     * Listens for an event on the banner
+     * Sends a SIMID message whenever an element is clicked.
      * @param {String} elementName The name of the element.
      * @param {String} message The message to send to the player.
      * @private
