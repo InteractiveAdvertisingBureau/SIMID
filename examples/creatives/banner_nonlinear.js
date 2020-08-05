@@ -36,26 +36,22 @@ class BannerNonLinear extends BaseSimidCreative {
      * @private 
      */ 
     validateAndParseAdParams_(eventData) {
-        debugger;
         if (this.creativeData.adParameters == "") {
-        this.simidProtocol.reject(eventData, {errorCode: CreativeErrorCode.UNSPECIFIED, 
-            message: 'Ad parameters not found'});
-            return;
+            this.simidProtocol.reject(eventData, {errorCode: CreativeErrorCode.UNSPECIFIED, 
+                message: 'Ad parameters not found'});
+                return;
         }
 
         let adParams = "";
         try {
-        adParams = JSON.parse(this.creativeData.adParameters);
+            adParams = JSON.parse(this.creativeData.adParameters);
         } catch (exception) {
-        this.simidProtocol.reject(eventData, {errorCode: CreativeErrorCode.CREATIVE_INTERNAL_ERROR, 
-            message: 'Invalid JSON input for ad parameters'});
-            return;
+            this.simidProtocol.reject(eventData, {errorCode: CreativeErrorCode.CREATIVE_INTERNAL_ERROR, 
+                message: 'Invalid JSON input for ad parameters'});
+                return;
         }
         this.bannerText_ = adParams['bannerText']; 
         this.webUrl_ = adParams['webUrl'];
-
-        console.log("banner text" + this.bannerText_);
-        console.log("weburl" + this.webUrl_);
 
         this.simidProtocol.resolve(eventData, {});
     }
