@@ -116,16 +116,7 @@
     }
 
     function switchCreative(value) {
-      const creative_url = document.getElementById('creative_url').value = '../creatives/' + value;
-
-      if (creative_url.includes("nonlinear")){
-        document.getElementById("nonlinear_ad").checked = true;
-        document.getElementById("linear_ad").checked = false;
-      }
-      else {
-        document.getElementById("linear_ad").checked = true;
-        document.getElementById("nonlinear_ad").checked = false;
-      }
+      document.getElementById('creative_url').value = '../creatives/' + value;
 
       document.getElementById('geolocation').classList.add("hidden");
       // populate ad parameters with some hard coded values
@@ -133,8 +124,10 @@
       let adParamsObj = '';
       switch (value) {
         case 'simid_overlay.html':
+          document.getElementById("linear_ad").checked = true;
           break;
         case 'survey.html':
+          document.getElementById("linear_ad").checked = true;
           adParamsObj = [
             {'question':'Would you like a survey?',
              'answers':['Yes', 'No', 'Not Sure']},
@@ -145,7 +138,14 @@
           ];
           adParams = JSON.stringify(adParamsObj);
           break;
+        case 'selector.html':
+          document.getElementById("linear_ad").checked = true;
+          break;
+        case 'extender.html':
+          document.getElementById("linear_ad").checked = true;
+          break;
         case 'simid_map.html':
+          document.getElementById("linear_ad").checked = true;
           document.getElementById('geolocation').classList.remove("hidden");
           adParamsObj = {
            "buttonLabel": "Park",
@@ -155,7 +155,18 @@
           
           adParams = JSON.stringify(adParamsObj);
           break;
+        case 'testers_nonlinear.html':
+          document.getElementById("nonlinear_ad").checked = true;
+          break;
+        case 'banner_nonlinear.html':
+          document.getElementById("nonlinear_ad").checked = true;
+          document.getElementById("duration").value = 10;
+          break;
+        case 'hover_nonlinear.html':
+          document.getElementById("nonlinear_ad").checked = true;
+          break;
       }
+      setInputsForAdType();
       document.getElementById('ad_params').value = adParams;
     }
 
@@ -208,11 +219,11 @@
         <button onclick="switchCreative('survey.html')">survey</button>
         <button onclick="switchCreative('selector.html')">selector</button>
         <button onclick="switchCreative('extender.html')">extender</button>
+        <button onclick="switchCreative('simid_map.html')">map</button>
         <button onclick="switchCreative('testers_nonlinear.html')">testers_nonlinear</button>
         <button onclick="switchCreative('banner_nonlinear.html')">banner_nonlinear</button>
         <button onclick="switchCreative('hover_nonlinear.html')">hover_nonlinear</button>
         <button onclick="switchCreative('simid_map.html')">map</button>
-
       </td>
       </tr>
       <tr>
