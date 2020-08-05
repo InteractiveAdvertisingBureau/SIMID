@@ -1158,6 +1158,7 @@ dictionary EnvironmentData {
 	DOMString deviceId;
 	boolean muted;
 	float volume;
+  NavigationSupport navigationSupport;
 };
 
 dictionary Dimensions {
@@ -1168,6 +1169,7 @@ dictionary Dimensions {
 };
 
 enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
+enum NavigationSupport {"creativeHandles", "playerHandles", "notSupported"};
 </xmp>
 
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
