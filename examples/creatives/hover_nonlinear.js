@@ -72,7 +72,7 @@ class HoverNonLinear extends BaseSimidCreative {
             //Makes sure x offset fits in the player
             if (desiredX <= 0) {
                 desiredX = 0;
-                desiredWidth = this.initialDimensions_.width * DGE_DIMENSION_GROWTH;
+                desiredWidth = this.initialDimensions_.width * EDGE_DIMENSION_GROWTH;
             }
             if (desiredX > this.videoDimensionWidth_) {
                 return;
@@ -92,7 +92,7 @@ class HoverNonLinear extends BaseSimidCreative {
             //Makes sure y offset fits in the player
             if (desiredY <= 0) {
                 desiredY = 0;
-                desiredHeight = this.initialDimensions_.height * DGE_DIMENSION_GROWTH;
+                desiredHeight = this.initialDimensions_.height * EDGE_DIMENSION_GROWTH;
             }
             if (desiredY > this.videoDimensionHeight_) {
                 return;
