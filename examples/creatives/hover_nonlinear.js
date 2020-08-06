@@ -50,7 +50,6 @@ class HoverNonLinear extends BaseSimidCreative {
 
     /**
      * Adds a hover event listener to the contents of the iframe that expands the iframe.
-     * DISCLAIMER: Only works for horizontal ads.
      * @param {String} elementName The name of the element.
      * @param {Event} event The event performed on the element.
      * @private
@@ -67,28 +66,35 @@ class HoverNonLinear extends BaseSimidCreative {
             let fullCreativeWidth;
             let fullCreativeHeight;
 
-            desiredX = this.initialDimensions_.x * .6;
-            desiredWidth = parseInt(this.initialDimensions_.width) + parseInt(this.initialDimensions_.x * .6);
+            //Grow 50% on the left
+            console.log(this.initialDimensions_.x);
+            desiredX = this.initialDimensions_.x * .2;
+            console.log(desiredX);
+            //check to see if it should be .8 or .6
+            console.log(this.initialDimensions_.width);
+            desiredWidth = parseInt(this.initialDimensions_.width) + parseInt(this.initialDimensions_.x * 1.6);
+            console.log(desiredWidth);
 
+            //makes sure x offset fits in the player
             if (desiredX <= 0) {
                 desiredX = 0;
                 desiredWidth = this.initialDimensions_.width * 1.2;
             }
-            
             if (desiredX > this.videoDimensionWidth_) {
                 return;
             }
 
+            //makes sure width fits in the player
             fullCreativeWidth = desiredX + desiredWidth;
-
             if (fullCreativeWidth > this.videoDimensionWidth_) {
                 fullCreativeWidth = this.videoDimensionWidth_;
                 desiredWidth = fullCreativeWidth - desiredX;
             }
             
-            desiredY = this.initialDimensions_.y * .6;
-            desiredHeight = parseInt(this.initialDimensions_.height) + parseInt(this.initialDimensions_.y * .6);
+            desiredY = this.initialDimensions_.y * .2;
+            desiredHeight = parseInt(this.initialDimensions_.height) + parseInt(this.initialDimensions_.y * 1.6);
 
+            //makes sure y offset fits in the player
             if (desiredY <= 0) {
                 desiredY = 0;
                 desiredHeight = this.initialDimensions_.height * 1.2;
@@ -97,17 +103,12 @@ class HoverNonLinear extends BaseSimidCreative {
                 return;
             }
 
+            //makes sure height fits in the player
             fullCreativeHeight = desiredY + desiredHeight;
-
             if (fullCreativeHeight > this.videoDimensionHeight_) {
                 fullCreativeHeight = this.videoDimensionHeight_;
                 desiredHeight = fullCreativeHeight - desiredY;
             }
-
-            console.log("x: " + desiredX);
-            console.log("Y: " + desiredY);
-            console.log("Width: " + desiredWidth);
-            console.log("Height: " + desiredHeight);
 
             newDimensions.x = desiredX;
             newDimensions.y = desiredY;
