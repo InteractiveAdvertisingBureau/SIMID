@@ -35,12 +35,18 @@
       color: white;
       text-align: center;
     }
+    .hidden {
+      display: none;
+    }
   </style>
   <body>
     <button id="close_ad">X</button>
     <button id="minimize_ad">_</button>
     <div id="content_container">
-      <h1 id="ad_text">This is a banner ad</h1>
+      <h2 id="ad_text"></h2>
+      <div id="content_box" class="hidden">
+        <iframe id="webpage_container" width="600" height="400"></iframe>
+      </div>
     </div>
     <script>
       // This implementation is immediately ready but other creatives
