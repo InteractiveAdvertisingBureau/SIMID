@@ -1,7 +1,6 @@
-const QUARTER_THE_SIZE = .25;
-const THIRTY_FIVE_PERCENT = .35;
-const HALF_THE_SIZE = .5;
-const THREE_QUARTERS_THE_SIZE = .75;
+const DIMENSION_GROWTH = 1.4;
+const OFFSET_SHIFT = .2;
+const EDGE_DIMENSION_GROWTH = 1.2;
 
 /** This creative expands and collapses when the user hovers over the banner. */
 class HoverNonLinear extends BaseSimidCreative {
@@ -66,44 +65,40 @@ class HoverNonLinear extends BaseSimidCreative {
             let fullCreativeWidth;
             let fullCreativeHeight;
 
-            //Grow 50% on the left
-            console.log(this.initialDimensions_.x);
-            desiredX = this.initialDimensions_.x * .2;
-            console.log(desiredX);
-            //check to see if it should be .8 or .6
-            console.log(this.initialDimensions_.width);
-            desiredWidth = parseInt(this.initialDimensions_.width) + parseInt(this.initialDimensions_.x * 1.6);
-            console.log(desiredWidth);
+            //Width grows 20% 
+            desiredWidth = this.initialDimensions_.width * DIMENSION_GROWTH;
+            desiredX = parseInt(this.initialDimensions_.x) - parseInt(this.initialDimensions_.width * OFFSET_SHIFT);
 
-            //makes sure x offset fits in the player
+            //Makes sure x offset fits in the player
             if (desiredX <= 0) {
                 desiredX = 0;
-                desiredWidth = this.initialDimensions_.width * 1.2;
+                desiredWidth = this.initialDimensions_.width * DGE_DIMENSION_GROWTH;
             }
             if (desiredX > this.videoDimensionWidth_) {
                 return;
             }
 
-            //makes sure width fits in the player
+            //Makes sure width fits in the player
             fullCreativeWidth = desiredX + desiredWidth;
             if (fullCreativeWidth > this.videoDimensionWidth_) {
                 fullCreativeWidth = this.videoDimensionWidth_;
                 desiredWidth = fullCreativeWidth - desiredX;
             }
             
-            desiredY = this.initialDimensions_.y * .2;
-            desiredHeight = parseInt(this.initialDimensions_.height) + parseInt(this.initialDimensions_.y * 1.6);
+            //Height grows 20%
+            desiredHeight = this.initialDimensions_.height * DIMENSION_GROWTH;
+            desiredY = parseInt(this.initialDimensions_.y) - parseInt(this.initialDimensions_.height * OFFSET_SHIFT);
 
-            //makes sure y offset fits in the player
+            //Makes sure y offset fits in the player
             if (desiredY <= 0) {
                 desiredY = 0;
-                desiredHeight = this.initialDimensions_.height * 1.2;
+                desiredHeight = this.initialDimensions_.height * DGE_DIMENSION_GROWTH;
             }
             if (desiredY > this.videoDimensionHeight_) {
                 return;
             }
 
-            //makes sure height fits in the player
+            //Makes sure height fits in the player
             fullCreativeHeight = desiredY + desiredHeight;
             if (fullCreativeHeight > this.videoDimensionHeight_) {
                 fullCreativeHeight = this.videoDimensionHeight_;
