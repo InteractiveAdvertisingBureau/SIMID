@@ -1063,6 +1063,7 @@ dictionary MessageArgs {
 		<li>`2` Auto-close due to media playback completion</li>
 		<li>`3` Player-initiated close before media playback completion</li>
 		<li>`4` Creative-initiated close</li>
+    <li>`5` Nonlinear duration complete.</li>
 	</ul>
 </dl>
 
@@ -1159,6 +1160,7 @@ dictionary EnvironmentData {
 	boolean muted;
 	float volume;
   NavigationSupport navigationSupport;
+  float nonlinearDuration;
 };
 
 dictionary Dimensions {
@@ -1241,7 +1243,8 @@ enum NavigationSupport {"creativeHandles", "playerHandles", "notSupported"};
 	<dd>The information about SDKs as well as the player’s vendor and version. The value should comply with VAST-specified conventions.
 	<dt><dfn>deviceId</dfn>
 	<dd>IDFA or AAID
-	
+  <dt><dfn>nonlinearDuration</dfn>
+  <dd>The duration in seconds that a nonlinear will play for. Often this might be the same as minSuggestedDuration from the VAST response or the duration of the content.
 	
 </dl>
 
