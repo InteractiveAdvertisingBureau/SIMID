@@ -1834,7 +1834,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-08-05">5 August 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-08-07">7 August 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1853,7 +1853,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 5 August 2020,
+In addition, as of 7 August 2020,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2729,6 +2729,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
       <li><code>2</code> Auto-close due to media playback completion
       <li><code>3</code> Player-initiated close before media playback completion
       <li><code>4</code> Creative-initiated close
+      <li><code>5</code> Nonlinear duration complete.
      </ul>
    </dl>
    <h5 class="heading settled" data-level="4.3.2.1" id="simid-player-adStopped-resolve"><span class="secno">4.3.2.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-player-adStopped-resolve"></a></h5>
@@ -2801,6 +2802,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-environmentdata-muted"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-environmentdata-volume"></a></dfn>;
   <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport" id="ref-for-enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="NavigationSupport " id="dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code><a class="self-link" href="#dom-environmentdata-navigationsupport"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code><a class="self-link" href="#dom-environmentdata-nonlinearduration"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions"><code><c- g>Dimensions</c-></code></dfn> {
@@ -2894,6 +2896,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dd>The information about SDKs as well as the player’s vendor and version. The value should comply with VAST-specified conventions. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-deviceid"><code>deviceId</code><a class="self-link" href="#dom-foointerface-deviceid"></a></dfn>, <span></span>
     <dd>IDFA or AAID 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-nonlinearduration"><code>nonlinearDuration</code><a class="self-link" href="#dom-foointerface-nonlinearduration"></a></dfn>, <span></span>
+    <dd>The duration that a nonlinear will play for. Often this might be minSuggestedDuration from the VAST response or the duration of the content. 
    </dl>
    <ul class="footnote">
     <li>see <a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a> messages.
@@ -3107,12 +3111,12 @@ Dimensions {x ,y, width, height}</p>
     The player should always respond  to <code>Creative:getMediaState</code> with a <code>resolve</code>, including situations when the player is unable to provide all expected values. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①③"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①③"></a></dfn> {
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime②"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration①"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime②"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration①"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration①"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑥"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-ended"><code><c- g>ended</c-></code><a class="self-link" href="#dom-messageargs-ended"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑦"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted①"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted①"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑧"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-paused"><code><c- g>paused</c-></code><a class="self-link" href="#dom-messageargs-paused"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume①"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume①"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume①"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑨"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-fullscreen①"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-messageargs-fullscreen①"></a></dfn>;
 };
 </pre>
@@ -3184,7 +3188,7 @@ Dimensions {x ,y, width, height}</p>
    <p>When the duration value is <code>-2</code>, the player displays the ad indefinitely until the creative posts <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a>. See <a href="#workflow-ad-duartion-changed-unknown">§ 6.10.3 Ad Duration Changed Workflow - Unknown Time</a> step <span step><b>4</b></span>).</p>
    <p class="note" role="note"><span>Note:</span> The player communicates its capacities to modify the ad duration with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message args parameter <code>variableDurationAllowed</code>. If the value of <code>variableDurationAllowed</code> is <code>false</code>, the creative refrains from posting <code>requestChangeAdDuration</code> message.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑦"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑦"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration②"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration②"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3206,7 +3210,7 @@ Dimensions {x ,y, width, height}</p>
    <h4 class="heading settled" data-level="4.4.9" id="simid-creative-requestChangeVolume"><span class="secno">4.4.9. </span><span class="content">SIMID:Creative:requestChangeVolume</span><a class="self-link" href="#simid-creative-requestChangeVolume"></a></h4>
     The creative requests ad volume change by posting a <code>SIMID:Creative:requestChangeVolume</code> message. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑧"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume②"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑨"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume②"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume②"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①⓪"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted②"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted②"></a></dfn>;
 };
 </pre>
@@ -4448,6 +4452,12 @@ primary media.</p>
     </ul>
    <li><a href="#enumdef-navigationsupport">NavigationSupport</a><span>, in §4.3.7</span>
    <li><a href="#dom-environmentdata-navigationsupport">navigationSupport</a><span>, in §4.3.7</span>
+   <li>
+    nonlinearDuration
+    <ul>
+     <li><a href="#dom-foointerface-nonlinearduration">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-nonlinearduration">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+    </ul>
    <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §4.3.7</span>
    <li><a href="#dom-navigationsupport-notsupported">"notSupported"</a><span>, in §4.3.7</span>
    <li>
@@ -4626,10 +4636,10 @@ primary media.</p>
     <li><a href="#ref-for-idl-float">4.2.1. SIMID:Media:durationchange</a>
     <li><a href="#ref-for-idl-float①">4.2.10. SIMID:Media:timeupdate</a>
     <li><a href="#ref-for-idl-float②">4.2.11. SIMID:Media:volumechange</a>
-    <li><a href="#ref-for-idl-float③">4.3.7. SIMID:Player:init</a>
-    <li><a href="#ref-for-idl-float④">4.4.5.1. resolve</a> <a href="#ref-for-idl-float⑤">(2)</a> <a href="#ref-for-idl-float⑥">(3)</a>
-    <li><a href="#ref-for-idl-float⑦">4.4.8. SIMID:Creative:requestChangeAdDuration</a>
-    <li><a href="#ref-for-idl-float⑧">4.4.9. SIMID:Creative:requestChangeVolume</a>
+    <li><a href="#ref-for-idl-float③">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-float④">(2)</a>
+    <li><a href="#ref-for-idl-float⑤">4.4.5.1. resolve</a> <a href="#ref-for-idl-float⑥">(2)</a> <a href="#ref-for-idl-float⑦">(3)</a>
+    <li><a href="#ref-for-idl-float⑧">4.4.8. SIMID:Creative:requestChangeAdDuration</a>
+    <li><a href="#ref-for-idl-float⑨">4.4.9. SIMID:Creative:requestChangeVolume</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-long">
@@ -4741,6 +4751,7 @@ primary media.</p>
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-muted"><code><c- g>muted</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-volume"><code><c- g>volume</c-></code></a>;
   <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <a data-type="NavigationSupport " href="#dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-dimensions"><code><c- g>Dimensions</c-></code></a> {
