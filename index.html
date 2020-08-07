@@ -2802,6 +2802,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-environmentdata-muted"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-environmentdata-volume"></a></dfn>;
   <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport" id="ref-for-enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="NavigationSupport " id="dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code><a class="self-link" href="#dom-environmentdata-navigationsupport"></a></dfn>;
+  <a class="n" data-link-type="idl-name" href="#enumdef-closebuttonsupport" id="ref-for-enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="CloseButtonSupport " id="dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code><a class="self-link" href="#dom-environmentdata-closebuttonsupport"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code><a class="self-link" href="#dom-environmentdata-nonlinearduration"></a></dfn>;
 };
 
@@ -2813,7 +2814,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 };
 
 <c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-skippablestate"><code><c- g>SkippableState</c-></code></dfn> {<dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code><a class="self-link" href="#dom-skippablestate-playerhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code><a class="self-link" href="#dom-skippablestate-adhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code><a class="self-link" href="#dom-skippablestate-notskippable"></a></dfn>};
-<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-navigationsupport"><code><c- g>NavigationSupport</c-></code></dfn> {<dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-creativehandles"><code><c- s>"creativeHandles"</c-></code><a class="self-link" href="#dom-navigationsupport-creativehandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-playerhandles"><code><c- s>"playerHandles"</c-></code><a class="self-link" href="#dom-navigationsupport-playerhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-notsupported"><code><c- s>"notSupported"</c-></code><a class="self-link" href="#dom-navigationsupport-notsupported"></a></dfn>};
+<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-navigationsupport"><code><c- g>NavigationSupport</c-></code></dfn> {<dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-adhandles"><code><c- s>"adHandles"</c-></code><a class="self-link" href="#dom-navigationsupport-adhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-playerhandles"><code><c- s>"playerHandles"</c-></code><a class="self-link" href="#dom-navigationsupport-playerhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="NavigationSupport" data-dfn-type="enum-value" data-export id="dom-navigationsupport-notsupported"><code><c- s>"notSupported"</c-></code><a class="self-link" href="#dom-navigationsupport-notsupported"></a></dfn>};
+<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-closebuttonsupport"><code><c- g>CloseButtonSupport</c-></code></dfn> {<dfn class="idl-code" data-dfn-for="CloseButtonSupport" data-dfn-type="enum-value" data-export id="dom-closebuttonsupport-adhandles"><code><c- s>"adHandles"</c-></code><a class="self-link" href="#dom-closebuttonsupport-adhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="CloseButtonSupport" data-dfn-type="enum-value" data-export id="dom-closebuttonsupport-playerhandles"><code><c- s>"playerHandles"</c-></code><a class="self-link" href="#dom-closebuttonsupport-playerhandles"></a></dfn>};
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-videodimensions"><code>videoDimensions</code><a class="self-link" href="#dom-foointerface-videodimensions"></a></dfn>, <span></span>
@@ -2896,8 +2898,23 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dd>The information about SDKs as well as the player’s vendor and version. The value should comply with VAST-specified conventions. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-deviceid"><code>deviceId</code><a class="self-link" href="#dom-foointerface-deviceid"></a></dfn>, <span></span>
     <dd>IDFA or AAID 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-navigationsupport"><code>NavigationSupport</code><a class="self-link" href="#dom-foointerface-navigationsupport"></a></dfn>, <span></span>
+    <dd>
+      Indicates how clickthroughs should be handled. 
+     <ul collapse>
+      <li><b>playerHandles</b> Indicates that because of the platform, the player should handle clickthrough via <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a>. Mobile platforms are often this way.
+      <li><b>adHandles</b> Indicates that the creative should open tabs or windows in response to user clicks. Web platforms are often this way.
+      <li><b>notSupported</b> The platform does not support clickthrough.
+     </ul>
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-closebuttonsupport"><code>CloseButtonSupport</code><a class="self-link" href="#dom-foointerface-closebuttonsupport"></a></dfn>, <span></span>
+    <dd>
+      Indicates what should render a close button for nonlinear ads. 
+     <ul collapse>
+      <li><b>playerHandles</b> Indicates the player will render a close button for nonlinear ads.
+      <li><b>adHandles</b> Indicates that the creative may render a close button. If the player will not render a close button it should always use adHandles for this parameter.
+     </ul>
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-nonlinearduration"><code>nonlinearDuration</code><a class="self-link" href="#dom-foointerface-nonlinearduration"></a></dfn>, <span></span>
-    <dd>The duration that a nonlinear will play for. Often this might be minSuggestedDuration from the VAST response or the duration of the content. 
+    <dd>The duration in seconds that a nonlinear will play for. Often this might be the same as minSuggestedDuration from the VAST response or the duration of the content. 
    </dl>
    <ul class="footnote">
     <li>see <a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a> messages.
@@ -4232,7 +4249,13 @@ primary media.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#dom-skippablestate-adhandles">"adHandles"</a><span>, in §4.3.7</span>
+   <li>
+    "adHandles"
+    <ul>
+     <li><a href="#dom-closebuttonsupport-adhandles">enum-value for CloseButtonSupport</a><span>, in §4.3.7</span>
+     <li><a href="#dom-navigationsupport-adhandles">enum-value for NavigationSupport</a><span>, in §4.3.7</span>
+     <li><a href="#dom-skippablestate-adhandles">enum-value for SkippableState</a><span>, in §4.3.7</span>
+    </ul>
    <li>
     adParameters
     <ul>
@@ -4258,6 +4281,13 @@ primary media.</p>
      <li><a href="#dom-creativedata-clickthruurl">dict-member for CreativeData</a><span>, in §4.3.7</span>
     </ul>
    <li>
+    CloseButtonSupport
+    <ul>
+     <li><a href="#enumdef-closebuttonsupport">(enum)</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-closebuttonsupport">attribute for FooInterface</a><span>, in §4.3.7</span>
+    </ul>
+   <li><a href="#dom-environmentdata-closebuttonsupport">closeButtonSupport</a><span>, in §4.3.7</span>
+   <li>
     code
     <ul>
      <li><a href="#dom-foointerface-code">attribute for FooInterface</a><span>, in §4.3.2</span>
@@ -4281,7 +4311,6 @@ primary media.</p>
      <li><a href="#dom-messageargs-creativedimensions">dict-member for MessageArgs</a><span>, in §4.3.9</span>
      <li><a href="#dom-messageargs-creativedimensions①">dict-member for MessageArgs</a><span>, in §4.4.15</span>
     </ul>
-   <li><a href="#dom-navigationsupport-creativehandles">"creativeHandles"</a><span>, in §4.3.7</span>
    <li>
     currentSrc
     <ul>
@@ -4450,7 +4479,12 @@ primary media.</p>
      <li><a href="#dom-messageargs-muted①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
      <li><a href="#dom-messageargs-muted②">dict-member for MessageArgs</a><span>, in §4.4.9</span>
     </ul>
-   <li><a href="#enumdef-navigationsupport">NavigationSupport</a><span>, in §4.3.7</span>
+   <li>
+    NavigationSupport
+    <ul>
+     <li><a href="#enumdef-navigationsupport">(enum)</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-navigationsupport">attribute for FooInterface</a><span>, in §4.3.7</span>
+    </ul>
    <li><a href="#dom-environmentdata-navigationsupport">navigationSupport</a><span>, in §4.3.7</span>
    <li>
     nonlinearDuration
@@ -4469,6 +4503,7 @@ primary media.</p>
    <li>
     "playerHandles"
     <ul>
+     <li><a href="#dom-closebuttonsupport-playerhandles">enum-value for CloseButtonSupport</a><span>, in §4.3.7</span>
      <li><a href="#dom-navigationsupport-playerhandles">enum-value for NavigationSupport</a><span>, in §4.3.7</span>
      <li><a href="#dom-skippablestate-playerhandles">enum-value for SkippableState</a><span>, in §4.3.7</span>
     </ul>
@@ -4751,6 +4786,7 @@ primary media.</p>
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-muted"><code><c- g>muted</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-volume"><code><c- g>volume</c-></code></a>;
   <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <a data-type="NavigationSupport " href="#dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code></a>;
+  <a class="n" data-link-type="idl-name" href="#enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <a data-type="CloseButtonSupport " href="#dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code></a>;
 };
 
@@ -4762,7 +4798,8 @@ primary media.</p>
 };
 
 <c- b>enum</c-> <a href="#enumdef-skippablestate"><code><c- g>SkippableState</c-></code></a> {<a href="#dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code></a>, <a href="#dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code></a>, <a href="#dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code></a>};
-<c- b>enum</c-> <a href="#enumdef-navigationsupport"><code><c- g>NavigationSupport</c-></code></a> {<a href="#dom-navigationsupport-creativehandles"><code><c- s>"creativeHandles"</c-></code></a>, <a href="#dom-navigationsupport-playerhandles"><code><c- s>"playerHandles"</c-></code></a>, <a href="#dom-navigationsupport-notsupported"><code><c- s>"notSupported"</c-></code></a>};
+<c- b>enum</c-> <a href="#enumdef-navigationsupport"><code><c- g>NavigationSupport</c-></code></a> {<a href="#dom-navigationsupport-adhandles"><code><c- s>"adHandles"</c-></code></a>, <a href="#dom-navigationsupport-playerhandles"><code><c- s>"playerHandles"</c-></code></a>, <a href="#dom-navigationsupport-notsupported"><code><c- s>"notSupported"</c-></code></a>};
+<c- b>enum</c-> <a href="#enumdef-closebuttonsupport"><code><c- g>CloseButtonSupport</c-></code></a> {<a href="#dom-closebuttonsupport-adhandles"><code><c- s>"adHandles"</c-></code></a>, <a href="#dom-closebuttonsupport-playerhandles"><code><c- s>"playerHandles"</c-></code></a>};
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑦"><code><c- g>MessageArgs</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code></a>;
@@ -4912,6 +4949,12 @@ primary media.</p>
    <b><a href="#enumdef-navigationsupport">#enumdef-navigationsupport</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-enumdef-navigationsupport">4.3.7. SIMID:Player:init</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="enumdef-closebuttonsupport">
+   <b><a href="#enumdef-closebuttonsupport">#enumdef-closebuttonsupport</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-closebuttonsupport">4.3.7. SIMID:Player:init</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

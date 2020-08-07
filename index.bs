@@ -1160,6 +1160,7 @@ dictionary EnvironmentData {
 	boolean muted;
 	float volume;
   NavigationSupport navigationSupport;
+  CloseButtonSupport closeButtonSupport;
   float nonlinearDuration;
 };
 
@@ -1171,7 +1172,8 @@ dictionary Dimensions {
 };
 
 enum SkippableState {"playerHandles", "adHandles", "notSkippable"};
-enum NavigationSupport {"creativeHandles", "playerHandles", "notSupported"};
+enum NavigationSupport {"adHandles", "playerHandles", "notSupported"};
+enum CloseButtonSupport {"adHandles", "playerHandles"};
 </xmp>
 
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
@@ -1243,6 +1245,19 @@ enum NavigationSupport {"creativeHandles", "playerHandles", "notSupported"};
 	<dd>The information about SDKs as well as the player’s vendor and version. The value should comply with VAST-specified conventions.
 	<dt><dfn>deviceId</dfn>
 	<dd>IDFA or AAID
+  <dt><dfn>NavigationSupport</dfn>
+  <dd> Indicates how clickthroughs should be handled.
+      <ul collapse>
+        <li><b>playerHandles</b> Indicates that because of the platform, the player should handle clickthrough via [[#simid-creative-requestNavigation]]. Mobile platforms are often this way.</li>
+        <li><b>adHandles</b> Indicates that the creative should open tabs or windows in response to user clicks. Web platforms are often this way.</li>
+        <li><b>notSupported</b> The platform does not support clickthrough.</li>
+      </ul>
+  <dt><dfn>CloseButtonSupport</dfn>
+  <dd> Indicates what should render a close button for nonlinear ads.
+      <ul collapse>
+        <li><b>playerHandles</b> Indicates the player will render a close button for nonlinear ads.</li>
+        <li><b>adHandles</b> Indicates that the creative may render a close button. If the player will not render a close button it should always use adHandles for this parameter.</li>
+      </ul>
   <dt><dfn>nonlinearDuration</dfn>
   <dd>The duration in seconds that a nonlinear will play for. Often this might be the same as minSuggestedDuration from the VAST response or the duration of the content.
 	
