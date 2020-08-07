@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <script src="../simid_protocol.js"> </script>
+    <script src="base_simid_creative.js"> </script>
+    <script src="hover_nonlinear.js"> </script>
+  </head>
+  <style>
+    #close_ad {
+      color: red;
+      border: solid white 1px;
+      font-size: 14;
+      float: right;
+    }
+    button {
+      cursor: pointer;
+    }
+    body {
+      background: rgba(0,0,0,0.5);
+      width: auto;
+      text-align: center;
+      transition: opacity .5s cubic-bezier(0.0,0.0,0.2,1);
+      text-shadow: 0 0 4px rgba(0,0,0,0.75);
+      cursor: pointer;
+    }
+    #content_container {
+      height: 100%;
+    }
+    #ad_text {
+      color: white;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="content_container">
+    <button id="close_ad">X</button>
+      <h1 id="ad_text">Hover over banner to expand</h1>
+    </div>
+    <script>
+      // This implementation is immediately ready but other creatives
+      // may wish to wait for assets to load before calling ready.
+      const hoverNonLinear = new HoverNonLinear();
+      hoverNonLinear.ready();
+    </script>
+  </body>
+</html>

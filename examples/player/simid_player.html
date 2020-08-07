@@ -117,6 +117,7 @@
 
     function switchCreative(value) {
       document.getElementById('creative_url').value = '../creatives/' + value;
+
       document.getElementById('geolocation').classList.add("hidden");
       // populate ad parameters with some hard coded values
       let adParams = '';
@@ -166,6 +167,9 @@
           };
           
           adParams = JSON.stringify(adParamsObj);
+          break;
+        case 'hover_nonlinear.html':
+          document.getElementById("nonlinear_ad").checked = true;
           break;
       }
       setInputsForAdType();
@@ -224,7 +228,8 @@
         <button onclick="switchCreative('simid_map.html')">map</button>
         <button onclick="switchCreative('testers_nonlinear.html')">testers_nonlinear</button>
         <button onclick="switchCreative('banner_nonlinear.html')">banner_nonlinear</button>
-
+        <button onclick="switchCreative('hover_nonlinear.html')">hover_nonlinear</button>
+        <button onclick="switchCreative('simid_map.html')">map</button>
       </td>
       </tr>
       <tr>
