@@ -549,8 +549,11 @@ https://tohtml.com/jScript/
 --->
 
 <div class="example">
-<div class="xml-highlight"><pre style="line-height: 125%"><span></span><span class="hnode">&lt;MediaFiles&gt;</span>
-    <span class="hnode">&lt;MediaFile&gt;</span>https://example.com/mediafile.mp4<span class="hnode">&lt;/MediaFile&gt;</span>
+<div class="xml-highlight"><pre style="line-height: 125%">
+<span class="hnode">&lt;MediaFiles&gt;</span>
+    <span class="hnode">&lt;MediaFile&gt;</span>
+        <span class="hcdata">&lt;![CDATA[https://example.com/mediafile.mp4]]&gt;</span>
+    <span class="hnode">&lt;/MediaFile&gt;</span>
     <span class="hnode">&lt;InteractiveCreativeFile</span> <span class="hattr">type=</span><span class="hattrval">"text/html"</span> <span class="hattr">apiFramework=</span><span class="hattrval">"SIMID"</span> <span class="hattr">variableDuration=</span><span class="hattrval">"true"</span><span class="hnode">&gt;</span>
         <span class="hcdata">&lt;![CDATA[https://adserver.com/ads/creative.html]]&gt;</span>
     <span class="hnode">&lt;/InteractiveCreativeFile&gt;</span>
@@ -604,17 +607,65 @@ SIMID should not be set up to measure viewability.
 Any use of the SIMID spec to support something other than interactive or
 dynamic content within the ad unit is counter to the intentions of this spec.
 
-## Introduction to Nonlinear ## {#nonlinear-intro}
-
-  <img src="images/non-linear-intro.png" alt="Examples of how nonlinear video ads look" style="margin-left: -10px;"/><br>
+## Introduction to Nonlinear Ads ## {#nonlinear-intro}
 
 Non-linear ads are units that media (video or audio) players serve concurrently with the primary media content. In video players, nonlinear ads overlay a portion of the video.
 
 Non-linear ads implement two states: collapsed and expanded. The player renders the ad in the collapsed (original) state while media content progresses uninterrupted. The expanded ad state typically occupies the entire player viewport and requires the media content to be paused. Users are able to toggle the state of the ad.
 
+<div diagram id="diagram-nonlinear-states">
+	<p>Nonlinear Ad States</p>
+	 <img src="images/non-linear-intro.png" alt="Nonlinear states."/>
+</div> 
+
 Unlike the linear ads, there is no media asset that the player needs to render with a non-linear ad. 
 
 SIMID supports non-linear ads by providing a non-linear specific API. Both linear and non-linear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe. 
+
+<div diagram id="diagram-nonlinear-user-experience">
+	<p>Nonlinear Ad User Experience</p>
+	 <img src="images/nonlinear-user-experience.png" alt="Nonlinear state."/>
+	<ol dgrm-details>
+		<li>User clicks on expand button. The player pauses content and expands the creative.
+			<ol>
+				<li>User clicks collapse button.
+					<ol>
+						<li>Player resizes the creatigve to its default state and resumes content playback.</li>
+					</ol>
+				</li>
+				<li>User clicks close button.
+					<ol>
+						<li>Player unloads the creative and resumes media content.</li>
+					</ol>
+				</li>
+			</ol>
+		</li>
+		<li>User clicks close button provided by the default state. Player unloads the creative.</li>
+	</ol>
+</div> 
+
+
+### Nonlinear Ads VAST Response ### {#nonlinear-vast-response}
+
+VAST supports nonlinear ads since version 2.0, including  interactive ads that implement API frameworks. 
+
+VAST response describes nonlinear ads in `<NonLinear>` node children. The `<NonLinear>` node attribute’s `apiFrmawork` value is `SIMID`. Node <IFrameResource> delivers URI to the SIMID interactive component. The node `<AdParameters>` contains custom ad data for the creative’s consumption.
+
+<div class="example">
+<div class="xml-highlight"><pre style="line-height: 125%">
+<span class="hnode">&lt;Creative&gt;</span>
+    <span class="hnode">&lt;NonLinear&gt;</span>
+        <span class="hnode">&lt;IFrameResource</span> <span class="hattr">type=</span><span class="hattrval">"text/html"</span> <span class="hattr">apiFramework=</span><span class="hattrval">"SIMID"</span><span class="hnode">&gt;</span>
+            <span class="hcdata">&lt;![CDATA[https://adserver.com/videoads/simidshell.html]&gt;</span>
+        <span class="hnode">&lt;/IFrameResource&gt;</span>
+        <span class="hnode">&lt;AdParameters&gt;</span>
+            <span class="hcdata">&lt;![CDATA[{adid:345893,cturi:"https://mycar.com/modelS.html"}]&gt;</span>
+        <span class="hnode">&lt;/AdParameters&gt;</span>
+    <span class="hnode">&lt;/NonLinear&gt;</span>
+<span class="hnode">&lt;/Creative&gt;</span>
+</pre></div>
+</div>
+ 
 
 
 # API Reference # {#api}
@@ -1467,12 +1518,18 @@ Note: In SIMID, the creative initializes the session and posts the first message
 
 The `SIMID:Creative:clickThru` message notifies the player of a `clickthrough` for event tracking. SIMID delegates clickthrough execution to the creative, including redirecting the user to the landing page. The interactive component posts `clickThru` only when the creative classifies a user interaction as a clickthrough.
 
-The message, `clickThru`, is not an explicit media-pausing directive to the player. If the environment permits, the player must pause ad media in all cases when the user navigates away from the player hosting page or app, including clickthrough. See [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API).
+The interactive component posts the `Creative:clickThru` message only when the creative classifies a user interaction as a `clickthrough`. To open the landing page in the situations when user interaction does not constitute `clickthrough`, the creative must utilize [[#simid-creative-requestNavigation]] message.
+
+Note: Not all clickthrough metrics require the opening of a landing page. The player must assume that a `clickThru` message that does not provide a landing page URL is still a valid `clickthrough` notification.
+
+The message, `clickThru`, is not an explicit media-pausing directive to the player. If the environment permits, the player must pause ad media in all cases when the user navigates away from the player-hosting page or app, including `clickthrough`. See [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API).
 
 <xmp class="idl">
 dictionary MessageArgs {
 	short x;
 	short y;
+	boolean playerHandles;
+	DOMString url;
 };
 </xmp>
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
@@ -1480,42 +1537,107 @@ dictionary MessageArgs {
 	<dd>The click left offset in the creative’s coordinate system.
 	<dt><dfn>y</dfn>
 	<dd>The click top offset in the creative’s coordinate system.
+	<dt><dfn>playerHandles</dfn>
+	<dd>When `true` - creative requests the player to open the landing page. The creative must not require the player to open the external page if the [[#simid-player-init]] message argument `navigationSupport` value is not `playerHandles`.
+	<dt><dfn>url</dfn>
+	<dd>Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide `url` value. In such scenarios, the creative sets `playerHandles` value to `false`.
+</dl>
+
+<div diagram id="diagram-creative-clickThru">
+	<p>Creative:clickThru Handling</p>
+	 <img src="images/dgrm-Creative-clickThru.png" alt="Creative clickThru flow."/>
+	<ol dgrm-details>
+		<li>User clicks on clickthrough button.</li>
+		<li>Creative sets `playerHandles = true` and posts [[#simid-creative-clickThru]] message.</li>
+		<li>Player posts [[#simid-creative-clickThru-resolve]] message before redirecting user to the landing page.</li>
+		<li>Player opens the landing page window.</li>
+	</ol>
+</div> 
+
+
+
+#### resolve #### {#simid-creative-clickThru-resolve}
+In the scenarios when the player handles landing page redirects, it responds with `resolve` before the landing page opens.
+
+#### reject #### {#simid-creative-clickThru-reject}
+The player posts `reject` if the creative requested the player to handle navigation when the player does not implement user redirects, creative fails to provide url, or the url is invalid. The player provides the `errorCode` 1214.
+
+<xmp class="idl">
+dictionary MessageArgs {
+	required short errorCode;
+	DOMString reason;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>errorCode</dfn>
+	<dd>1214.
+	<dt><dfn>reason</dfn>
+	<dd>Additional information. For example: "Invalid URL".
 	
 </dl>
 
-### SIMID:Creative:collapseNonlinear ### {#simid-creative-collapseNonlinear}
-When the creative is ready to collapse, it posts a Creative:collapseNonlinear message. In response to collapseNonlinear, the player resizes the ad to its original state and resumes the media content.
 
-  <img src="images/collapse-non-linear-workflow.png" alt="Normal Creative Initilaizatioin Sequence" style="margin-left: -10px;"/>
+### SIMID:Creative:collapseNonlinear ### {#simid-creative-collapseNonlinear}
+When the creative is ready to collapse, it posts a `Creative:collapseNonlinear` message. In response to `collapseNonlinear`, the player resizes the ad to its original state and resumes the content media playback.
+
+<div diagram id="diagram-creative-collapseNonlinear">
+	<p>Creative:collapseNonlinear Handling</p>
+	 <img src="images/dgrm-Creative-collapseNonlinear.png" alt="Creative collapseNonlinear flow."/>
+	<ol dgrm-details>
+		<li>User clicks on collapse button.</li>
+		<li>Creative posts [[#simid-creative-collapseNonlinear]] message.</li>
+		<li>Player resizes the creative to its original (default) dimensions.</li>
+		<li>Player resumes media playback.</li>
+		<li>Player posts [[#simid-creative-collapseNonlinear-resolve]] message.</li>
+	</ol>
+</div> 
+
 
 #### resolve #### {#simid-creative-collapseNonlinear-resolve}
 When the player resizes the ad, it posts a resolve message.
 
 ### SIMID:Creative:expandNonlinear ### {#simid-creative-expandNonlinear}
 
-The creative posts Creative:expandNonlinear when a user indicates they want to see the expanded ad portion (by clicking expand control/button that default banner provides). 
+The creative posts `Creative:expandNonlinear` when a user wants to expand the ad (by clicking expand control/button that default banner provides). Auto-expand is strongly discouraged and goes against industry guidelines. 
 
-Auto-expand is strongly discouraged and goes against industry guidelines. Under normal circumstances, the player pauses the media content and resizes the creative iframe to the dimensions of the media content and places the expanded creative at video zero coordinates.
+Under normal circumstances, the player pauses the media. In cases when the content is video, the player resizes the creative iframe to the dimensions of the video and places the expanded creative at video zero coordinates.
 
-If the player communicates to the creative that it has no capacity to expand the ad (with Player:init message), the creative does not provide an expand button or post an expandNonlinear message.
+If the player communicates to the creative that it has no capacity to expand the ad with [[#simid-player-init]] message, the creative does not provide an expand button or post the `Creaitve:expandNonlinear` message.
 
-  <img src="images/expand-non-linear-workflow.png" alt="Normal Creative Initilaizatioin Sequence" style="margin-left: -10px;"/>
-
-Flow:
-1. User requests ad expand.
-1. The creative posts expandNonlinear.
-1. The player pauses content media.
-1. The player resizes the creative iframe.
-1. The player posts resolve response.
+<div diagram id="diagram-creative-expandNonlinear">
+	<p>Creative:expandNonlinear Handling</p>
+	 <img src="images/dgrm-Creative-expandNonlinear.png" alt="Creative expandNonlinear flow."/>
+	<ol dgrm-details>
+		<li>User clicks on expand button.</li>
+		<li>Creative posts [[#simid-creative-expandNonlinear]] message.</li>
+		<li>Player pauses media.</li>
+		<li>Player resizes the creative to its expanded dimensions.</li>
+		<li>Player posts [[#simid-creative-expandNonlinear-resolve]] message.</li>
+	</ol>
+</div> 
 
 #### resolve #### {#simid-creative-expandNonlinear-resolve}
-Once the player resizes the ad, it posts a resolve message. The player provides the expanded size dimensions and position with the resolve message.args
+Once the player resizes the ad, it posts a `resolve` message. The player provides the expanded size dimensions and position with the resolve message.args
 
-Message.arg:
-Dimensions {x ,y, width, height}
+<xmp class="idl">
+dictionary MessageArgs {
+	required Dimensions creativeDimensions;
+};
+
+dictionary Dimensions {
+	required long x;
+	required long y;
+	required long width;
+	required long height;
+};
+</xmp>
+<dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
+	<dt><dfn>creativeDimensions</dfn>
+	<dd>SIMID iframe size and coordinates.
+</dl>
 
 #### reject #### {#simid-creative-expandNonlinear-reject}
-If the player declines the expansion request, it posts a reject message.
+If the player declines the expansion request, it posts a `reject` message.
 
 ### SIMID:Creative:fatalError ### {#simid-creative-fatalError}
 The creative posts `SIMID:Creative:fatalError` in cases when its internal exceptions prevent the interactive component from further execution. In response to the `Creative:fatalError` message, the player unloads the SIMID iframe and reports VAST error tracker with the `errorCode` specified by the creative. The ad media playback must stop, if possible.
@@ -1748,16 +1870,24 @@ dictionary MessageArgs {
   <dd>The address of the landing page.
 </dl>
 
-  <img src="images/dgrm-creative-requestNavigation.png" alt="SIMID Request Navigation.">
-
-1. The user interacts with navigation control.
-1. The creative posts [[#simid-creative-requestNavigation]].
-1. The player receives [[#simid-creative-requestNavigation]] message.
-1. If the player cannot redirect the user - it responds with reject.
-1. If the player can redirect the user:
-  * The player responds with resolve.
-  * The player pauses the media (if feasible).
-  * The player opens the landing page.  
+<div diagram id="diagram-creative-requestNavigation">
+	<p>Creative:requestNavigation Handling</p>
+	<img src="images/dgrm-Creative-requestNavigation.png" alt="SIMID Request Navigation.">
+	<ol dgrm-details>
+		<li>User clicks on navigation button.</li>
+		<li>Creative posts `requestNavigation` message.</li>
+		<li>Player responds to [[#simid-creative-requestNavigation]].
+			<ol>
+				<li>Player responds with [[#simid-creative-requestNavigation-reject]] message if it cannot redirect the user.</li>
+				<li>Player responds with [[#simid-creative-requestNavigation-resolve]] message before opening the landing page.</li>
+				<ol>
+					<li>Player pauses media.</li>
+					<li>Player opens the landing page.</li>
+				</ol>
+			</ol>
+		</li>
+	</ol>
+</div> 
 
 #### resolve #### {#simid-creative-requestNavigation-resolve}
 
@@ -1869,7 +1999,8 @@ The creative keeps communication with the player open; it waits for, and respond
 The VAST 4.x response designates the `<InteractiveCreativeFile>` element to describe the ad's interactive component data. For SIMID, `<InteractiveCreativeFile>` element must include the following required attributes and their values: `type="text/html"` and `apiFramework="SIMID"`.
 
 <div class="example">
-<div class="xml-highlight"><pre style="line-height: 125%"><span></span><span class="hnode">&lt;InteractiveCreativeFile</span> <span class="hattr">type=</span><span class="hattrval">"text/html"</span> <span class="hattr">apiFramework=</span><span class="hattrval">"SIMID"</span> <span class="hattr">variableDuration=</span><span class="hattrval">"true"</span><span class="hnode">&gt;</span>
+<div class="xml-highlight"><pre style="line-height: 125%">
+<span class="hnode">&lt;InteractiveCreativeFile</span> <span class="hattr">type=</span><span class="hattrval">"text/html"</span> <span class="hattr">apiFramework=</span><span class="hattrval">"SIMID"</span> <span class="hattr">variableDuration=</span><span class="hattrval">"true"</span><span class="hnode">&gt;</span>
     <span class="hcdata">&lt;![CDATA[https://adserver.com/ads/creative.html]]&gt;</span>
 <span class="hnode">&lt;/InteractiveCreativeFile&gt;</span>
 </pre></div>
@@ -2531,7 +2662,7 @@ The table below is the list of error codes the player and the creative use with 
     <tr>
       <td>1106</td>
       <td>Request for pause not honored.</td>
-      <td>The creative requested pause but the player did not pause.</td>
+      <td>The creative posted [[#simid-creative-requestPause]] but the player did not pause.</td>
     </tr>
     <tr>
       <td>1107</td>
@@ -2628,33 +2759,33 @@ The table below is the list of error codes the player and the creative use with 
     </tr>
     <tr>
       <td>1212</td>
-      <td>The SIMID creative did not reply to the initialization message.</td>
+      <td>The SIMID creative did not reply to the [[#simid-player-init]] message.</td>
       <td></td>
     </tr>
     <tr>
       <td>1213</td>
-      <td>The SIMID creative did not reply to the start message.</td>
+      <td>The SIMID creative did not reply to the [[#simid-player-startCreative]] message.</td>
       <td></td>
     </tr>
     <tr>
       <td>1214</td>
       <td>Environment does not support navigation.</td>
-      <td>The creative asked to open a navigation window, but the environment doesn’t support it. The creative should be opening the navigation window.</td>
+      <td>The creative posted [[#simid-creative-requestNavigation]], but the environment doesn’t support it. The creative should be opening the navigation window.</td>
     </tr>
     <tr>
       <td>1215</td>
       <td>Navigation not possible at all on this device.</td>
-      <td>The creative asked for a navigation. However, navigation window opening is not possible at all on this device.</td>
+      <td>The creative posted [[#simid-creative-requestNavigation]]. However, navigation window opening is not possible at all on this device.</td>
     </tr>
     <tr>
       <td>1216</td>
-      <td>Too many calls to requestNavigation.</td>
+      <td>Too many calls to [[#simid-creative-requestNavigation]].</td>
       <td>The creative asked for request navigation too many times and call will be blocked.</td>
     </tr>
     <tr>
       <td>1217</td>
       <td>Invalid navigation request URL.</td>
-      <td>The creative requested navigation but the url was invalid.</td>
+      <td>The posted [[#simid-creative-requestNavigation]] with invalid url.</td>
     </tr>
     <tr>
       <td>1218</td>
@@ -2668,8 +2799,8 @@ The table below is the list of error codes the player and the creative use with 
     </tr>
     <tr>
       <td>1220</td>
-      <td>Expand not possible due to problem pausing.</td>
-      <td>Player is rejecting expandNonlinear because it cannot pause media. Player should have informed creative it cannot do this on init.</td>
+      <td>Nonlinear ad expand not possible due to problem pausing the media.</td>
+      <td>Player is rejecting [[#simid-creative-expandNonlinear]] because it cannot pause media. Player should have informed creative it cannot pause the media on [[#simid-player-init]].</td>
     </tr>
     <tr>
       <td>1221</td>
@@ -2678,8 +2809,8 @@ The table below is the list of error codes the player and the creative use with 
     </tr>
     <tr>
       <td>1222</td>
-      <td>Too many calls to RequestExpand.</td>
-      <td>Player only allows a number of expands, and that limitation is exceeded.</td>
+      <td>Player received excessive number of [[#simid-creative-expandNonlinear]] messages.</td>
+      <td>Player limits a number of nonlinear ad expands, and that limitation is exceeded.</td>
     </tr>
   </tbody>
 </table>
