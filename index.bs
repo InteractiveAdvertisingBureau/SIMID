@@ -509,16 +509,14 @@ The SIMID standard is geared toward the digital media advertising community. Any
 ## Changes In SIMID 1.1 ## {#simid-11-changes}
 
 SIMID version 1.1 introduces the following enhancements:
-1. Nonlinear ads support. SIMID offers:
-  * New messages [[#simid-creative-expandNonlinear]], [[#simid-creative-collapseNonlinear]], and [[#simid-player-collapseNonlinear]].
-  * Related to nonlinear ads data.
+1. Support for nonlinear ads.
+  * New messages [[#simid-creative-expandNonlinear]], [[#simid-creative-collapseNonlinear]], and [[#simid-player-collapseNonlinear]] and related data.
   * Additional [[#error-codes]].
-  * Workflow for nonlinear playback.
+  * Additional workflows for nonlinear playback.
   * New sample code for nonlinear ads.
 1. Player handling user navigation to external landing pages for the in-mobile apps servings. For this purpose, SIMID:
-  * Introduces a message [[#simid-creative-requestNavigation]].
-  * Offers corresponding data.
-  * Includes related [[#error-codes]].
+  * New message [[#simid-creative-requestNavigation]] and related data.
+  * Additional related [[#error-codes]].
 
 # Introduction # {#intro}
 
@@ -609,18 +607,17 @@ dynamic content within the ad unit is counter to the intentions of this spec.
 
 ## Introduction to Nonlinear Ads ## {#nonlinear-intro}
 
-Non-linear ads are units that media (video or audio) players serve concurrently with the primary media content. In video players, nonlinear ads overlay a portion of the video.
+Nonlinear ads are served and displayed concurrently with the primary media content. In video players, nonlinear ads overlay a portion of the video.
 
-Non-linear ads implement two states: collapsed and expanded. The player renders the ad in the collapsed (original) state while media content progresses uninterrupted. The expanded ad state typically occupies the entire player viewport and requires the media content to be paused. Users are able to toggle the state of the ad.
-
+Nonlinear ads implement two states: collapsed and expanded. The player renders the nonlinear ad in the original state, collapsed, while media content progresses uninterrupted. The expanded ad state typically occupies the entire player viewport and requires the media content to be paused. The expanded state of the nonlinear ad usually occurs via user interaction with the creative.
 <div diagram id="diagram-nonlinear-states">
 	<p>Nonlinear Ad States</p>
-	 <img src="images/non-linear-intro.png" alt="Nonlinear states."/>
+	 <img src="images/nonlinear-intro.png" alt="Nonlinear states."/>
 </div> 
 
-Unlike the linear ads, there is no media asset that the player needs to render with a non-linear ad. 
+Unlike the linear ads, there is no media asset that the player needs to render with a nonlinear ad. 
 
-SIMID supports non-linear ads by providing a non-linear specific API. Both linear and non-linear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe. 
+SIMID supports nonlinear ads by providing a nonlinear specific API. Both linear and nonlinear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe. 
 
 <div diagram id="diagram-nonlinear-user-experience">
 	<p>Nonlinear Ad User Experience</p>
@@ -647,9 +644,9 @@ SIMID supports non-linear ads by providing a non-linear specific API. Both linea
 
 ### Nonlinear Ads VAST Response ### {#nonlinear-vast-response}
 
-VAST supports nonlinear ads since version 2.0, including  interactive ads that implement API frameworks. 
+VAST supports nonlinear ads since version 2.0 including interactive ads that implement API frameworks. 
 
-VAST response describes nonlinear ads in `<NonLinear>` node children. The `<NonLinear>` node attribute’s `apiFrmawork` value is `SIMID`. Node <IFrameResource> delivers URI to the SIMID interactive component. The node `<AdParameters>` contains custom ad data for the creative’s consumption.
+VAST response describes nonlinear ads in the `<NonLinear>` node children. The `<NonLinear>` node attribute’s `apiFrmawork` value is `SIMID`. The node <IFrameResource> delivers a URI to the SIMID interactive component. The node `<AdParameters>` contains custom ad data for the creative’s consumption.
 
 <div class="example">
 <div class="xml-highlight"><pre style="line-height: 125%">
@@ -1310,7 +1307,7 @@ enum CloseButtonSupport {"adHandles", "playerHandles"};
         <li><b>adHandles</b> Indicates that the creative may render a close button. If the player will not render a close button it should always use adHandles for this parameter.</li>
       </ul>
   <dt><dfn>nonlinearDuration</dfn>
-  <dd>The duration in seconds that a nonlinear will play for. Often this might be the same as minSuggestedDuration from the VAST response or the duration of the content.
+  <dd>The duration in seconds that a nonlinear ad will play for. Often, this might be the same as minSuggestedDuration from the VAST response or the duration of the content.
 	
 </dl>
 
@@ -1598,7 +1595,7 @@ When the player resizes the ad, it posts a resolve message.
 
 ### SIMID:Creative:expandNonlinear ### {#simid-creative-expandNonlinear}
 
-The creative posts `Creative:expandNonlinear` when a user wants to expand the ad (by clicking expand control/button that default banner provides). Auto-expand is strongly discouraged and goes against industry guidelines. 
+The creative posts `Creative:expandNonlinear` when a user wants to expand the ad (by clicking expand control/button that the default creative provides). Auto-expand is strongly discouraged and goes against industry guidelines. 
 
 Under normal circumstances, the player pauses the media. In cases when the content is video, the player resizes the creative iframe to the dimensions of the video and places the expanded creative at video zero coordinates.
 
@@ -2180,12 +2177,12 @@ The creative may respond with a `reject` based on its internal logic. In respons
 
 1. The player creates a hidden iframe and loads the creative.  This can happen before the ad display time to preload the ad.
 1. The creative will initialize a session.
-1. If the creative doesn’t initialize a session within a reasonable timeout the player drops the creative and reports an error.
+1. If the creative doesn’t initialize a session within a reasonable time, the player drops the creative and reports an error.
 1. The player sends a [[#simid-player-init]] message with relevant parameters.
-1. If the player can initialize the creative responds with resolve.
-1. If the creative responds with reject or doesn’t respond in time the player drops the creatives iframe and reports an error.
-1. When the player is ready to show the iframe the player sends a [[#simid-player-startCreative]] message.
-1. If the creative responds with reject or doesn’t respond in time the player drops the creatives iframe and reports an error.
+1. If the player can initialize, the creative responds with resolve.
+1. If the creative responds with reject, or doesn’t respond in time, the player drops the creative's iframe and reports an error.
+1. When the player is ready to show the iframe, the player sends a [[#simid-player-startCreative]] message.
+1. If the creative responds with reject, or doesn’t respond in time, the player drops the creatives iframe and reports an error.
 1. When the creative responds with resolve, the player makes the iframe visible.
 
 
@@ -2810,7 +2807,7 @@ The table below is the list of error codes the player and the creative use with 
     <tr>
       <td>1222</td>
       <td>Player received excessive number of [[#simid-creative-expandNonlinear]] messages.</td>
-      <td>Player limits a number of nonlinear ad expands, and that limitation is exceeded.</td>
+      <td>Player limits a number of nonlinear ad expands and that limitation is exceeded.</td>
     </tr>
   </tbody>
 </table>
