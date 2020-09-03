@@ -2654,7 +2654,7 @@ The table below is the list of error codes the player and the creative use with 
     <tr>
       <td>1105</td>
       <td>Request for expand not honored.</td>
-      <td>The creative requested to expand but the player did not allow it.</td>
+      <td>The creative requested to expand the media player but the player did not allow it.</td>
     </tr>
     <tr>
       <td>1106</td>
@@ -2701,24 +2701,24 @@ The table below is the list of error codes the player and the creative use with 
     </tr>
     <tr>
       <td>1202</td>
-      <td>SIMID creative requesting more time than the player
+      <td>The creative is requesting more time than the player
           is willing to support.</td>
       <td></td>
     </tr>
     <tr>
       <td>1203</td>
-      <td>SIMID creative requesting more functionality than the player is
+      <td>The creative is requesting more functionality than the player is
           willing to support.</td>
       <td></td>
     </tr>
     <tr>
       <td>1204</td>
-      <td>SIMID creative is doing actions not supported on this site.</td>
+      <td>The creative is doing actions not supported on this site.</td>
       <td></td>
     </tr>
     <tr>
       <td>1205</td>
-      <td>SIMID creative is overloading the postmessage channel.</td>
+      <td>The creative is overloading the postmessage channel.</td>
       <td></td>
     </tr>
     <tr>
@@ -2734,34 +2734,34 @@ The table below is the list of error codes the player and the creative use with 
     </tr>
     <tr>
       <td>1208</td>
-      <td>The SIMID creative is taking too long to resolve or reject messages.</td>
+      <td>The creative is taking too long to resolve or reject messages.</td>
       <td></td>
     </tr>
     <tr>
       <td>1209</td>
-      <td>The SIMID creatives media from the VAST response is not supported
+      <td>The SIMID media from the VAST response is not supported
           on this device.</td>
       <td></td>
     </tr>
     <tr>
       <td>1210</td>
-      <td>The SIMID creative is not following the spec when initializing.</td>
+      <td>The creative is not following the spec when initializing.</td>
       <td></td>
     </tr>
     <tr>
       <td>1211</td>
-      <td>The SIMID creative is not following the spec in the way it
+      <td>The creative is not following the spec in the way it
           sends messages.</td>
       <td></td>
     </tr>
     <tr>
       <td>1212</td>
-      <td>The SIMID creative did not reply to the [[#simid-player-init]] message.</td>
+      <td>The creative did not reply to the [[#simid-player-init]] message.</td>
       <td></td>
     </tr>
     <tr>
       <td>1213</td>
-      <td>The SIMID creative did not reply to the [[#simid-player-startCreative]] message.</td>
+      <td>The creative did not reply to the [[#simid-player-startCreative]] message.</td>
       <td></td>
     </tr>
     <tr>
@@ -2796,18 +2796,18 @@ The table below is the list of error codes the player and the creative use with 
     </tr>
     <tr>
       <td>1220</td>
-      <td>Nonlinear ad expand not possible due to problem pausing the media.</td>
-      <td>Player is rejecting [[#simid-creative-expandNonlinear]] because it cannot pause media. Player should have informed creative it cannot pause the media on [[#simid-player-init]].</td>
+      <td>Nonlinear expasion not possible due to problem pausing the media.</td>
+      <td>Player is rejecting [[#simid-creative-expandNonlinear]] because it cannot pause media. The player should have informed creative it cannot pause the media on [[#simid-player-init]].</td>
     </tr>
     <tr>
       <td>1221</td>
-      <td>Expand ad rejected by user.</td>
-      <td>User has indicated that the ad should be collapsed so the player will not allow expand.</td>
+      <td>Nonlinear expansion rejected by user.</td>
+      <td>The user has indicated that the ad should be collapsed so the player will not allow a nonlinear expansion.</td>
     </tr>
     <tr>
       <td>1222</td>
       <td>Player received excessive number of [[#simid-creative-expandNonlinear]] messages.</td>
-      <td>Player limits a number of nonlinear ad expands and that limitation is exceeded.</td>
+      <td>The player limits a number of nonlinear ad expands and that limit has been exceeded.</td>
     </tr>
   </tbody>
 </table>
