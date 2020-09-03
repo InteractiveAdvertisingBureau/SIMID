@@ -2815,6 +2815,11 @@ The table below is the list of error codes the player and the creative use with 
       <td>Player received excessive number of [[#simid-creative-expandNonlinear]] messages.</td>
       <td>The player limits a number of nonlinear ad expands and that limit has been exceeded.</td>
     </tr>
+    <tr>
+      <td>1223</td>
+      <td>Session not created.</td>
+      <td>The creative did not create a session. This error could be triggered after a timeout or upon the end of the media playback.</td>
+    </tr>
   </tbody>
 </table>
 
