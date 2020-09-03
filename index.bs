@@ -2815,7 +2815,7 @@ The table below is the list of error codes the player and the creative use with 
     <tr>
       <td>1223</td>
       <td>Session not created.</td>
-      <td>Creative did not create session. This error could be triggered after a timeout or upon the end of the media playback.</td>
+      <td>The creative did not create a session. This error could be triggered after a timeout or upon the end of the media playback.</td>
     </tr>
   </tbody>
 </table>
