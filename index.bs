@@ -1200,6 +1200,7 @@ dictionary EnvironmentData {
 	required boolean fullscreenAllowed;
 	required boolean variableDurationAllowed;
 	required SkippableState skippableState;
+	DOMString skipoffset;
 	required DOMString version;
 	DOMString siteUrl;
 	DOMString appId;
@@ -1207,9 +1208,9 @@ dictionary EnvironmentData {
 	DOMString deviceId;
 	boolean muted;
 	float volume;
-  NavigationSupport navigationSupport;
-  CloseButtonSupport closeButtonSupport;
-  float nonlinearDuration;
+	NavigationSupport navigationSupport;
+	CloseButtonSupport closeButtonSupport;
+	float nonlinearDuration;
 };
 
 dictionary Dimensions {
@@ -1279,6 +1280,11 @@ enum CloseButtonSupport {"adHandles", "playerHandles"};
 				<li>will disregard skip request from the creative.</li>
 			</ul>
 			With both `playerHandles` and `notSkippable`, the creative avoids the <button skip-ad>Skip Ad</button> button drawing.
+	<dt><dfn>skipoffset</dfn>
+	<dd>Optional parameter that communicates the time the ad becomes skippable for the current session. 
+	<p>The `skipoffset` value format is `"HH:MM:SS"` or `"HH:MM:SS.mmm"`.</p>
+	The value can differ from the `skipoffset` in the VAST response when the player controls skippability. 
+	If the parameter's `skippableState` value is `"adHandles"`, the creative must display the <button skip-ad>Skip Ad</button> button when media playback arrives at the time specified by the `skipoffset` parameter.
 	<dt><dfn>version</dfn>
 	<dd>The SIMID version the player implements.
 	<dt><dfn>muted</dfn>
