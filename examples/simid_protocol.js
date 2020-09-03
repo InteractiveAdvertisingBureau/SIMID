@@ -306,6 +306,8 @@ PlayerMessage = {
 /** Messages from the creative */
 CreativeMessage = {
   CLICK_THRU: 'Creative:clickThru',
+  EXPAND_NONLINEAR: 'Creative:expandNonlinear',
+  COLLAPSE_NONLINEAR: 'Creative:collapseNonlinear',
   FATAL_ERROR: 'Creative:fatalError',
   GET_MEDIA_STATE: 'Creative:getMediaState',
   LOG: 'Creative:log',
@@ -319,8 +321,6 @@ CreativeMessage = {
   REQUEST_TRACKING: 'Creative:reportTracking',
   REQUEST_CHANGE_AD_DURATION: 'Creative:requestChangeAdDuration',
   REQUEST_RESIZE: 'Creative:requestResize',
-  REQUEST_EXPAND: 'Creative:requestExpand',
-  REQUEST_COLLAPSE: 'Creative:requestCollapse',
 };
 
 /**

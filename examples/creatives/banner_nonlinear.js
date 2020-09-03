@@ -88,12 +88,12 @@ class BannerNonLinear extends BaseSimidCreative {
     addButtonClickActions_() {
         this.sendMessageOnButtonClick_('close_ad', CreativeMessage.REQUEST_STOP);
         
-        this.sendMessageOnButtonClick_('ad_text', CreativeMessage.REQUEST_EXPAND, () => {
+        this.sendMessageOnButtonClick_('ad_text', CreativeMessage.EXPAND_NONLINEAR, () => {
             document.getElementById('ad_text').classList.add('hidden');
             document.getElementById('content_box').classList.remove('hidden');
         });
 
-        this.sendMessageOnButtonClick_('minimize_ad', CreativeMessage.REQUEST_COLLAPSE, () => {
+        this.sendMessageOnButtonClick_('minimize_ad', CreativeMessage.COLLAPSE_NONLINEAR, () => {
             document.getElementById('ad_text').classList.remove('hidden');
             document.getElementById('content_box').classList.add('hidden');
         });

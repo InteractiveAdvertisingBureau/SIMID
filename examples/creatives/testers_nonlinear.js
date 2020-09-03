@@ -14,8 +14,8 @@ class TestersNonLinear extends BaseSimidCreative {
    */
   addButtonClickActions_() {
     this.sendMessageOnButtonClick_("close_ad", CreativeMessage.REQUEST_STOP);
-    this.sendMessageOnButtonClick_("expand_button", CreativeMessage.REQUEST_EXPAND);
-    this.sendMessageOnButtonClick_("collapse_button", CreativeMessage.REQUEST_COLLAPSE);
+    this.sendMessageOnButtonClick_("expand_button", CreativeMessage.EXPAND_NONLINEAR);
+    this.sendMessageOnButtonClick_("collapse_button", CreativeMessage.COLLAPSE_NONLINEAR);
   }
 
   /**

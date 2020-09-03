@@ -241,8 +241,8 @@ class SimidPlayer {
         this.onRequestChangeAdDuration.bind(this));
     this.simidProtocol.addListener(CreativeMessage.GET_MEDIA_STATE, this.onGetMediaState.bind(this));
     this.simidProtocol.addListener(CreativeMessage.LOG, this.onReceiveCreativeLog.bind(this));
-    this.simidProtocol.addListener(CreativeMessage.REQUEST_EXPAND, this.onExpandResize.bind(this));
-    this.simidProtocol.addListener(CreativeMessage.REQUEST_COLLAPSE, this.onRequestCollapse.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.EXPAND_NONLINEAR, this.onExpandResize.bind(this));
+    this.simidProtocol.addListener(CreativeMessage.COLLAPSE_NONLINEAR, this.onCollapse.bind(this));
     this.simidProtocol.addListener(CreativeMessage.REQUEST_RESIZE, this.onRequestResize.bind(this));
   }
 
@@ -387,7 +387,7 @@ class SimidPlayer {
    * The creative wants to collapse the ad. 
    * @param {!Object} incomingMessage Message sent from the creative to the player
    */
-  onRequestCollapse(incomingMessage) {
+  onCollapse(incomingMessage) {
     const newDimensions = this.getNonlinearDimensions_();
 
     if (this.isLinearAd_) {
