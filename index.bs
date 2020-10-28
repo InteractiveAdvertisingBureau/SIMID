@@ -1227,9 +1227,9 @@ enum CloseButtonSupport {"adHandles", "playerHandles"};
 
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
 	<dt><dfn>videoDimensions</dfn>
-	<dd>Communicates media element coordinates and size.
+	<dd>Communicates media element coordinates and size. -1 indicates an unknown value.
 	<dt><dfn>creativeDimensions</dfn>
-	<dd>Communicates creative iframe coordinates and size the player will set when iframe becomes visible.
+	<dd>Communicates creative iframe coordinates and size the player will set when iframe becomes visible. -1 indicates an unknown value.
 	<dt><dfn>fullscreen</dfn>
 	<dd>The value `true` indicates that the player is currently in fullscreen mode.
 	<dt><dfn>fullscreenAllowed</dfn>
