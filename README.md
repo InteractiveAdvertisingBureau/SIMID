@@ -4,6 +4,7 @@ The latest human-readable version is available at https://interactiveadvertising
 
 * [SIMID version 1.0](https://interactiveadvertisingbureau.github.io/SIMID/simid-1.0.html)
 * [SIMID version 1.0.1]( https://interactiveadvertisingbureau.github.io/SIMID/simid-1.0.1.html)
+* [SIMID version 1.1]( https://interactiveadvertisingbureau.github.io/SIMID/simid-1.1.0.html)
 
 The sample implementation is available at https://interactiveadvertisingbureau.github.io/SIMID/examples/player/simid_player.html
 
