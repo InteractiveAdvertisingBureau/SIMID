@@ -26,6 +26,7 @@
  *   - .figure and .caption (HTML4) and figure and figcaption (HTML5)
  *     -> .sidefigure for right-floated figures
  *   - ins/del
+ *     -> ins/del.c### for candidate and proposed changes (amendments)
  *
  * Code
  *   - pre and code
@@ -34,9 +35,12 @@
  *   - .note       for informative notes             (div, p, span, aside, details)
  *   - .example    for informative examples          (div, p, pre, span)
  *   - .issue      for issues                        (div, p, span)
- *   - .assertion  for assertions                    (div, p, span)
  *   - .advisement for loud normative statements     (div, p, strong)
  *   - .annoying-warning for spec obsoletion notices (div, aside, details)
+ *   - .correction for "candidate corrections"       (div, aside, details, section)
+ *   - .addition   for "candidate additions"         (div, aside, details, section)
+ *   - .correction.proposed for "proposed corrections" (div, aside, details, section)
+ *   - .addition.proposed   for "proposed additions"   (div, aside, details, section)
  *
  * Definition Boxes
  *   - pre.def   for WebIDL definitions
@@ -57,6 +61,8 @@
  *   - .head for the header
  *   - .copyright for the copyright
  *
+ * Outdated warning for old specs
+ *
  * Miscellaneous
  *   - .overlarge for things that should be as wide as possible, even if
  *     that overflows the body text area. This can be used on an item or
@@ -64,22 +70,28 @@
  *     Note that this styling basically doesn't help at all when printing,
  *     since A4 paper isn't much wider than the max-width here.
  *     It's better to design things to fit into a narrower measure if possible.
+ *
  *   - js-added ToC jump links (see fixup.js)
  *
  ******************************************************************************/
 
+/* color variables included separately for reliability */
+
 /******************************************************************************/
-/*                                   Body                                     */
+/*                                    Body                                    */
 /******************************************************************************/
+
+  html {
+  }
 
   body {
     counter-reset: example figure issue;
 
     /* Layout */
-    max-width: 50em;               /* limit line length to 50em for readability   */
-    margin: 0 auto;                /* center text within page                     */
+    max-width: 50em;        /* limit line length to 50em for readability   */
+    margin: 0 auto;       /* center text within page                    */
     padding: 1.6em 1.5em 2em 50px; /* assume 16px font size for downlevel clients */
-    padding: 1.6em 1.5em 2em calc(26px + 1.5em); /* leave space for status flag     */
+    padding: 1.6em 1.5em 2em calc(26px + 1.5em); /* leave space for status flag    */
 
     /* Typography */
     line-height: 1.5;
@@ -90,9 +102,10 @@
     overflow-wrap: break-word;
     hyphens: auto;
 
-    /* Colors */
     color: black;
+    color: var(--text);
     background: white top left fixed no-repeat;
+    background: var(--bg) top left fixed no-repeat;
     background-size: 25px auto;
   }
 
@@ -103,7 +116,7 @@
 
 /** Header ********************************************************************/
 
-  div.head { margin-bottom: 1em }
+  div.head { margin-bottom: 1em; }
   div.head hr { border-style: solid; }
 
   div.head h1 {
@@ -124,10 +137,13 @@
   .head img[src*="logos/W3C"] {
     display: block;
     border: solid #1a5e9a;
+    border: solid var(--logo-bg);
     border-width: .65rem .7rem .6rem;
     border-radius: .4rem;
     background: #1a5e9a;
+    background: var(--logo-bg);
     color: white;
+    color: var(--logo-text);
     font-weight: bold;
   }
 
@@ -138,7 +154,9 @@
 
   .head a:active > img[src*="logos/W3C"] {
     background: #c00;
+    background: var(--logo-active-bg);
     border-color: #c00;
+    border-color: var(--logo-active-bg);
   }
 
   /* see also additional rules in Link Styling section */
@@ -146,7 +164,7 @@
 /** Copyright *****************************************************************/
 
   p.copyright,
-  p.copyright small { font-size: small }
+  p.copyright small { font-size: small; }
 
 /** Back to Top / ToC Toggle **************************************************/
 
@@ -158,14 +176,13 @@
   @media not print {
     #toc-nav {
       position: fixed;
-      z-index: 2;
+      z-index: 3;
       bottom: 0; left: 0;
       margin: 0;
       min-width: 1.33em;
       border-top-right-radius: 2rem;
       box-shadow: 0 0 2px;
       font-size: 1.5em;
-      color: black;
     }
     #toc-nav > a {
       display: block;
@@ -175,23 +192,32 @@
       padding: .1em 0.3em;
       margin: 0;
 
-      background: white;
       box-shadow: 0 0 2px;
       border: none;
       border-top-right-radius: 1.33em;
+
+      color: #707070;
+      color: var(--tocnav-normal-text);
       background: white;
+      background: var(--tocnav-normal-bg);
     }
+    #toc-nav > a:hover,
+    #toc-nav > a:focus {
+      color: black;
+      color: var(--tocnav-hover-text);
+      background: #f8f8f8;
+      background: var(--tocnav-hover-bg);
+    }
+    #toc-nav > a:active {
+      color: #c00;
+      color: var(--tocnav-active-text);
+      background: white;
+      background: var(--tocnav-active-bg);
+    }
+
     #toc-nav > #toc-jump {
       padding-bottom: 2em;
       margin-bottom: -1.9em;
-    }
-
-    #toc-nav > a:hover,
-    #toc-nav > a:focus {
-      background: #f8f8f8;
-    }
-    #toc-nav > a:not(:hover):not(:focus) {
-      color: #707070;
     }
 
     /* statusbar gets in the way on keyboard focus; remove once browsers fix */
@@ -205,26 +231,6 @@
     }
     #toc-nav > a > span + span {
       padding-right: 0.2em;
-    }
-
-    #toc-toggle-inline {
-      vertical-align: 0.05em;
-      font-size: 80%;
-      color: gray;
-      color: hsla(203,20%,40%,.7);
-      border-style: none;
-      background: transparent;
-      position: relative;
-    }
-    #toc-toggle-inline:hover:not(:active),
-    #toc-toggle-inline:focus:not(:active) {
-      text-shadow: 1px 1px silver;
-      top: -1px;
-      left: -1px;
-    }
-
-    #toc-nav :active {
-      color: #C00;
     }
   }
 
@@ -243,10 +249,14 @@
       padding: 0 1em;
       padding-left: 42px;
       padding-left: calc(1em + 26px);
+      color: black;
+      color: var(--tocsidebar-text);
       background: inherit;
       background-color: #f7f8f9;
+      background-color: var(--tocsidebar-bg);
       z-index: 1;
       box-shadow: -.1em 0 .25em rgba(0,0,0,.1) inset;
+      box-shadow: -.1em 0 .25em var(--tocsidebar-shadow) inset;
     }
     body.toc-sidebar #toc h2 {
       margin-top: .8rem;
@@ -256,6 +266,7 @@
       font-weight: bold;
       color: gray;
       color: hsla(203,20%,40%,.7);
+      color: var(--tocsidebar-heading-text);
     }
     body.toc-sidebar #toc-jump:not(:focus) {
       width: 0;
@@ -283,10 +294,14 @@
       padding: 0 1em;
       padding-left: 42px;
       padding-left: calc(1em + 26px);
+      color: black;
+      color: var(--tocsidebar-text);
       background: inherit;
       background-color: #f7f8f9;
+      background-color: var(--tocsidebar-bg);
       z-index: 1;
       box-shadow: -.1em 0 .25em rgba(0,0,0,.1) inset;
+      box-shadow: -.1em 0 .25em var(--tocsidebar-shadow) inset;
     }
     body:not(.toc-inline) #toc h2 {
       margin-top: .8rem;
@@ -296,6 +311,7 @@
       font-weight: bold;
       color: gray;
       color: hsla(203,20%,40%,.7);
+      color: var(--tocsidebar-heading-text);
     }
 
     body:not(.toc-inline) {
@@ -327,9 +343,9 @@
     page-break-after: avoid;
     page-break-inside: avoid;
     font: 100% sans-serif;   /* Reset all font styling to clear out UA styles */
-    font-family: inherit;    /* Inherit the font family. */
-    line-height: 1.2;        /* Keep wrapped headings compact */
-    hyphens: manual;         /* Hyphenated headings look weird */
+    font-family: inherit; /* Inherit the font family. */
+    line-height: 1.2;   /* Keep wrapped headings compact */
+    hyphens: manual;    /* Hyphenated headings look weird */
   }
 
   h2, h3, h4, h5, h6 {
@@ -338,7 +354,7 @@
 
   h1, h2, h3 {
     color: #005A9C;
-    background: transparent;
+    color: var(--heading-text);
   }
 
   h1 { font-size: 170%; }
@@ -365,11 +381,13 @@
 
 /** Section divider ***********************************************************/
 
-  :not(.head) > hr {
+  :not(.head) > :not(.head) + hr {
     font-size: 1.5em;
     text-align: center;
     margin: 1em auto;
     height: auto;
+    color: black;
+    color: var(--hr-text);
     border: transparent solid 0;
     background: transparent;
   }
@@ -411,48 +429,51 @@
   /* Style for algorithms */
   ol.algorithm ol:not(.algorithm),
   .algorithm > ol ol:not(.algorithm) {
-   border-left: 0.5em solid #DEF;
+  border-left: 0.5em solid #DEF;
+  border-left: 0.5em solid var(--algo-border);
   }
 
   /* Put nice boxes around each algorithm. */
   [data-algorithm]:not(.heading) {
-    padding: .5em;
-    border: thin solid #ddd; border-radius: .5em;
-    margin: .5em calc(-0.5em - 1px);
+   padding: .5em;
+   border: thin solid #ddd;
+   border: thin solid var(--algo-border);
+   border-radius: .5em;
+   margin: .5em calc(-0.5em - 1px);
   }
   [data-algorithm]:not(.heading) > :first-child {
-    margin-top: 0;
+   margin-top: 0;
   }
   [data-algorithm]:not(.heading) > :last-child {
-    margin-bottom: 0;
+   margin-bottom: 0;
   }
 
   /* Style for switch/case <dl>s */
   dl.switch > dd > ol.only,
   dl.switch > dd > .only > ol {
-   margin-left: 0;
+  margin-left: 0;
   }
   dl.switch > dd > ol.algorithm,
   dl.switch > dd > .algorithm > ol {
-   margin-left: -2em;
+  margin-left: -2em;
   }
   dl.switch {
-   padding-left: 2em;
+  padding-left: 2em;
   }
   dl.switch > dt {
-   text-indent: -1.5em;
-   margin-top: 1em;
+  text-indent: -1.5em;
+  margin-top: 1em;
   }
   dl.switch > dt + dt {
-   margin-top: 0;
+  margin-top: 0;
   }
   dl.switch > dt::before {
-   content: '\21AA';
-   padding: 0 0.5em 0 0;
-   display: inline-block;
-   width: 1em;
-   text-align: right;
-   line-height: 0.5em;
+  content: '\21AA';
+  padding: 0 0.5em 0 0;
+  display: inline-block;
+  width: 1em;
+  text-align: right;
+  line-height: 0.5em;
   }
 
 /** Terminology Markup ********************************************************/
@@ -470,7 +491,7 @@
     font-style: normal;
   }
   dt dfn code, code.idl {
-    font-size: medium;
+    font-size: inherit;
   }
   dfn var {
     font-style: normal;
@@ -478,8 +499,39 @@
 
 /** Change Marking ************************************************************/
 
-  del { color: red;  text-decoration: line-through; }
-  ins { color: #080; text-decoration: underline;    }
+  del {
+    color: #aa0000;
+    color: var(--del-text);
+    background: transparent;
+    background: var(--del-bg);
+    text-decoration: line-through;
+  }
+  ins {
+    color: #006100;
+    color: var(--ins-text);
+    background: transparent;
+    background: var(--ins-bg);
+    text-decoration: underline;
+  }
+
+  /* for amendments (candidate/proposed changes) */
+
+  .amendment ins, .correction ins, .addition ins,
+  ins[class^=c] {
+    text-decoration-style: dotted;
+  }
+  .amendment del, .correction del, .addition del,
+  del[class^=c] {
+    text-decoration-style: dotted;
+  }
+  .amendment.proposed ins, .correction.proposed ins, .addition.proposed ins,
+  ins[class^=c].proposed {
+    text-decoration-style: double;
+  }
+  .amendment.proposed del, .correction.proposed del, .addition.proposed del,
+  del[class^=c].proposed {
+    text-decoration-style: double;
+  }
 
 /** Miscellaneous improvements to inline formatting ***************************/
 
@@ -497,9 +549,14 @@
   pre, code, samp {
     font-family: Menlo, Consolas, "DejaVu Sans Mono", Monaco, monospace;
     font-size: .9em;
-    page-break-inside: avoid;
     hyphens: none;
     text-transform: none;
+    text-align: left;
+    text-align: start;
+    font-variant: normal;
+    orphans: 3;
+    widows: 3;
+    page-break-before: avoid;
   }
   pre code,
   code code {
@@ -525,14 +582,19 @@
   /* We hyperlink a lot, so make it less intrusive */
   a[href] {
     color: #034575;
+    color: var(--a-normal-text);
     text-decoration: none;
     border-bottom: 1px solid #707070;
+    border-bottom: 1px solid var(--a-normal-underline);
     /* Need a bit of extending for it to look okay */
     padding: 0 1px 0;
     margin: 0 -1px 0;
   }
   a:visited {
-    border-bottom-color: #BBB;
+    color: #034575;
+    color: var(--a-visited-text);
+    border-bottom-color: #bbb;
+    border-bottom-color: var(--a-visited-underline);
   }
 
   /* Use distinguishing colors when user is interacting with the link */
@@ -540,12 +602,15 @@
   a[href]:hover {
     background: #f8f8f8;
     background: rgba(75%, 75%, 75%, .25);
+    background: var(--a-hover-bg);
     border-bottom-width: 3px;
     margin-bottom: -2px;
   }
   a[href]:active {
-    color: #C00;
-    border-color: #C00;
+    color: #c00;
+    color: var(--a-active-text);
+    border-color: #c00;
+    border-color: var(--a-active-underline);
   }
 
   /* Backout above styling for W3C logo */
@@ -564,8 +629,13 @@
     border-style: none;
   }
 
+  img, svg {
+    /* Intentionally not color-scheme aware. */
+    background: white;
+  }
+
   /* For autogen numbers, add
-     .caption::before, figcaption::before { content: "Figure " counter(figure) ". "; }
+    .caption::before, figcaption::before { content: "Figure " counter(figure) ". "; }
   */
 
   figure, .figure, .sidefigure {
@@ -573,10 +643,11 @@
     text-align: center;
     margin: 2.5em 0;
   }
-  .figure img,    .sidefigure img,    figure img,
+  .figure img,  .sidefigure img,  figure img,
   .figure object, .sidefigure object, figure object {
     max-width: 100%;
     margin: auto;
+    height: auto;
   }
   .figure pre, .sidefigure pre, figure pre {
     text-align: left;
@@ -590,7 +661,7 @@
     .sidefigure {
       float: right;
       width: 50%;
-      margin: 0 0 0.5em 0.5em
+      margin: 0 0 0.5em 0.5em;
     }
   }
   .caption, figcaption, caption {
@@ -605,13 +676,15 @@
   }
 
   /* DL list is indented 2em, but figure inside it is not */
-  dd > .figure, dd > figure { margin-left: -2em }
+  dd > .figure, dd > figure { margin-left: -2em; }
 
 /******************************************************************************/
 /*                             Colored Boxes                                  */
 /******************************************************************************/
 
-  .issue, .note, .example, .assertion, .advisement, blockquote {
+  .issue, .note, .example, .assertion, .advisement, blockquote,
+  .amendment, .correction, .addition {
+    margin: 1em auto;
     padding: .5em;
     border: .5em;
     border-left-style: solid;
@@ -622,88 +695,117 @@
     border-right-style: solid;
   }
 
-  .issue,
-  .note,
-  .example,
-  .advisement,
-  .assertion,
-  blockquote {
-    margin: 1em auto;
-  }
+  blockquote > :first-child,
   .note  > p:first-child,
   .issue > p:first-child,
-  blockquote > :first-child {
+  .amendment > p:first-child,
+  .correction > p:first-child,
+  .addition > p:first-child {
     margin-top: 0;
   }
-  blockquote > :last-child {
+  blockquote > :last-child,
+  .note  > p:last-child,
+  .issue > p:last-child,
+  .amendment > p:last-child,
+  .correction > p:last-child,
+  .addition > p:last-child {
     margin-bottom: 0;
+  }
+
+
+  .issue::before, .issue > .marker,
+  .example::before, .example > .marker,
+  .note::before, .note > .marker,
+  details.note > summary > .marker,
+  .amendment::before, .amendment > .marker,
+  details.amendment > summary > .marker,
+  .addition::before, .addition > .marker,
+  addition.amendment > summary > .marker,
+  .correction::before, .correction > .marker,
+  correction.amendment > summary > .marker
+  {
+    text-transform: uppercase;
+    padding-right: 1em;
+  }
+
+  .example::before, .example > .marker {
+    display: block;
+    padding-right: 0em;
   }
 
 /** Blockquotes ***************************************************************/
 
   blockquote {
     border-color: silver;
+    border-color: var(--blockquote-border);
+    background: transparent;
+    background: var(--blockquote-bg);
+    color: currentcolor;
+    color: var(--blockquote-text);
   }
 
 /** Open issue ****************************************************************/
 
   .issue {
-    border-color: #E05252;
-    background: #FBE9E9;
+    border-color: #e05252;
+    border-color: var(--issue-border);
+    background: #fbe9e9;
+    background: var(--issue-bg);
+    color: black;
+    color: var(--issue-text);
     counter-increment: issue;
     overflow: auto;
   }
   .issue::before, .issue > .marker {
-    text-transform: uppercase;
-    color: #AE1E1E;
-    padding-right: 1em;
-    text-transform: uppercase;
+    color: #831616;
+    color: var(--issueheading-text);
   }
   /* Add .issue::before { content: "Issue " counter(issue) " "; } for autogen numbers,
-     or use class="marker" to mark up the issue number in source. */
+    or use class="marker" to mark up the issue number in source. */
 
 /** Example *******************************************************************/
 
   .example {
-    border-color: #E0CB52;
-    background: #FCFAEE;
+    border-color: #e0cb52;
+    border-color: var(--example-border);
+    background: #fcfaee;
+    background: var(--example-bg);
+    color: black;
+    color: var(--example-text);
     counter-increment: example;
     overflow: auto;
     clear: both;
   }
   .example::before, .example > .marker {
-    text-transform: uppercase;
-    color: #827017;
-    min-width: 7.5em;
-    display: block;
+    color: #574b0f;
+    color: var(--exampleheading-text);
   }
   /* Add .example::before { content: "Example " counter(example) " "; } for autogen numbers,
-     or use class="marker" to mark up the example number in source. */
+    or use class="marker" to mark up the example number in source. */
 
 /** Non-normative Note ********************************************************/
 
   .note {
-    border-color: #52E052;
-    background: #E9FBE9;
+    border-color: #52e052;
+    border-color: var(--note-border);
+    background: #e9fbe9;
+    background: var(--note-bg);
+    color: black;
+    color: var(--note-text);
     overflow: auto;
   }
 
   .note::before, .note > .marker,
-  details.note > summary::before,
-  details.note > summary > .marker {
-    text-transform: uppercase;
-    display: block;
-    color: hsl(120, 70%, 30%);
-  }
-  /* Add .note::before { content: "Note"; } for autogen label,
-     or use class="marker" to mark up the label in source. */
-
   details.note > summary {
-    display: block;
     color: hsl(120, 70%, 30%);
+    color: var(--noteheading-text);
   }
+  /* Add .note::before { content: "Note "; } for autogen label,
+    or use class="marker" to mark up the label in source. */
+
   details.note[open] > summary {
     border-bottom: 1px silver solid;
+    border-bottom: 1px var(--notesummary-underline) solid;
   }
 
 /** Assertion Box *************************************************************/
@@ -711,7 +813,11 @@
 
   .assertion {
     border-color: #AAA;
+    border-color: var(--assertion-border);
     background: #EEE;
+    background: var(--assertion-bg);
+    color: black;
+    color: var(--assertion-text);
   }
 
 /** Advisement Box ************************************************************/
@@ -719,15 +825,52 @@
 
   .advisement {
     border-color: orange;
+    border-color: var(--advisement-border);
     border-style: none solid;
-    background: #FFEECC;
+    background: #fec;
+    background: var(--advisement-bg);
+    color: black;
+    color: var(--advisement-text);
   }
   strong.advisement {
     display: block;
     text-align: center;
   }
-  .advisement > .marker {
-    color: #B35F00;
+  .advisement::before, .advisement > .marker {
+    color: #b35f00;
+    color: var(--advisementheading-text);
+  }
+
+/** Amendment Box *************************************************************/
+
+  .amendment, .correction, .addition {
+    border-color: #330099;
+    border-color: var(--amendment-border);
+    background: #F5F0FF;
+    background: var(--amendment-bg);
+    color: black;
+    color: var(--amendment-text);
+  }
+  .amendment.proposed, .correction.proposed, .addition.proposed {
+    border-style: solid;
+    border-block-width: 0.25em;
+  }
+  .amendment::before, .amendment > .marker,
+  details.amendment > summary::before, details.amendment > summary > .marker,
+  .correction::before, .correction > .marker,
+  details.correction > summary::before, details.correction > summary > .marker,
+  .addition::before, .addition > .marker,
+  details.addition > summary::before, details.addition > summary > .marker {
+    color: #220066;
+    color: var(--amendmentheading-text);
+  }
+  .amendment.proposed::before, .amendment.proposed > .marker,
+  details.amendment.proposed > summary::before, details.amendment.proposed > summary > .marker,
+  .correction.proposed::before, .correction.proposed > .marker,
+  details.correction.proposed > summary::before, details.correction.proposed > summary > .marker,
+  .addition.proposed::before, .addition.proposed > .marker,
+  details.addition.proposed > summary::before, details.addition.proposed > summary > .marker {
+    font-weight: bold;
   }
 
 /** Spec Obsoletion Notice ****************************************************/
@@ -743,13 +886,16 @@
   .annoying-warning:not(details),
   details.annoying-warning:not([open]) > summary,
   details.annoying-warning[open] {
-    background: #fdd;
-    color: red;
-    font-weight: bold;
+    background: hsla(40,100%,50%,0.95);
+    background: var(--warning-bg);
+    color: black;
+    color: var(--warning-text);
     padding: .75em 1em;
-    border: thick red;
-    border-style: solid;
-    border-radius: 1em;
+    border: red;
+    border: var(--warning-border);
+    border-style: solid none;
+    box-shadow: 0 2px 8px black;
+    text-align: center;
   }
   .annoying-warning :last-child {
     margin-bottom: 0;
@@ -758,9 +904,9 @@
 @media not print {
   details.annoying-warning[open] {
     position: fixed;
-    left: 1em;
-    right: 1em;
-    bottom: 1em;
+    left: 0;
+    right: 0;
+    bottom: 2em;
     z-index: 1000;
   }
 }
@@ -773,9 +919,13 @@
 
   .def {
     padding: .5em 1em;
-    background: #DEF;
+    background: #def;
+    background: var(--def-bg);
     margin: 1.2em 0;
-    border-left: 0.5em solid #8CCBF2;
+    border-left: 0.5em solid #8ccbf2;
+    border-left: 0.5em solid var(--def-border);
+    color: black;
+    color: var(--def-text);
   }
 
 /******************************************************************************/
@@ -800,6 +950,7 @@
     padding: 0.5em;
     vertical-align: baseline;
     border-bottom: 1px solid #bbd7e9;
+    border-bottom: 1px solid var(--defrow-border);
   }
 
   table.def > tbody > tr:last-child th,
@@ -820,10 +971,10 @@
   }
 
   /* A footnote at the bottom of a def table */
-  table.def           td.footnote {
+  table.def td.footnote {
     padding-top: 0.6em;
   }
-  table.def           td.footnote::before {
+  table.def td.footnote::before {
     content: " ";
     display: block;
     height: 0.6em;
@@ -833,15 +984,15 @@
 
 /** Data tables (and properly marked-up index tables) *************************/
   /*
-     <table class="data"> highlights structural relationships in a table
-     when correct markup is used (e.g. thead/tbody, th vs. td, scope attribute)
+    <table class="data"> highlights structural relationships in a table
+    when correct markup is used (e.g. thead/tbody, th vs. td, scope attribute)
 
-     Use class="complex data" for particularly complicated tables --
-     (This will draw more lines: busier, but clearer.)
+    Use class="complex data" for particularly complicated tables --
+    (This will draw more lines: busier, but clearer.)
 
-     Use class="long" on table cells with paragraph-like contents
-     (This will adjust text alignment accordingly.)
-     Alternately use class="longlastcol" on tables, to have the last column assume "long".
+    Use class="long" on table cells with paragraph-like contents
+    (This will adjust text alignment accordingly.)
+    Alternately use class="longlastcol" on tables, to have the last column assume "long".
   */
 
   table {
@@ -868,6 +1019,7 @@
     padding: 0.5em 1em;
     border-width: 1px;
     border-color: silver;
+    border-color: var(--datacell-border);
     border-top-style: solid;
   }
 
@@ -892,6 +1044,7 @@
   table.index tbody th:first-child  {
     border-right: 2px solid;
     border-top: 1px solid silver;
+    border-top: 1px solid var(--datacell-border);
     padding-right: 1em;
   }
 
@@ -903,13 +1056,14 @@
   table.complex.data th,
   table.complex.data td {
     border: 1px solid silver;
+    border: 1px solid var(--datacell-border);
     text-align: center;
   }
 
   table.data.longlastcol td:last-child,
   table.data td.long {
-   vertical-align: baseline;
-   text-align: left;
+    vertical-align: baseline;
+    text-align: left;
   }
 
   table.data img {
@@ -967,12 +1121,15 @@ Possible extra rowspan handling
     display: block;
     /* Reverse color scheme */
     color: black;
-    border-color: #3980B5;
-    border-bottom-width: 3px !important;
-    margin-bottom: 0px !important;
+    color: var(--toclink-text);
+    border-color: #3980b5;
+    border-color: var(--toclink-underline);
   }
   .toc a:visited {
+    color: black;
+    color: var(--toclink-visited-text);
     border-color: #054572;
+    border-color: var(--toclink-visited-underline);
   }
   .toc a:not(:focus):not(:hover) {
     /* Allow colors to cascade through from link styling */
@@ -984,22 +1141,22 @@ Possible extra rowspan handling
     /* because generated content isn't search/selectable and markers can't do multilevel yet */
     margin:  0;
     padding: 0;
-    line-height: 1.1rem; /* consistent spacing */
+  }
+  .toc {
+    line-height: 1.1em;
   }
 
   /* ToC not indented until third level, but font style & margins show hierarchy */
-  .toc > li             { font-weight: bold;   }
-  .toc > li li          { font-weight: normal; }
-  .toc > li li li       { font-size:   95%;    }
-  .toc > li li li li    { font-size:   90%;    }
-  .toc > li li li li .secno { font-size: 85%; }
-  .toc > li li li li li { font-size:   85%;    }
-  .toc > li li li li li .secno { font-size: 100%; }
+  .toc > li     { font-weight: bold;   }
+  .toc > li li     { font-weight: normal; }
+  .toc > li li li   { font-size:   95%; }
+  .toc > li li li li  { font-size:   90%; }
+  .toc > li li li li li { font-size:   85%; }
 
   /* @supports not (display:grid) { */
-    .toc > li             { margin: 1.5rem 0;    }
-    .toc > li li          { margin: 0.3rem 0;    }
-    .toc > li li li       { margin-left: 2rem;   }
+    .toc > li     { margin: 1.5rem 0; }
+    .toc > li li     { margin: 0.3rem 0;  }
+    .toc > li li li   { margin-left: 2rem;   }
 
     /* Section numbers in a column of their own */
     .toc .secno {
@@ -1007,26 +1164,37 @@ Possible extra rowspan handling
       width: 4rem;
       white-space: nowrap;
     }
+    .toc > li li li li .secno { font-size: 85%; }
+    .toc > li li li li li .secno { font-size: 100%; }
 
     .toc li {
       clear: both;
     }
 
-    :not(li) > .toc              { margin-left:  5rem; }
-    .toc .secno                  { margin-left: -5rem; }
-    .toc > li li li .secno       { margin-left: -7rem; }
-    .toc > li li li li .secno    { margin-left: -9rem; }
+    :not(li) > .toc      { margin-left:  5rem; }
+    .toc .secno        { margin-left: -5rem; }
+    .toc > li li li .secno    { margin-left: -7rem; }
+    .toc > li li li li .secno { margin-left: -9rem; }
     .toc > li li li li li .secno { margin-left: -11rem; }
 
     /* Tighten up indentation in narrow ToCs */
     @media (max-width: 30em) {
-      :not(li) > .toc              { margin-left:  4rem; }
-      .toc .secno                  { margin-left: -4rem; }
-      .toc > li li li              { margin-left:  1rem; }
-      .toc > li li li .secno       { margin-left: -5rem; }
-      .toc > li li li li .secno    { margin-left: -6rem; }
+      :not(li) > .toc      { margin-left:  4rem; }
+      .toc .secno        { margin-left: -4rem; }
+      .toc > li li li      { margin-left:  1rem; }
+      .toc > li li li .secno    { margin-left: -5rem; }
+      .toc > li li li li .secno { margin-left: -6rem; }
       .toc > li li li li li .secno { margin-left: -7rem; }
     }
+    /* Loosen it on wide screens */
+    @media screen and (min-width: 78em) {
+      body:not(.toc-inline) :not(li) > .toc      { margin-left:  4rem; }
+      body:not(.toc-inline) .toc .secno        { margin-left: -4rem; }
+      body:not(.toc-inline) .toc > li li li      { margin-left:  1rem; }
+      body:not(.toc-inline) .toc > li li li .secno    { margin-left: -5rem; }
+      body:not(.toc-inline) .toc > li li li li .secno { margin-left: -6rem; }
+      body:not(.toc-inline) .toc > li li li li li .secno { margin-left: -7rem; }
+  }
   /* } */
 
   @supports (display:grid) and (display:contents) {
@@ -1055,7 +1223,7 @@ Possible extra rowspan handling
     }
     #toc > .toc > li > a > span {
       /* The spans of the top-level list,
-         comprising the first items of each top-level section. */
+        comprising the first items of each top-level section. */
       margin-top: 1.1rem;
     }
     #toc#toc .secno { /* Ugh, need more specificity to override base.css */
@@ -1068,9 +1236,12 @@ Possible extra rowspan handling
       width: auto;
       margin-right: 1rem;
     }
-    #toc .content:hover {
+    #toc .content:hover,
+    #toc .content:focus {
       background: rgba(75%, 75%, 75%, .25);
+      background: var(--a-hover-bg);
       border-bottom: 3px solid #054572;
+      border-bottom: 3px solid var(--toclink-underline);
       margin-bottom: -3px;
     }
     #toc li li li .content {
@@ -1085,22 +1256,23 @@ Possible extra rowspan handling
 /** Index *********************************************************************/
 
   /* Index Lists: Layout */
-  ul.index       { margin-left: 0; columns: 15em; text-indent: 1em hanging; }
-  ul.index li    { margin-left: 0; list-style: none; break-inside: avoid; }
-  ul.index li li { margin-left: 1em }
-  ul.index dl    { margin-top: 0; }
-  ul.index dt    { margin: .2em 0 .2em 20px;}
-  ul.index dd    { margin: .2em 0 .2em 40px;}
+  ul.index    { margin-left: 0; columns: 15em; text-indent: 1em hanging; }
+  ul.index li { margin-left: 0; list-style: none; break-inside: avoid; }
+  ul.index li li { margin-left: 1em; }
+  ul.index dl { margin-top: 0; }
+  ul.index dt { margin: .2em 0 .2em 20px;}
+  ul.index dd { margin: .2em 0 .2em 40px;}
   /* Index Lists: Typography */
   ul.index ul,
   ul.index dl { font-size: smaller; }
   @media not print {
-    ul.index li span {
+    ul.index li span:not(.dfn-paneled) {
       white-space: nowrap;
       color: transparent; }
     ul.index li a:hover + span,
     ul.index li a:focus + span {
       color: #707070;
+      color: var(--indexinfo-text);
     }
   }
 
@@ -1122,13 +1294,101 @@ Possible extra rowspan handling
 
   table.index tr:hover td:not([rowspan]),
   table.index tr:hover th:not([rowspan]) {
+    color: black;
+    color: var(--indextable-hover-text);
     background: #f7f8f9;
+    background: var(--indextable-hover-bg);
   }
 
   /* The link in the first column in the property table (formerly a TD) */
   table.index th:first-child a {
     font-weight: bold;
   }
+
+/** Outdated warning **********************************************************/
+
+.outdated-spec {
+  color: black;
+  color: var(--outdatedspec-text);
+  background-color: rgba(0,0,0,0.5);
+  background-color: var(--outdatedspec-bg);
+}
+
+.outdated-warning {
+  position: fixed;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 50%;
+  background: maroon;
+  background: var(--outdated-bg);
+  color: white;
+  color: var(--outdated-text);
+  border-radius: 1em;
+  box-shadow: 0 0 1em red;
+  box-shadow: 0 0 1em var(--outdated-shadow);
+  padding: 2em;
+  text-align: center;
+  z-index: 2;
+}
+
+.outdated-warning a {
+  color: currentcolor;
+  background: transparent;
+}
+
+.edited-rec-warning {
+  background: darkorange;
+  background: var(--editedrec-bg);
+  box-shadow: 0 0 1em;
+}
+
+.outdated-warning button {
+  color: var(--outdated-text);
+  border-radius: 1em;
+  box-shadow: 0 0 1em red;
+  box-shadow: 0 0 1em var(--outdated-shadow);
+  padding: 2em;
+  text-align: center;
+  z-index: 2;
+}
+
+.outdated-warning a {
+  color: currentcolor;
+  background: transparent;
+}
+
+.edited-rec-warning {
+  background: darkorange;
+  background: var(--editedrec-bg);
+  box-shadow: 0 0 1em;
+}
+
+.outdated-warning button {
+  position: absolute;
+  top: 0;
+  right:0;
+  margin: 0;
+  border: 0;
+  padding: 0.25em 0.5em;
+  background: transparent;
+  color: white;
+  color: var(--outdated-text);
+  font:1em sans-serif;
+  text-align:center;
+}
+
+.outdated-warning span {
+  display: block;
+}
+
+.outdated-collapsed {
+  bottom: 0;
+  border-radius: 0;
+  width: 100%;
+  padding: 0;
+}
 
 /******************************************************************************/
 /*                                    Print                                   */
@@ -1143,17 +1403,20 @@ Possible extra rowspan handling
     body {
       font-family: serif;
     }
+
+    .outdated-warning {
+      position: absolute;
+      border-style: solid;
+      border-color: red;
+    }
+
+    .outdated-warning input {
+      display: none;
+    }
   }
   @page {
     margin: 1.5cm 1.1cm;
   }
-
-/******************************************************************************/
-/*                                    Legacy                                  */
-/******************************************************************************/
-
-  /* This rule is inherited from past style sheets. No idea what it's for. */
-  .hide { display: none }
 
 
 
@@ -1168,13 +1431,13 @@ Possible extra rowspan handling
     margin-right: auto;
   }
   .overlarge {
-    /* Magic to create good table positioning:
-       "content column" is 50ems wide at max; less on smaller screens.
-       Extra space (after ToC + content) is empty on the right.
+    /* Magic to create good item positioning:
+      "content column" is 50ems wide at max; less on smaller screens.
+      Extra space (after ToC + content) is empty on the right.
 
-       1. When table < content column, centers table in column.
-       2. When content < table < available, left-aligns.
-       3. When table > available, fills available + scroll bar.
+      1. When item < content column, centers item in column.
+      2. When content < item < available, left-aligns.
+      3. When item > available, fills available + scroll bar.
     */
     display: grid;
     grid-template-columns: minmax(0, 50em);
@@ -1209,19 +1472,19 @@ Possible extra rowspan handling
     .overlarge {
       overflow-x: auto;
       /* See Lea Verou's explanation background-attachment:
-       * http://lea.verou.me/2012/04/background-attachment-local/
-       *
+      * http://lea.verou.me/2012/04/background-attachment-local/
+      *
       background: top left  / 4em 100% linear-gradient(to right,  #ffffff, rgba(255, 255, 255, 0)) local,
-                  top right / 4em 100% linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0)) local,
-                  top left  / 1em 100% linear-gradient(to right,  #c3c3c5, rgba(195, 195, 197, 0)) scroll,
-                  top right / 1em 100% linear-gradient(to left, #c3c3c5, rgba(195, 195, 197, 0)) scroll,
-                  white;
+            top right / 4em 100% linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0)) local,
+            top left  / 1em 100% linear-gradient(to right,  #c3c3c5, rgba(195, 195, 197, 0)) scroll,
+            top right / 1em 100% linear-gradient(to left, #c3c3c5, rgba(195, 195, 197, 0)) scroll,
+            white;
       background-repeat: no-repeat;
       */
     }
   }
 </style>
-  <meta content="Bikeshed version 22d05d56, updated Sun Aug 9 20:27:34 2020 -0700" name="generator">
+  <meta content="Bikeshed version ef9d3c0a, updated Fri Nov 13 17:14:48 2020 -0800" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
 
@@ -1591,7 +1854,7 @@ Possible extra rowspan handling
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
-    color: #005a9c;
+    color: var(--a-normal-text);
     font-size: inherit;
     font-family: inherit;
 }
@@ -1650,6 +1913,115 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }</style>
+<style>/* style-colors */
+
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --unofficial-watermark: url(https://www.w3.org/StyleSheets/TR/2016/logos/UD-watermark);
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #707070;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #bbb;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --amendment-border: #330099;
+    --amendment-bg: #F5F0FF;
+    --amendment-text: var(--text);
+    --amendmentheading-text: #220066;
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
+}</style>
 <style>/* style-counters */
 
 body {
@@ -1681,6 +2053,10 @@ figcaption:not(.no-marker)::before {
 }</style>
 <style>/* style-dfn-panel */
 
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 .dfn-panel {
     position: absolute;
     z-index: 35;
@@ -1692,14 +2068,14 @@ figcaption:not(.no-marker)::before {
     overflow: auto;
     padding: 0.5em 0.75em;
     font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: #DDDDDD;
-    color: black;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
     border: outset 0.2em;
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
 .dfn-panel > b { display: block; }
-.dfn-panel a { color: black; }
+.dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
 .dfn-panel > b + b { margin-top: 0.25em; }
 .dfn-panel ul { padding: 0; }
@@ -1728,6 +2104,11 @@ figcaption:not(.no-marker)::before {
 }</style>
 <style>/* style-selflinks */
 
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
 .heading, .issue, .note, .example, li, dt {
     position: relative;
 }
@@ -1757,8 +2138,8 @@ dfn > a.self-link {
     opacity: 0;
     width: 1.5em;
     height: 1.5em;
-    background: gray;
-    color: white;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
     font-style: normal;
     transition: opacity .2s, background-color .2s, color .2s;
 }
@@ -1766,17 +2147,23 @@ dfn:hover > a.self-link {
     opacity: 1;
 }
 dfn > a.self-link:hover {
-    color: black;
+    color: var(--selflink-hover-text);
 }
 
 a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }</style>
+dfn > a.self-link::before      { content: "#"; }
+</style>
 <style>/* style-syntax-highlighting */
-pre.idl.highlight { color: #708090; }
-.highlight:not(.idl) { background: hsl(24, 20%, 95%); }
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
 code.highlight { padding: .1em; border-radius: .3em; }
 pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
 c-[a] { color: #990055 } /* Keyword.Declaration */
 c-[b] { color: #990055 } /* Keyword.Type */
 c-[c] { color: #708090 } /* Comment */
@@ -1830,11 +2217,201 @@ c-[vg] { color: #0077aa } /* Name.Variable.Global */
 c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
+<style>/* style-darkmode */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ddd;
+        --bg: black;
+
+        --unofficial-watermark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='%23100808' transform='translate(200 200) rotate(-45) translate(-200 -200)' stroke='%23100808' stroke-width='3'%3E%3Ctext x='50%25' y='220' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EUNOFFICIAL%3C/text%3E%3Ctext x='50%25' y='305' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EDRAFT%3C/text%3E%3C/g%3E%3C/svg%3E");
+
+        --logo-bg: #1a5e9a;
+        --logo-active-bg: #c00;
+        --logo-text: white;
+
+        --tocnav-normal-text: #999;
+        --tocnav-normal-bg: var(--bg);
+        --tocnav-hover-text: var(--tocnav-normal-text);
+        --tocnav-hover-bg: #080808;
+        --tocnav-active-text: #f44;
+        --tocnav-active-bg: var(--tocnav-normal-bg);
+
+        --tocsidebar-text: var(--text);
+        --tocsidebar-bg: #080808;
+        --tocsidebar-shadow: rgba(255,255,255,.1);
+        --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+        --toclink-text: var(--text);
+        --toclink-underline: #6af;
+        --toclink-visited-text: var(--toclink-text);
+        --toclink-visited-underline: #054572;
+
+        --heading-text: #8af;
+
+        --hr-text: var(--text);
+
+        --algo-border: #456;
+
+        --del-text: #f44;
+        --del-bg: transparent;
+        --ins-text: #4a4;
+        --ins-bg: transparent;
+
+        --a-normal-text: #6af;
+        --a-normal-underline: #555;
+        --a-visited-text: var(--a-normal-text);
+        --a-visited-underline: var(--a-normal-underline);
+        --a-hover-bg: rgba(25%, 25%, 25%, .2);
+        --a-active-text: #f44;
+        --a-active-underline: var(--a-active-text);
+
+        --borderedblock-bg: rgba(255, 255, 255, .05);
+
+        --blockquote-border: silver;
+        --blockquote-bg: var(--borderedblock-bg);
+        --blockquote-text: currentcolor;
+
+        --issue-border: #e05252;
+        --issue-bg: var(--borderedblock-bg);
+        --issue-text: var(--text);
+        --issueheading-text: hsl(0deg, 70%, 70%);
+
+        --example-border: hsl(50deg, 90%, 60%);
+        --example-bg: var(--borderedblock-bg);
+        --example-text: var(--text);
+        --exampleheading-text: hsl(50deg, 70%, 70%);
+
+        --note-border: hsl(120deg, 100%, 35%);
+        --note-bg: var(--borderedblock-bg);
+        --note-text: var(--text);
+        --noteheading-text: hsl(120, 70%, 70%);
+        --notesummary-underline: silver;
+
+        --assertion-border: #444;
+        --assertion-bg: var(--borderedblock-bg);
+        --assertion-text: var(--text);
+
+        --advisement-border: orange;
+        --advisement-bg: #222218;
+        --advisement-text: var(--text);
+        --advisementheading-text: #f84;
+
+        --warning-border: red;
+        --warning-bg: hsla(40,100%,20%,0.95);
+        --warning-text: var(--text);
+
+        --amendment-border: #330099;
+        --amendment-bg: #080010;
+        --amendment-text: var(--text);
+        --amendmentheading-text: #cc00ff;
+
+        --def-border: #8ccbf2;
+        --def-bg: #080818;
+        --def-text: var(--text);
+        --defrow-border: #136;
+
+        --datacell-border: silver;
+
+        --indexinfo-text: #aaa;
+
+        --indextable-hover-text: var(--text);
+        --indextable-hover-bg: #181818;
+
+        --outdatedspec-bg: rgba(255, 255, 255, .5);
+        --outdatedspec-text: black;
+        --outdated-bg: maroon;
+        --outdated-text: white;
+        --outdated-shadow: red;
+
+        --editedrec-bg: darkorange;
+    }
+    /* In case a transparent-bg image doesn't expect to be on a dark bg,
+       which is quite common in practice... */
+    img { background: white; }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="simid-1.1.0.images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-08-14">14 August 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-11-19">19 November 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1853,7 +2430,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 14 August 2020,
+In addition, as of 19 November 2020,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2225,16 +2802,14 @@ primary use case of interactivity.</p>
    <p>SIMID version 1.1 introduces the following enhancements:</p>
    <ol>
     <li data-md>
-     <p>Nonlinear ads support. SIMID offers:</p>
+     <p>Support for nonlinear ads.</p>
      <ul>
       <li data-md>
-       <p>New messages <a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a>, <a href="#simid-creative-collapseNonlinear">§ 4.4.2 SIMID:Creative:collapseNonlinear</a>, and <a href="#simid-player-collapseNonlinear">§ 4.3.5 SIMID:Player:collapseNonlinear</a>.</p>
-      <li data-md>
-       <p>Related to nonlinear ads data.</p>
+       <p>New messages <a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a>, <a href="#simid-creative-collapseNonlinear">§ 4.4.2 SIMID:Creative:collapseNonlinear</a>, and <a href="#simid-player-collapseNonlinear">§ 4.3.5 SIMID:Player:collapseNonlinear</a> and related data.</p>
       <li data-md>
        <p>Additional <a href="#error-codes">§ 9 Error Codes</a>.</p>
       <li data-md>
-       <p>Workflow for nonlinear playback.</p>
+       <p>Additional workflows for nonlinear playback.</p>
       <li data-md>
        <p>New sample code for nonlinear ads.</p>
      </ul>
@@ -2242,11 +2817,9 @@ primary use case of interactivity.</p>
      <p>Player handling user navigation to external landing pages for the in-mobile apps servings. For this purpose, SIMID:</p>
      <ul>
       <li data-md>
-       <p>Introduces a message <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a>.</p>
+       <p>New message <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a> and related data.</p>
       <li data-md>
-       <p>Offers corresponding data.</p>
-      <li data-md>
-       <p>Includes related <a href="#error-codes">§ 9 Error Codes</a>.</p>
+       <p>Additional related <a href="#error-codes">§ 9 Error Codes</a>.</p>
      </ul>
    </ol>
    <h2 class="heading settled" data-level="3" id="intro"><span class="secno">3. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
@@ -2307,14 +2880,14 @@ the SIMID creative and delivered via the VAST <code>MediaFile</code> node.</p>
    <p>Any use of the SIMID spec to support something other than interactive or
 dynamic content within the ad unit is counter to the intentions of this spec.</p>
    <h3 class="heading settled" data-level="3.5" id="nonlinear-intro"><span class="secno">3.5. </span><span class="content">Introduction to Nonlinear Ads</span><a class="self-link" href="#nonlinear-intro"></a></h3>
-   <p>Non-linear ads are units that media (video or audio) players serve concurrently with the primary media content. In video players, nonlinear ads overlay a portion of the video.</p>
-   <p>Non-linear ads implement two states: collapsed and expanded. The player renders the ad in the collapsed (original) state while media content progresses uninterrupted. The expanded ad state typically occupies the entire player viewport and requires the media content to be paused. Users are able to toggle the state of the ad.</p>
+   <p>Nonlinear ads are served and displayed concurrently with the primary media content. In video players, nonlinear ads overlay a portion of the video.</p>
+   <p>Nonlinear ads implement two states: collapsed and expanded. The player renders the nonlinear ad in the original state, collapsed, while media content progresses uninterrupted. The expanded ad state typically occupies the entire player viewport and requires the media content to be paused. The expanded state of the nonlinear ad usually occurs via user interaction with the creative.</p>
    <div diagram id="diagram-nonlinear-states">
     <p>Nonlinear Ad States</p>
-     <img alt="Nonlinear states." src="simid-1.1.0.images/non-linear-intro.png"> 
+     <img alt="Nonlinear states." src="simid-1.1.0.images/nonlinear-intro.png"> 
    </div>
-   <p>Unlike the linear ads, there is no media asset that the player needs to render with a non-linear ad.</p>
-   <p>SIMID supports non-linear ads by providing a non-linear specific API. Both linear and non-linear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe.</p>
+   <p>Unlike the linear ads, there is no media asset that the player needs to render with a nonlinear ad.</p>
+   <p>SIMID supports nonlinear ads by providing a nonlinear specific API. Both linear and nonlinear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe.</p>
    <div diagram id="diagram-nonlinear-user-experience">
     <p>Nonlinear Ad User Experience</p>
      <img alt="Nonlinear state." src="simid-1.1.0.images/nonlinear-user-experience.png"> 
@@ -2337,10 +2910,10 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     </ol>
    </div>
    <h4 class="heading settled" data-level="3.5.1" id="nonlinear-vast-response"><span class="secno">3.5.1. </span><span class="content">Nonlinear Ads VAST Response</span><a class="self-link" href="#nonlinear-vast-response"></a></h4>
-   <p>VAST supports nonlinear ads since version 2.0, including  interactive ads that implement API frameworks.</p>
+   <p>VAST supports nonlinear ads since version 2.0 including interactive ads that implement API frameworks.</p>
    <p>
-    VAST response describes nonlinear ads in <code>&lt;NonLinear></code> node children. The <code>&lt;NonLinear></code> node attribute’s <code>apiFrmawork</code> value is <code>SIMID</code>. Node 
-    <iframeresource> delivers URI to the SIMID interactive component. The node <code>&lt;AdParameters></code> contains custom ad data for the creative’s consumption.</iframeresource>
+    VAST response describes nonlinear ads in the <code>&lt;NonLinear></code> node children. The <code>&lt;NonLinear></code> node attribute’s <code>apiFrmawork</code> value is <code>SIMID</code>. The node 
+    <iframeresource> delivers a URI to the SIMID interactive component. The node <code>&lt;AdParameters></code> contains custom ad data for the creative’s consumption.</iframeresource>
    </p>
    <div class="example" id="example-70ea7bac">
     <a class="self-link" href="#example-70ea7bac"></a> 
@@ -2823,8 +3396,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The purpose of the <code>SIMID:player:init</code> message is to transport data to assist with the interactive component initialization. See <a href="#workflow-initialization">§ 6.2 Typical Initialization WorkFlow</a> and <a href="#workflow-uninterupted-initialization">§ 6.4 Uninterrupted Initialization WorkFlow</a>. 
    <p>The creative must respond to <code>Player:init</code> with either <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a> or <a href="#simid-player-init-reject">§ 4.3.7.2 reject</a>.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑥"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑥"></a></dfn> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata"><c- n>EnvironmentData</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="EnvironmentData " id="dom-messageargs-environmentdata"><code><c- g>environmentData</c-></code><a class="self-link" href="#dom-messageargs-environmentdata"></a></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata"><c- n>CreativeData</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="CreativeData " id="dom-messageargs-creativedata"><code><c- g>creativeData</c-></code><a class="self-link" href="#dom-messageargs-creativedata"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-environmentdata" id="ref-for-dictdef-environmentdata"><c- n>EnvironmentData</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="EnvironmentData " id="dom-messageargs-environmentdata"><code><c- g>environmentData</c-></code><a class="self-link" href="#dom-messageargs-environmentdata"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-creativedata" id="ref-for-dictdef-creativedata"><c- n>CreativeData</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="CreativeData " id="dom-messageargs-creativedata"><code><c- g>creativeData</c-></code><a class="self-link" href="#dom-messageargs-creativedata"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -2845,21 +3418,22 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dd>Value of VAST <code>&lt;ClickThrough></code> node. 
    </dl>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></dfn> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code><a class="self-link" href="#dom-environmentdata-videodimensions"></a></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions①"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-environmentdata-creativedimensions"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code><a class="self-link" href="#dom-environmentdata-videodimensions"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions①"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-environmentdata-creativedimensions"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreen"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-environmentdata-fullscreen"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate"><c- n>SkippableState</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="SkippableState " id="dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code><a class="self-link" href="#dom-environmentdata-skippablestate"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-version"><code><c- g>version</c-></code><a class="self-link" href="#dom-environmentdata-version"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code><a class="self-link" href="#dom-environmentdata-siteurl"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-appid"><code><c- g>appId</c-></code><a class="self-link" href="#dom-environmentdata-appid"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code><a class="self-link" href="#dom-environmentdata-useragent"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code><a class="self-link" href="#dom-environmentdata-deviceid"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate"><c- n>SkippableState</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="SkippableState " id="dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code><a class="self-link" href="#dom-environmentdata-skippablestate"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code><a class="self-link" href="#dom-environmentdata-skipoffset"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-version"><code><c- g>version</c-></code><a class="self-link" href="#dom-environmentdata-version"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code><a class="self-link" href="#dom-environmentdata-siteurl"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-appid"><code><c- g>appId</c-></code><a class="self-link" href="#dom-environmentdata-appid"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code><a class="self-link" href="#dom-environmentdata-useragent"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code><a class="self-link" href="#dom-environmentdata-deviceid"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-environmentdata-muted"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-environmentdata-volume"></a></dfn>;
-  <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport" id="ref-for-enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="NavigationSupport " id="dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code><a class="self-link" href="#dom-environmentdata-navigationsupport"></a></dfn>;
-  <a class="n" data-link-type="idl-name" href="#enumdef-closebuttonsupport" id="ref-for-enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="CloseButtonSupport " id="dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code><a class="self-link" href="#dom-environmentdata-closebuttonsupport"></a></dfn>;
+  <a data-link-type="idl-name" href="#enumdef-navigationsupport" id="ref-for-enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="NavigationSupport " id="dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code><a class="self-link" href="#dom-environmentdata-navigationsupport"></a></dfn>;
+  <a data-link-type="idl-name" href="#enumdef-closebuttonsupport" id="ref-for-enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="CloseButtonSupport " id="dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code><a class="self-link" href="#dom-environmentdata-closebuttonsupport"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code><a class="self-link" href="#dom-environmentdata-nonlinearduration"></a></dfn>;
 };
 
@@ -2876,9 +3450,9 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-videodimensions"><code>videoDimensions</code><a class="self-link" href="#dom-foointerface-videodimensions"></a></dfn>, <span></span>
-    <dd>Communicates media element coordinates and size. 
+    <dd>Communicates media element coordinates and size. -1 indicates an unknown value. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-creativedimensions"><code>creativeDimensions</code><a class="self-link" href="#dom-foointerface-creativedimensions"></a></dfn>, <span></span>
-    <dd>Communicates creative iframe coordinates and size the player will set when iframe becomes visible. 
+    <dd>Communicates creative iframe coordinates and size the player will set when iframe becomes visible. -1 indicates an unknown value. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-fullscreen"><code>fullscreen</code><a class="self-link" href="#dom-foointerface-fullscreen"></a></dfn>, <span></span>
     <dd>The value <code>true</code> indicates that the player is currently in fullscreen mode. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-fullscreenallowed"><code>fullscreenAllowed</code><a class="self-link" href="#dom-foointerface-fullscreenallowed"></a></dfn>, <span></span>
@@ -2941,6 +3515,14 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
       With both <code>playerHandles</code> and <code>notSkippable</code>, the creative avoids the 
      <button skip-ad>Skip Ad</button>
       button drawing. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-skipoffset"><code>skipoffset</code><a class="self-link" href="#dom-foointerface-skipoffset"></a></dfn>, <span></span>
+    <dd>
+     Optional parameter that communicates the time the ad becomes skippable for the current session. 
+     <p>The <code>skipoffset</code> value format is <code>"HH:MM:SS"</code> or <code>"HH:MM:SS.mmm"</code>.</p>
+      The value can differ from the <code>skipoffset</code> in the VAST response when the player controls skippability. 
+  If the parameter’s <code>skippableState</code> value is <code>"adHandles"</code>, the creative must display the 
+     <button skip-ad>Skip Ad</button>
+      button when media playback arrives at the time specified by the <code>skipoffset</code> parameter. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-version"><code>version</code><a class="self-link" href="#dom-foointerface-version"></a></dfn>, <span></span>
     <dd>The SIMID version the player implements. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-muted①"><code>muted</code><a class="self-link" href="#dom-foointerface-muted①"></a></dfn>, <span></span>
@@ -2971,7 +3553,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
       <li><b>adHandles</b> Indicates that the creative may render a close button. If the player will not render a close button it should always use adHandles for this parameter.
      </ul>
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-nonlinearduration"><code>nonlinearDuration</code><a class="self-link" href="#dom-foointerface-nonlinearduration"></a></dfn>, <span></span>
-    <dd>The duration in seconds that a nonlinear will play for. Often this might be the same as minSuggestedDuration from the VAST response or the duration of the content. 
+    <dd>The duration in seconds that a nonlinear ad will play for. Often, this might be the same as minSuggestedDuration from the VAST response or the duration of the content. 
    </dl>
    <ul class="footnote">
     <li>see <a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a> messages.
@@ -2987,7 +3569,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>The creative may respond with a reject based on its internal logic.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑦"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑦"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short③"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode①"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3001,7 +3583,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The purpose of the Player:log message is to convey optional, primarily debugging, information to the creative. 
    <p class="note" role="note"><span>Note:</span> In SIMID prefixing log messages with “WARNING:” has a specific meaning. The player is communicating performance inefficiencies or specification deviations aimed at creative developers. For example, if the creative sends the requestChangeVolume message but does not use the correct parameters, a “WARNING:” message is appropriate.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑧"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message①"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message①"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3011,8 +3593,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h4 class="heading settled" data-level="4.3.9" id="simid-player-resize"><span class="secno">4.3.9. </span><span class="content">SIMID:Player:resize</span><a class="self-link" href="#simid-player-resize"></a></h4>
     When the player changes any of ad components’ size, it posts the <code>SIMID:Player:resize</code> message. The message describes the media and creative sizes, independently, even if the dimensions are identical. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑨"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑨"></a></dfn> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions②"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-videodimensions"><code><c- g>videoDimensions</c-></code><a class="self-link" href="#dom-messageargs-videodimensions"></a></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions③"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions②"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-videodimensions"><code><c- g>videoDimensions</c-></code><a class="self-link" href="#dom-messageargs-videodimensions"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions③"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑤"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-fullscreen"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-messageargs-fullscreen"></a></dfn>;
 };
 
@@ -3046,7 +3628,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     When the creative responds with a reject, the player may unload the iframe. The player reports VAST error tracker with the <code>errorCode</code> the creative supplied. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⓪"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⓪"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short④"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode②"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode②"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason①"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason①"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3132,7 +3714,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-x"><code><c- g>x</c-></code><a class="self-link" href="#dom-messageargs-x"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short" id="ref-for-idl-short①"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-y"><code><c- g>y</c-></code><a class="self-link" href="#dom-messageargs-y"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑥"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-playerhandles"><code><c- g>playerHandles</c-></code><a class="self-link" href="#dom-messageargs-playerhandles"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-messageargs-url"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-messageargs-url"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3161,7 +3743,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The player posts <code>reject</code> if the creative requested the player to handle navigation when the player does not implement user redirects, creative fails to provide url, or the url is invalid. The player provides the <code>errorCode</code> 1214. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①②"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①②"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short" id="ref-for-idl-short②"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-errorcode③"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode③"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason②"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason②"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason②"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3186,7 +3768,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.2.1" id="simid-creative-collapseNonlinear-resolve"><span class="secno">4.4.2.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-collapseNonlinear-resolve"></a></h5>
     When the player resizes the ad, it posts a resolve message. 
    <h4 class="heading settled" data-level="4.4.3" id="simid-creative-expandNonlinear"><span class="secno">4.4.3. </span><span class="content">SIMID:Creative:expandNonlinear</span><a class="self-link" href="#simid-creative-expandNonlinear"></a></h4>
-   <p>The creative posts <code>Creative:expandNonlinear</code> when a user wants to expand the ad (by clicking expand control/button that default banner provides). Auto-expand is strongly discouraged and goes against industry guidelines.</p>
+   <p>The creative posts <code>Creative:expandNonlinear</code> when a user wants to expand the ad (by clicking expand control/button that the default creative provides). Auto-expand is strongly discouraged and goes against industry guidelines.</p>
    <p>Under normal circumstances, the player pauses the media. In cases when the content is video, the player resizes the creative iframe to the dimensions of the video and places the expanded creative at video zero coordinates.</p>
    <p>If the player communicates to the creative that it has no capacity to expand the ad with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message, the creative does not provide an expand button or post the <code>Creaitve:expandNonlinear</code> message.</p>
    <div diagram id="diagram-creative-expandNonlinear">
@@ -3203,7 +3785,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.3.1" id="simid-creative-expandNonlinear-resolve"><span class="secno">4.4.3.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-expandNonlinear-resolve"></a></h5>
     Once the player resizes the ad, it posts a <code>resolve</code> message. The player provides the expanded size dimensions and position with the resolve message.args 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①③"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①③"></a></dfn> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions④"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions①"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions①"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions④"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions①"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions①"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions②"><code><c- g>Dimensions</c-></code><a class="self-link" href="#dictdef-dimensions②"></a></dfn> {
@@ -3223,7 +3805,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The creative posts <code>SIMID:Creative:fatalError</code> in cases when its internal exceptions prevent the interactive component from further execution. In response to the <code>Creative:fatalError</code> message, the player unloads the SIMID iframe and reports VAST error tracker with the <code>errorCode</code> specified by the creative. The ad media playback must stop, if possible. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①④"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①④"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑤"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode④"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode④"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3237,7 +3819,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.5.1" id="simid-creative-getMediaState-resolve"><span class="secno">4.4.5.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-getMediaState-resolve"></a></h5>
     The player should always respond  to <code>Creative:getMediaState</code> with a <code>resolve</code>, including situations when the player is unable to provide all expected values. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑤"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑤"></a></dfn> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime②"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration①"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration①"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑦"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-ended"><code><c- g>ended</c-></code><a class="self-link" href="#dom-messageargs-ended"></a></dfn>;
@@ -3269,7 +3851,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The message <code>SIMID:Creative:log</code> enables the creative to communicate arbitrary information to the player. 
    <p class="note" role="note"><span>Note:</span> If the <code>log</code> message purpose is to notify the player about the player’s non-standard behavior, the creative prepends <code>Message.args.message</code> value with “WARNING:” <code>string</code>. Warning messages are used to inform player developers about occurances of non-fatal issues.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑥"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑥"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message②"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message②"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3286,7 +3868,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <li>Accept and send the trackers with custom macros – leave non-standard macros intact unless the publisher-ad integration involves custom macros processing.
    </ul>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑦"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑦"></a></dfn> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>Array</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Array " id="dom-messageargs-trackingurls"><code><c- g>trackingUrls</c-></code><a class="self-link" href="#dom-messageargs-trackingurls"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name"><c- n>Array</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Array " id="dom-messageargs-trackingurls"><code><c- g>trackingUrls</c-></code><a class="self-link" href="#dom-messageargs-trackingurls"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3299,7 +3881,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The player posts a <code>reject</code> if it did not send the trackers. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑧"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode⑤"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode⑤"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason③"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason③"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason③"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason③"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3382,7 +3964,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>In web environments, the creative manages navigation.</p>
    <p>The creative sends <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a> in response to the user’s interaction. The creative does not request navigation without user interaction.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs②①"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs②①"></a></dfn> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="string " id="dom-messageargs-uri"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name"><c- n>string</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="string " id="dom-messageargs-uri"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3430,8 +4012,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>The player must not resize the ad unless it can change the dimensions of both media element and SIMID iframe to the values specified by the <code>Creative:requestResize</code> message.</p>
    <p class="note" role="note"><span>Note:</span> the message <code>requestResize</code> must not be used to change screen mode. See the <a href="#simid-creative-requestFullscreen">§ 4.4.10 SIMID:Creative:requestFullscreen</a> and <a href="#simid-creative-requestExitFullscreen">§ 4.4.11 SIMID:Creative:requestExitFullscreen</a> messages.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs②②"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs②②"></a></dfn> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions⑤"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-mediadimensions"><code><c- g>mediaDimensions</c-></code><a class="self-link" href="#dom-messageargs-mediadimensions"></a></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions⑥"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions②"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions②"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions⑤"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-mediadimensions"><code><c- g>mediaDimensions</c-></code><a class="self-link" href="#dom-messageargs-mediadimensions"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions⑥"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions②"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions②"></a></dfn>;
 };
 <c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions③"><code><c- g>Dimensions</c-></code><a class="self-link" href="#dictdef-dimensions③"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①②"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x③"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x③"></a></dfn>;
@@ -3638,17 +4220,17 @@ on to the next ad in the current ad pod).</p>
     <li data-md>
      <p>The creative will initialize a session.</p>
     <li data-md>
-     <p>If the creative doesn’t initialize a session within a reasonable timeout the player drops the creative and reports an error.</p>
+     <p>If the creative doesn’t initialize a session within a reasonable time, the player drops the creative and reports an error.</p>
     <li data-md>
      <p>The player sends a <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message with relevant parameters.</p>
     <li data-md>
-     <p>If the player can initialize the creative responds with resolve.</p>
+     <p>If the player can initialize, the creative responds with resolve.</p>
     <li data-md>
-     <p>If the creative responds with reject or doesn’t respond in time the player drops the creatives iframe and reports an error.</p>
+     <p>If the creative responds with reject, or doesn’t respond in time, the player drops the creative’s iframe and reports an error.</p>
     <li data-md>
-     <p>When the player is ready to show the iframe the player sends a <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> message.</p>
+     <p>When the player is ready to show the iframe, the player sends a <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> message.</p>
     <li data-md>
-     <p>If the creative responds with reject or doesn’t respond in time the player drops the creatives iframe and reports an error.</p>
+     <p>If the creative responds with reject, or doesn’t respond in time, the player drops the creatives iframe and reports an error.</p>
     <li data-md>
      <p>When the creative responds with resolve, the player makes the iframe visible.</p>
    </ol>
@@ -3836,11 +4418,11 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="8.1.1" id="message-data-structure"><span class="secno">8.1.1. </span><span class="content">Data Structure</span><a class="self-link" href="#message-data-structure"></a></h4>
    <p>The <code>message</code> data implements the following data structure:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-message"><code><c- g>Message</c-></code><a class="self-link" href="#dictdef-message"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-message-messageid"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-message-timestamp"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
-  <c- b>any</c-> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code><a class="self-link" href="#dom-message-args"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code><a class="self-link" href="#dom-message-args"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3883,7 +4465,7 @@ duration must only be extended in response to user interaction.</p>
    <p><code>Message.args</code> must be a <code>ResolveMessageArgs</code> object:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code><a class="self-link" href="#dictdef-resolvemessageargs"></a></dfn> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-resolvemessageargs-messageid"></a></dfn>;
-    <c- b>any</c-> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-resolvemessageargs-value"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-resolvemessageargs-value"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3916,7 +4498,7 @@ duration must only be extended in response to user interaction.</p>
    <p><code>Message.args.value</code> must be a <code>RejectMessageArgsValue</code> object:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code><a class="self-link" href="#dictdef-rejectmessageargsvalue"></a></dfn> {
     <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-errorcode"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -4051,7 +4633,7 @@ If the creative does not post a <code>createSession</code> message on time, the 
      <tr>
       <td>1105
       <td>Request for expand not honored.
-      <td>The creative requested to expand but the player did not allow it.
+      <td>The creative requested to expand the media player but the player did not allow it.
      <tr>
       <td>1106
       <td>Request for pause not honored.
@@ -4089,21 +4671,21 @@ If the creative does not post a <code>createSession</code> message on time, the 
       <td>The player could not support the creatives version.
      <tr>
       <td>1202
-      <td>SIMID creative requesting more time than the player
+      <td>The creative is requesting more time than the player
           is willing to support.
       <td>
      <tr>
       <td>1203
-      <td>SIMID creative requesting more functionality than the player is
+      <td>The creative is requesting more functionality than the player is
           willing to support.
       <td>
      <tr>
       <td>1204
-      <td>SIMID creative is doing actions not supported on this site.
+      <td>The creative is doing actions not supported on this site.
       <td>
      <tr>
       <td>1205
-      <td>SIMID creative is overloading the postmessage channel.
+      <td>The creative is overloading the postmessage channel.
       <td>
      <tr>
       <td>1206
@@ -4116,29 +4698,29 @@ If the creative does not post a <code>createSession</code> message on time, the 
           for too long and timed out.
      <tr>
       <td>1208
-      <td>The SIMID creative is taking too long to resolve or reject messages.
+      <td>The creative is taking too long to resolve or reject messages.
       <td>
      <tr>
       <td>1209
-      <td>The SIMID creatives media from the VAST response is not supported
+      <td>The SIMID media from the VAST response is not supported
           on this device.
       <td>
      <tr>
       <td>1210
-      <td>The SIMID creative is not following the spec when initializing.
+      <td>The creative is not following the spec when initializing.
       <td>
      <tr>
       <td>1211
-      <td>The SIMID creative is not following the spec in the way it
+      <td>The creative is not following the spec in the way it
           sends messages.
       <td>
      <tr>
       <td>1212
-      <td>The SIMID creative did not reply to the <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message.
+      <td>The creative did not reply to the <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message.
       <td>
      <tr>
       <td>1213
-      <td>The SIMID creative did not reply to the <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> message.
+      <td>The creative did not reply to the <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> message.
       <td>
      <tr>
       <td>1214
@@ -4166,16 +4748,20 @@ If the creative does not post a <code>createSession</code> message on time, the 
       <td>Clickthrough has been reported once, but the creative has requested clickthrough again. No click through will be reported.
      <tr>
       <td>1220
-      <td>Nonlinear ad expand not possible due to problem pausing the media.
-      <td>Player is rejecting <a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a> because it cannot pause media. Player should have informed creative it cannot pause the media on <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a>.
+      <td>Nonlinear expasion not possible due to problem pausing the media.
+      <td>Player is rejecting <a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a> because it cannot pause media. The player should have informed creative it cannot pause the media on <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a>.
      <tr>
       <td>1221
-      <td>Expand ad rejected by user.
-      <td>User has indicated that the ad should be collapsed so the player will not allow expand.
+      <td>Nonlinear expansion rejected by user.
+      <td>The user has indicated that the ad should be collapsed so the player will not allow a nonlinear expansion.
      <tr>
       <td>1222
       <td>Player received excessive number of <a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a> messages.
-      <td>Player limits a number of nonlinear ad expands, and that limitation is exceeded.
+      <td>The player limits a number of nonlinear ad expands and that limit has been exceeded.
+     <tr>
+      <td>1223
+      <td>Session not created.
+      <td>The creative did not create a session. This error could be triggered after a timeout or upon the end of the media playback.
    </table>
    <h2 class="heading settled" data-level="10" id="terminology"><span class="secno">10. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <dl>
@@ -4661,6 +5247,12 @@ primary media.</p>
      <li><a href="#dom-foointerface-siteurl">attribute for FooInterface</a><span>, in §4.3.7</span>
      <li><a href="#dom-environmentdata-siteurl">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
     </ul>
+   <li>
+    skipoffset
+    <ul>
+     <li><a href="#dom-foointerface-skipoffset">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#dom-environmentdata-skipoffset">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+    </ul>
    <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §4.3.7</span>
    <li>
     skippableState
@@ -4775,18 +5367,25 @@ primary media.</p>
    <ul>
     <li><a href="#ref-for-idl-DOMString">4.2.3. SIMID:Media:error</a>
     <li><a href="#ref-for-idl-DOMString①">4.3.6. SIMID:Player:fatalError</a>
-    <li><a href="#ref-for-idl-DOMString②">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a>
-    <li><a href="#ref-for-idl-DOMString⑨">4.3.7.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⓪">4.3.8. SIMID:Player:log</a>
-    <li><a href="#ref-for-idl-DOMString①①">4.3.10.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①②">4.4.1. SIMID:Creative:clickThru</a>
-    <li><a href="#ref-for-idl-DOMString①③">4.4.1.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①④">4.4.4. SIMID:Creative:fatalError</a>
-    <li><a href="#ref-for-idl-DOMString①⑤">4.4.5.1. resolve</a>
-    <li><a href="#ref-for-idl-DOMString①⑥">4.4.6. SIMID:Creative:log</a>
-    <li><a href="#ref-for-idl-DOMString①⑦">4.4.7.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⑧">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString①⑨">(2)</a>
-    <li><a href="#ref-for-idl-DOMString②⓪">8.2.2. reject Messages</a>
+    <li><a href="#ref-for-idl-DOMString②">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a> <a href="#ref-for-idl-DOMString⑨">(8)</a>
+    <li><a href="#ref-for-idl-DOMString①⓪">4.3.7.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①①">4.3.8. SIMID:Player:log</a>
+    <li><a href="#ref-for-idl-DOMString①②">4.3.10.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①③">4.4.1. SIMID:Creative:clickThru</a>
+    <li><a href="#ref-for-idl-DOMString①④">4.4.1.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①⑤">4.4.4. SIMID:Creative:fatalError</a>
+    <li><a href="#ref-for-idl-DOMString①⑥">4.4.5.1. resolve</a>
+    <li><a href="#ref-for-idl-DOMString①⑦">4.4.6. SIMID:Creative:log</a>
+    <li><a href="#ref-for-idl-DOMString①⑧">4.4.7.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①⑨">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString②⓪">(2)</a>
+    <li><a href="#ref-for-idl-DOMString②①">8.2.2. reject Messages</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-any">
+   <a href="https://heycam.github.io/webidl/#idl-any">https://heycam.github.io/webidl/#idl-any</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-any">8.1.1. Data Structure</a>
+    <li><a href="#ref-for-idl-any①">8.2.1. resolve Messages</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
@@ -4853,13 +5452,14 @@ primary media.</p>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
-     <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
-     <li><span class="dfn-paneled" id="term-for-idl-float" style="color:initial">float</span>
-     <li><span class="dfn-paneled" id="term-for-idl-long" style="color:initial">long</span>
-     <li><span class="dfn-paneled" id="term-for-idl-short" style="color:initial">short</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long" style="color:initial">unsigned long</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short" style="color:initial">unsigned short</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-idl-any">any</span>
+     <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
+     <li><span class="dfn-paneled" id="term-for-idl-float">float</span>
+     <li><span class="dfn-paneled" id="term-for-idl-long">long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-short">short</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short">unsigned short</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -4899,8 +5499,8 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑥"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-environmentdata"><c- n>EnvironmentData</c-></a> <a data-type="EnvironmentData " href="#dom-messageargs-environmentdata"><code><c- g>environmentData</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-creativedata"><c- n>CreativeData</c-></a> <a data-type="CreativeData " href="#dom-messageargs-creativedata"><code><c- g>creativeData</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-environmentdata"><c- n>EnvironmentData</c-></a> <a data-type="EnvironmentData " href="#dom-messageargs-environmentdata"><code><c- g>environmentData</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-creativedata"><c- n>CreativeData</c-></a> <a data-type="CreativeData " href="#dom-messageargs-creativedata"><code><c- g>creativeData</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-creativedata"><code><c- g>CreativeData</c-></code></a> {
@@ -4909,12 +5509,13 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreen"><code><c- g>fullscreen</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-skippablestate"><c- n>SkippableState</c-></a> <a data-type="SkippableState " href="#dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-skippablestate"><c- n>SkippableState</c-></a> <a data-type="SkippableState " href="#dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-version"><code><c- g>version</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-appid"><code><c- g>appId</c-></code></a>;
@@ -4922,8 +5523,8 @@ primary media.</p>
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-muted"><code><c- g>muted</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-volume"><code><c- g>volume</c-></code></a>;
-  <a class="n" data-link-type="idl-name" href="#enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <a data-type="NavigationSupport " href="#dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code></a>;
-  <a class="n" data-link-type="idl-name" href="#enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <a data-type="CloseButtonSupport " href="#dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code></a>;
+  <a data-link-type="idl-name" href="#enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <a data-type="NavigationSupport " href="#dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code></a>;
+  <a data-link-type="idl-name" href="#enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <a data-type="CloseButtonSupport " href="#dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code></a>;
 };
 
@@ -4948,8 +5549,8 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑨"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-fullscreen"><code><c- g>fullscreen</c-></code></a>;
 };
 
@@ -4978,7 +5579,7 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①③"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions①"><code><c- g>creativeDimensions</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions①"><code><c- g>creativeDimensions</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-dimensions②"><code><c- g>Dimensions</c-></code></a> {
@@ -5009,7 +5610,7 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑦"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>Array</c-></a> <a data-type="Array " href="#dom-messageargs-trackingurls"><code><c- g>trackingUrls</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name"><c- n>Array</c-></a> <a data-type="Array " href="#dom-messageargs-trackingurls"><code><c- g>trackingUrls</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑧"><code><c- g>MessageArgs</c-></code></a> {
@@ -5027,12 +5628,12 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②①"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-messageargs-uri"><code><c- g>uri</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-messageargs-uri"><code><c- g>uri</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②②"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-mediadimensions"><code><c- g>mediaDimensions</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions②"><code><c- g>creativeDimensions</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-mediadimensions"><code><c- g>mediaDimensions</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions②"><code><c- g>creativeDimensions</c-></code></a>;
 };
 <c- b>dictionary</c-> <a href="#dictdef-dimensions③"><code><c- g>Dimensions</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x③"><code><c- g>x</c-></code></a>;
@@ -5047,12 +5648,12 @@ primary media.</p>
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-messageid"><code><c- g>messageId</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-timestamp"><code><c- g>timestamp</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-type"><code><c- g>type</c-></code></a>;
-  <c- b>any</c-> <a data-type="any " href="#dom-message-args"><code><c- g>args</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a data-type="any " href="#dom-message-args"><code><c- g>args</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></a>;
-    <c- b>any</c-> <a data-type="any " href="#dom-resolvemessageargs-value"><code><c- g>value</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a data-type="any " href="#dom-resolvemessageargs-value"><code><c- g>value</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code></a> {
