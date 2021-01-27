@@ -580,7 +580,8 @@ class SimidPlayer {
    */
   trackEventsOnAdVideoElement_() {
     this.adVideoTrackingEvents_.set("durationchange", () => {
-      this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGED);
+      this.simidProtocol.sendMessage(MediaMessage.DURATION_CHANGE,
+        {'duration': this.adVideoElement_.duration});
     });
     this.adVideoTrackingEvents_.set("ended", this.videoComplete.bind(this));
     this.adVideoTrackingEvents_.set("error", () => {
