@@ -21,7 +21,7 @@ class SimidSelector extends BaseSimidCreative {
     // Give the user 10 seconds to select a shorter ad or continue with default ad.
     setTimeout(() => {
       if (!this.adSelected_) {
-        this.hideElemenets();
+        this.hideElements();
       }
     }, 10000);
   }
