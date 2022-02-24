@@ -1581,7 +1581,7 @@ dictionary MessageArgs {
 	<dt><dfn>errorCode</dfn>
 	<dd>1214.
 	<dt><dfn>reason</dfn>
-	<dd>Additional information. For example: "Invalid DQoJPHBhdGggZmlsbD0iIzU4NTk1YiIgZD0iTTIyLDIyYzAsMC41NTItMC40NDgsMS0xLDFoLTZjLTAuNTUyLDAtMS0wLjQ0OC0xLTF2LTRjMC0wLjU1MiwwLjQ0OC0xLDEtMWg2YzAuNTUyLDAsMSwwLjQ0OCwxLDFWMjJ6Ii8".
+	<dd>Additional information. For example: "Invalid URI".
 	
 </dl>
 
