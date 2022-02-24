@@ -1865,7 +1865,7 @@ The creative sends [[#simid-creative-requestNavigation]] in response to the user
 
 <xmp class="idl">
 dictionary MessageArgs {
-  required string uri;
+  required DOMString uri;
 };
 </xmp>
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
