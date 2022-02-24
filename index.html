@@ -12,7 +12,7 @@
  *   - .toc for the Table of Contents (<ol class="toc">)
  *     + <span class="secno"> for the section numbers
  *   - #toc for the Table of Contents (<nav id="toc">)
- *   - ul.index for Indices (<a href="#ref">term</a><span>, in §N.M</span>)
+ *   - ul.index for Indices (<a href="#ref">term</a><span>, in § N.M</span>)
  *   - table.index for Index Tables (e.g. for properties or elements)
  *
  * Structural Markup
@@ -368,8 +368,8 @@
 /** Subheadings ***************************************************************/
 
 	h1 + h2,
-	#subtitle {
-		/* #subtitle is a subtitle in an H2 under the H1 */
+	#profile-and-date {
+		/* #profile-and-date is a subtitle in an H2 under the H1 */
 		margin-top: 0;
 	}
 	h2 + h3,
@@ -583,34 +583,27 @@
 	a[href] {
 		color: #034575;
 		color: var(--a-normal-text);
-		text-decoration: none;
-		border-bottom: 1px solid #707070;
-		border-bottom: 1px solid var(--a-normal-underline);
-		/* Need a bit of extending for it to look okay */
-		padding: 0 1px 0;
-		margin: 0 -1px 0;
+		text-decoration: underline #707070;
+		text-decoration: underline var(--a-normal-underline);
+		text-decoration-skip-ink: none;
 	}
 	a:visited {
 		color: #034575;
 		color: var(--a-visited-text);
-		border-bottom-color: #bbb;
-		border-bottom-color: var(--a-visited-underline);
+		text-decoration-color: #bbb;
+		text-decoration-color: var(--a-visited-underline);
 	}
 
-	/* Use distinguishing colors when user is interacting with the link */
+	/* Indicate interaction with the link */
 	a[href]:focus,
 	a[href]:hover {
-		background: #f8f8f8;
-		background: rgba(75%, 75%, 75%, .25);
-		background: var(--a-hover-bg);
-		border-bottom-width: 3px;
-		margin-bottom: -2px;
+		text-decoration-thickness: 2px;
 	}
 	a[href]:active {
 		color: #c00;
 		color: var(--a-active-text);
-		border-color: #c00;
-		border-color: var(--a-active-underline);
+		text-decoration-color: #c00;
+		text-decoration-color: var(--a-active-underline);
 	}
 
 	/* Backout above styling for W3C logo */
@@ -1116,9 +1109,12 @@ Possible extra rowspan handling
 
 	.toc a {
 		/* More spacing; use padding to make it part of the click target. */
-		padding-top: 0.1rem;
+		padding: 0.1rem 1px 0;
 		/* Larger, more consistently-sized click target */
 		display: block;
+		/* Switch to using border-bottom for underlines */
+		text-decoration: none;
+		border-bottom: 1px solid;
 		/* Reverse color scheme */
 		color: black;
 		color: var(--toclink-text);
@@ -1130,6 +1126,13 @@ Possible extra rowspan handling
 		color: var(--toclink-visited-text);
 		border-color: #054572;
 		border-color: var(--toclink-visited-underline);
+	}
+	.toc a:focus,
+	.toc a:hover {
+		background: rgba(75%, 75%, 75%, .25);
+		background: var(--a-hover-bg);
+		border-bottom-width: 3px;
+		margin-bottom: -2px;
 	}
 	.toc a:not(:focus):not(:hover) {
 		/* Allow colors to cascade through from link styling */
@@ -1266,7 +1269,7 @@ Possible extra rowspan handling
 	ul.index ul,
 	ul.index dl { font-size: smaller; }
 	@media not print {
-		ul.index li span:not(.dfn-paneled) {
+		ul.index li a + span {
 			white-space: nowrap;
 			color: transparent; }
 		ul.index li a:hover + span,
@@ -1484,7 +1487,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version ef9d3c0a, updated Fri Nov 13 17:14:48 2020 -0800" name="generator">
+  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
 <style>
 
@@ -1957,9 +1960,9 @@ pre .property::before, pre .property::after {
     --ins-bg: transparent;
 
     --a-normal-text: #034575;
-    --a-normal-underline: #707070;
+    --a-normal-underline: #bbb;
     --a-visited-text: var(--a-normal-text);
-    --a-visited-underline: #bbb;
+    --a-visited-underline: #707070;
     --a-hover-bg: rgba(75%, 75%, 75%, .25);
     --a-active-text: #c00;
     --a-active-underline: #c00;
@@ -2091,6 +2094,16 @@ figcaption:not(.no-marker)::before {
 }
 
 .dfn-paneled { cursor: pointer; }
+</style>
+<style>/* style-issues */
+
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
 </style>
 <style>/* style-md-lists */
 
@@ -2411,7 +2424,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2020-11-19">19 November 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2022-02-23">23 February 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2428,9 +2441,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
+   <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" height="15" src="https://licensebuttons.net/p/zero/1.0/80x15.png" width="80"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 19 November 2020,
+In addition, as of 23 February 2022,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -3204,7 +3217,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h4 class="heading settled" data-level="4.2.1" id="simid-media-durationchange"><span class="secno">4.2.1. </span><span class="content">SIMID:Media:durationchange</span><a class="self-link" href="#simid-media-durationchange"></a></h4>
    <p>When the duration of the media changes due to the player receiving the media resource metadata (in HTML, <code>HTMLMediaElement</code> dispatches the <code>durationchange</code> event), the player posts a <code>SIMID:Media:durationchange</code> message.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3219,8 +3232,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h4 class="heading settled" data-level="4.2.3" id="simid-media-error"><span class="secno">4.2.3. </span><span class="content">SIMID:Media:error</span><a class="self-link" href="#simid-media-error"></a></h4>
     When playback throws an exception (in HTML, <code>HTMLMediaElement</code> dispatches an <code>error</code> event), the player posts a <code>SIMID:Media:error</code> message. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-error"><code><c- g>error</c-></code><a class="self-link" href="#dom-messageargs-error"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-error"><code><c- g>error</c-></code><a class="self-link" href="#dom-messageargs-error"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3263,7 +3276,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The player communicates media playhead position by posting a <code>SIMID:Media:timeupdate</code> message. The message <code>Media:timeupdate</code> frequency should be not less than every 250ms. 
    <p>In HTML, the player sends a <code>Media:timeupdate</code> message <code data-span-tag="when"> HTMLMediaElement</code> dispatches a <code>timeupdate</code> event.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs②"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs②"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float①"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float①"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3274,8 +3287,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h4 class="heading settled" data-level="4.2.11" id="simid-media-volumechange"><span class="secno">4.2.11. </span><span class="content">SIMID:Media:volumechange</span><a class="self-link" href="#simid-media-volumechange"></a></h4>
     When the media audio state changes (in HTML, <code>HTMLMediaElement</code> dispatches a <code>volumechange</code> event), the player posts a <code>SIMID:Media:volumechange</code> message. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs③"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs③"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float②"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float②"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3346,7 +3359,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The player posts a <code>SIMID:Player:adStopped</code> message immediately after it terminates the ad for any reason other than a user generated skip.  See <a href="#simid-player-adSkipped">§ 4.3.1 SIMID:Player:adSkipped</a>. 
    <p>The player must stop media playback and hide the creative iframe before reporting <code>Player:adStopped</code>. The player must wait for a <code>resolve</code> response from the creative allotting a reasonable timeout to accommodate creative’s needs to finalize the ad-end logic.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs④"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs④"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short①"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-code"><code><c- g>code</c-></code><a class="self-link" href="#dom-messageargs-code"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short①"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-code"><code><c- g>code</c-></code><a class="self-link" href="#dom-messageargs-code"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3379,8 +3392,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>Regardless of the player’s ability to terminate playback, the player should hide creative iframe and wait for <code>resolve</code> response before unloading iframe.</p>
    <p>See <a href="#workflow-error">§ 6.9.5 Ad Errors Out</a></p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑤"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑤"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short②"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short②"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3407,8 +3420,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dd>Information that pertains to the specific creative. 
    </dl>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-creativedata"><code><c- g>CreativeData</c-></code></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-creativedata-adparameters"><code><c- g>adParameters</c-></code><a class="self-link" href="#dom-creativedata-adparameters"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code><a class="self-link" href="#dom-creativedata-clickthruurl"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-creativedata-adparameters"><code><c- g>adParameters</c-></code><a class="self-link" href="#dom-creativedata-adparameters"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code><a class="self-link" href="#dom-creativedata-clickthruurl"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3420,28 +3433,28 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></dfn> {
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code><a class="self-link" href="#dom-environmentdata-videodimensions"></a></dfn>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions①"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-environmentdata-creativedimensions"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreen"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-environmentdata-fullscreen"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreen"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-environmentdata-fullscreen"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></dfn>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate"><c- n>SkippableState</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="SkippableState " id="dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code><a class="self-link" href="#dom-environmentdata-skippablestate"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code><a class="self-link" href="#dom-environmentdata-skipoffset"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-version"><code><c- g>version</c-></code><a class="self-link" href="#dom-environmentdata-version"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code><a class="self-link" href="#dom-environmentdata-siteurl"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-appid"><code><c- g>appId</c-></code><a class="self-link" href="#dom-environmentdata-appid"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code><a class="self-link" href="#dom-environmentdata-useragent"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code><a class="self-link" href="#dom-environmentdata-deviceid"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-environmentdata-muted"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-environmentdata-volume"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code><a class="self-link" href="#dom-environmentdata-skipoffset"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-version"><code><c- g>version</c-></code><a class="self-link" href="#dom-environmentdata-version"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code><a class="self-link" href="#dom-environmentdata-siteurl"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-appid"><code><c- g>appId</c-></code><a class="self-link" href="#dom-environmentdata-appid"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code><a class="self-link" href="#dom-environmentdata-useragent"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code><a class="self-link" href="#dom-environmentdata-deviceid"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-environmentdata-muted"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-environmentdata-volume"></a></dfn>;
   <a data-link-type="idl-name" href="#enumdef-navigationsupport" id="ref-for-enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="NavigationSupport " id="dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code><a class="self-link" href="#dom-environmentdata-navigationsupport"></a></dfn>;
   <a data-link-type="idl-name" href="#enumdef-closebuttonsupport" id="ref-for-enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="CloseButtonSupport " id="dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code><a class="self-link" href="#dom-environmentdata-closebuttonsupport"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float④"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code><a class="self-link" href="#dom-environmentdata-nonlinearduration"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float④"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code><a class="self-link" href="#dom-environmentdata-nonlinearduration"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions"><code><c- g>Dimensions</c-></code></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long②"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long③"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long②"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long③"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height"></a></dfn>;
 };
 
 <c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-skippablestate"><code><c- g>SkippableState</c-></code></dfn> {<dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code><a class="self-link" href="#dom-skippablestate-playerhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code><a class="self-link" href="#dom-skippablestate-adhandles"></a></dfn>, <dfn class="idl-code" data-dfn-for="SkippableState" data-dfn-type="enum-value" data-export id="dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code><a class="self-link" href="#dom-skippablestate-notskippable"></a></dfn>};
@@ -3568,8 +3581,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.3.7.2" id="simid-player-init-reject"><span class="secno">4.3.7.2. </span><span class="content">reject</span><a class="self-link" href="#simid-player-init-reject"></a></h5>
    <p>The creative may respond with a reject based on its internal logic.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑦"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑦"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short③"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode①"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short③"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3583,7 +3596,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The purpose of the Player:log message is to convey optional, primarily debugging, information to the creative. 
    <p class="note" role="note"><span>Note:</span> In SIMID prefixing log messages with “WARNING:” has a specific meaning. The player is communicating performance inefficiencies or specification deviations aimed at creative developers. For example, if the creative sends the requestChangeVolume message but does not use the correct parameters, a “WARNING:” message is appropriate.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑧"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message①"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message①"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3595,14 +3608,14 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑨"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑨"></a></dfn> {
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions②"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-videodimensions"><code><c- g>videoDimensions</c-></code><a class="self-link" href="#dom-messageargs-videodimensions"></a></dfn>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions③"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑤"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-fullscreen"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-messageargs-fullscreen"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean⑤"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-fullscreen"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-messageargs-fullscreen"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions①"><code><c- g>Dimensions</c-></code><a class="self-link" href="#dictdef-dimensions①"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long④"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x①"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x①"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long⑤"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y①"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y①"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long⑥"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width①"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width①"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long⑦"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height①"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long④"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x①"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long⑤"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y①"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long⑥"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width①"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long⑦"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height①"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3627,8 +3640,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.3.10.2" id="simid-player-startCreative-reject"><span class="secno">4.3.10.2. </span><span class="content">reject</span><a class="self-link" href="#simid-player-startCreative-reject"></a></h5>
     When the creative responds with a reject, the player may unload the iframe. The player reports VAST error tracker with the <code>errorCode</code> the creative supplied. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⓪"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⓪"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short④"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode②"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode②"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason①"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short④"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode②"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode②"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason①"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3711,10 +3724,10 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p class="note" role="note"><span>Note:</span> Not all clickthrough metrics require the opening of a landing page. The player must assume that a <code>clickThru</code> message that does not provide a landing page URL is still a valid <code>clickthrough</code> notification.</p>
    <p>The message, <code>clickThru</code>, is not an explicit media-pausing directive to the player. If the environment permits, the player must pause ad media in all cases when the user navigates away from the player-hosting page or app, including <code>clickthrough</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API">Page Visibility API</a>.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①①"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①①"></a></dfn> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-x"><code><c- g>x</c-></code><a class="self-link" href="#dom-messageargs-x"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short" id="ref-for-idl-short①"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-y"><code><c- g>y</c-></code><a class="self-link" href="#dom-messageargs-y"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑥"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-playerhandles"><code><c- g>playerHandles</c-></code><a class="self-link" href="#dom-messageargs-playerhandles"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-messageargs-url"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-x"><code><c- g>x</c-></code><a class="self-link" href="#dom-messageargs-x"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short①"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-y"><code><c- g>y</c-></code><a class="self-link" href="#dom-messageargs-y"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean⑥"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-playerhandles"><code><c- g>playerHandles</c-></code><a class="self-link" href="#dom-messageargs-playerhandles"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-messageargs-url"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3742,8 +3755,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.1.2" id="simid-creative-clickThru-reject"><span class="secno">4.4.1.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-clickThru-reject"></a></h5>
     The player posts <code>reject</code> if the creative requested the player to handle navigation when the player does not implement user redirects, creative fails to provide url, or the url is invalid. The player provides the <code>errorCode</code> 1214. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①②"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①②"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short" id="ref-for-idl-short②"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-errorcode③"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode③"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason②"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short②"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-errorcode③"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode③"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason②"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3789,10 +3802,10 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 };
 
 <c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions②"><code><c- g>Dimensions</c-></code><a class="self-link" href="#dictdef-dimensions②"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long⑧"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x②"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x②"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long⑨"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y②"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y②"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①⓪"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width②"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width②"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①①"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height②"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long⑧"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x②"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long⑨"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y②"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①⓪"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width②"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①①"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height②"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3804,8 +3817,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h4 class="heading settled" data-level="4.4.4" id="simid-creative-fatalError"><span class="secno">4.4.4. </span><span class="content">SIMID:Creative:fatalError</span><a class="self-link" href="#simid-creative-fatalError"></a></h4>
     The creative posts <code>SIMID:Creative:fatalError</code> in cases when its internal exceptions prevent the interactive component from further execution. In response to the <code>Creative:fatalError</code> message, the player unloads the SIMID iframe and reports VAST error tracker with the <code>errorCode</code> specified by the creative. The ad media playback must stop, if possible. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①④"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①④"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑤"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode④"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode④"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑤"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode④"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode④"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3819,14 +3832,14 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.5.1" id="simid-creative-getMediaState-resolve"><span class="secno">4.4.5.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-getMediaState-resolve"></a></h5>
     The player should always respond  to <code>Creative:getMediaState</code> with a <code>resolve</code>, including situations when the player is unable to provide all expected values. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑤"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑤"></a></dfn> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑤"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime②"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑥"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration①"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration①"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑦"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-ended"><code><c- g>ended</c-></code><a class="self-link" href="#dom-messageargs-ended"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑧"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted①"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted①"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean⑨"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-paused"><code><c- g>paused</c-></code><a class="self-link" href="#dom-messageargs-paused"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑦"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume①"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume①"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①⓪"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-fullscreen①"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-messageargs-fullscreen①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float⑤"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime②"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float⑥"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration①"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean⑦"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-ended"><code><c- g>ended</c-></code><a class="self-link" href="#dom-messageargs-ended"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean⑧"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted①"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean⑨"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-paused"><code><c- g>paused</c-></code><a class="self-link" href="#dom-messageargs-paused"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float⑦"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume①"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean①⓪"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-fullscreen①"><code><c- g>fullscreen</c-></code><a class="self-link" href="#dom-messageargs-fullscreen①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3851,7 +3864,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The message <code>SIMID:Creative:log</code> enables the creative to communicate arbitrary information to the player. 
    <p class="note" role="note"><span>Note:</span> If the <code>log</code> message purpose is to notify the player about the player’s non-standard behavior, the creative prepends <code>Message.args.message</code> value with “WARNING:” <code>string</code>. Warning messages are used to inform player developers about occurances of non-fatal issues.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑥"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑥"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message②"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message②"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3880,8 +3893,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.7.2" id="simid-creative-reportTracking-reject"><span class="secno">4.4.7.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-reportTracking-reject"></a></h5>
     The player posts a <code>reject</code> if it did not send the trackers. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑧"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode⑤"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode⑤"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason③"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason③"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode⑤"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode⑤"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason③"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason③"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3897,7 +3910,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>When the duration value is <code>-2</code>, the player displays the ad indefinitely until the creative posts <a href="#simid-creative-requestStop">§ 4.4.17 SIMID:Creative:requestStop</a>. See <a href="#workflow-ad-duartion-changed-unknown">§ 6.10.3 Ad Duration Changed Workflow - Unknown Time</a> step <span step><b>4</b></span>).</p>
    <p class="note" role="note"><span>Note:</span> The player communicates its capacities to modify the ad duration with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message args parameter <code>variableDurationAllowed</code>. If the value of <code>variableDurationAllowed</code> is <code>false</code>, the creative refrains from posting <code>requestChangeAdDuration</code> message.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑨"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑨"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑧"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration②"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float⑧"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration②"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3919,8 +3932,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h4 class="heading settled" data-level="4.4.9" id="simid-creative-requestChangeVolume"><span class="secno">4.4.9. </span><span class="content">SIMID:Creative:requestChangeVolume</span><a class="self-link" href="#simid-creative-requestChangeVolume"></a></h4>
     The creative requests ad volume change by posting a <code>SIMID:Creative:requestChangeVolume</code> message. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs②⓪"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs②⓪"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float" id="ref-for-idl-float⑨"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume②"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume②"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted②"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float⑨"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-volume②"><code><c- g>volume</c-></code><a class="self-link" href="#dom-messageargs-volume②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean①①"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-muted②"><code><c- g>muted</c-></code><a class="self-link" href="#dom-messageargs-muted②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -4016,10 +4029,10 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions" id="ref-for-dictdef-dimensions⑥"><c- n>Dimensions</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="Dimensions " id="dom-messageargs-creativedimensions②"><code><c- g>creativeDimensions</c-></code><a class="self-link" href="#dom-messageargs-creativedimensions②"></a></dfn>;
 };
 <c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-dimensions③"><code><c- g>Dimensions</c-></code><a class="self-link" href="#dictdef-dimensions③"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①②"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x③"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x③"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①③"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y③"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y③"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①④"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width③"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width③"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①⑤"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height③"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height③"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①②"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-x③"><code><c- g>x</c-></code><a class="self-link" href="#dom-dimensions-x③"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①③"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-y③"><code><c- g>y</c-></code><a class="self-link" href="#dom-dimensions-y③"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①④"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-width③"><code><c- g>width</c-></code><a class="self-link" href="#dom-dimensions-width③"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①⑤"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Dimensions" data-dfn-type="dict-member" data-export data-type="long " id="dom-dimensions-height③"><code><c- g>height</c-></code><a class="self-link" href="#dom-dimensions-height③"></a></dfn>;
 };
 
 </pre>
@@ -4418,11 +4431,11 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="8.1.1" id="message-data-structure"><span class="secno">8.1.1. </span><span class="content">Data Structure</span><a class="self-link" href="#message-data-structure"></a></h4>
    <p>The <code>message</code> data implements the following data structure:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-message"><code><c- g>Message</c-></code><a class="self-link" href="#dictdef-message"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-message-messageid"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-message-timestamp"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code><a class="self-link" href="#dom-message-args"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-message-messageid"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-message-timestamp"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code><a class="self-link" href="#dom-message-args"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -4464,8 +4477,8 @@ duration must only be extended in response to user interaction.</p>
    <p><code>Message.type</code> must be <code>resolve</code>.</p>
    <p><code>Message.args</code> must be a <code>ResolveMessageArgs</code> object:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code><a class="self-link" href="#dictdef-resolvemessageargs"></a></dfn> {
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-resolvemessageargs-messageid"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-resolvemessageargs-value"></a></dfn>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-resolvemessageargs-messageid"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="ResolveMessageArgs" data-dfn-type="dict-member" data-export data-type="any " id="dom-resolvemessageargs-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-resolvemessageargs-value"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -4497,8 +4510,8 @@ duration must only be extended in response to user interaction.</p>
    <p><code>Message.type</code> must be <code>reject</code>.</p>
    <p><code>Message.args.value</code> must be a <code>RejectMessageArgsValue</code> object:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code><a class="self-link" href="#dictdef-rejectmessageargsvalue"></a></dfn> {
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-errorcode"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-errorcode"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -4945,425 +4958,425 @@ primary media.</p>
    <li>
     "adHandles"
     <ul>
-     <li><a href="#dom-closebuttonsupport-adhandles">enum-value for CloseButtonSupport</a><span>, in §4.3.7</span>
-     <li><a href="#dom-navigationsupport-adhandles">enum-value for NavigationSupport</a><span>, in §4.3.7</span>
-     <li><a href="#dom-skippablestate-adhandles">enum-value for SkippableState</a><span>, in §4.3.7</span>
+     <li><a href="#dom-closebuttonsupport-adhandles">enum-value for CloseButtonSupport</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-navigationsupport-adhandles">enum-value for NavigationSupport</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-skippablestate-adhandles">enum-value for SkippableState</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     adParameters
     <ul>
-     <li><a href="#dom-foointerface-adparameters">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-creativedata-adparameters">dict-member for CreativeData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-adparameters">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-creativedata-adparameters">dict-member for CreativeData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     appId
     <ul>
-     <li><a href="#dom-foointerface-appid">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-appid">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-appid">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-appid">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     args
     <ul>
-     <li><a href="#dom-foointerface-args">attribute for FooInterface</a><span>, in §8.1.1</span>
-     <li><a href="#dom-message-args">dict-member for Message</a><span>, in §8.1.1</span>
+     <li><a href="#dom-foointerface-args">attribute for FooInterface</a><span>, in § 8.1.1</span>
+     <li><a href="#dom-message-args">dict-member for Message</a><span>, in § 8.1.1</span>
     </ul>
    <li>
     clickThruUrl
     <ul>
-     <li><a href="#dom-foointerface-clickthruurl">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-creativedata-clickthruurl">dict-member for CreativeData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-clickthruurl">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-creativedata-clickthruurl">dict-member for CreativeData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     CloseButtonSupport
     <ul>
-     <li><a href="#enumdef-closebuttonsupport">(enum)</a><span>, in §4.3.7</span>
-     <li><a href="#dom-foointerface-closebuttonsupport">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#enumdef-closebuttonsupport">(enum)</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-foointerface-closebuttonsupport">attribute for FooInterface</a><span>, in § 4.3.7</span>
     </ul>
-   <li><a href="#dom-environmentdata-closebuttonsupport">closeButtonSupport</a><span>, in §4.3.7</span>
+   <li><a href="#dom-environmentdata-closebuttonsupport">closeButtonSupport</a><span>, in § 4.3.7</span>
    <li>
     code
     <ul>
-     <li><a href="#dom-foointerface-code">attribute for FooInterface</a><span>, in §4.3.2</span>
-     <li><a href="#dom-messageargs-code">dict-member for MessageArgs</a><span>, in §4.3.2</span>
+     <li><a href="#dom-foointerface-code">attribute for FooInterface</a><span>, in § 4.3.2</span>
+     <li><a href="#dom-messageargs-code">dict-member for MessageArgs</a><span>, in § 4.3.2</span>
     </ul>
-   <li><a href="#content-media">Content Media</a><span>, in §10</span>
-   <li><a href="#dictdef-creativedata">CreativeData</a><span>, in §4.3.7</span>
+   <li><a href="#content-media">Content Media</a><span>, in § 10</span>
+   <li><a href="#dictdef-creativedata">CreativeData</a><span>, in § 4.3.7</span>
    <li>
     creativeData
     <ul>
-     <li><a href="#dom-foointerface-creativedata">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-creativedata">dict-member for MessageArgs</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-creativedata">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-messageargs-creativedata">dict-member for MessageArgs</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     creativeDimensions
     <ul>
-     <li><a href="#dom-foointerface-creativedimensions">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-foointerface-creativedimensions①">attribute for FooInterface</a><span>, in §4.3.9</span>
-     <li><a href="#dom-foointerface-creativedimensions②">attribute for FooInterface</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-foointerface-creativedimensions③">attribute for FooInterface</a><span>, in §4.4.15</span>
-     <li><a href="#dom-environmentdata-creativedimensions">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-creativedimensions">dict-member for MessageArgs</a><span>, in §4.3.9</span>
-     <li><a href="#dom-messageargs-creativedimensions①">dict-member for MessageArgs</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-messageargs-creativedimensions②">dict-member for MessageArgs</a><span>, in §4.4.15</span>
+     <li><a href="#dom-foointerface-creativedimensions">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-foointerface-creativedimensions①">attribute for FooInterface</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-foointerface-creativedimensions②">attribute for FooInterface</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dom-foointerface-creativedimensions③">attribute for FooInterface</a><span>, in § 4.4.15</span>
+     <li><a href="#dom-environmentdata-creativedimensions">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-messageargs-creativedimensions">dict-member for MessageArgs</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-messageargs-creativedimensions①">dict-member for MessageArgs</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dom-messageargs-creativedimensions②">dict-member for MessageArgs</a><span>, in § 4.4.15</span>
     </ul>
    <li>
     currentSrc
     <ul>
-     <li><a href="#dom-foointerface-currentsrc">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-messageargs-currentsrc">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-currentsrc">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-messageargs-currentsrc">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
     </ul>
    <li>
     currentTime
     <ul>
-     <li><a href="#dom-foointerface-currenttime">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-messageargs-currenttime①">attribute for MessageArgs</a><span>, in §4.2.10</span>
-     <li><a href="#dom-messageargs-currenttime">dict-member for MessageArgs</a><span>, in §4.2.10</span>
-     <li><a href="#dom-messageargs-currenttime②">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-currenttime">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-messageargs-currenttime①">attribute for MessageArgs</a><span>, in § 4.2.10</span>
+     <li><a href="#dom-messageargs-currenttime">dict-member for MessageArgs</a><span>, in § 4.2.10</span>
+     <li><a href="#dom-messageargs-currenttime②">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
     </ul>
    <li>
     deviceId
     <ul>
-     <li><a href="#dom-foointerface-deviceid">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-deviceid">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-deviceid">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-deviceid">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     Dimensions
     <ul>
-     <li><a href="#dictdef-dimensions">(dictionary)</a><span>, in §4.3.7</span>
-     <li><a href="#dictdef-dimensions①">(dictionary)</a><span>, in §4.3.9</span>
-     <li><a href="#dictdef-dimensions②">(dictionary)</a><span>, in §4.4.3.1</span>
-     <li><a href="#dictdef-dimensions③">(dictionary)</a><span>, in §4.4.15</span>
+     <li><a href="#dictdef-dimensions">(dictionary)</a><span>, in § 4.3.7</span>
+     <li><a href="#dictdef-dimensions①">(dictionary)</a><span>, in § 4.3.9</span>
+     <li><a href="#dictdef-dimensions②">(dictionary)</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dictdef-dimensions③">(dictionary)</a><span>, in § 4.4.15</span>
     </ul>
    <li>
     duration
     <ul>
-     <li><a href="#dom-foointerface-duration">attribute for FooInterface</a><span>, in §4.2.1</span>
-     <li><a href="#dom-foointerface-duration①">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-foointerface-duration②">attribute for FooInterface</a><span>, in §4.4.8</span>
-     <li><a href="#dom-messageargs-duration">dict-member for MessageArgs</a><span>, in §4.2.1</span>
-     <li><a href="#dom-messageargs-duration①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-messageargs-duration②">dict-member for MessageArgs</a><span>, in §4.4.8</span>
+     <li><a href="#dom-foointerface-duration">attribute for FooInterface</a><span>, in § 4.2.1</span>
+     <li><a href="#dom-foointerface-duration①">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-foointerface-duration②">attribute for FooInterface</a><span>, in § 4.4.8</span>
+     <li><a href="#dom-messageargs-duration">dict-member for MessageArgs</a><span>, in § 4.2.1</span>
+     <li><a href="#dom-messageargs-duration①">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-messageargs-duration②">dict-member for MessageArgs</a><span>, in § 4.4.8</span>
     </ul>
    <li>
     ended
     <ul>
-     <li><a href="#dom-foointerface-ended">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-messageargs-ended">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-ended">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-messageargs-ended">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
     </ul>
-   <li><a href="#dictdef-environmentdata">EnvironmentData</a><span>, in §4.3.7</span>
+   <li><a href="#dictdef-environmentdata">EnvironmentData</a><span>, in § 4.3.7</span>
    <li>
     environmentData
     <ul>
-     <li><a href="#dom-foointerface-environmentdata">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-environmentdata">dict-member for MessageArgs</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-environmentdata">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-messageargs-environmentdata">dict-member for MessageArgs</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     error
     <ul>
-     <li><a href="#dom-foointerface-error">attribute for FooInterface</a><span>, in §4.2.3</span>
-     <li><a href="#dom-messageargs-error">dict-member for MessageArgs</a><span>, in §4.2.3</span>
+     <li><a href="#dom-foointerface-error">attribute for FooInterface</a><span>, in § 4.2.3</span>
+     <li><a href="#dom-messageargs-error">dict-member for MessageArgs</a><span>, in § 4.2.3</span>
     </ul>
    <li>
     errorCode
     <ul>
-     <li><a href="#dom-foointerface-errorcode">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-foointerface-errorcode①">attribute for FooInterface</a><span>, in §4.3.7.2</span>
-     <li><a href="#dom-foointerface-errorcode②">attribute for FooInterface</a><span>, in §4.3.10.2</span>
-     <li><a href="#dom-foointerface-errorcode③">attribute for FooInterface</a><span>, in §4.4.1.2</span>
-     <li><a href="#dom-foointerface-errorcode④">attribute for FooInterface</a><span>, in §4.4.4</span>
-     <li><a href="#dom-foointerface-errorcode⑤">attribute for FooInterface</a><span>, in §4.4.7.2</span>
-     <li><a href="#dom-foointerface-errorcode⑥">attribute for FooInterface</a><span>, in §8.2.2</span>
-     <li><a href="#dom-messageargs-errorcode">dict-member for MessageArgs</a><span>, in §4.3.6</span>
-     <li><a href="#dom-messageargs-errorcode①">dict-member for MessageArgs</a><span>, in §4.3.7.2</span>
-     <li><a href="#dom-messageargs-errorcode②">dict-member for MessageArgs</a><span>, in §4.3.10.2</span>
-     <li><a href="#dom-messageargs-errorcode③">dict-member for MessageArgs</a><span>, in §4.4.1.2</span>
-     <li><a href="#dom-messageargs-errorcode④">dict-member for MessageArgs</a><span>, in §4.4.4</span>
-     <li><a href="#dom-messageargs-errorcode⑤">dict-member for MessageArgs</a><span>, in §4.4.7.2</span>
-     <li><a href="#dom-rejectmessageargsvalue-errorcode">dict-member for RejectMessageArgsValue</a><span>, in §8.2.2</span>
+     <li><a href="#dom-foointerface-errorcode">attribute for FooInterface</a><span>, in § 4.3.6</span>
+     <li><a href="#dom-foointerface-errorcode①">attribute for FooInterface</a><span>, in § 4.3.7.2</span>
+     <li><a href="#dom-foointerface-errorcode②">attribute for FooInterface</a><span>, in § 4.3.10.2</span>
+     <li><a href="#dom-foointerface-errorcode③">attribute for FooInterface</a><span>, in § 4.4.1.2</span>
+     <li><a href="#dom-foointerface-errorcode④">attribute for FooInterface</a><span>, in § 4.4.4</span>
+     <li><a href="#dom-foointerface-errorcode⑤">attribute for FooInterface</a><span>, in § 4.4.7.2</span>
+     <li><a href="#dom-foointerface-errorcode⑥">attribute for FooInterface</a><span>, in § 8.2.2</span>
+     <li><a href="#dom-messageargs-errorcode">dict-member for MessageArgs</a><span>, in § 4.3.6</span>
+     <li><a href="#dom-messageargs-errorcode①">dict-member for MessageArgs</a><span>, in § 4.3.7.2</span>
+     <li><a href="#dom-messageargs-errorcode②">dict-member for MessageArgs</a><span>, in § 4.3.10.2</span>
+     <li><a href="#dom-messageargs-errorcode③">dict-member for MessageArgs</a><span>, in § 4.4.1.2</span>
+     <li><a href="#dom-messageargs-errorcode④">dict-member for MessageArgs</a><span>, in § 4.4.4</span>
+     <li><a href="#dom-messageargs-errorcode⑤">dict-member for MessageArgs</a><span>, in § 4.4.7.2</span>
+     <li><a href="#dom-rejectmessageargsvalue-errorcode">dict-member for RejectMessageArgsValue</a><span>, in § 8.2.2</span>
     </ul>
    <li>
     errorMessage
     <ul>
-     <li><a href="#dom-foointerface-errormessage">attribute for FooInterface</a><span>, in §4.3.6</span>
-     <li><a href="#dom-foointerface-errormessage①">attribute for FooInterface</a><span>, in §4.4.4</span>
-     <li><a href="#dom-messageargs-errormessage">dict-member for MessageArgs</a><span>, in §4.3.6</span>
-     <li><a href="#dom-messageargs-errormessage①">dict-member for MessageArgs</a><span>, in §4.4.4</span>
+     <li><a href="#dom-foointerface-errormessage">attribute for FooInterface</a><span>, in § 4.3.6</span>
+     <li><a href="#dom-foointerface-errormessage①">attribute for FooInterface</a><span>, in § 4.4.4</span>
+     <li><a href="#dom-messageargs-errormessage">dict-member for MessageArgs</a><span>, in § 4.3.6</span>
+     <li><a href="#dom-messageargs-errormessage①">dict-member for MessageArgs</a><span>, in § 4.4.4</span>
     </ul>
    <li>
     fullscreen
     <ul>
-     <li><a href="#dom-foointerface-fullscreen">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-foointerface-fullscreen①">attribute for FooInterface</a><span>, in §4.3.9</span>
-     <li><a href="#dom-foointerface-fullscreen②">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-environmentdata-fullscreen">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-fullscreen">dict-member for MessageArgs</a><span>, in §4.3.9</span>
-     <li><a href="#dom-messageargs-fullscreen①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-fullscreen">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-foointerface-fullscreen①">attribute for FooInterface</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-foointerface-fullscreen②">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-environmentdata-fullscreen">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-messageargs-fullscreen">dict-member for MessageArgs</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-messageargs-fullscreen①">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
     </ul>
    <li>
     fullscreenAllowed
     <ul>
-     <li><a href="#dom-foointerface-fullscreenallowed">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-fullscreenallowed">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-fullscreenallowed">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-fullscreenallowed">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     height
     <ul>
-     <li><a href="#dom-dimensions-height">dict-member for Dimensions</a><span>, in §4.3.7</span>
-     <li><a href="#dom-dimensions-height①">dict-member for Dimensions</a><span>, in §4.3.9</span>
-     <li><a href="#dom-dimensions-height②">dict-member for Dimensions</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-dimensions-height③">dict-member for Dimensions</a><span>, in §4.4.15</span>
+     <li><a href="#dom-dimensions-height">dict-member for Dimensions</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-dimensions-height①">dict-member for Dimensions</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-dimensions-height②">dict-member for Dimensions</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dom-dimensions-height③">dict-member for Dimensions</a><span>, in § 4.4.15</span>
     </ul>
    <li>
     mediaDimensions
     <ul>
-     <li><a href="#dom-foointerface-mediadimensions">attribute for FooInterface</a><span>, in §4.3.9</span>
-     <li><a href="#dom-foointerface-mediadimensions①">attribute for FooInterface</a><span>, in §4.4.15</span>
-     <li><a href="#dom-messageargs-mediadimensions">dict-member for MessageArgs</a><span>, in §4.4.15</span>
+     <li><a href="#dom-foointerface-mediadimensions">attribute for FooInterface</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-foointerface-mediadimensions①">attribute for FooInterface</a><span>, in § 4.4.15</span>
+     <li><a href="#dom-messageargs-mediadimensions">dict-member for MessageArgs</a><span>, in § 4.4.15</span>
     </ul>
-   <li><a href="#dictdef-message">Message</a><span>, in §8.1.1</span>
+   <li><a href="#dictdef-message">Message</a><span>, in § 8.1.1</span>
    <li>
     message
     <ul>
-     <li><a href="#dom-foointerface-message">attribute for FooInterface</a><span>, in §4.2.3</span>
-     <li><a href="#dom-foointerface-message①">attribute for FooInterface</a><span>, in §4.3.8</span>
-     <li><a href="#dom-foointerface-message②">attribute for FooInterface</a><span>, in §4.4.6</span>
-     <li><a href="#dom-foointerface-message③">attribute for FooInterface</a><span>, in §8.2.2</span>
-     <li><a href="#dom-messageargs-message">dict-member for MessageArgs</a><span>, in §4.2.3</span>
-     <li><a href="#dom-messageargs-message①">dict-member for MessageArgs</a><span>, in §4.3.8</span>
-     <li><a href="#dom-messageargs-message②">dict-member for MessageArgs</a><span>, in §4.4.6</span>
-     <li><a href="#dom-rejectmessageargsvalue-message">dict-member for RejectMessageArgsValue</a><span>, in §8.2.2</span>
+     <li><a href="#dom-foointerface-message">attribute for FooInterface</a><span>, in § 4.2.3</span>
+     <li><a href="#dom-foointerface-message①">attribute for FooInterface</a><span>, in § 4.3.8</span>
+     <li><a href="#dom-foointerface-message②">attribute for FooInterface</a><span>, in § 4.4.6</span>
+     <li><a href="#dom-foointerface-message③">attribute for FooInterface</a><span>, in § 8.2.2</span>
+     <li><a href="#dom-messageargs-message">dict-member for MessageArgs</a><span>, in § 4.2.3</span>
+     <li><a href="#dom-messageargs-message①">dict-member for MessageArgs</a><span>, in § 4.3.8</span>
+     <li><a href="#dom-messageargs-message②">dict-member for MessageArgs</a><span>, in § 4.4.6</span>
+     <li><a href="#dom-rejectmessageargsvalue-message">dict-member for RejectMessageArgsValue</a><span>, in § 8.2.2</span>
     </ul>
    <li>
     MessageArgs
     <ul>
-     <li><a href="#dictdef-messageargs">(dictionary)</a><span>, in §4.2.1</span>
-     <li><a href="#dictdef-messageargs①">(dictionary)</a><span>, in §4.2.3</span>
-     <li><a href="#dictdef-messageargs②">(dictionary)</a><span>, in §4.2.10</span>
-     <li><a href="#dictdef-messageargs③">(dictionary)</a><span>, in §4.2.11</span>
-     <li><a href="#dictdef-messageargs④">(dictionary)</a><span>, in §4.3.2</span>
-     <li><a href="#dictdef-messageargs⑤">(dictionary)</a><span>, in §4.3.6</span>
-     <li><a href="#dictdef-messageargs⑥">(dictionary)</a><span>, in §4.3.7</span>
-     <li><a href="#dictdef-messageargs⑦">(dictionary)</a><span>, in §4.3.7.2</span>
-     <li><a href="#dictdef-messageargs⑧">(dictionary)</a><span>, in §4.3.8</span>
-     <li><a href="#dictdef-messageargs⑨">(dictionary)</a><span>, in §4.3.9</span>
-     <li><a href="#dictdef-messageargs①⓪">(dictionary)</a><span>, in §4.3.10.2</span>
-     <li><a href="#dictdef-messageargs①①">(dictionary)</a><span>, in §4.4.1</span>
-     <li><a href="#dictdef-messageargs①②">(dictionary)</a><span>, in §4.4.1.2</span>
-     <li><a href="#dictdef-messageargs①③">(dictionary)</a><span>, in §4.4.3.1</span>
-     <li><a href="#dictdef-messageargs①④">(dictionary)</a><span>, in §4.4.4</span>
-     <li><a href="#dictdef-messageargs①⑤">(dictionary)</a><span>, in §4.4.5.1</span>
-     <li><a href="#dictdef-messageargs①⑥">(dictionary)</a><span>, in §4.4.6</span>
-     <li><a href="#dictdef-messageargs①⑦">(dictionary)</a><span>, in §4.4.7</span>
-     <li><a href="#dictdef-messageargs①⑧">(dictionary)</a><span>, in §4.4.7.2</span>
-     <li><a href="#dictdef-messageargs①⑨">(dictionary)</a><span>, in §4.4.8</span>
-     <li><a href="#dictdef-messageargs②⓪">(dictionary)</a><span>, in §4.4.9</span>
-     <li><a href="#dictdef-messageargs②①">(dictionary)</a><span>, in §4.4.12</span>
-     <li><a href="#dictdef-messageargs②②">(dictionary)</a><span>, in §4.4.15</span>
+     <li><a href="#dictdef-messageargs">(dictionary)</a><span>, in § 4.2.1</span>
+     <li><a href="#dictdef-messageargs①">(dictionary)</a><span>, in § 4.2.3</span>
+     <li><a href="#dictdef-messageargs②">(dictionary)</a><span>, in § 4.2.10</span>
+     <li><a href="#dictdef-messageargs③">(dictionary)</a><span>, in § 4.2.11</span>
+     <li><a href="#dictdef-messageargs④">(dictionary)</a><span>, in § 4.3.2</span>
+     <li><a href="#dictdef-messageargs⑤">(dictionary)</a><span>, in § 4.3.6</span>
+     <li><a href="#dictdef-messageargs⑥">(dictionary)</a><span>, in § 4.3.7</span>
+     <li><a href="#dictdef-messageargs⑦">(dictionary)</a><span>, in § 4.3.7.2</span>
+     <li><a href="#dictdef-messageargs⑧">(dictionary)</a><span>, in § 4.3.8</span>
+     <li><a href="#dictdef-messageargs⑨">(dictionary)</a><span>, in § 4.3.9</span>
+     <li><a href="#dictdef-messageargs①⓪">(dictionary)</a><span>, in § 4.3.10.2</span>
+     <li><a href="#dictdef-messageargs①①">(dictionary)</a><span>, in § 4.4.1</span>
+     <li><a href="#dictdef-messageargs①②">(dictionary)</a><span>, in § 4.4.1.2</span>
+     <li><a href="#dictdef-messageargs①③">(dictionary)</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dictdef-messageargs①④">(dictionary)</a><span>, in § 4.4.4</span>
+     <li><a href="#dictdef-messageargs①⑤">(dictionary)</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dictdef-messageargs①⑥">(dictionary)</a><span>, in § 4.4.6</span>
+     <li><a href="#dictdef-messageargs①⑦">(dictionary)</a><span>, in § 4.4.7</span>
+     <li><a href="#dictdef-messageargs①⑧">(dictionary)</a><span>, in § 4.4.7.2</span>
+     <li><a href="#dictdef-messageargs①⑨">(dictionary)</a><span>, in § 4.4.8</span>
+     <li><a href="#dictdef-messageargs②⓪">(dictionary)</a><span>, in § 4.4.9</span>
+     <li><a href="#dictdef-messageargs②①">(dictionary)</a><span>, in § 4.4.12</span>
+     <li><a href="#dictdef-messageargs②②">(dictionary)</a><span>, in § 4.4.15</span>
     </ul>
    <li>
     messageId
     <ul>
-     <li><a href="#dom-foointerface-messageid">attribute for FooInterface</a><span>, in §8.1.1</span>
-     <li><a href="#dom-foointerface-messageid①">attribute for FooInterface</a><span>, in §8.2.1</span>
-     <li><a href="#dom-message-messageid">dict-member for Message</a><span>, in §8.1.1</span>
-     <li><a href="#dom-resolvemessageargs-messageid">dict-member for ResolveMessageArgs</a><span>, in §8.2.1</span>
+     <li><a href="#dom-foointerface-messageid">attribute for FooInterface</a><span>, in § 8.1.1</span>
+     <li><a href="#dom-foointerface-messageid①">attribute for FooInterface</a><span>, in § 8.2.1</span>
+     <li><a href="#dom-message-messageid">dict-member for Message</a><span>, in § 8.1.1</span>
+     <li><a href="#dom-resolvemessageargs-messageid">dict-member for ResolveMessageArgs</a><span>, in § 8.2.1</span>
     </ul>
    <li>
     muted
     <ul>
-     <li><a href="#dom-foointerface-muted">attribute for FooInterface</a><span>, in §4.2.11</span>
-     <li><a href="#dom-foointerface-muted①">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-foointerface-muted②">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-foointerface-muted③">attribute for FooInterface</a><span>, in §4.4.9</span>
-     <li><a href="#dom-environmentdata-muted">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-muted">dict-member for MessageArgs</a><span>, in §4.2.11</span>
-     <li><a href="#dom-messageargs-muted①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-messageargs-muted②">dict-member for MessageArgs</a><span>, in §4.4.9</span>
+     <li><a href="#dom-foointerface-muted">attribute for FooInterface</a><span>, in § 4.2.11</span>
+     <li><a href="#dom-foointerface-muted①">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-foointerface-muted②">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-foointerface-muted③">attribute for FooInterface</a><span>, in § 4.4.9</span>
+     <li><a href="#dom-environmentdata-muted">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-messageargs-muted">dict-member for MessageArgs</a><span>, in § 4.2.11</span>
+     <li><a href="#dom-messageargs-muted①">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-messageargs-muted②">dict-member for MessageArgs</a><span>, in § 4.4.9</span>
     </ul>
    <li>
     NavigationSupport
     <ul>
-     <li><a href="#enumdef-navigationsupport">(enum)</a><span>, in §4.3.7</span>
-     <li><a href="#dom-foointerface-navigationsupport">attribute for FooInterface</a><span>, in §4.3.7</span>
+     <li><a href="#enumdef-navigationsupport">(enum)</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-foointerface-navigationsupport">attribute for FooInterface</a><span>, in § 4.3.7</span>
     </ul>
-   <li><a href="#dom-environmentdata-navigationsupport">navigationSupport</a><span>, in §4.3.7</span>
+   <li><a href="#dom-environmentdata-navigationsupport">navigationSupport</a><span>, in § 4.3.7</span>
    <li>
     nonlinearDuration
     <ul>
-     <li><a href="#dom-foointerface-nonlinearduration">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-nonlinearduration">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-nonlinearduration">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-nonlinearduration">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
-   <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in §4.3.7</span>
-   <li><a href="#dom-navigationsupport-notsupported">"notSupported"</a><span>, in §4.3.7</span>
+   <li><a href="#dom-skippablestate-notskippable">"notSkippable"</a><span>, in § 4.3.7</span>
+   <li><a href="#dom-navigationsupport-notsupported">"notSupported"</a><span>, in § 4.3.7</span>
    <li>
     paused
     <ul>
-     <li><a href="#dom-foointerface-paused">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-messageargs-paused">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
+     <li><a href="#dom-foointerface-paused">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-messageargs-paused">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
     </ul>
    <li>
     "playerHandles"
     <ul>
-     <li><a href="#dom-closebuttonsupport-playerhandles">enum-value for CloseButtonSupport</a><span>, in §4.3.7</span>
-     <li><a href="#dom-navigationsupport-playerhandles">enum-value for NavigationSupport</a><span>, in §4.3.7</span>
-     <li><a href="#dom-skippablestate-playerhandles">enum-value for SkippableState</a><span>, in §4.3.7</span>
+     <li><a href="#dom-closebuttonsupport-playerhandles">enum-value for CloseButtonSupport</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-navigationsupport-playerhandles">enum-value for NavigationSupport</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-skippablestate-playerhandles">enum-value for SkippableState</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     playerHandles
     <ul>
-     <li><a href="#dom-foointerface-playerhandles">attribute for FooInterface</a><span>, in §4.4.1</span>
-     <li><a href="#dom-messageargs-playerhandles">dict-member for MessageArgs</a><span>, in §4.4.1</span>
+     <li><a href="#dom-foointerface-playerhandles">attribute for FooInterface</a><span>, in § 4.4.1</span>
+     <li><a href="#dom-messageargs-playerhandles">dict-member for MessageArgs</a><span>, in § 4.4.1</span>
     </ul>
    <li>
     reason
     <ul>
-     <li><a href="#dom-foointerface-reason">attribute for FooInterface</a><span>, in §4.3.7.2</span>
-     <li><a href="#dom-foointerface-reason①">attribute for FooInterface</a><span>, in §4.3.10.2</span>
-     <li><a href="#dom-foointerface-reason②">attribute for FooInterface</a><span>, in §4.4.1.2</span>
-     <li><a href="#dom-foointerface-reason③">attribute for FooInterface</a><span>, in §4.4.7.2</span>
-     <li><a href="#dom-messageargs-reason">dict-member for MessageArgs</a><span>, in §4.3.7.2</span>
-     <li><a href="#dom-messageargs-reason①">dict-member for MessageArgs</a><span>, in §4.3.10.2</span>
-     <li><a href="#dom-messageargs-reason②">dict-member for MessageArgs</a><span>, in §4.4.1.2</span>
-     <li><a href="#dom-messageargs-reason③">dict-member for MessageArgs</a><span>, in §4.4.7.2</span>
+     <li><a href="#dom-foointerface-reason">attribute for FooInterface</a><span>, in § 4.3.7.2</span>
+     <li><a href="#dom-foointerface-reason①">attribute for FooInterface</a><span>, in § 4.3.10.2</span>
+     <li><a href="#dom-foointerface-reason②">attribute for FooInterface</a><span>, in § 4.4.1.2</span>
+     <li><a href="#dom-foointerface-reason③">attribute for FooInterface</a><span>, in § 4.4.7.2</span>
+     <li><a href="#dom-messageargs-reason">dict-member for MessageArgs</a><span>, in § 4.3.7.2</span>
+     <li><a href="#dom-messageargs-reason①">dict-member for MessageArgs</a><span>, in § 4.3.10.2</span>
+     <li><a href="#dom-messageargs-reason②">dict-member for MessageArgs</a><span>, in § 4.4.1.2</span>
+     <li><a href="#dom-messageargs-reason③">dict-member for MessageArgs</a><span>, in § 4.4.7.2</span>
     </ul>
-   <li><a href="#dictdef-rejectmessageargsvalue">RejectMessageArgsValue</a><span>, in §8.2.2</span>
-   <li><a href="#dictdef-resolvemessageargs">ResolveMessageArgs</a><span>, in §8.2.1</span>
+   <li><a href="#dictdef-rejectmessageargsvalue">RejectMessageArgsValue</a><span>, in § 8.2.2</span>
+   <li><a href="#dictdef-resolvemessageargs">ResolveMessageArgs</a><span>, in § 8.2.1</span>
    <li>
     sessionId
     <ul>
-     <li><a href="#dom-foointerface-sessionid">attribute for FooInterface</a><span>, in §8.1.1</span>
-     <li><a href="#dom-message-sessionid">dict-member for Message</a><span>, in §8.1.1</span>
+     <li><a href="#dom-foointerface-sessionid">attribute for FooInterface</a><span>, in § 8.1.1</span>
+     <li><a href="#dom-message-sessionid">dict-member for Message</a><span>, in § 8.1.1</span>
     </ul>
-   <li><a href="#simid-ad-unit">SIMID Ad Unit</a><span>, in §10</span>
-   <li><a href="#simid-creative">SIMID Creative</a><span>, in §10</span>
-   <li><a href="#simid-live-media-stream">SIMID Live Media Stream</a><span>, in §10</span>
-   <li><a href="#simid-media">SIMID Media</a><span>, in §10</span>
-   <li><a href="#simid-media-stream">SIMID Media Stream</a><span>, in §10</span>
-   <li><a href="#simid-secondary-video">SIMID Secondary Video</a><span>, in §10</span>
-   <li><a href="#simid-vast">SIMID VAST</a><span>, in §10</span>
+   <li><a href="#simid-ad-unit">SIMID Ad Unit</a><span>, in § 10</span>
+   <li><a href="#simid-creative">SIMID Creative</a><span>, in § 10</span>
+   <li><a href="#simid-live-media-stream">SIMID Live Media Stream</a><span>, in § 10</span>
+   <li><a href="#simid-media">SIMID Media</a><span>, in § 10</span>
+   <li><a href="#simid-media-stream">SIMID Media Stream</a><span>, in § 10</span>
+   <li><a href="#simid-secondary-video">SIMID Secondary Video</a><span>, in § 10</span>
+   <li><a href="#simid-vast">SIMID VAST</a><span>, in § 10</span>
    <li>
     siteUrl
     <ul>
-     <li><a href="#dom-foointerface-siteurl">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-siteurl">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-siteurl">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-siteurl">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     skipoffset
     <ul>
-     <li><a href="#dom-foointerface-skipoffset">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-skipoffset">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-skipoffset">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-skipoffset">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
-   <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in §4.3.7</span>
+   <li><a href="#enumdef-skippablestate">SkippableState</a><span>, in § 4.3.7</span>
    <li>
     skippableState
     <ul>
-     <li><a href="#dom-foointerface-skippablestate">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-skippablestate">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-skippablestate">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-skippablestate">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     timestamp
     <ul>
-     <li><a href="#dom-foointerface-timestamp">attribute for FooInterface</a><span>, in §8.1.1</span>
-     <li><a href="#dom-message-timestamp">dict-member for Message</a><span>, in §8.1.1</span>
+     <li><a href="#dom-foointerface-timestamp">attribute for FooInterface</a><span>, in § 8.1.1</span>
+     <li><a href="#dom-message-timestamp">dict-member for Message</a><span>, in § 8.1.1</span>
     </ul>
    <li>
     trackingUrls
     <ul>
-     <li><a href="#dom-foointerface-trackingurls">attribute for FooInterface</a><span>, in §4.4.7</span>
-     <li><a href="#dom-messageargs-trackingurls">dict-member for MessageArgs</a><span>, in §4.4.7</span>
+     <li><a href="#dom-foointerface-trackingurls">attribute for FooInterface</a><span>, in § 4.4.7</span>
+     <li><a href="#dom-messageargs-trackingurls">dict-member for MessageArgs</a><span>, in § 4.4.7</span>
     </ul>
    <li>
     type
     <ul>
-     <li><a href="#dom-foointerface-type">attribute for FooInterface</a><span>, in §8.1.1</span>
-     <li><a href="#dom-message-type">dict-member for Message</a><span>, in §8.1.1</span>
+     <li><a href="#dom-foointerface-type">attribute for FooInterface</a><span>, in § 8.1.1</span>
+     <li><a href="#dom-message-type">dict-member for Message</a><span>, in § 8.1.1</span>
     </ul>
    <li>
     uri
     <ul>
-     <li><a href="#dom-foointerface-uri">attribute for FooInterface</a><span>, in §4.4.12</span>
-     <li><a href="#dom-messageargs-uri">dict-member for MessageArgs</a><span>, in §4.4.12</span>
+     <li><a href="#dom-foointerface-uri">attribute for FooInterface</a><span>, in § 4.4.12</span>
+     <li><a href="#dom-messageargs-uri">dict-member for MessageArgs</a><span>, in § 4.4.12</span>
     </ul>
    <li>
     url
     <ul>
-     <li><a href="#dom-foointerface-url">attribute for FooInterface</a><span>, in §4.4.1</span>
-     <li><a href="#dom-messageargs-url">dict-member for MessageArgs</a><span>, in §4.4.1</span>
+     <li><a href="#dom-foointerface-url">attribute for FooInterface</a><span>, in § 4.4.1</span>
+     <li><a href="#dom-messageargs-url">dict-member for MessageArgs</a><span>, in § 4.4.1</span>
     </ul>
    <li>
     useragent
     <ul>
-     <li><a href="#dom-foointerface-useragent">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-useragent">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-useragent">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-useragent">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     value
     <ul>
-     <li><a href="#dom-foointerface-value">attribute for FooInterface</a><span>, in §8.2.1</span>
-     <li><a href="#dom-resolvemessageargs-value">dict-member for ResolveMessageArgs</a><span>, in §8.2.1</span>
+     <li><a href="#dom-foointerface-value">attribute for FooInterface</a><span>, in § 8.2.1</span>
+     <li><a href="#dom-resolvemessageargs-value">dict-member for ResolveMessageArgs</a><span>, in § 8.2.1</span>
     </ul>
    <li>
     variableDurationAllowed
     <ul>
-     <li><a href="#dom-foointerface-variabledurationallowed">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-variabledurationallowed">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-variabledurationallowed">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-variabledurationallowed">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     version
     <ul>
-     <li><a href="#dom-foointerface-version">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-version">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
+     <li><a href="#dom-foointerface-version">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-version">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
     </ul>
    <li>
     videoDimensions
     <ul>
-     <li><a href="#dom-foointerface-videodimensions">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-environmentdata-videodimensions">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-videodimensions">dict-member for MessageArgs</a><span>, in §4.3.9</span>
+     <li><a href="#dom-foointerface-videodimensions">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-environmentdata-videodimensions">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-messageargs-videodimensions">dict-member for MessageArgs</a><span>, in § 4.3.9</span>
     </ul>
    <li>
     volume
     <ul>
-     <li><a href="#dom-foointerface-volume">attribute for FooInterface</a><span>, in §4.2.11</span>
-     <li><a href="#dom-foointerface-volume①">attribute for FooInterface</a><span>, in §4.3.7</span>
-     <li><a href="#dom-foointerface-volume②">attribute for FooInterface</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-foointerface-volume③">attribute for FooInterface</a><span>, in §4.4.9</span>
-     <li><a href="#dom-environmentdata-volume">dict-member for EnvironmentData</a><span>, in §4.3.7</span>
-     <li><a href="#dom-messageargs-volume">dict-member for MessageArgs</a><span>, in §4.2.11</span>
-     <li><a href="#dom-messageargs-volume①">dict-member for MessageArgs</a><span>, in §4.4.5.1</span>
-     <li><a href="#dom-messageargs-volume②">dict-member for MessageArgs</a><span>, in §4.4.9</span>
+     <li><a href="#dom-foointerface-volume">attribute for FooInterface</a><span>, in § 4.2.11</span>
+     <li><a href="#dom-foointerface-volume①">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-foointerface-volume②">attribute for FooInterface</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-foointerface-volume③">attribute for FooInterface</a><span>, in § 4.4.9</span>
+     <li><a href="#dom-environmentdata-volume">dict-member for EnvironmentData</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-messageargs-volume">dict-member for MessageArgs</a><span>, in § 4.2.11</span>
+     <li><a href="#dom-messageargs-volume①">dict-member for MessageArgs</a><span>, in § 4.4.5.1</span>
+     <li><a href="#dom-messageargs-volume②">dict-member for MessageArgs</a><span>, in § 4.4.9</span>
     </ul>
    <li>
     width
     <ul>
-     <li><a href="#dom-dimensions-width">dict-member for Dimensions</a><span>, in §4.3.7</span>
-     <li><a href="#dom-dimensions-width①">dict-member for Dimensions</a><span>, in §4.3.9</span>
-     <li><a href="#dom-dimensions-width②">dict-member for Dimensions</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-dimensions-width③">dict-member for Dimensions</a><span>, in §4.4.15</span>
+     <li><a href="#dom-dimensions-width">dict-member for Dimensions</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-dimensions-width①">dict-member for Dimensions</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-dimensions-width②">dict-member for Dimensions</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dom-dimensions-width③">dict-member for Dimensions</a><span>, in § 4.4.15</span>
     </ul>
    <li>
     x
     <ul>
-     <li><a href="#dom-foointerface-x">attribute for FooInterface</a><span>, in §4.4.1</span>
-     <li><a href="#dom-dimensions-x">dict-member for Dimensions</a><span>, in §4.3.7</span>
-     <li><a href="#dom-dimensions-x①">dict-member for Dimensions</a><span>, in §4.3.9</span>
-     <li><a href="#dom-dimensions-x②">dict-member for Dimensions</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-dimensions-x③">dict-member for Dimensions</a><span>, in §4.4.15</span>
-     <li><a href="#dom-messageargs-x">dict-member for MessageArgs</a><span>, in §4.4.1</span>
+     <li><a href="#dom-foointerface-x">attribute for FooInterface</a><span>, in § 4.4.1</span>
+     <li><a href="#dom-dimensions-x">dict-member for Dimensions</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-dimensions-x①">dict-member for Dimensions</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-dimensions-x②">dict-member for Dimensions</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dom-dimensions-x③">dict-member for Dimensions</a><span>, in § 4.4.15</span>
+     <li><a href="#dom-messageargs-x">dict-member for MessageArgs</a><span>, in § 4.4.1</span>
     </ul>
    <li>
     y
     <ul>
-     <li><a href="#dom-foointerface-y">attribute for FooInterface</a><span>, in §4.4.1</span>
-     <li><a href="#dom-dimensions-y">dict-member for Dimensions</a><span>, in §4.3.7</span>
-     <li><a href="#dom-dimensions-y①">dict-member for Dimensions</a><span>, in §4.3.9</span>
-     <li><a href="#dom-dimensions-y②">dict-member for Dimensions</a><span>, in §4.4.3.1</span>
-     <li><a href="#dom-dimensions-y③">dict-member for Dimensions</a><span>, in §4.4.15</span>
-     <li><a href="#dom-messageargs-y">dict-member for MessageArgs</a><span>, in §4.4.1</span>
+     <li><a href="#dom-foointerface-y">attribute for FooInterface</a><span>, in § 4.4.1</span>
+     <li><a href="#dom-dimensions-y">dict-member for Dimensions</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-dimensions-y①">dict-member for Dimensions</a><span>, in § 4.3.9</span>
+     <li><a href="#dom-dimensions-y②">dict-member for Dimensions</a><span>, in § 4.4.3.1</span>
+     <li><a href="#dom-dimensions-y③">dict-member for Dimensions</a><span>, in § 4.4.15</span>
+     <li><a href="#dom-messageargs-y">dict-member for MessageArgs</a><span>, in § 4.4.1</span>
     </ul>
   </ul>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
-   <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-DOMString">4.2.3. SIMID:Media:error</a>
     <li><a href="#ref-for-idl-DOMString①">4.3.6. SIMID:Player:fatalError</a>
@@ -5382,14 +5395,14 @@ primary media.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-any">
-   <a href="https://heycam.github.io/webidl/#idl-any">https://heycam.github.io/webidl/#idl-any</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-any">https://webidl.spec.whatwg.org/#idl-any</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-any">8.1.1. Data Structure</a>
     <li><a href="#ref-for-idl-any①">8.2.1. resolve Messages</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
-   <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-boolean">4.2.11. SIMID:Media:volumechange</a>
     <li><a href="#ref-for-idl-boolean①">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-boolean②">(2)</a> <a href="#ref-for-idl-boolean③">(3)</a> <a href="#ref-for-idl-boolean④">(4)</a>
@@ -5400,7 +5413,7 @@ primary media.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-float">
-   <a href="https://heycam.github.io/webidl/#idl-float">https://heycam.github.io/webidl/#idl-float</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-float">https://webidl.spec.whatwg.org/#idl-float</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-float">4.2.1. SIMID:Media:durationchange</a>
     <li><a href="#ref-for-idl-float①">4.2.10. SIMID:Media:timeupdate</a>
@@ -5412,7 +5425,7 @@ primary media.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-long">
-   <a href="https://heycam.github.io/webidl/#idl-long">https://heycam.github.io/webidl/#idl-long</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-long">https://webidl.spec.whatwg.org/#idl-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-long">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-long①">(2)</a> <a href="#ref-for-idl-long②">(3)</a> <a href="#ref-for-idl-long③">(4)</a>
     <li><a href="#ref-for-idl-long④">4.3.9. SIMID:Player:resize</a> <a href="#ref-for-idl-long⑤">(2)</a> <a href="#ref-for-idl-long⑥">(3)</a> <a href="#ref-for-idl-long⑦">(4)</a>
@@ -5421,14 +5434,14 @@ primary media.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-short">
-   <a href="https://heycam.github.io/webidl/#idl-short">https://heycam.github.io/webidl/#idl-short</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-short">https://webidl.spec.whatwg.org/#idl-short</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-short">4.4.1. SIMID:Creative:clickThru</a> <a href="#ref-for-idl-short①">(2)</a>
     <li><a href="#ref-for-idl-short②">4.4.1.2. reject</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
-   <a href="https://heycam.github.io/webidl/#idl-unsigned-long">https://heycam.github.io/webidl/#idl-unsigned-long</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-long">8.1.1. Data Structure</a> <a href="#ref-for-idl-unsigned-long①">(2)</a>
     <li><a href="#ref-for-idl-unsigned-long②">8.2.1. resolve Messages</a>
@@ -5436,7 +5449,7 @@ primary media.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
-   <a href="https://heycam.github.io/webidl/#idl-unsigned-short">https://heycam.github.io/webidl/#idl-unsigned-short</a><b>Referenced in:</b>
+   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-short">https://webidl.spec.whatwg.org/#idl-unsigned-short</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-short">4.2.3. SIMID:Media:error</a>
     <li><a href="#ref-for-idl-unsigned-short①">4.3.2. SIMID:Player:adStopped</a>
@@ -5450,7 +5463,7 @@ primary media.</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
-    <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
+    <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
      <li><span class="dfn-paneled" id="term-for-idl-any">any</span>
@@ -5466,36 +5479,36 @@ primary media.</p>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-rfc2119">[RFC2119]
-   <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
-   <dt id="biblio-webidl">[WebIDL]
-   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-webidl">[WEBIDL]
+   <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a href="#dictdef-messageargs"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-duration"><code><c- g>duration</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-duration"><code><c- g>duration</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-error"><code><c- g>error</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-message"><code><c- g>message</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-error"><code><c- g>error</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-message"><code><c- g>message</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-currenttime"><code><c- g>currentTime</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-currenttime"><code><c- g>currentTime</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs③"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-volume"><code><c- g>volume</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-muted"><code><c- g>muted</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-volume"><code><c- g>volume</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-muted"><code><c- g>muted</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs④"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-code"><code><c- g>code</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-code"><code><c- g>code</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑤"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-errormessage"><code><c- g>errorMessage</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode"><code><c- g>errorCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-errormessage"><code><c- g>errorMessage</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑥"><code><c- g>MessageArgs</c-></code></a> {
@@ -5504,35 +5517,35 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-creativedata"><code><c- g>CreativeData</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-creativedata-adparameters"><code><c- g>adParameters</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-creativedata-adparameters"><code><c- g>adParameters</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></a> {
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-environmentdata-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-environmentdata-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreen"><code><c- g>fullscreen</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreen"><code><c- g>fullscreen</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></a>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-skippablestate"><c- n>SkippableState</c-></a> <a data-type="SkippableState " href="#dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-version"><code><c- g>version</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-appid"><code><c- g>appId</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-useragent"><code><c- g>useragent</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-muted"><code><c- g>muted</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-volume"><code><c- g>volume</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-version"><code><c- g>version</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-appid"><code><c- g>appId</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-useragent"><code><c- g>useragent</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-environmentdata-muted"><code><c- g>muted</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-volume"><code><c- g>volume</c-></code></a>;
   <a data-link-type="idl-name" href="#enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <a data-type="NavigationSupport " href="#dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code></a>;
   <a data-link-type="idl-name" href="#enumdef-closebuttonsupport"><c- n>CloseButtonSupport</c-></a> <a data-type="CloseButtonSupport " href="#dom-environmentdata-closebuttonsupport"><code><c- g>closeButtonSupport</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-environmentdata-nonlinearduration"><code><c- g>nonlinearDuration</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-dimensions"><code><c- g>Dimensions</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x"><code><c- g>x</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y"><code><c- g>y</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width"><code><c- g>width</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height"><code><c- g>height</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x"><code><c- g>x</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y"><code><c- g>y</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width"><code><c- g>width</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height"><code><c- g>height</c-></code></a>;
 };
 
 <c- b>enum</c-> <a href="#enumdef-skippablestate"><code><c- g>SkippableState</c-></code></a> {<a href="#dom-skippablestate-playerhandles"><code><c- s>"playerHandles"</c-></code></a>, <a href="#dom-skippablestate-adhandles"><code><c- s>"adHandles"</c-></code></a>, <a href="#dom-skippablestate-notskippable"><code><c- s>"notSkippable"</c-></code></a>};
@@ -5540,42 +5553,42 @@ primary media.</p>
 <c- b>enum</c-> <a href="#enumdef-closebuttonsupport"><code><c- g>CloseButtonSupport</c-></code></a> {<a href="#dom-closebuttonsupport-adhandles"><code><c- s>"adHandles"</c-></code></a>, <a href="#dom-closebuttonsupport-playerhandles"><code><c- s>"playerHandles"</c-></code></a>};
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑦"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason"><code><c- g>reason</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason"><code><c- g>reason</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑧"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-message①"><code><c- g>message</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-message①"><code><c- g>message</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs⑨"><code><c- g>MessageArgs</c-></code></a> {
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-videodimensions"><code><c- g>videoDimensions</c-></code></a>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions"><code><c- g>creativeDimensions</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-fullscreen"><code><c- g>fullscreen</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-fullscreen"><code><c- g>fullscreen</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-dimensions①"><code><c- g>Dimensions</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x①"><code><c- g>x</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y①"><code><c- g>y</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width①"><code><c- g>width</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height①"><code><c- g>height</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x①"><code><c- g>x</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y①"><code><c- g>y</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width①"><code><c- g>width</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height①"><code><c- g>height</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⓪"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode②"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason①"><code><c- g>reason</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode②"><code><c- g>errorCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason①"><code><c- g>reason</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①①"><code><c- g>MessageArgs</c-></code></a> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-messageargs-x"><code><c- g>x</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-messageargs-y"><code><c- g>y</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-playerhandles"><code><c- g>playerHandles</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-url"><code><c- g>url</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-messageargs-x"><code><c- g>x</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-messageargs-y"><code><c- g>y</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-playerhandles"><code><c- g>playerHandles</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-url"><code><c- g>url</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①②"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-messageargs-errorcode③"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason②"><code><c- g>reason</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-messageargs-errorcode③"><code><c- g>errorCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason②"><code><c- g>reason</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①③"><code><c- g>MessageArgs</c-></code></a> {
@@ -5583,30 +5596,30 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-dimensions②"><code><c- g>Dimensions</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x②"><code><c- g>x</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y②"><code><c- g>y</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width②"><code><c- g>width</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height②"><code><c- g>height</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x②"><code><c- g>x</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y②"><code><c- g>y</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width②"><code><c- g>width</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height②"><code><c- g>height</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①④"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode④"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode④"><code><c- g>errorCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑤"><code><c- g>MessageArgs</c-></code></a> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-duration①"><code><c- g>duration</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-ended"><code><c- g>ended</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-muted①"><code><c- g>muted</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-paused"><code><c- g>paused</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-volume①"><code><c- g>volume</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-fullscreen①"><code><c- g>fullscreen</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-duration①"><code><c- g>duration</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-ended"><code><c- g>ended</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-muted①"><code><c- g>muted</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-paused"><code><c- g>paused</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-volume①"><code><c- g>volume</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-fullscreen①"><code><c- g>fullscreen</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑥"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-message②"><code><c- g>message</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-message②"><code><c- g>message</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑦"><code><c- g>MessageArgs</c-></code></a> {
@@ -5614,17 +5627,17 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑧"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode⑤"><code><c- g>errorCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason③"><code><c- g>reason</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-messageargs-errorcode⑤"><code><c- g>errorCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-reason③"><code><c- g>reason</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①⑨"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-duration②"><code><c- g>duration</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-duration②"><code><c- g>duration</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②⓪"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-volume②"><code><c- g>volume</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-muted②"><code><c- g>muted</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float"><c- b>float</c-></a> <a data-type="float " href="#dom-messageargs-volume②"><code><c- g>volume</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-muted②"><code><c- g>muted</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②①"><code><c- g>MessageArgs</c-></code></a> {
@@ -5636,29 +5649,29 @@ primary media.</p>
   <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-dimensions"><c- n>Dimensions</c-></a> <a data-type="Dimensions " href="#dom-messageargs-creativedimensions②"><code><c- g>creativeDimensions</c-></code></a>;
 };
 <c- b>dictionary</c-> <a href="#dictdef-dimensions③"><code><c- g>Dimensions</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x③"><code><c- g>x</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y③"><code><c- g>y</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width③"><code><c- g>width</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height③"><code><c- g>height</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-x③"><code><c- g>x</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-y③"><code><c- g>y</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-width③"><code><c- g>width</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-dimensions-height③"><code><c- g>height</c-></code></a>;
 };
 
 
 <c- b>dictionary</c-> <a href="#dictdef-message"><code><c- g>Message</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-sessionid"><code><c- g>sessionId</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-messageid"><code><c- g>messageId</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-timestamp"><code><c- g>timestamp</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-type"><code><c- g>type</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a data-type="any " href="#dom-message-args"><code><c- g>args</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-sessionid"><code><c- g>sessionId</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-messageid"><code><c- g>messageId</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-message-timestamp"><code><c- g>timestamp</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-message-type"><code><c- g>type</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any"><c- b>any</c-></a> <a data-type="any " href="#dom-message-args"><code><c- g>args</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-resolvemessageargs"><code><c- g>ResolveMessageArgs</c-></code></a> {
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a data-type="any " href="#dom-resolvemessageargs-value"><code><c- g>value</c-></code></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-resolvemessageargs-messageid"><code><c- g>messageId</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any"><c- b>any</c-></a> <a data-type="any " href="#dom-resolvemessageargs-value"><code><c- g>value</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code></a> {
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code></a>;
 };
 
 </pre>
