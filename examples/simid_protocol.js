@@ -255,14 +255,42 @@ class SimidProtocol {
    * @private
    */
   generateSessionId_() {
-    let dt = new Date().getTime();
-    const generateRandomHex = (c) => {
-      const r = (dt + Math.random()*16)%16 | 0;
-      dt = Math.floor(dt/16);
-      return (c=='r' ? r :(r&0x3|0x8)).toString(16);
-    };
-    const uuidFormat = 'rrrrrrrr-rrrr-4rrr-yrrr-rrrrrrrrrrrr';
-    const uuid = uuidFormat.replace(/[ry]/g, generateRandomHex);
+    // This function generates a random v4 UUID. In a v4 UUID, of the format
+    // xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx, all bits are selected randomly,
+    // except the bits of 'M', which must be equal to 4, and 'N', whose first 2
+    // most significant bits must be set to 10b. So in total only 122 of the 128
+    // bits are random. See
+    // https://en.wikipedia.org/wiki/Universally_unique_identifier for more.
+
+    // crypto.getRandomValues is preferred over crypto.randomUUID since it
+    // supports much older browsers including IE, and doesn't require a secure
+    // context.
+
+    // Create 128 random bits (8-bit * 16).
+    const random16Uint8s = new Uint8Array(16);
+    window.crypto.getRandomValues(random16Uint8s);
+    // Split each 8-bit int into two 4-bit ints (4-bit * 32).
+    const random32Uint4s = Array.from(Array(32).keys()).map(index => {
+      const isEven = index % 2 == 0;
+      const randomUint8 = random16Uint8s[Math.floor(index/2)];
+      // Pick the high 4 bits for even indices, the low 4 bits for odd.
+      return isEven ? (randomUint8 >> 4) : (randomUint8 & 15);
+    });
+
+    // Fix the 12th digit to 4 for the UUID version.
+    random32Uint4s[12] = 4;
+    // Fix the 16th digit's 2 high bits to 10b for UUID variant 1.
+    random32Uint4s[16] = 0b1000 | (random32Uint4s[16] & 0b0011);
+
+    const hexDigits = random32Uint4s.map(v => v.toString(16));
+    const uuidComponents = [
+      hexDigits.slice(0, 8).join(''),
+      hexDigits.slice(8, 12).join(''),
+      hexDigits.slice(12, 16).join(''),
+      hexDigits.slice(16, 20).join(''),
+      hexDigits.slice(20).join(''),
+    ];
+    const uuid = uuidComponents.join('-');
     this.sessionId_ = uuid;
   }
 
