@@ -3983,11 +3983,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>In web environments, the creative manages navigation.</p>
    <p>The creative sends <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a> in response to the user’s interaction. The creative does not request navigation without user interaction.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs②①"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs②①"></a></dfn> {
-<<<<<<< HEAD
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-uri"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri"></a></dfn>;
-=======
-  <c- b>required</c-> <a data-link-type="idl-name"><c- n>string</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="string " id="dom-messageargs-uri①"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri①"></a></dfn>;
->>>>>>> e3b25e2 (Deprecates clickThruUrl in favor of clickThruUri.)
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-uri①"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -4441,17 +4437,10 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="8.1.1" id="message-data-structure"><span class="secno">8.1.1. </span><span class="content">Data Structure</span><a class="self-link" href="#message-data-structure"></a></h4>
    <p>The <code>message</code> data implements the following data structure:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-message"><code><c- g>Message</c-></code><a class="self-link" href="#dictdef-message"></a></dfn> {
-<<<<<<< HEAD
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-message-messageid"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-message-timestamp"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
-=======
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-message-messageid"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-message-timestamp"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
->>>>>>> e3b25e2 (Deprecates clickThruUrl in favor of clickThruUri.)
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code><a class="self-link" href="#dom-message-args"></a></dfn>;
 };
 </pre>
@@ -4528,11 +4517,7 @@ duration must only be extended in response to user interaction.</p>
    <p><code>Message.args.value</code> must be a <code>RejectMessageArgsValue</code> object:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code><a class="self-link" href="#dictdef-rejectmessageargsvalue"></a></dfn> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-errorcode"></a></dfn>;
-<<<<<<< HEAD
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
-=======
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
->>>>>>> e3b25e2 (Deprecates clickThruUrl in favor of clickThruUri.)
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -5409,21 +5394,6 @@ primary media.</p>
    <ul>
     <li><a href="#ref-for-idl-DOMString">4.2.3. SIMID:Media:error</a>
     <li><a href="#ref-for-idl-DOMString①">4.3.6. SIMID:Player:fatalError</a>
-<<<<<<< HEAD
-    <li><a href="#ref-for-idl-DOMString②">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a> <a href="#ref-for-idl-DOMString⑨">(8)</a>
-    <li><a href="#ref-for-idl-DOMString①⓪">4.3.7.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①①">4.3.8. SIMID:Player:log</a>
-    <li><a href="#ref-for-idl-DOMString①②">4.3.10.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①③">4.4.1. SIMID:Creative:clickThru</a>
-    <li><a href="#ref-for-idl-DOMString①④">4.4.1.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⑤">4.4.4. SIMID:Creative:fatalError</a>
-    <li><a href="#ref-for-idl-DOMString①⑥">4.4.5.1. resolve</a>
-    <li><a href="#ref-for-idl-DOMString①⑦">4.4.6. SIMID:Creative:log</a>
-    <li><a href="#ref-for-idl-DOMString①⑧">4.4.7.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⑨">4.4.12. SIMID:Creative:requestNavigation</a>
-    <li><a href="#ref-for-idl-DOMString②⓪">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString②①">(2)</a>
-    <li><a href="#ref-for-idl-DOMString②②">8.2.2. reject Messages</a>
-=======
     <li><a href="#ref-for-idl-DOMString②">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a> <a href="#ref-for-idl-DOMString⑨">(8)</a> <a href="#ref-for-idl-DOMString①⓪">(9)</a>
     <li><a href="#ref-for-idl-DOMString①①">4.3.7.2. reject</a>
     <li><a href="#ref-for-idl-DOMString①②">4.3.8. SIMID:Player:log</a>
@@ -5434,9 +5404,9 @@ primary media.</p>
     <li><a href="#ref-for-idl-DOMString①⑧">4.4.5.1. resolve</a>
     <li><a href="#ref-for-idl-DOMString①⑨">4.4.6. SIMID:Creative:log</a>
     <li><a href="#ref-for-idl-DOMString②⓪">4.4.7.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString②①">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString②②">(2)</a>
-    <li><a href="#ref-for-idl-DOMString②③">8.2.2. reject Messages</a>
->>>>>>> e3b25e2 (Deprecates clickThruUrl in favor of clickThruUri.)
+    <li><a href="#ref-for-idl-DOMString②①">4.4.12. SIMID:Creative:requestNavigation</a>
+    <li><a href="#ref-for-idl-DOMString②②">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString②③">(2)</a>
+    <li><a href="#ref-for-idl-DOMString②④">8.2.2. reject Messages</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-any">
@@ -5688,11 +5658,7 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②①"><code><c- g>MessageArgs</c-></code></a> {
-<<<<<<< HEAD
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-uri"><code><c- g>uri</c-></code></a>;
-=======
-  <c- b>required</c-> <a data-link-type="idl-name"><c- n>string</c-></a> <a data-type="string " href="#dom-messageargs-uri①"><code><c- g>uri</c-></code></a>;
->>>>>>> e3b25e2 (Deprecates clickThruUrl in favor of clickThruUri.)
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-uri①"><code><c- g>uri</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②②"><code><c- g>MessageArgs</c-></code></a> {
