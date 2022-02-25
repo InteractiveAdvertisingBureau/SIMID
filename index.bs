@@ -1183,12 +1183,15 @@ dictionary MessageArgs {
 dictionary CreativeData {
 	required DOMString adParameters;
 	DOMString clickThruUrl;
+	DOMString clickThruUri;
 };
 </xmp>
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
 	<dt><dfn>adParameters</dfn>
 	<dd>Typically, the value of VAST `<AdParameters>` node.
 	<dt><dfn>clickThruUrl</dfn>
+	<dd>Value of VAST `<ClickThrough>` node. Deprecated in favor of `clickThruUri`.
+	<dt><dfn>clickThruUri</dfn>
 	<dd>Value of VAST `<ClickThrough>` node.
 </dl>
 
@@ -1533,6 +1536,7 @@ dictionary MessageArgs {
 	short y;
 	boolean playerHandles;
 	DOMString url;
+	DOMString uri;
 };
 </xmp>
 <dl dfn-type=attribute dfn-for=FooInterface class="idl highlight def">
@@ -1543,7 +1547,9 @@ dictionary MessageArgs {
 	<dt><dfn>playerHandles</dfn>
 	<dd>When `true` - creative requests the player to open the landing page. The creative must not require the player to open the external page if the [[#simid-player-init]] message argument `navigationSupport` value is not `playerHandles`.
 	<dt><dfn>url</dfn>
-	<dd>Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide `url` value. In such scenarios, the creative sets `playerHandles` value to `false`.
+	<dd>Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide `url` value. In such scenarios, the creative sets `playerHandles` value to `false`. Deprecated in favor of `uri`.
+	<dt><dfn>uri</dfn>
+	<dd>Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide `uri` value. In such scenarios, the creative sets `playerHandles` value to `false`.
 </dl>
 
 <div diagram id="diagram-creative-clickThru">
@@ -1563,7 +1569,7 @@ dictionary MessageArgs {
 In the scenarios when the player handles landing page redirects, it responds with `resolve` before the landing page opens.
 
 #### reject #### {#simid-creative-clickThru-reject}
-The player posts `reject` if the creative requested the player to handle navigation when the player does not implement user redirects, creative fails to provide url, or the url is invalid. The player provides the `errorCode` 1214.
+The player posts `reject` if the creative requested the player to handle navigation when the player does not implement user redirects, creative fails to provide URI, or the URI is invalid. The player provides the `errorCode` 1214.
 
 <xmp class="idl">
 dictionary MessageArgs {
@@ -1575,7 +1581,7 @@ dictionary MessageArgs {
 	<dt><dfn>errorCode</dfn>
 	<dd>1214.
 	<dt><dfn>reason</dfn>
-	<dd>Additional information. For example: "Invalid URL".
+	<dd>Additional information. For example: "Invalid URI".
 	
 </dl>
 

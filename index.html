@@ -1489,6 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://interactiveadvertisingbureau.github.io/SIMID/" rel="canonical">
+  <meta content="a90c5bde6ec06784d95273c7c2c1c544e7b68c4e" name="document-revision">
 <style>
 
 	body {
@@ -2423,7 +2424,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" src="images/IABTechLabLogo.jpg"></h1>
+   <h1 class="p-name no-ref" id="title">Secure Interactive Media Interface Definition (SIMID) <br><img alt="IAB Tech Lab" height="73" src="images/IABTechLabLogo.jpg" width="100"></h1>
    <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Standard, <time class="dt-updated" datetime="2022-02-23">23 February 2022</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -2734,7 +2735,7 @@ controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
    <div diagram id="diagram-simid-overlay">
     <p>SIMID ads sandboxing from the publisher player environment</p>
-     <img alt="Normal Creative Initilaizatioin Sequence" src="images/simid_diagram_1_overlay.png"> 
+     <img alt="Normal Creative Initilaizatioin Sequence" height="450" src="images/simid_diagram_1_overlay.png" width="800"> 
    </div>
    <p>A diagram showing SIMID ads sandboxed from the publisher player environment</p>
    <p>SIMID is part of a broader effort to replace the older VPAID standard (more details in <a href="http://bit.ly/videoAdVision">this blog post</a> by the IAB Tech Lab). While
@@ -2747,7 +2748,7 @@ primary use case of interactivity.</p>
    <h3 class="heading settled" data-level="2.1" id="simid-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIMID vs. VPAID Comparison</span><a class="self-link" href="#simid-vs-vpaid"></a></h3>
    <div diagram id="diagram-simid-api-models">
     <p>VPAID vs. SIMID APIs</p>
-     <img alt="Normal Creative Initilaizatioin Sequence" src="images/simid_diagram_2_api_models.png" style="margin-left: -10px;"> 
+     <img alt="Normal Creative Initilaizatioin Sequence" height="340" src="images/simid_diagram_2_api_models.png" style="margin-left: -10px;" width="800"> 
    </div>
    <p id="simid-vs-vapid" table-header>SIMID vs. VPAID Comparison.</p>
    <table class="alternatecolor">
@@ -2843,7 +2844,7 @@ Standard RFC language will be used. See <a href="https://tools.ietf.org/html/rfc
    <h3 class="heading settled" data-level="3.1" id="simid-interactive-creative-nature"><span class="secno">3.1. </span><span class="content">SIMID Interactive Creative Nature</span><a class="self-link" href="#simid-interactive-creative-nature"></a></h3>
    <div diagram id="diagram-simid-api-models①">
     <p>SIMID Assets loading</p>
-     <img alt="SIMID Interactive Creative Nature" src="images/simid_diagram_3_assets.png" style="margin-left: -10px;"> 
+     <img alt="SIMID Interactive Creative Nature" height="400" src="images/simid_diagram_3_assets.png" style="margin-left: -10px;" width="800"> 
    </div>
    <p>A SIMID creative can be included in a VAST document by way of an <code>&lt;InteractiveCreativeFile></code> element. The text within this element must be a url which returns an HTML document.
 When loaded into an iframe by a media player, this HTML document will define the SIMID creative’s content, and will direct the web browser or host application to load any additional assets
@@ -2869,7 +2870,7 @@ For more technical details, see the <a href="#api-vast">§ 5 Referencing a SIM
 The media player obtains urls for both files from a VAST document, loads the files, assembles them into a single ad unit, and ensures a cohesive ad experience.</p>
    <div diagram id="diagram-simid-api-models②">
     <p>SIMID creative loading and presentation process.</p>
-     <img alt="SIMID creative loading and presentation process." src="images/simid_diagram_4_loading.png" style="margin-left: -10px;"> 
+     <img alt="SIMID creative loading and presentation process." height="1150" src="images/simid_diagram_4_loading.png" style="margin-left: -10px;" width="800"> 
    </div>
    <h3 class="heading settled" data-level="3.3" id="player-creative-communication"><span class="secno">3.3. </span><span class="content">Player and Creative Communication</span><a class="self-link" href="#player-creative-communication"></a></h3>
    <p>A media player and a SIMID creative communicate by sending serialized messages back and forth to each other.</p>
@@ -2903,7 +2904,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>SIMID supports nonlinear ads by providing a nonlinear specific API. Both linear and nonlinear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe.</p>
    <div diagram id="diagram-nonlinear-user-experience">
     <p>Nonlinear Ad User Experience</p>
-     <img alt="Nonlinear state." src="images/nonlinear-user-experience.png"> 
+     <img alt="Nonlinear state." height="512" src="images/nonlinear-user-experience.png" width="714"> 
     <ol dgrm-details>
      <li>
       User clicks on expand button. The player pauses content and expands the creative. 
@@ -3422,12 +3423,15 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-creativedata"><code><c- g>CreativeData</c-></code></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-creativedata-adparameters"><code><c- g>adParameters</c-></code><a class="self-link" href="#dom-creativedata-adparameters"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code><a class="self-link" href="#dom-creativedata-clickthruurl"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CreativeData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-creativedata-clickthruuri"><code><c- g>clickThruUri</c-></code><a class="self-link" href="#dom-creativedata-clickthruuri"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-adparameters"><code>adParameters</code><a class="self-link" href="#dom-foointerface-adparameters"></a></dfn>, <span></span>
     <dd>Typically, the value of VAST <code>&lt;AdParameters></code> node. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-clickthruurl"><code>clickThruUrl</code><a class="self-link" href="#dom-foointerface-clickthruurl"></a></dfn>, <span></span>
+    <dd>Value of VAST <code>&lt;ClickThrough></code> node. Deprecated in favor of <code>clickThruUri</code>. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-clickthruuri"><code>clickThruUri</code><a class="self-link" href="#dom-foointerface-clickthruuri"></a></dfn>, <span></span>
     <dd>Value of VAST <code>&lt;ClickThrough></code> node. 
    </dl>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></dfn> {
@@ -3437,12 +3441,12 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-fullscreenallowed"><code><c- g>fullscreenAllowed</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean③"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-variabledurationallowed"><code><c- g>variableDurationAllowed</c-></code></dfn>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-skippablestate" id="ref-for-enumdef-skippablestate"><c- n>SkippableState</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="SkippableState " id="dom-environmentdata-skippablestate"><code><c- g>skippableState</c-></code><a class="self-link" href="#dom-environmentdata-skippablestate"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code><a class="self-link" href="#dom-environmentdata-skipoffset"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-version"><code><c- g>version</c-></code><a class="self-link" href="#dom-environmentdata-version"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code><a class="self-link" href="#dom-environmentdata-siteurl"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-appid"><code><c- g>appId</c-></code><a class="self-link" href="#dom-environmentdata-appid"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code><a class="self-link" href="#dom-environmentdata-useragent"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code><a class="self-link" href="#dom-environmentdata-deviceid"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-skipoffset"><code><c- g>skipoffset</c-></code><a class="self-link" href="#dom-environmentdata-skipoffset"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-version"><code><c- g>version</c-></code><a class="self-link" href="#dom-environmentdata-version"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-siteurl"><code><c- g>siteUrl</c-></code><a class="self-link" href="#dom-environmentdata-siteurl"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-appid"><code><c- g>appId</c-></code><a class="self-link" href="#dom-environmentdata-appid"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-useragent"><code><c- g>useragent</c-></code><a class="self-link" href="#dom-environmentdata-useragent"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-environmentdata-deviceid"><code><c- g>deviceId</c-></code><a class="self-link" href="#dom-environmentdata-deviceid"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-environmentdata-muted"><code><c- g>muted</c-></code><a class="self-link" href="#dom-environmentdata-muted"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float③"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="float " id="dom-environmentdata-volume"><code><c- g>volume</c-></code><a class="self-link" href="#dom-environmentdata-volume"></a></dfn>;
   <a data-link-type="idl-name" href="#enumdef-navigationsupport" id="ref-for-enumdef-navigationsupport"><c- n>NavigationSupport</c-></a> <dfn class="idl-code" data-dfn-for="EnvironmentData" data-dfn-type="dict-member" data-export data-type="NavigationSupport " id="dom-environmentdata-navigationsupport"><code><c- g>navigationSupport</c-></code><a class="self-link" href="#dom-environmentdata-navigationsupport"></a></dfn>;
@@ -3582,7 +3586,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>The creative may respond with a reject based on its internal logic.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑦"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑦"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short③"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode①"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode①"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3596,7 +3600,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The purpose of the Player:log message is to convey optional, primarily debugging, information to the creative. 
    <p class="note" role="note"><span>Note:</span> In SIMID prefixing log messages with “WARNING:” has a specific meaning. The player is communicating performance inefficiencies or specification deviations aimed at creative developers. For example, if the creative sends the requestChangeVolume message but does not use the correct parameters, a “WARNING:” message is appropriate.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs⑧"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message①"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message①"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message①"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3641,7 +3645,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     When the creative responds with a reject, the player may unload the iframe. The player reports VAST error tracker with the <code>errorCode</code> the creative supplied. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⓪"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⓪"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short④"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode②"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode②"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason①"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason①"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3727,7 +3731,8 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-x"><code><c- g>x</c-></code><a class="self-link" href="#dom-messageargs-x"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short①"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-y"><code><c- g>y</c-></code><a class="self-link" href="#dom-messageargs-y"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean⑥"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-playerhandles"><code><c- g>playerHandles</c-></code><a class="self-link" href="#dom-messageargs-playerhandles"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-messageargs-url"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-messageargs-url"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-uri"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3738,11 +3743,13 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-playerhandles"><code>playerHandles</code><a class="self-link" href="#dom-foointerface-playerhandles"></a></dfn>, <span></span>
     <dd>When <code>true</code> - creative requests the player to open the landing page. The creative must not require the player to open the external page if the <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message argument <code>navigationSupport</code> value is not <code>playerHandles</code>. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-url"><code>url</code><a class="self-link" href="#dom-foointerface-url"></a></dfn>, <span></span>
-    <dd>Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide <code>url</code> value. In such scenarios, the creative sets <code>playerHandles</code> value to <code>false</code>. 
+    <dd>Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide <code>url</code> value. In such scenarios, the creative sets <code>playerHandles</code> value to <code>false</code>. Deprecated in favor of <code>uri</code>. 
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-uri"><code>uri</code><a class="self-link" href="#dom-foointerface-uri"></a></dfn>, <span></span>
+    <dd>Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide <code>uri</code> value. In such scenarios, the creative sets <code>playerHandles</code> value to <code>false</code>. 
    </dl>
    <div diagram id="diagram-creative-clickThru">
     <p>Creative:clickThru Handling</p>
-     <img alt="Creative clickThru flow." src="images/dgrm-Creative-clickThru.png"> 
+     <img alt="Creative clickThru flow." height="470" src="images/dgrm-Creative-clickThru.png" width="714"> 
     <ol dgrm-details>
      <li>User clicks on clickthrough button.
      <li>Creative sets <code>playerHandles = true</code> and posts <a href="#simid-creative-clickThru">§ 4.4.1 SIMID:Creative:clickThru</a> message.
@@ -3753,23 +3760,23 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.1.1" id="simid-creative-clickThru-resolve"><span class="secno">4.4.1.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-clickThru-resolve"></a></h5>
     In the scenarios when the player handles landing page redirects, it responds with <code>resolve</code> before the landing page opens. 
    <h5 class="heading settled" data-level="4.4.1.2" id="simid-creative-clickThru-reject"><span class="secno">4.4.1.2. </span><span class="content">reject</span><a class="self-link" href="#simid-creative-clickThru-reject"></a></h5>
-    The player posts <code>reject</code> if the creative requested the player to handle navigation when the player does not implement user redirects, creative fails to provide url, or the url is invalid. The player provides the <code>errorCode</code> 1214. 
+    The player posts <code>reject</code> if the creative requested the player to handle navigation when the player does not implement user redirects, creative fails to provide URI, or the URI is invalid. The player provides the <code>errorCode</code> 1214. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①②"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①②"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short②"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="short " id="dom-messageargs-errorcode③"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode③"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason②"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason②"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason②"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-errorcode③"><code>errorCode</code><a class="self-link" href="#dom-foointerface-errorcode③"></a></dfn>, <span></span>
     <dd>1214. 
     <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-reason②"><code>reason</code><a class="self-link" href="#dom-foointerface-reason②"></a></dfn>, <span></span>
-    <dd>Additional information. For example: "Invalid URL". 
+    <dd>Additional information. For example: "Invalid URI". 
    </dl>
    <h4 class="heading settled" data-level="4.4.2" id="simid-creative-collapseNonlinear"><span class="secno">4.4.2. </span><span class="content">SIMID:Creative:collapseNonlinear</span><a class="self-link" href="#simid-creative-collapseNonlinear"></a></h4>
     When the creative is ready to collapse, it posts a <code>Creative:collapseNonlinear</code> message. In response to <code>collapseNonlinear</code>, the player resizes the ad to its original state and resumes the content media playback. 
    <div diagram id="diagram-creative-collapseNonlinear">
     <p>Creative:collapseNonlinear Handling</p>
-     <img alt="Creative collapseNonlinear flow." src="images/dgrm-Creative-collapseNonlinear.png"> 
+     <img alt="Creative collapseNonlinear flow." height="560" src="images/dgrm-Creative-collapseNonlinear.png" width="714"> 
     <ol dgrm-details>
      <li>User clicks on collapse button.
      <li>Creative posts <a href="#simid-creative-collapseNonlinear">§ 4.4.2 SIMID:Creative:collapseNonlinear</a> message.
@@ -3786,7 +3793,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>If the player communicates to the creative that it has no capacity to expand the ad with <a href="#simid-player-init">§ 4.3.7 SIMID:Player:init</a> message, the creative does not provide an expand button or post the <code>Creaitve:expandNonlinear</code> message.</p>
    <div diagram id="diagram-creative-expandNonlinear">
     <p>Creative:expandNonlinear Handling</p>
-     <img alt="Creative expandNonlinear flow." src="images/dgrm-Creative-expandNonlinear.png"> 
+     <img alt="Creative expandNonlinear flow." height="580" src="images/dgrm-Creative-expandNonlinear.png" width="714"> 
     <ol dgrm-details>
      <li>User clicks on expand button.
      <li>Creative posts <a href="#simid-creative-expandNonlinear">§ 4.4.3 SIMID:Creative:expandNonlinear</a> message.
@@ -3818,7 +3825,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The creative posts <code>SIMID:Creative:fatalError</code> in cases when its internal exceptions prevent the interactive component from further execution. In response to the <code>Creative:fatalError</code> message, the player unloads the SIMID iframe and reports VAST error tracker with the <code>errorCode</code> specified by the creative. The ad media playback must stop, if possible. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①④"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①④"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑤"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode④"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode④"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage①"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-errormessage①"><code><c- g>errorMessage</c-></code><a class="self-link" href="#dom-messageargs-errormessage①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3832,7 +3839,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <h5 class="heading settled" data-level="4.4.5.1" id="simid-creative-getMediaState-resolve"><span class="secno">4.4.5.1. </span><span class="content">resolve</span><a class="self-link" href="#simid-creative-getMediaState-resolve"></a></h5>
     The player should always respond  to <code>Creative:getMediaState</code> with a <code>resolve</code>, including situations when the player is unable to provide all expected values. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑤"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑤"></a></dfn> {
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑥"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-currentsrc"><code><c- g>currentSrc</c-></code><a class="self-link" href="#dom-messageargs-currentsrc"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float⑤"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-currenttime②"><code><c- g>currentTime</c-></code><a class="self-link" href="#dom-messageargs-currenttime②"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-float" id="ref-for-idl-float⑥"><c- b>float</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="float " id="dom-messageargs-duration①"><code><c- g>duration</c-></code><a class="self-link" href="#dom-messageargs-duration①"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean⑦"><c- b>boolean</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-messageargs-ended"><code><c- g>ended</c-></code><a class="self-link" href="#dom-messageargs-ended"></a></dfn>;
@@ -3864,7 +3871,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The message <code>SIMID:Creative:log</code> enables the creative to communicate arbitrary information to the player. 
    <p class="note" role="note"><span>Note:</span> If the <code>log</code> message purpose is to notify the player about the player’s non-standard behavior, the creative prepends <code>Message.args.message</code> value with “WARNING:” <code>string</code>. Warning messages are used to inform player developers about occurances of non-fatal issues.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑥"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑥"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑦"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message②"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message②"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-message②"><code><c- g>message</c-></code><a class="self-link" href="#dom-messageargs-message②"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3894,7 +3901,7 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
     The player posts a <code>reject</code> if it did not send the trackers. 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs①⑧"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs①⑧"></a></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-messageargs-errorcode⑤"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-messageargs-errorcode⑤"></a></dfn>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑧"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason③"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason③"></a></dfn>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-reason③"><code><c- g>reason</c-></code><a class="self-link" href="#dom-messageargs-reason③"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -3977,16 +3984,16 @@ dynamic content within the ad unit is counter to the intentions of this spec.</p
    <p>In web environments, the creative manages navigation.</p>
    <p>The creative sends <a href="#simid-creative-requestNavigation">§ 4.4.12 SIMID:Creative:requestNavigation</a> in response to the user’s interaction. The creative does not request navigation without user interaction.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-messageargs②①"><code><c- g>MessageArgs</c-></code><a class="self-link" href="#dictdef-messageargs②①"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①⑨"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-uri"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="MessageArgs" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-messageargs-uri①"><code><c- g>uri</c-></code><a class="self-link" href="#dom-messageargs-uri①"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
-    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-uri"><code>uri</code><a class="self-link" href="#dom-foointerface-uri"></a></dfn>, <span></span>
+    <dt><dfn class="idl-code" data-dfn-for="FooInterface" data-dfn-type="attribute" data-export id="dom-foointerface-uri①"><code>uri</code><a class="self-link" href="#dom-foointerface-uri①"></a></dfn>, <span></span>
     <dd>The address of the landing page. 
    </dl>
    <div diagram id="diagram-creative-requestNavigation">
     <p>Creative:requestNavigation Handling</p>
-     <img alt="SIMID Request Navigation." src="images/dgrm-Creative-requestNavigation.png"> 
+     <img alt="SIMID Request Navigation." height="764" src="images/dgrm-Creative-requestNavigation.png" width="854"> 
     <ol dgrm-details>
      <li>User clicks on navigation button.
      <li>Creative posts <code>requestNavigation</code> message.
@@ -4115,7 +4122,7 @@ on to the next ad in the current ad pod).</p>
    </ol>
    <div diagram id="diagram-simid-initialization">
     <p>SIMID Loading and Initialization</p>
-     <img alt="SIMID Initialization." src="images/dgrm-simid-initialization.png"> 
+     <img alt="SIMID Initialization." height="1428" src="images/dgrm-simid-initialization.png" width="743"> 
     <ol dgrm-details>
      <li>Player starts listening to <code>message</code> event on the window.
      <li>
@@ -4159,7 +4166,7 @@ on to the next ad in the current ad pod).</p>
    <p>After the player gets a resolve message <a href="#diagram-player-init-normal">Normal Ad Initilaizatioin Sequence</a>, <span step><b>4</b></span>, it initializes media playback at its discretion <span step><b>5</b></span>. Once media rendering begins <span step><b>6</b></span>, the player reports impression <span step><b>7</b></span> and posts <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> <span step><b>8</b></span>.</p>
    <div diagram id="diagram-player-init-normal">
     <p>Normal Ad Initilaization Sequence</p>
-     <img alt="Normal Ad Initilaizatioin Sequence" src="images/dgrm-init-normal.png"> 
+     <img alt="Normal Ad Initilaizatioin Sequence" height="740" src="images/dgrm-init-normal.png" width="714"> 
     <ol dgrm-details>
      <li>Creative initializes the session.
      <li>Player posts <code>Player:init</code> message immediately upon session creation.
@@ -4174,7 +4181,7 @@ on to the next ad in the current ad pod).</p>
    <h3 class="heading settled" data-level="6.3" id="workflow-startCreative"><span class="secno">6.3. </span><span class="content">Typical Start Creative WorkFlow</span><a class="self-link" href="#workflow-startCreative"></a></h3>
    <div diagram id="diagram-player-startcreative">
     <p>Normal <code>Player:startCreative</code> Sequence</p>
-     <img alt="startCreative normal sequence." src="images/dgrm-startCreative-normal.png"> 
+     <img alt="startCreative normal sequence." height="414" src="images/dgrm-startCreative-normal.png" width="672"> 
     <ol dgrm-details>
      <li>Media playback begins.
      <li>Player posts <code>Player:startCreative</code>.
@@ -4187,7 +4194,7 @@ on to the next ad in the current ad pod).</p>
    <p>In these situations, the player keeps the iframe invisible and refrains from posting messages to the creative until it responds to the <code>Player:init</code> with a <code>resolve</code> message.</p>
    <div diagram id="diagram-player-init-special">
     <p>Special Creative Initialization Cases</p>
-     <img alt="Creative initialization special cases sequence" src="images/dgrm-init-special.png"> 
+     <img alt="Creative initialization special cases sequence" height="483" src="images/dgrm-init-special.png" width="682"> 
     <ol dgrm-details>
      <li>Player initializes ad media playback.
      <li>Player posts <code>Player:init</code> message after ad media playback started.
@@ -4203,7 +4210,7 @@ on to the next ad in the current ad pod).</p>
    <p>If the interactive creative does not resume communication by the playback end, the player must report the VAST error tracker (if available) with the code 1212. See <a href="#diagram-player-init-resolve-timeout">Player:init resolve</a> <span step><b>5</b></span>).</p>
    <div diagram id="diagram-player-init-resolve-timeout">
     <p><code>Player:init resolve</code> delay</p>
-     <img alt="Player:init resolve delay" src="images/dgrm-init-resolve-delay.png"> 
+     <img alt="Player:init resolve delay" height="695" src="images/dgrm-init-resolve-delay.png" width="714"> 
     <ol dgrm-details>
      <li>Player posts <code>Player:init</code> message and establishes a timeout.
      <li>Player starts ad media playback upon timeout expiration.
@@ -4217,7 +4224,7 @@ on to the next ad in the current ad pod).</p>
    <p>The creative may respond with a <code>reject</code> based on its internal logic. In response to <code>reject</code>, the player proceeds with the ad media playback. The player may unload the iframe. The player reports VAST error trackers with the <code>errorCode</code> specified by the creative.</p>
    <div diagram id="diagram-player-init-reject">
     <p><code>Player:init reject</code> Sequence</p>
-     <img alt="Player:init reject sequence." src="images/dgrm-init-reject.png"> 
+     <img alt="Player:init reject sequence." height="659" src="images/dgrm-init-reject.png" width="618"> 
     <ol dgrm-details>
      <li>Player posts <code>Player:init</code> message.
      <li>Creative responds with a <code>reject</code>.
@@ -4305,7 +4312,7 @@ with <code class="idl"><a data-link-type="idl">fullscreen</a></code> set to <cod
    </p>
    <div diagram id="diagram-requestSkip">
     <p><code>Creative:requestSkip</code> Sequence</p>
-     <img alt="Creative:requestSkip sequence." src="images/dgrm-requestSkip.png"> 
+     <img alt="Creative:requestSkip sequence." height="554" src="images/dgrm-requestSkip.png" width="748"> 
     <ol dgrm-details>
      <li>Creative posts <code>Creative:requestSkip</code> message.
      <li>Player hides the SIMID iframe.
@@ -4367,7 +4374,7 @@ unit playback. This might not be possible in server side stitched ads.</p>
    <p>In the event the interactive component disregards or fails to accommodate player’s ability to resolve <code>requestStop</code>, the iframe remains visible and the player continues sending <code>SIMID:Media</code> and <code>SIMID:Player</code> messages. The creative should maintain communication with the player. See <a href="#simid-creative-requestStop-reject">§ 4.4.17.2 reject</a>.</p>
    <div diagram id="diagram-requestStop">
     <p><code>Creative:requestStop</code> Sequence</p>
-     <img alt="Creative:requestStop sequence." src="images/dgrm-requestStop.png"> 
+     <img alt="Creative:requestStop sequence." height="554" src="images/dgrm-requestStop.png" width="748"> 
     <ol dgrm-details>
      <li>Creative posts <code>Creative:requestStop</code> message.
      <li>Player hides the SIMID iframe.
@@ -4395,7 +4402,7 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="6.10.2" id="workflow-ad-duartion-changed-known"><span class="secno">6.10.2. </span><span class="content">Ad Duration Changed Workflow - Known Time</span><a class="self-link" href="#workflow-ad-duartion-changed-known"></a></h4>
    <div diagram id="diagram-durationchange-known">
     <p>Known Ad Duration Change Sequence</p>
-     <img alt="requestChangeAdDuration known duration change handling." src="images/dgrm-requestChangeAdDuration-known.png"> 
+     <img alt="requestChangeAdDuration known duration change handling." height="601" src="images/dgrm-requestChangeAdDuration-known.png" width="770"> 
     <ol dgrm-details>
      <li>Player starts countdown. Countdown depends on the media progress.
      <li>Creative posts <code>requestChangeAdDuration</code> with the <code>duration</code> value greater than zero.
@@ -4408,7 +4415,7 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="6.10.3" id="workflow-ad-duartion-changed-unknown"><span class="secno">6.10.3. </span><span class="content">Ad Duration Changed Workflow - Unknown Time</span><a class="self-link" href="#workflow-ad-duartion-changed-unknown"></a></h4>
    <div diagram id="diagram-durationchange-unknown">
     <p>Unknown Ad Duration Change Sequence</p>
-     <img alt="requestChangeAdDuration unknown duration change handling." src="images/dgrm-requestChangeAdDuration-unknown.png"> 
+     <img alt="requestChangeAdDuration unknown duration change handling." height="475" src="images/dgrm-requestChangeAdDuration-unknown.png" width="645"> 
     <ol dgrm-details>
      <li>Player starts countdown. Countdown depends on the media progress.
      <li>Creative posts <code>requestChangeAdDuration</code> with the <code>duration</code> value <code>-2</code>.
@@ -4431,10 +4438,10 @@ duration must only be extended in response to user interaction.</p>
    <h4 class="heading settled" data-level="8.1.1" id="message-data-structure"><span class="secno">8.1.1. </span><span class="content">Data Structure</span><a class="self-link" href="#message-data-structure"></a></h4>
    <p>The <code>message</code> data implements the following data structure:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-message"><code><c- g>Message</c-></code><a class="self-link" href="#dictdef-message"></a></dfn> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②⓪"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-sessionid"><code><c- g>sessionId</c-></code><a class="self-link" href="#dom-message-sessionid"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-messageid"><code><c- g>messageId</c-></code><a class="self-link" href="#dom-message-messageid"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-message-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-message-timestamp"></a></dfn>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-message-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-message-type"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="Message" data-dfn-type="dict-member" data-export data-type="any " id="dom-message-args"><code><c- g>args</c-></code><a class="self-link" href="#dom-message-args"></a></dfn>;
 };
 </pre>
@@ -4511,7 +4518,7 @@ duration must only be extended in response to user interaction.</p>
    <p><code>Message.args.value</code> must be a <code>RejectMessageArgsValue</code> object:</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-rejectmessageargsvalue"><code><c- g>RejectMessageArgsValue</c-></code><a class="self-link" href="#dictdef-rejectmessageargsvalue"></a></dfn> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rejectmessageargsvalue-errorcode"><code><c- g>errorCode</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-errorcode"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②②"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RejectMessageArgsValue" data-dfn-type="dict-member" data-export data-type="DOMString " id="dom-rejectmessageargsvalue-message"><code><c- g>message</c-></code><a class="self-link" href="#dom-rejectmessageargsvalue-message"></a></dfn>;
 };
 </pre>
    <dl class="idl highlight def">
@@ -4569,7 +4576,7 @@ duration must only be extended in response to user interaction.</p>
    <p>The player responds to <code>createSession</code> with a <code>resolve</code> message.</p>
    <div diagram id="diagram-durationchange-unknown①">
     <p>Typical Session Initialization Sequence</p>
-     <img alt="Typical session initialization." src="images/dgrm-session-init-sequence.png"> 
+     <img alt="Typical session initialization." height="605" src="images/dgrm-session-init-sequence.png" width="647"> 
     <ol dgrm-details>
      <li>The player starts a <code>createSession</code> message timeout.
      <li>The player loads creative.
@@ -4981,6 +4988,12 @@ primary media.</p>
      <li><a href="#dom-message-args">dict-member for Message</a><span>, in § 8.1.1</span>
     </ul>
    <li>
+    clickThruUri
+    <ul>
+     <li><a href="#dom-foointerface-clickthruuri">attribute for FooInterface</a><span>, in § 4.3.7</span>
+     <li><a href="#dom-creativedata-clickthruuri">dict-member for CreativeData</a><span>, in § 4.3.7</span>
+    </ul>
+   <li>
     clickThruUrl
     <ul>
      <li><a href="#dom-foointerface-clickthruurl">attribute for FooInterface</a><span>, in § 4.3.7</span>
@@ -5294,8 +5307,10 @@ primary media.</p>
    <li>
     uri
     <ul>
-     <li><a href="#dom-foointerface-uri">attribute for FooInterface</a><span>, in § 4.4.12</span>
-     <li><a href="#dom-messageargs-uri">dict-member for MessageArgs</a><span>, in § 4.4.12</span>
+     <li><a href="#dom-foointerface-uri">attribute for FooInterface</a><span>, in § 4.4.1</span>
+     <li><a href="#dom-foointerface-uri①">attribute for FooInterface</a><span>, in § 4.4.12</span>
+     <li><a href="#dom-messageargs-uri">dict-member for MessageArgs</a><span>, in § 4.4.1</span>
+     <li><a href="#dom-messageargs-uri①">dict-member for MessageArgs</a><span>, in § 4.4.12</span>
     </ul>
    <li>
     url
@@ -5380,19 +5395,19 @@ primary media.</p>
    <ul>
     <li><a href="#ref-for-idl-DOMString">4.2.3. SIMID:Media:error</a>
     <li><a href="#ref-for-idl-DOMString①">4.3.6. SIMID:Player:fatalError</a>
-    <li><a href="#ref-for-idl-DOMString②">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a> <a href="#ref-for-idl-DOMString⑨">(8)</a>
-    <li><a href="#ref-for-idl-DOMString①⓪">4.3.7.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①①">4.3.8. SIMID:Player:log</a>
-    <li><a href="#ref-for-idl-DOMString①②">4.3.10.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①③">4.4.1. SIMID:Creative:clickThru</a>
-    <li><a href="#ref-for-idl-DOMString①④">4.4.1.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⑤">4.4.4. SIMID:Creative:fatalError</a>
-    <li><a href="#ref-for-idl-DOMString①⑥">4.4.5.1. resolve</a>
-    <li><a href="#ref-for-idl-DOMString①⑦">4.4.6. SIMID:Creative:log</a>
-    <li><a href="#ref-for-idl-DOMString①⑧">4.4.7.2. reject</a>
-    <li><a href="#ref-for-idl-DOMString①⑨">4.4.12. SIMID:Creative:requestNavigation</a>
-    <li><a href="#ref-for-idl-DOMString②⓪">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString②①">(2)</a>
-    <li><a href="#ref-for-idl-DOMString②②">8.2.2. reject Messages</a>
+    <li><a href="#ref-for-idl-DOMString②">4.3.7. SIMID:Player:init</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a> <a href="#ref-for-idl-DOMString⑤">(4)</a> <a href="#ref-for-idl-DOMString⑥">(5)</a> <a href="#ref-for-idl-DOMString⑦">(6)</a> <a href="#ref-for-idl-DOMString⑧">(7)</a> <a href="#ref-for-idl-DOMString⑨">(8)</a> <a href="#ref-for-idl-DOMString①⓪">(9)</a>
+    <li><a href="#ref-for-idl-DOMString①①">4.3.7.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①②">4.3.8. SIMID:Player:log</a>
+    <li><a href="#ref-for-idl-DOMString①③">4.3.10.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①④">4.4.1. SIMID:Creative:clickThru</a> <a href="#ref-for-idl-DOMString①⑤">(2)</a>
+    <li><a href="#ref-for-idl-DOMString①⑥">4.4.1.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString①⑦">4.4.4. SIMID:Creative:fatalError</a>
+    <li><a href="#ref-for-idl-DOMString①⑧">4.4.5.1. resolve</a>
+    <li><a href="#ref-for-idl-DOMString①⑨">4.4.6. SIMID:Creative:log</a>
+    <li><a href="#ref-for-idl-DOMString②⓪">4.4.7.2. reject</a>
+    <li><a href="#ref-for-idl-DOMString②①">4.4.12. SIMID:Creative:requestNavigation</a>
+    <li><a href="#ref-for-idl-DOMString②②">8.1.1. Data Structure</a> <a href="#ref-for-idl-DOMString②③">(2)</a>
+    <li><a href="#ref-for-idl-DOMString②④">8.2.2. reject Messages</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-any">
@@ -5520,6 +5535,7 @@ primary media.</p>
 <c- b>dictionary</c-> <a href="#dictdef-creativedata"><code><c- g>CreativeData</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-creativedata-adparameters"><code><c- g>adParameters</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-creativedata-clickthruurl"><code><c- g>clickThruUrl</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-creativedata-clickthruuri"><code><c- g>clickThruUri</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-environmentdata"><code><c- g>EnvironmentData</c-></code></a> {
@@ -5585,6 +5601,7 @@ primary media.</p>
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-messageargs-y"><code><c- g>y</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-type="boolean " href="#dom-messageargs-playerhandles"><code><c- g>playerHandles</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-url"><code><c- g>url</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-uri"><code><c- g>uri</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs①②"><code><c- g>MessageArgs</c-></code></a> {
@@ -5642,7 +5659,7 @@ primary media.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②①"><code><c- g>MessageArgs</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-uri"><code><c- g>uri</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-messageargs-uri①"><code><c- g>uri</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-messageargs②②"><code><c- g>MessageArgs</c-></code></a> {
