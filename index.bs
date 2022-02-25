@@ -2547,7 +2547,9 @@ In JavaScript, `JSON.stringify()` performs serialization; `JSON.parse()` - deser
 
 The media player may manage several ads that are in different phases of their lifespans; multiple concurrent sessions may be active. For example, while the player is rendering ad-A, it preloads and engages ad-B. Simultaneous two-way communication between the player and both ads persists. 
 
-Each session has a unique identifier. All messages that belong to a specific session must reference the same session id. 
+Each session has a unique identifier. All messages that belong to a specific session must reference the same session id. The session id must be cryptographically safe to prevent brute force attacks that would try to guess the session id and spoof as the creative or player.
+
+Note: A robust implementation like `window.crypto.getRandomValues` or `window.crypto.randomUUID` is recommended.
 
 ### Establishing a New Session ### {#protocol-establish-session}
 
