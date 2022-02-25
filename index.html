@@ -2734,7 +2734,7 @@ controls to allow creatives to offer rich augmented user experiences while
 degrading gracefully if certain features are not supported.</p>
    <div diagram id="diagram-simid-overlay">
     <p>SIMID ads sandboxing from the publisher player environment</p>
-     <img alt="Normal Creative Initilaizatioin Sequence" src="images/simid_diagram_1_overlay.png"> 
+     <img alt="Normal Creative Initialization Sequence" src="images/simid_diagram_1_overlay.png"> 
    </div>
    <p>A diagram showing SIMID ads sandboxed from the publisher player environment</p>
    <p>SIMID is part of a broader effort to replace the older VPAID standard (more details in <a href="http://bit.ly/videoAdVision">this blog post</a> by the IAB Tech Lab). While
@@ -2747,7 +2747,7 @@ primary use case of interactivity.</p>
    <h3 class="heading settled" data-level="2.1" id="simid-vs-vpaid"><span class="secno">2.1. </span><span class="content">SIMID vs. VPAID Comparison</span><a class="self-link" href="#simid-vs-vpaid"></a></h3>
    <div diagram id="diagram-simid-api-models">
     <p>VPAID vs. SIMID APIs</p>
-     <img alt="Normal Creative Initilaizatioin Sequence" src="images/simid_diagram_2_api_models.png" style="margin-left: -10px;"> 
+     <img alt="Normal Creative Initialization Sequence" src="images/simid_diagram_2_api_models.png" style="margin-left: -10px;"> 
    </div>
    <p id="simid-vs-vapid" table-header>SIMID vs. VPAID Comparison.</p>
    <table class="alternatecolor">
@@ -4161,11 +4161,11 @@ on to the next ad in the current ad pod).</p>
    </div>
    <h3 class="heading settled" data-level="6.2" id="workflow-initialization"><span class="secno">6.2. </span><span class="content">Typical Initialization WorkFlow</span><a class="self-link" href="#workflow-initialization"></a></h3>
    <p>The ideal user ad experience has the simultaneous start of media playback and display of the  interactive overlay (the SIMID creative). Once the SIMID creative recieves the <code>Player:init</code> message, its may not yet be ready to display (for example it maybe be loading assets). To accommodate this latency, the player posts a <code>Player:init</code> message before ad media playback begins and waits for the SIMID iframe to respond with <a href="#simid-player-init-resolve">§ 4.3.7.1 resolve</a>.</p>
-   <p>The player should post <code>Player:init</code> as soon as the creative dispatches a <code>createSession</code> message (section <a href="#protocol-establish-session">§ 8.4.1 Establishing a New Session</a>) <a href="#diagram-player-init-normal">Normal Ad Initilaizatioin Sequence</a>, <span steps><b>1</b><b>2</b></span>. SIMID creative code must be ready to process the <code>Player:init</code> message immediately <span step><b>3</b></span>).</p>
-   <p>After the player gets a resolve message <a href="#diagram-player-init-normal">Normal Ad Initilaizatioin Sequence</a>, <span step><b>4</b></span>, it initializes media playback at its discretion <span step><b>5</b></span>. Once media rendering begins <span step><b>6</b></span>, the player reports impression <span step><b>7</b></span> and posts <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> <span step><b>8</b></span>.</p>
+   <p>The player should post <code>Player:init</code> as soon as the creative dispatches a <code>createSession</code> message (section <a href="#protocol-establish-session">§ 8.4.1 Establishing a New Session</a>) <a href="#diagram-player-init-normal">Normal Ad Initialization Sequence</a>, <span steps><b>1</b><b>2</b></span>. SIMID creative code must be ready to process the <code>Player:init</code> message immediately <span step><b>3</b></span>).</p>
+   <p>After the player gets a resolve message <a href="#diagram-player-init-normal">Normal Ad Initialization Sequence</a>, <span step><b>4</b></span>, it initializes media playback at its discretion <span step><b>5</b></span>. Once media rendering begins <span step><b>6</b></span>, the player reports impression <span step><b>7</b></span> and posts <a href="#simid-player-startCreative">§ 4.3.10 SIMID:Player:startCreative</a> <span step><b>8</b></span>.</p>
    <div diagram id="diagram-player-init-normal">
     <p>Normal Ad Initilaization Sequence</p>
-     <img alt="Normal Ad Initilaizatioin Sequence" src="images/dgrm-init-normal.png"> 
+     <img alt="Normal Ad Initialization Sequence" src="images/dgrm-init-normal.png"> 
     <ol dgrm-details>
      <li>Creative initializes the session.
      <li>Player posts <code>Player:init</code> message immediately upon session creation.
