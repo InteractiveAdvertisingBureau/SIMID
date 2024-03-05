@@ -11,6 +11,7 @@ class Extender extends BaseSimidCreative {
 
   /** @override */
   onStart(eventData) {
+    super.onStart(eventData);
     // Don't fetch the media state right away in case the video is not yet loaded.
     setTimeout(() => {
       this.fetchMediaState();
