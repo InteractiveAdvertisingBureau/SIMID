@@ -83,7 +83,7 @@ Establishes a common and secure communication protocol between media (video and 
 - [6. Common Workflows](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#6-common-workflows)	
 - [6.1. How to Handle Ad Loading](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#61-how-to-handle-ad-loading)	 
 - [6.2. Typical Initialization WorkFlow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#62-typical-initialization-workflow)	 
-- 6.3. Typical Start Creative WorkFlow 
+- [6.3. Typical Start Creative WorkFlow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#63-typical-start-creative-workflow) 
 - [6.4. Uninterrupted Initialization WorkFlow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#64-uninterrupted-initialization-workflow)	
 - [6.5. Creative Delays Resolving Init](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#65-creative-delays-resolving-init)	 
 - [6.6. Creative Rejects Init](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#66-creative-rejects-init)	
@@ -116,7 +116,7 @@ Establishes a common and secure communication protocol between media (video and 
 - [8.4. Session Layer](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#84-session-layer)	
 - [8.4.1. Establishing a New Session](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#841-establishing-a-new-session)	
 - [8.4.2. Session Establishing Delays and Failures](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#842-session-establishing-delays-and-failures)	 
-- 9. Error Codes	 
+- [9. Error Codes](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#9-error-codes)	 
 - [10. Terminology](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#10-terminology)	
 - [Conformance](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#conformance)	
 - [IDL Index](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#idl-index)
