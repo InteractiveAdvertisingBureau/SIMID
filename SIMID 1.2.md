@@ -20,109 +20,106 @@ Establishes a common and secure communication protocol between media (video and 
 
 ## Table of Contents 
  
-Abstract	
-1. Version	
-2. Executive Summary	 
-2.1. SIMID vs. VPAID Comparison	 
-2.2. Intended Audience	 
-2.3. Changes In SIMID 1.2	 
-3. Introduction	 
-3.1. SIMID Interactive Creative Nature	 
-3.2. SIMID Ad Serving Flow	
-3.3. Player and Creative Communication	 
-3.4. Audio Only in a Web Player	 
-3.5. Scope and Limitations	 
-3.5.1. Privacy Compliance	
-3.6. Introduction to Nonlinear Ads	
-3.6.1. L-Shaped Ads (L Squeeze backs)	
-3.6.2. Nonlinear Ads VAST Response	
-4. API Reference	
-4.1. Reference Table	
-4.2. Messages Triggered by Media Element Events	
-4.2.1. SIMID:Media:durationchange	
-4.2.2. SIMID:Media:ended	
-4.2.3. SIMID:Media:error	
-4.2.4. SIMID:Media:pause	
-4.2.5. SIMID:Media:play	
-4.2.6. SIMID:Media:playing	
-4.2.7. SIMID:Media:seeked	
-4.2.8. SIMID:Media:seeking	
-4.2.9. SIMID:Media:stalled	
-4.2.10. SIMID:Media:timeupdate	
-4.2.11. SIMID:Media:volumechange	
-4.3. Messages from the player	 
-4.3.1. SIMID:Player:adSkipped	
-4.3.2. SIMID:Player:adStopped	
-4.3.3. SIMID:Player:appBackgrounded	
-4.3.4. SIMID:Player:appForegrounded	
-4.3.5. SIMID:Player:collapseNonlinear	
-4.3.6. SIMID:Player:fatalError	
-4.3.7. SIMID:Player:init	
-4.3.8. SIMID:Player:log	
-4.3.9. SIMID:Player:resize	
-4.3.10. SIMID:Player:startCreative	
-4.4. Messages from the Creative to the Player	 
-4.4.1. SIMID:Creative:clickThru	
-4.4.2. SIMID:Creative:collapseNonlinear	
-4.4.3. SIMID:Creative:expandNonlinear	
-4.4.4. SIMID:Creative:fatalError	
-4.4.5. SIMID:Creative:getMediaState	
-4.4.6. SIMID:Creative:log	
-4.4.7. SIMID:Creative:reportTracking	
-4.4.8. SIMID:Creative:requestChangeAdDuration	
-4.4.9. SIMID:Creative:requestChangeVolume	
-4.4.10. SIMID:Creative:requestFullscreen	
-4.4.11. SIMID:Creative:requestExitFullscreen	
-4.4.12. SIMID:Creative:requestNavigation	
-4.4.13. SIMID:Creative:requestPause	
-4.4.14. SIMID:Creative:requestPlay	
-4.4.15. SIMID:Creative:requestResize	
-4.4.16. SIMID:Creative:requestSkip	
-4.4.17. SIMID:Creative:requestStop	
-5. Referencing a SIMID creative from VAST	
-6. Common Workflows	
-6.1. How to Handle Ad Loading	 
-6.2. Typical Initialization WorkFlow	 
-6.3. Typical Start Creative WorkFlow	 
-6.4. Uninterrupted Initialization WorkFlow	 
-6.5. Creative Delays Resolving Init	 
-6.6. Creative Rejects Init	
-6.7. Nonlinear Initialization and Start WorkFlow	
-6.8. How to Handle Ad Playback	
-6.8.1. Ad Pause	
-6.8.2. Ad Resizing and Fullscreen	
-6.9. How to Handle Ad End and Unload	
-6.9.1. Player Skips Ad	
-6.9.2. Creative Skips Ad	
-6.9.3. Ad Ends Before Media Completion	
-6.9.4. Ad Completes at Media Completion	
-6.9.5. Ad Errors Out	
-6.9.6. Ad Requests Stop	
-6.10. Ad Duration Changed Workflow	 
-6.10.1. Ad Extends Beyond Media Completion	
-6.10.2. Ad Duration Changed Workflow - Known Time	
-6.10.3. Ad Duration Changed Workflow - Unknown Time	
-6.11. User Experience	
-7. Error Handling and Timeouts	
-8. Messaging Protocol	
-8.1. Data Layer	
-8.1.1. Data Structure	
-8.2. Messages Categories	 
-8.2.1. resolve Messages	
-8.2.2. reject Messages	 
-8.3. Transport Layer	 
-8.3.1. postMessage Transport	 
-8.3.2. Message Serialization	 
-8.4. Session Layer	
-8.4.1. Establishing a New Session	
-8.4.2. Session Establishing Delays and Failures	 
-9. Error Codes	 
-10. Terminology	
-Conformance	
-Terms defined by reference	
-References	
-Normative References	
-IDL Index
+- [Abstract](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#abstract)	
+- [1. Version](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#1-version)	
+- [2. Executive Summary](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#2-executive-summary)	 
+- [2.1. SIMID vs. VPAID Comparison](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#21-simid-vs-vpaid-comparison)	 
+- [2.2. Intended Audience](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#22-intended-audience)	 
+- [2.3. Changes In SIMID 1.2](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#23-changes-in-simid-12z)	 
+- [3. Introduction](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#3-introduction)	 
+- [3.1. SIMID Interactive Creative Nature](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#31-simid-interactive-creative-nature)	 
+- [3.2. SIMID Ad Serving Flow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#32-simid-ad-serving-flow)	
+- [3.3. Player and Creative Communication](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#33-player-and-creative-communication)	 
+- [3.4. Audio Only in a Web Player](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#34-audio-only-in-a-web-player)	 
+- [3.5. Scope and Limitations](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#35-scope-and-limitations)	 
+- [3.5.1. Privacy Compliance](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#351-privacy-compliance)	
+- [3.6. Introduction to Nonlinear Ads](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#36-introduction-to-nonlinear-ads)	
+- [3.6.1. L-Shaped Ads (L Squeeze backs)](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#361-l-shaped-ads-l-squeeze-backs)	
+- [3.6.2. Nonlinear Ads VAST Response](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#362-nonlinear-ads-vast-response)	
+- [4. API Reference](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4-api-reference)	
+- [4.1. Reference Table](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#41-reference-table)	
+- [4.2. Messages Triggered by Media Element Events](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#42-messages-triggered-by-media-element-events)	
+- [4.2.1. SIMID:Media:durationchange](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#421-simidmediadurationchange)	
+- [4.2.2. SIMID:Media:ended](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#422-simidmediaended)	
+- [4.2.3. SIMID:Media:error](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#423-simidmediaerror)	
+- [4.2.4. SIMID:Media:pause](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#424-simidmediapause)	
+- [4.2.5. SIMID:Media:play](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#425-simidmediaplay)	
+- [4.2.6. SIMID:Media:playing](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#426-simidmediaplaying)	
+- [4.2.7. SIMID:Media:seeked](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#427-simidmediaseeked)	
+- [4.2.8. SIMID:Media:seeking](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#428-simidmediaseeking)
+- [4.2.9. SIMID:Media:stalled](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#429-simidmediastalled)	
+- [4.2.10. SIMID:Media:timeupdate](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4210-simidmediatimeupdate)	
+- [4.2.11. SIMID:Media:volumechange](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4211-simidmediavolumechange)	
+- [4.3. Messages from the player](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#43-messages-from-the-player)	 
+- [4.3.1. SIMID:Player:adSkipped](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#431-simidplayeradskipped)	
+- [4.3.2. SIMID:Player:adStopped](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#432-simidplayeradstopped)	
+- [4.3.3. SIMID:Player:appBackgrounded](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#433-simidplayerappbackgrounded)	
+- [4.3.4. SIMID:Player:appForegrounded](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#434-simidplayerappforegrounded)	
+- [4.3.5. SIMID:Player:collapseNonlinear](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#435-simidplayercollapsenonlinear)	
+- [4.3.6. SIMID:Player:fatalError](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#436-simidplayerfatalerror)	
+- [4.3.7. SIMID:Player:init](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#437-simidplayerinit)	
+- [4.3.8. SIMID:Player:log](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#438-simidplayerlog)	
+- [4.3.9. SIMID:Player:resize](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#439-simidplayerresize)	
+- [4.3.10. SIMID:Player:startCreative](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4310-simidplayerstartcreative)	
+- [4.4. Messages from the Creative to the Player](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#44-messages-from-the-creative-to-the-player)	 
+- [4.4.1. SIMID:Creative:clickThru](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#441-simidcreativeclickthru)	
+- [4.4.2. SIMID:Creative:collapseNonlinear](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#442-simidcreativecollapsenonlinear)	
+- [4.4.3. SIMID:Creative:expandNonlinear](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#443-simidcreativeexpandnonlinear)	
+- [4.4.4. SIMID:Creative:fatalError](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#444-simidcreativefatalerror)	
+- [4.4.5. SIMID:Creative:getMediaState](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#445-simidcreativegetmediastate)	
+- [4.4.6. SIMID:Creative:log](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#446-simidcreativelog)	
+- [4.4.7. SIMID:Creative:reportTracking](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#447-simidcreativereporttracking)	
+- [4.4.8. SIMID:Creative:requestChangeAdDuration](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#448-simidcreativerequestchangeadduration)	
+- [4.4.9. SIMID:Creative:requestChangeVolume](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#449-simidcreativerequestchangevolume)	
+- [4.4.10. SIMID:Creative:requestFullscreen](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4410-simidcreativerequestfullscreen)	
+- [4.4.11. SIMID:Creative:requestExitFullscreen](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4411-simidcreativerequestexitfullscreen)	
+- [4.4.12. SIMID:Creative:requestNavigation](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4412-simidcreativerequestnavigation)	
+- [4.4.13. SIMID:Creative:requestPause](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4413-simidcreativerequestpause)	
+- [4.4.14. SIMID:Creative:requestPlay](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4414-simidcreativerequestplay)	
+- [4.4.15. SIMID:Creative:requestResize](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4415-simidcreativerequestresize)	
+- [4.4.16. SIMID:Creative:requestSkip](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4416-simidcreativerequestskip)	
+- [4.4.17. SIMID:Creative:requestStop](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#4417-simidcreativerequeststop)	
+- [5. Referencing a SIMID creative from VAST](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#5-referencing-a-simid-creative-from-vast)	
+- [6. Common Workflows](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#6-common-workflows)	
+- [6.1. How to Handle Ad Loading](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#61-how-to-handle-ad-loading)	 
+- [6.2. Typical Initialization WorkFlow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#62-typical-initialization-workflow)	 
+- 6.3. Typical Start Creative WorkFlow 
+- [6.4. Uninterrupted Initialization WorkFlow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#64-uninterrupted-initialization-workflow)	
+- [6.5. Creative Delays Resolving Init](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#65-creative-delays-resolving-init)	 
+- [6.6. Creative Rejects Init](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#66-creative-rejects-init)	
+- [6.7. Nonlinear Initialization and Start WorkFlow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#67-nonlinear-initialization-and-start-workflow)	
+- [6.8. How to Handle Ad Playback](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#68-how-to-handle-ad-playback)	
+- [6.8.1. Ad Pause](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#681-ad-pause)	
+- [6.8.2. Ad Resizing and Fullscreen](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#682-ad-resizing-and-fullscreen)	
+- [6.9. How to Handle Ad End and Unload](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#69-how-to-handle-ad-end-and-unload)	
+- [6.9.1. Player Skips Ad](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#691-player-skips-ad)	
+- [6.9.2. Creative Skips Ad](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#692-creative-skips-ad)	
+- [6.9.3. Ad Ends Before Media Completion](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#693-ad-ends-before-media-completion)	
+- [6.9.4. Ad Completes at Media Completion](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#694-ad-completes-at-media-completion)	
+- [6.9.5. Ad Errors Out](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#695-ad-errors-out)	
+- [6.9.6. Ad Requests Stop](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#696-ad-requests-stop)	
+- [6.10. Ad Duration Changed Workflow](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#610-ad-duration-changed-workflow)	 
+- [6.10.1. Ad Extends Beyond Media Completion](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#6101-ad-extends-beyond-media-completion)	
+- [6.10.2. Ad Duration Changed Workflow - Known Time](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#6102-ad-duration-changed-workflow---known-time)	
+- [6.10.3. Ad Duration Changed Workflow - Unknown Time](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#6103-ad-duration-changed-workflow---unknown-time)	
+- [6.11. User Experience](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#611-user-experience)	
+- [7. Error Handling and Timeouts](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#7-error-handling-and-timeouts)	
+- [8. Messaging Protocol](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#8-messaging-protocol)	
+- [8.1. Data Layer](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#81-data-layer)	
+- [8.1.1. Data Structure](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#811-data-structure)	
+- [8.2. Messages Categories](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#82-messages-categories)	 
+- [8.2.1. resolve Messages](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#821-resolve-messages)	
+- [8.2.2. reject Messages](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#822-reject-messages)	 
+- [8.3. Transport Layer](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#83-transport-layer)	 
+- [8.3.1. postMessage Transport](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#831-postmessage-transport)	 
+- [8.3.2. Message Serialization](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#832-message-serialization)	 
+- [8.4. Session Layer](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#84-session-layer)	
+- [8.4.1. Establishing a New Session](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#841-establishing-a-new-session)	
+- [8.4.2. Session Establishing Delays and Failures](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#842-session-establishing-delays-and-failures)	 
+- 9. Error Codes	 
+- [10. Terminology](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#10-terminology)	
+- [Conformance](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#conformance)	
+- [IDL Index](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#idl-index)
  	  
 ## 1. Version 
 
@@ -138,8 +135,7 @@ SIMID was built with strong security from the ground up, and is designed to be s
 
 *SIMID ads sandboxing from the publisher player environment*
 
-
-photo 
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/616e2aea29b1a5d15a2c041ec665453017d9e5c9/assets/SIMID%20ads%20sandboxing.png) 
 
 A diagram showing SIMID ads sandboxed from the publisher player environment 
 
@@ -149,7 +145,7 @@ SIMID is part of a broader effort to replace the older VPAID standard (more deta
 
 *VPAID vs. SIMID APIs*
 
-  photo 
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/07eb0f9a057672912aa4fe1663e1adb349434176/assets/VPAID%20vs%20SIMID.png) 
   
 **SIMID vs. VPAID Comparison.**
 
@@ -177,22 +173,22 @@ The SIMID standard is geared toward the digital media advertising community. Any
 
 SIMID version 1.2 introduces the following enhancements: 
 
-1.	Details for working with L-Shaped “squeeze backs.” (section 3.6.1)
-2.	Specify unknown size (such as for responsive ads) using -1. (section 4.3.7) 
-3.	Session IDs must be cryptographically secure. (section 8.4) 
-4.	Note on deep links. (section 4.4.1) 
+1.	Details for working with L-Shaped “squeeze backs.” ([section 3.6.1](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#361-l-shaped-ads-l-squeeze-backs))
+2.	Specify unknown size (such as for responsive ads) using -1. ([section 4.3.7](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#437-simidplayerinit)) 
+3.	Session IDs must be cryptographically secure. ([section 8.4](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#84-session-layer))
+4.	Note on deep links. ([section 4.4.1](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/master/SIMID%201.2.md#441-simidcreativeclickthru)) 
  
 ## 3. Introduction
 
 Throughout this document, the SIMID interactive component is referred to as a “SIMID creative” or “creative”. 
 
-Compliance with SIMID requires support for all features and behaviors specificied in this document, unless a given feature or behavior is explicitly designated as optional. Standard RFC language will be used. See https://tools.ietf.org/html/rfc2119 for RFC 2119 for enforcement terminology used in this standard. 
+Compliance with SIMID requires support for all features and behaviors specificied in this document, unless a given feature or behavior is explicitly designated as optional. Standard RFC language will be used. See [https://tools.ietf.org/html/rfc2119](https://tools.ietf.org/html/rfc2119) for RFC 2119 for enforcement terminology used in this standard. 
 
 ### 3.1. SIMID Interactive Creative Nature 
 
 *SIMID Assets loading*
 
-photo
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/76b238d4afa3d13b12f9c79a155fa841ace53493/assets/SIMID%20Assets%20Loading.png)
   
 A SIMID creative can be included in a VAST document by way of an `<InteractiveCreativeFile>` element. The text within this element must be a url which returns an HTML document. When loaded into an iframe by a media player, this HTML document will define the SIMID creative’s content, and will direct the web browser or host application to load any additional assets required by that creative (images, CSS, scripts, etc.). 
 
@@ -214,7 +210,9 @@ The `<InteractiveCreativeFile>` element is defined as a child of the <MediaFiles
 The SIMID ad experience is delivered by a web browser or application concurrently rendering an ad’s streaming audio or video file and its interactive creative file. The media player obtains urls for both files from a VAST document, loads the files, assembles them into a single ad unit, and ensures a cohesive ad experience. 
 
 *SIMID creative loading and presentation process.*  
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/598db394418a28618d39682a26162ed6d313df7b/assets/Screenshot%202026-07-23%20at%2011.26.27%20AM.png)
+	
 ### 3.3. Player and Creative Communication 
 
 A media player and a SIMID creative communicate by sending serialized messages back and forth to each other. 
@@ -258,7 +256,9 @@ Unlike the linear ads, there is no media asset that the player needs to render w
 SIMID supports nonlinear ads by providing a nonlinear specific API. Both linear and nonlinear ads share the same communication protocol and data providers. As with linear ads, the interactive creative is a single resource that the player loads into a cross-origin iframe. 
 
 *Nonlinear Ad User Experience* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/cc23baa2dbc8feaad4e53b0ffe33f5bafe9f897c/assets/Screenshot%202026-07-23%20at%2011.27.34%20AM.png)
+
 1.	User clicks on expand button. The player pauses content and expands the creative.  
     1.	User clicks collapse button.  
         1. Player resizes the creatigve to its default state and resumes content playback. 
@@ -984,7 +984,9 @@ When `true` - creative requests the player to open the landing page. The creativ
 Landing page address. In the cases when the creative handles landing page redirect internally, it may not provide `url` value. In such scenarios, the creative sets` playerHandles` value to `false`.  
 
 *Creative:clickThru Handling* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/72a99679ee09615c22eed8a5b1983897e602fb93/assets/Screenshot%202026-07-23%20at%2011.29.25%20AM.png)
+	
 1.	User clicks on clickthrough button. 
 2.	Creative sets `playerHandles = true` and posts § 4.4.1 SIMID:Creative:clickThru message. 
 3.	Player posts § 4.4.1.1 resolve message before redirecting user to the landing page. 
@@ -1018,7 +1020,9 @@ Additional information. For example: "Invalid URL".
 When the creative is ready to collapse, it posts a `Creative:collapseNonlinear` message. In response to `collapseNonlinear`, the player resizes the ad to its original state and resumes the content media playback.  
 
 *Creative:collapseNonlinear Handling* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/f4933dc773f3abd3d99af77474da42c70625ffb0/assets/Screenshot%202026-07-23%20at%2011.30.51%20AM.png)
+	
 1.	User clicks on collapse button. 
 2.	Creative posts § 4.4.2 SIMID:Creative:collapseNonlinear message. 
 3.	Player resizes the creative to its original (default) dimensions. 
@@ -1038,7 +1042,9 @@ Under normal circumstances, the player pauses the media. In cases when the conte
 If the player communicates to the creative that it has no capacity to expand the ad with § 4.3.7 SIMID:Player:initmessage, the creative does not provide an expand button or post the `Creaitve:expandNonlinear` message. 
 
 *Creative:expandNonlinear Handling* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/40daa11cc808f13571769d0dc09c8bcbeb01c3e1/assets/Screenshot%202026-07-23%20at%2011.31.37%20AM.png)
+	
 1.	User clicks on expand button. 
 2.	Creative posts § 4.4.3 SIMID:Creative:expandNonlinear message. 
 3.	Player pauses media. 
@@ -1326,7 +1332,9 @@ dictionary MessageArgs {
 The address of the landing page.  
 
 *Creative:requestNavigation Handling*
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/6b9cf8c821ff4521157ea65ccc484ba05a60593e/assets/Screenshot%202026-07-23%20at%2011.32.32%20AM.png)
+	
 1.	User clicks on navigation button. 
 2.	Creative posts requestNavigation message. 
 3.	Player responds to § 4.4.12 SIMID:Creative:requestNavigation.  
@@ -1479,7 +1487,9 @@ The player must follow this workflow for loading an ad. See Diagram - SIMID Load
 8.	The player makes the iframe visible. With video ads, the player must position the iframe over media element at player’s upper-left corner and set iframe dimensions to media’s width and height. 
 
 *SIMID Loading and Initialization*  
- 
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/a5ccaecb551e562ab9a9505300d7a4d8faddb017/assets/Screenshot%202026-07-23%20at%2011.33.57%20AM.png)
+ 
 1.	Player starts listening to `message` event on the window. 
 2.	Player creates hidden `iframe`.  
     1.	Player sets `iframe.src` to the value of the VAST `<InteractiveCreativeFile>` element. 
@@ -1506,7 +1516,9 @@ The player should post `Player:init` as soon as the creative dispatches a `creat
 After the player gets a resolve message Normal Ad Initilaizatioin Sequence, 4, it initializes media playback at its discretion 5. Once media rendering begins 6, the player reports impression 7and posts § 4.3.10 SIMID:Player:startCreative 8. 
 
 *Normal Ad Initilaization Sequence* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/00147050da31f237d5f5458597c072f907671fd3/assets/Screenshot%202026-07-23%20at%2011.34.53%20AM.png)
+	
 1.	Creative initializes the session. 
 2.	Player posts `Player:init` message immediately upon session creation. 
 3.	Creative proccesses initialization data and finalizes assets loading. 
@@ -1517,8 +1529,12 @@ After the player gets a resolve message Normal Ad Initilaizatioin Sequence, 4, i
 8.	Player posts § 4.3.10 SIMID:Player:startCreative immediately. 
 6.3. Typical Start Creative WorkFlow 
 
+### 6.3 Typical Start Creative WorkFlow
+
 *Normal `Player:startCreative` Sequence* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/77e2b8a00c540d443b8c9555165b8d331671615e/assets/Screenshot%202026-07-23%20at%2011.35.53%20AM.png)
+	
 1.	Media playback begins. 
 2.	Player posts `Player:startCreative`. 
 3.	Creative responds with a `resolve`. 
@@ -1531,7 +1547,9 @@ In the case where publisher environments prohibit media playback interruptions, 
 In these situations, the player keeps the iframe invisible and refrains from posting messages to the creative until it responds to the `Player:init` with a `resolve` message. 
 
 *Special Creative Initialization Cases* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/738cd6288338d65745ca489ce733b22eb8825e86/assets/Screenshot%202026-07-23%20at%2011.36.45%20AM.png)
+	
 1.	Player initializes ad media playback. 
 2.	Player posts `Player:init` message after ad media playback started. 
 3.	Creative proccesses initialization data and finalizes assets loading. Sub-loading routines may cause latencies. 
@@ -1549,7 +1567,9 @@ The player maintains the hidden interactive creative until ad media playback com
 If the interactive creative does not resume communication by the playback end, the player must report the VAST error tracker (if available) with the code 1212. See Player:init resolve 5). 
 
 *`Player:init resolve` delay* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/a130fb3d3a9008be430124ed52d9a97199ae88c6/assets/Screenshot%202026-07-23%20at%2011.37.34%20AM.png)
+	
 1.	Player posts `Player:init` message and establishes a timeout. 
 2.	Player starts ad media playback upon timeout expiration. 
 3.	Player reports impression. 
@@ -1562,7 +1582,9 @@ If the interactive creative does not resume communication by the playback end, t
 The creative may respond with a `reject` based on its internal logic. In response to `reject`, the player proceeds with the ad media playback. The player may unload the iframe. The player reports VAST error trackers with the `errorCode` specified by the creative. 
 
 *`Player:init reject` Sequence*
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/beec2274e614519422191b02ff49d23fe6709227/assets/Screenshot%202026-07-23%20at%2011.38.22%20AM.png)
+	
 1.	Player posts `Player:init` message. 
 2.	Creative responds with a `reject`. 
 3.	Player unloads the creative iframe. 
@@ -1627,7 +1649,9 @@ The creative requests ad skip by posting a `SIMID:Creative:requestSkip` message.
 Note: the SIMID interactive component implements skip related behavior and features ( Skip Ad button) only if the player delegates skippability to the creative - the value of § 4.3.7 SIMID:Player:init message `args.environmentData.skippableState` is "adHandles". 
 
 *`Creative:requestSkip` Sequence* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/847bb8b43adea9c03bfad8d3c3f8244b1b906a5d/assets/Screenshot%202026-07-23%20at%2011.39.11%20AM.png)
+
 1.	Creative posts `Creative:requestSkip` message. 
 2.	Player hides the SIMID iframe. 
 3.	Player stops the ad media playback. 
@@ -1680,7 +1704,9 @@ The SIMID interactive component engages ad stop functionality only if the player
 In the event the interactive component disregards or fails to accommodate player’s ability to resolve `requestStop`, the iframe remains visible and the player continues sending `SIMID:Media` and `SIMID:Player` messages. The creative should maintain communication with the player. See § 4.4.17.2 reject. 
 
 *`Creative:requestStop` Sequence* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/7d9afa89ec2b824ccfe2ff66d32fbd30ab92dd18/assets/Screenshot%202026-07-23%20at%2011.40.11%20AM.png)
+	
 1.	Creative posts `Creative:requestStop` message. 
 2.	Player hides the SIMID iframe. 
 3.	Player stops the ad media playback. 
@@ -1703,7 +1729,9 @@ This scenario is only possible when the `variableDurationAllowed` flag is set to
 #### 6.10.2. Ad Duration Changed Workflow - Known Time 
 
 *Known Ad Duration Change Sequence*  
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/fd54c1123f947e368f96682bd0e9a4fe1aca6aef/assets/Screenshot%202026-07-23%20at%2011.41.05%20AM.png)
+	
 1.	Player starts countdown. Countdown depends on the media progress. 
 2.	Creative posts `requestChangeAdDuration` with the `duration` value greater than zero. 
 3.	Player modifies countdown that now depends on the specified by the creative ad duration. 
@@ -1714,7 +1742,9 @@ This scenario is only possible when the `variableDurationAllowed` flag is set to
 #### 6.10.3. Ad Duration Changed Workflow - Unknown Time 
 
 *Unknown Ad Duration Change Sequence* 
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/6e5e0b064bbe0dd88583ef3d40beaa6bb24457c4/assets/Screenshot%202026-07-23%20at%2011.41.48%20AM.png)
+	
 1.	Player starts countdown. Countdown depends on the media progress. 
 2.	Creative posts `requestChangeAdDuration` with the `duration` value `-2`. 
 3.	Player stops countdown. 
@@ -1925,7 +1955,9 @@ Creative should initialize the session as soon as possible. The player should es
 The player responds to `createSession` with a `resolve` message. 
 
 *Typical Session Initialization Sequence*  
-  
+
+![](https://github.com/InteractiveAdvertisingBureau/SIMID/blob/e6f9db1b79f53ffa1f74c653eedc311322ecd416/assets/Screenshot%202026-07-23%20at%2011.42.38%20AM.png)
+	
 1.	The player starts a `createSession` message timeout. 
 2.	The player loads creative. 
 3.	Creative posts `createSession` message. 
@@ -1971,7 +2003,7 @@ If the creative has not established a session before the media playback is compl
 
 The table below is the list of error codes the player and the creative use with `reject` messages. SIMID allocates the range `1100-1199` to the errors that the creative reports; the range `1200-1299` to the errors the player reports.  
 
-**Error Codes.**
+## 9. Error Codes
 
 |Error Code |	Error Type |	Description| 
 |---|---|---|
