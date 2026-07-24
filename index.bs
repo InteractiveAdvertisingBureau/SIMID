@@ -1611,7 +1611,7 @@ The creative posts `Creative:expandNonlinear` when a user wants to expand the ad
 
 Under normal circumstances, the player pauses the media. In cases when the content is video, the player resizes the creative iframe to the dimensions of the video and places the expanded creative at video zero coordinates.
 
-If the player communicates to the creative that it has no capacity to expand the ad with [[#simid-player-init]] message, the creative does not provide an expand button or post the `Creaitve:expandNonlinear` message.
+If the player communicates to the creative that it has no capacity to expand the ad with [[#simid-player-init]] message, the creative does not provide an expand button or post the `Creative:expandNonlinear` message.
 
 <div diagram id="diagram-creative-expandNonlinear">
 	<p>Creative:expandNonlinear Handling</p>
