@@ -646,7 +646,7 @@ SIMID supports nonlinear ads by providing a nonlinear specific API. Both linear 
 
 VAST supports nonlinear ads since version 2.0 including interactive ads that implement API frameworks. 
 
-VAST response describes nonlinear ads in the `<NonLinear>` node children. The `<NonLinear>` node attribute’s `apiFrmawork` value is `SIMID`. The node <IFrameResource> delivers a URI to the SIMID interactive component. The node `<AdParameters>` contains custom ad data for the creative’s consumption.
+VAST response describes nonlinear ads in the `<NonLinear>` node children. The `<NonLinear>` node attribute’s `apiFramework` value is `SIMID`. The node <IFrameResource> delivers a URI to the SIMID interactive component. The node `<AdParameters>` contains custom ad data for the creative’s consumption.
 
 <div class="example">
 <div class="xml-highlight"><pre style="line-height: 125%">
@@ -1161,7 +1161,7 @@ The creative must respond to `Player:fatalError` with `resolve`. After `resolve`
 See [[#workflow-error]]
 
 ### SIMID:Player:init ### {#simid-player-init}
-The purpose of the `SIMID:player:init` message is to transport data to assist with the interactive component initialization. See [[#workflow-initialization]] and [[#workflow-uninterupted-initialization]].
+The purpose of the `SIMID:Player:init` message is to transport data to assist with the interactive component initialization. See [[#workflow-initialization]] and [[#workflow-uninterupted-initialization]].
 
 The creative must respond to `Player:init` with either [[#simid-player-init-resolve]] or [[#simid-player-init-reject]]. 
 
@@ -1522,7 +1522,7 @@ Note: In SIMID, the creative initializes the session and posts the first message
 
 ### SIMID:Creative:clickThru ### {#simid-creative-clickThru}
 
-The `SIMID:Creative:clickThru` message notifies the player of a `clickthrough` for event tracking. SIMID delegates clickthrough execution to the creative, including redirecting the user to the landing page. The interactive component posts `clickThru` only when the creative classifies a user interaction as a clickthrough.
+The `SIMID:Creative:clickThru` message notifies the player of a `clickthrough` for event tracking. SIMID delegates clickthrough execution to the creative, including redirecting the user to the landing page.
 
 The interactive component posts the `Creative:clickThru` message only when the creative classifies a user interaction as a `clickthrough`. To open the landing page in the situations when user interaction does not constitute `clickthrough`, the creative must utilize [[#simid-creative-requestNavigation]] message.
 
@@ -2098,7 +2098,7 @@ The player should post `Player:init` as soon as the creative dispatches a `creat
 After the player gets a resolve message <a href="#diagram-player-init-normal">Normal Ad Initialization Sequence</a>, <span step><b>4</b></span>, it initializes media playback at its discretion <span step><b>5</b></span>. Once media rendering begins <span step><b>6</b></span>, the player reports impression <span step><b>7</b></span> and posts [[#simid-player-startCreative]] <span step><b>8</b></span>.
 
 <div diagram id="diagram-player-init-normal">
-  <p>Normal Ad Initilaization Sequence</p>
+  <p>Normal Ad Initialization Sequence</p>
   <img src="images/dgrm-init-normal.png" alt="Normal Ad Initialization Sequence"/>
   <ol dgrm-details>
     <li>Creative initializes the session.</li>
